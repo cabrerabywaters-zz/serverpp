@@ -1,0 +1,33 @@
+- model_class = Publicity
+.page-header
+  %h1= model_class.model_name.human.pluralize
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:file_representation)
+      %th= model_class.human_attribute_name(:event)
+      %th= model_class.human_attribute_name(:state)
+      %th= model_class.human_attribute_name(:comment)
+      %th= model_class.human_attribute_name(:created_at)
+      %th.actions= t("helpers.actions")
+  %tbody
+    - @publicities.each do |publicity|
+      %tr
+        %td.file_representation= image_tag publicity.file_representation
+        %td= publicity.event
+        %td
+          - if publicity.pending?
+            %span.label.label-warning= publicity.translate_state
+          - elsif publicity.rejected?
+            %span.label.label-important= publicity.translate_state
+          - else
+            %span.label.label-success= publicity.translate_state
+        %td= publicity.comment
+        %td=l publicity.created_at, format: :short
+        %td
+          - if can? :show, publicity
+            = link_to eco_publicity_path(publicity), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
+              %i.icon-eye-open
+          / - if can? :destroy, publicity
+          /   = link_to eco_publicity_path(publicity), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-danger' do
+          /     %i.icon-trash

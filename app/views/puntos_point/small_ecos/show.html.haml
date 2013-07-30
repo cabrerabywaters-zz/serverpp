@@ -1,0 +1,25 @@
+- model_class = Eco
+.page-header
+  %h1= t('helpers.titles.show_small_eco', :model => model_class.model_name.human)
+
+%dl.dl-horizontal
+  %dt= model_class.human_attribute_name(:rut) + ':'
+  %dd= Run.format @eco.rut
+  %dt= model_class.human_attribute_name(:name) + ':'
+  %dd= @eco.name
+  %dt= model_class.human_attribute_name(:industry) + ':'
+  %dd= link_to @eco.webpage, @eco.webpage, target: :_blank
+  %dt= model_class.human_attribute_name(:images) + ':'
+  %dd= booleanize @eco.images
+  %dt= model_class.human_attribute_name(:logo) + ':'
+  %dd= image_tag @eco.logo(:thumb)
+
+
+.form-actions
+  - if can? :destroy, @eco
+    = link_to t("helpers.links.destroy"), puntos_point_small_eco_path(@eco), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-danger pull-right ml-10'
+  - if can? :update, @eco
+    = link_to t("helpers.links.edit"), edit_puntos_point_small_eco_path(@eco), class: 'btn btn-warning pull-right ml-10'
+  - if can? :read, model_class
+    = link_to t("helpers.links.back"), puntos_point_small_ecos_path, class: 'btn btn-inverse pull-right'
+

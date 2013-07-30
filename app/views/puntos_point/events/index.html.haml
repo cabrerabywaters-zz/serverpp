@@ -1,0 +1,46 @@
+- model_class = Event
+.page-header
+  %h1= model_class.model_name.human.pluralize
+
+
+%form.form-search{action: puntos_point_events_path}
+  %label= model_class.human_attribute_name(:efi)
+  %input{type: 'text', name: 'efi', value: params[:efi]}
+  %input.btn{type: :submit, value: t('helpers.links.filter')}
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:efi)
+      %th= model_class.human_attribute_name(:experience)
+      %th= model_class.human_attribute_name(:exclusivity)
+      %th= model_class.human_attribute_name(:quantity)
+      %th= model_class.human_attribute_name(:swaps)
+      %th= model_class.human_attribute_name(:state)
+      %th= t("helpers.actions")
+  %tbody
+    - @events.each do |event|
+      %tr
+        %td= event.id
+        %td
+          - if can? :read, event.efi
+            = link_to trim_to(event.efi_name, 20).html_safe, puntos_point_efi_path(event.efi_id)
+          - else
+            = trim_to(event.efi_name, 20).html_safe
+        %td
+          - if can? :read, event.experience
+            = link_to trim_to(event.experience_name, 20).html_safe, puntos_point_experience_path(event.experience_id)
+          - else
+            = trim_to(event.experience_name, 20).html_safe
+        %td= event.exclusivity_name
+        %td= number_to_currency event.quantity, unit: ''
+        %td= number_to_currency event.swaps, unit: ''
+        %td= event.translate_state
+        %td
+          - if can?(:bill, event) and event.closed?
+            = link_to bill_puntos_point_event_path(event), method: :put, data: {confirm: t("helpers.links.confirm.male.bill", model: model_class.model_name.human)}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-success' do
+              %i.icon-legal
+          - if can?(:pay, event) and event.billed?
+            = link_to pay_puntos_point_event_path(event), method: :put, data: {confirm: t("helpers.links.confirm.male.pay", model: model_class.model_name.human)}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-success' do
+              %i.icon-money

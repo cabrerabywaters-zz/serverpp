@@ -1,0 +1,32 @@
+- model_class = Banner
+.page-header
+  %h1= model_class.model_name.human.pluralize
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:event)
+      %th= model_class.human_attribute_name(:published)
+      %th= model_class.human_attribute_name(:created_at)
+      %th= t("helpers.actions")
+  %tbody
+    - @banners.each do |banner|
+      %tr
+        %td
+          - if can? :show, banner
+            = link_to banner.id, efi_banner_path(banner)
+          - else
+            %td= banner.id
+        %td= banner.event
+        %td= booleanize banner.published
+        %td=l banner.created_at, format: :short
+        %td
+          - if can? :update, banner
+            = link_to edit_efi_banner_path(banner), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
+              %i.icon-pencil
+          - if can? :destroy, banner
+            = link_to efi_banner_path(banner), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-danger' do
+              %i.icon-trash
+
+- if can?(:create, model_class) and current_user_efi.events.are_taken.any?
+  = link_to t("helpers.links.add"), new_efi_banner_path, class: 'btn btn-warning pull-right'

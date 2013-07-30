@@ -1,0 +1,36 @@
+- model_class = Admin
+.page-header
+  %h1= model_class.model_name.human.pluralize
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:rut)
+      %th= model_class.human_attribute_name(:full_name)
+      %th= model_class.human_attribute_name(:nickname)
+      %th= model_class.human_attribute_name(:email)
+      %th= model_class.human_attribute_name(:created_at)
+      %th= t("helpers.actions")
+  %tbody
+    - @admins.each do |admin|
+      %tr
+        %td
+          - if can? :show, admin
+            = link_to admin.id, puntos_point_admin_path(admin)
+          - else
+            %td= admin.id
+        %td= Run.format admin.rut
+        %td= trim_to(admin.full_name, 20).html_safe
+        %td= trim_to(admin.nickname, 20).html_safe
+        %td= admin.email
+        %td=l admin.created_at, format: :short
+        %td
+          - if can? :update, admin
+            = link_to edit_puntos_point_admin_path(admin), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
+              %i.icon-pencil
+          - if can? :destroy, admin
+            = link_to puntos_point_admin_path(admin), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-danger' do
+              %i.icon-trash
+
+- if can? :create, model_class
+  = link_to t("helpers.links.new"), new_puntos_point_admin_path, class: 'btn btn-warning pull-right'

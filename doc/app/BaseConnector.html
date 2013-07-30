@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class BaseConnector - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/base_connector.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">Object
+  
+</nav>
+
+    <!-- Included Modules -->
+<nav id="includes-section" class="section">
+  <h3 class="section-header">Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><span class="include">ActiveModel::Conversion</span>
+  
+  
+  
+    <li><span class="include">Rails</span>
+  
+  
+  </ul>
+</nav>
+
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-get_points">#get_points</a>
+    
+    <li><a href="#method-i-persisted-3F">#persisted?</a>
+    
+    <li><a href="#method-i-spend_points">#spend_points</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./PuntosPoint.html">PuntosPoint</a>
+  
+    <li><a href="./PuntosPoint/AdminsController.html">PuntosPoint::AdminsController</a>
+  
+    <li><a href="./PuntosPoint/CategoriesController.html">PuntosPoint::CategoriesController</a>
+  
+    <li><a href="./PuntosPoint/EcosController.html">PuntosPoint::EcosController</a>
+  
+    <li><a href="./PuntosPoint/EfisController.html">PuntosPoint::EfisController</a>
+  
+    <li><a href="./PuntosPoint/EventsController.html">PuntosPoint::EventsController</a>
+  
+    <li><a href="./PuntosPoint/ExperiencesController.html">PuntosPoint::ExperiencesController</a>
+  
+    <li><a href="./PuntosPoint/IndustriesController.html">PuntosPoint::IndustriesController</a>
+  
+    <li><a href="./PuntosPoint/InterestsController.html">PuntosPoint::InterestsController</a>
+  
+    <li><a href="./PuntosPoint/PercentageIndustriesController.html">PuntosPoint::PercentageIndustriesController</a>
+  
+    <li><a href="./PuntosPoint/PuntosPointApplicationController.html">PuntosPoint::PuntosPointApplicationController</a>
+  
+    <li><a href="./PuntosPoint/UserEcosController.html">PuntosPoint::UserEcosController</a>
+  
+    <li><a href="./PuntosPoint/UserEfisController.html">PuntosPoint::UserEfisController</a>
+  
+    <li><a href="./Efi.html">Efi</a>
+  
+    <li><a href="./Efi/AccountsController.html">Efi::AccountsController</a>
+  
+    <li><a href="./Efi/BannersController.html">Efi::BannersController</a>
+  
+    <li><a href="./Efi/EfiApplicationController.html">Efi::EfiApplicationController</a>
+  
+    <li><a href="./Efi/EventsController.html">Efi::EventsController</a>
+  
+    <li><a href="./Efi/ExperiencesController.html">Efi::ExperiencesController</a>
+  
+    <li><a href="./Efi/SummaryController.html">Efi::SummaryController</a>
+  
+    <li><a href="./Efi/TradesController.html">Efi::TradesController</a>
+  
+    <li><a href="./Efi/UserEfisController.html">Efi::UserEfisController</a>
+  
+    <li><a href="./Eco.html">Eco</a>
+  
+    <li><a href="./Eco/EcoApplicationController.html">Eco::EcoApplicationController</a>
+  
+    <li><a href="./Eco/ExperiencesController.html">Eco::ExperiencesController</a>
+  
+    <li><a href="./Eco/IncomesController.html">Eco::IncomesController</a>
+  
+    <li><a href="./Eco/PurchasesController.html">Eco::PurchasesController</a>
+  
+    <li><a href="./Eco/UserEcosController.html">Eco::UserEcosController</a>
+  
+    <li><a href="./Corporative.html">Corporative</a>
+  
+    <li><a href="./Corporative/CorporativeApplicationController.html">Corporative::CorporativeApplicationController</a>
+  
+    <li><a href="./Corporative/EventsController.html">Corporative::EventsController</a>
+  
+    <li><a href="./Corporative/PointsController.html">Corporative::PointsController</a>
+  
+    <li><a href="./Corporative/PurchasesController.html">Corporative::PurchasesController</a>
+  
+    <li><a href="./ChileanCities.html">ChileanCities</a>
+  
+    <li><a href="./ChileanCities/Comuna.html">ChileanCities::Comuna</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./Account.html">Account</a>
+  
+    <li><a href="./Admin.html">Admin</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Banner.html">Banner</a>
+  
+    <li><a href="./BaseConnector.html">BaseConnector</a>
+  
+    <li><a href="./Category.html">Category</a>
+  
+    <li><a href="./CloseEventWorker.html">CloseEventWorker</a>
+  
+    <li><a href="./CloseExperienceWorker.html">CloseExperienceWorker</a>
+  
+    <li><a href="./Event.html">Event</a>
+  
+    <li><a href="./Exchange.html">Exchange</a>
+  
+    <li><a href="./Exclusivity.html">Exclusivity</a>
+  
+    <li><a href="./Experience.html">Experience</a>
+  
+    <li><a href="./ExperienceAvailableValidator.html">ExperienceAvailableValidator</a>
+  
+    <li><a href="./ExperienceEfi.html">ExperienceEfi</a>
+  
+    <li><a href="./ExpireExperiencesWorker.html">ExpireExperiencesWorker</a>
+  
+    <li><a href="./Industry.html">Industry</a>
+  
+    <li><a href="./IndustryEfi.html">IndustryEfi</a>
+  
+    <li><a href="./IndustryExclusivityValidator.html">IndustryExclusivityValidator</a>
+  
+    <li><a href="./IndustryExperience.html">IndustryExperience</a>
+  
+    <li><a href="./Interest.html">Interest</a>
+  
+    <li><a href="./InterestExperience.html">InterestExperience</a>
+  
+    <li><a href="./Operation.html">Operation</a>
+  
+    <li><a href="./Purchase.html">Purchase</a>
+  
+    <li><a href="./PurchaseMailer.html">PurchaseMailer</a>
+  
+    <li><a href="./Settings.html">Settings</a>
+  
+    <li><a href="./SwapsValidator.html">SwapsValidator</a>
+  
+    <li><a href="./TotalExclusivityValidator.html">TotalExclusivityValidator</a>
+  
+    <li><a href="./Transaction.html">Transaction</a>
+  
+    <li><a href="./UserEco.html">UserEco</a>
+  
+    <li><a href="./UserEfi.html">UserEfi</a>
+  
+    <li><a href="./ValidImage.html">ValidImage</a>
+  
+    <li><a href="./WithoutExclusivityValidator.html">WithoutExclusivityValidator</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class BaseConnector</h1>
+
+  <div id="description" class="description">
+    
+<p>Public: Clase para manejar la integración con las diferentes EFI’s.</p>
+
+<p>@public <a href="BaseConnector.html">BaseConnector</a>
+initialize(attributes) Constructor de la clase.</p>
+
+<p>@public Integer <a
+href="BaseConnector.html#method-i-get_points">#get_points</a>() Permite
+consultar la cantidad de puntos asociados al rut dado.</p>
+
+<p>@public Boolean <a
+href="BaseConnector.html#method-i-spend_points">#spend_points</a>() Permite
+consumir una cierta cantidad de puntos.</p>
+
+<p>@private EFI efi() Entrega la EFI con la que se esta conectando.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-efi_id" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">efi_id</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p><a
+href="BaseConnector.html#attribute-i-identifier_name">#identifier_name</a>:
+Nombre del valor extra requerido para la integración.</p>
+
+<pre>EJ: número de teléfono, correo electrónico, etc.</pre>
+
+<p><a
+href="BaseConnector.html#attribute-i-identifier_value">#identifier_value</a>:
+Valor extra requerido para la integración. points:           Puntos que se
+van a descontar. Mas información en: <a
+href="http://www.rubyist.net/~slagell/ruby/accessors.html">www.rubyist.net/~slagell/ruby/accessors.html</a></p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-identifier_name" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">identifier_name</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p><a
+href="BaseConnector.html#attribute-i-identifier_name">#identifier_name</a>:
+Nombre del valor extra requerido para la integración.</p>
+
+<pre>EJ: número de teléfono, correo electrónico, etc.</pre>
+
+<p><a
+href="BaseConnector.html#attribute-i-identifier_value">#identifier_value</a>:
+Valor extra requerido para la integración. points:           Puntos que se
+van a descontar. Mas información en: <a
+href="http://www.rubyist.net/~slagell/ruby/accessors.html">www.rubyist.net/~slagell/ruby/accessors.html</a></p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-identifier_value" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">identifier_value</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p><a
+href="BaseConnector.html#attribute-i-identifier_name">#identifier_name</a>:
+Nombre del valor extra requerido para la integración.</p>
+
+<pre>EJ: número de teléfono, correo electrónico, etc.</pre>
+
+<p><a
+href="BaseConnector.html#attribute-i-identifier_value">#identifier_value</a>:
+Valor extra requerido para la integración. points:           Puntos que se
+van a descontar. Mas información en: <a
+href="http://www.rubyist.net/~slagell/ruby/accessors.html">www.rubyist.net/~slagell/ruby/accessors.html</a></p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-password" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">password</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p><a
+href="BaseConnector.html#attribute-i-identifier_name">#identifier_name</a>:
+Nombre del valor extra requerido para la integración.</p>
+
+<pre>EJ: número de teléfono, correo electrónico, etc.</pre>
+
+<p><a
+href="BaseConnector.html#attribute-i-identifier_value">#identifier_value</a>:
+Valor extra requerido para la integración. points:           Puntos que se
+van a descontar. Mas información en: <a
+href="http://www.rubyist.net/~slagell/ruby/accessors.html">www.rubyist.net/~slagell/ruby/accessors.html</a></p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-points" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">points</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p><a
+href="BaseConnector.html#attribute-i-identifier_name">#identifier_name</a>:
+Nombre del valor extra requerido para la integración.</p>
+
+<pre>EJ: número de teléfono, correo electrónico, etc.</pre>
+
+<p><a
+href="BaseConnector.html#attribute-i-identifier_value">#identifier_value</a>:
+Valor extra requerido para la integración. points:           Puntos que se
+van a descontar. Mas información en: <a
+href="http://www.rubyist.net/~slagell/ruby/accessors.html">www.rubyist.net/~slagell/ruby/accessors.html</a></p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-rut" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">rut</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p><a
+href="BaseConnector.html#attribute-i-identifier_name">#identifier_name</a>:
+Nombre del valor extra requerido para la integración.</p>
+
+<pre>EJ: número de teléfono, correo electrónico, etc.</pre>
+
+<p><a
+href="BaseConnector.html#attribute-i-identifier_value">#identifier_value</a>:
+Valor extra requerido para la integración. points:           Puntos que se
+van a descontar. Mas información en: <a
+href="http://www.rubyist.net/~slagell/ruby/accessors.html">www.rubyist.net/~slagell/ruby/accessors.html</a></p>
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(attributes = {})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Internal: Constructor de la clase.</p>
+
+<pre>Entrega una instancia de la clase BaseConnector
+para realizar alguna consulta a sobre los puntos
+de una cuenta de la EFI.</pre>
+
+<p>@parametros: Hash attributes - Los datos necesario para iniciar la
+conexión.</p>
+
+<p>Ejemplo</p>
+
+<pre class="ruby"><span class="ruby-constant">BaseConnector</span>.<span class="ruby-identifier">new</span> {<span class="ruby-identifier">efi_id</span><span class="ruby-operator">:</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">rut</span><span class="ruby-operator">:</span> <span class="ruby-string">'12.345.678-5'</span>, <span class="ruby-operator">...</span>}
+<span class="ruby-comment"># =&gt; #&lt;BaseConnector:0x007f9b41242a28 @efi_id=&quot;1&quot;, @rut=&quot;12.345.678-5&quot;, ...&gt;</span>
+</pre>
+
+<p>Retorna una instancia de <a href="BaseConnector.html">BaseConnector</a></p>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File app/models/base_connector.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">attributes</span> = {})
+  <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{name}=&quot;</span>, <span class="ruby-identifier">value</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-get_points" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_points</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Internal: Permite consultar la cantidad de puntos asociados al rut dado.</p>
+
+<p>Ejemplo</p>
+
+<pre class="ruby"><span class="ruby-identifier">a</span>) <span class="ruby-constant">Para</span> <span class="ruby-identifier">una</span> <span class="ruby-identifier">cuenta</span> <span class="ruby-identifier">sin</span> <span class="ruby-identifier">puntos</span>
+  <span class="ruby-identifier">get_points</span>()
+  <span class="ruby-comment"># =&gt; '0'</span>
+
+<span class="ruby-identifier">b</span>) <span class="ruby-constant">Para</span> <span class="ruby-identifier">una</span> <span class="ruby-identifier">cuenta</span> <span class="ruby-identifier">con</span> <span class="ruby-value">100</span> <span class="ruby-identifier">puntos</span>
+  <span class="ruby-identifier">get_points</span>()
+    <span class="ruby-comment"># =&gt; '100'</span>
+
+<span class="ruby-identifier">c</span>) <span class="ruby-constant">Para</span> <span class="ruby-identifier">un</span> <span class="ruby-identifier">rut</span> <span class="ruby-identifier">que</span> <span class="ruby-identifier">no</span> <span class="ruby-identifier">registrado</span> <span class="ruby-identifier">por</span> <span class="ruby-identifier">la</span> <span class="ruby-constant">EFI</span>
+  <span class="ruby-identifier">get_points</span>()
+    <span class="ruby-comment"># =&gt; nil</span>
+</pre>
+
+<p>Retorna un Integer con la cantidad final de puntos en la cuenta.</p>
+          
+
+          
+          <div class="method-source-code" id="get_points-source">
+            <pre><span class="ruby-comment"># File app/models/base_connector.rb, line 81</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_points</span>
+  <span class="ruby-comment"># Quito el formato del rut dado.</span>
+  <span class="ruby-comment"># Ejemplo</span>
+  <span class="ruby-comment">#  Run.remove_format('12.345.678-5')</span>
+  <span class="ruby-comment">#  # =&gt; '123456785'</span>
+  <span class="ruby-identifier">rut_without_format</span> = <span class="ruby-constant">Run</span>.<span class="ruby-identifier">remove_format</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">rut</span>)
+
+  <span class="ruby-comment"># Busco la cuenta del usuario por el RUT en la base de datos de la EFI</span>
+  <span class="ruby-comment"># y se la asigno a la variable account.</span>
+  <span class="ruby-identifier">account</span> = <span class="ruby-identifier">efi</span>.<span class="ruby-identifier">accounts</span>.<span class="ruby-identifier">find_by_rut</span>(<span class="ruby-identifier">rut_without_format</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">account</span>
+    <span class="ruby-comment"># Si se encontro una cuenta, se retorna la cantidad de puntos de la misma.</span>
+    <span class="ruby-identifier">account</span>.<span class="ruby-identifier">points</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># Si no se encontro una cuenta se retorna nil,</span>
+    <span class="ruby-comment"># para indicar que la cuenta no existe.</span>
+    <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_points-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_points-method -->
+
+    
+      <div id="method-i-persisted-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">persisted?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Le indica al ORM de Rails que este modelo no tiene asociada una tabla en la
+Base de Datos</p>
+          
+
+          
+          <div class="method-source-code" id="persisted-3F-source">
+            <pre><span class="ruby-comment"># File app/models/base_connector.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">persisted?</span>
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- persisted-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- persisted-3F-method -->
+
+    
+      <div id="method-i-spend_points" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">spend_points</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Internal: Permite consumir una cierta cantidad de puntos.</p>
+
+<p>Ejemplo</p>
+
+<pre class="ruby"><span class="ruby-identifier">a</span>) <span class="ruby-constant">Para</span> <span class="ruby-identifier">una</span> <span class="ruby-identifier">cuenta</span> <span class="ruby-identifier">sin</span> <span class="ruby-identifier">puntos</span>
+  <span class="ruby-identifier">spend_points</span>()
+  <span class="ruby-comment"># =&gt; false</span>
+
+<span class="ruby-identifier">b</span>) <span class="ruby-constant">Para</span> <span class="ruby-identifier">una</span> <span class="ruby-identifier">cuenta</span> <span class="ruby-identifier">con</span> <span class="ruby-value">100</span> <span class="ruby-identifier">puntos</span>, <span class="ruby-identifier">consumir</span> <span class="ruby-value">50</span>
+  <span class="ruby-identifier">spend_points</span>()
+    <span class="ruby-comment"># =&gt; true</span>
+
+<span class="ruby-identifier">c</span>) <span class="ruby-constant">Para</span> <span class="ruby-identifier">una</span> <span class="ruby-identifier">cuenta</span> <span class="ruby-identifier">con</span> <span class="ruby-value">100</span> <span class="ruby-identifier">puntos</span>, <span class="ruby-identifier">consumir</span> <span class="ruby-value">200</span>
+  <span class="ruby-identifier">spend_points</span>()
+    <span class="ruby-comment"># =&gt; false</span>
+
+<span class="ruby-identifier">d</span>) <span class="ruby-constant">Para</span> <span class="ruby-identifier">un</span> <span class="ruby-identifier">rut</span> <span class="ruby-identifier">que</span> <span class="ruby-identifier">no</span> <span class="ruby-identifier">registrado</span> <span class="ruby-identifier">por</span> <span class="ruby-identifier">la</span> <span class="ruby-constant">EFI</span>
+  <span class="ruby-identifier">spend_points</span>()
+    <span class="ruby-comment"># =&gt; nil</span>
+</pre>
+
+<p>Retorna un Integer con la cantidad final de puntos en la cuenta.</p>
+          
+
+          
+          <div class="method-source-code" id="spend_points-source">
+            <pre><span class="ruby-comment"># File app/models/base_connector.rb, line 124</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">spend_points</span>
+  <span class="ruby-comment"># Quito el formato del rut dado.</span>
+  <span class="ruby-comment"># Ejemplo</span>
+  <span class="ruby-comment">#   Run.remove_format('12.345.678-5')</span>
+  <span class="ruby-comment">#   # =&gt; '123456785'</span>
+  <span class="ruby-identifier">rut_without_format</span> = <span class="ruby-constant">Run</span>.<span class="ruby-identifier">remove_format</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">rut</span>)
+
+  <span class="ruby-comment"># Busco la cuenta del usuario por el RUT y Contraseña en la base de datos de la EFI</span>
+  <span class="ruby-comment"># y se la asigno a la variable account.</span>
+  <span class="ruby-identifier">account</span> = <span class="ruby-identifier">efi</span>.<span class="ruby-identifier">accounts</span>.<span class="ruby-identifier">find_by_rut_and_password</span>(<span class="ruby-identifier">rut_without_format</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">password</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">account</span>
+    <span class="ruby-comment"># Si se encontro una cuenta,</span>
+    <span class="ruby-comment"># se construye una transaccion para descontar los puntos de la misma.</span>
+    <span class="ruby-identifier">transaction</span> = <span class="ruby-identifier">account</span>.<span class="ruby-identifier">transactions</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">points</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">points</span>, <span class="ruby-identifier">operation_id</span><span class="ruby-operator">:</span> <span class="ruby-constant">Operation</span>.<span class="ruby-identifier">expend_id</span>)
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">transaction</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-comment"># Si los puntos en la cuenta son suficientes,</span>
+      <span class="ruby-comment"># se indica que descontaron los puntos.</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-comment"># Si los puntos en la cuenta son insuficientes,</span>
+      <span class="ruby-comment"># se indica que no se pueden descontar los puntos.</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># Si no se encontro una cuenta se retorna nil,</span>
+    <span class="ruby-comment"># para indicar que la cuenta no existe.</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- spend_points-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- spend_points-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

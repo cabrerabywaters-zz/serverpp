@@ -1,0 +1,10 @@
+.nested-fields.clearfix
+  .span5
+    %fieldset
+      = f.input :points, input_html: {class: 'min_max', placeholder: current_user_efi.zona.titleize, value: 1, data: {min: 1}, onkeypress: "return permiteNumeros(event);"}, label: current_user_efi.zona.titleize
+  .span5
+    %fieldset
+      = f.input :cash, input_html: {class: 'min_max', placeholder: Exchange.human_attribute_name(:cash), data: {min: 1, blank: true}, onkeypress: "return permiteNumeros(event);"}, label: Exchange.human_attribute_name(:cash)
+
+  = link_to_remove_association f, class: 'btn btn-icon btn-icon-mini btn-danger' do
+    %i.icon-minus

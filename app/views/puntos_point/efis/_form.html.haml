@@ -1,0 +1,17 @@
+= simple_form_for [:puntos_point, @efi], html: {class: 'form-horizontal' } do |f|
+  = f.input :rut
+  = f.input :name
+  = f.input :zona
+  = f.input :compared, as: :boolean
+
+  = f.input :search_name, wrapper: :prepend, class: "inline" do
+    %span.add-on= Settings.url
+    = f.input_field :search_name, class: 'span2'
+
+  = f.input :connector_name, collection: [['Conector Base', 'BaseConnector']], include_blank: false
+  = f.association :industries
+  = f.input :logo
+  .form-actions
+    = f.button :submit, class: 'btn-warning pull-right ml-10'
+    - if can? :read, Efi
+      = link_to t("helpers.links.cancel"), puntos_point_efis_path, class: 'btn btn-inverse pull-right'

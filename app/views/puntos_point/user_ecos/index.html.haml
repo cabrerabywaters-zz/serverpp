@@ -1,0 +1,38 @@
+- model_class = UserEco
+.page-header
+  %h1= model_class.model_name.human.pluralize
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:rut)
+      %th= model_class.human_attribute_name(:full_name)
+      %th= model_class.human_attribute_name(:nickname)
+      %th= model_class.human_attribute_name(:email)
+      %th= model_class.human_attribute_name(:eco)
+      %th= model_class.human_attribute_name(:created_at)
+      %th= t("helpers.actions")
+  %tbody
+    - @user_ecos.each do |user_eco|
+      %tr
+        %td
+          - if can? :show, user_eco
+            = link_to user_eco.id, puntos_point_user_eco_path(user_eco)
+          - else
+            %td= user_eco.id
+        %td= Run.format user_eco.rut
+        %td= trim_to(user_eco.full_name, 15).html_safe
+        %td= trim_to(user_eco.nickname, 15).html_safe
+        %td= user_eco.email
+        %td= trim_to(user_eco.eco_name, 20).html_safe
+        %td=l user_eco.created_at, format: :short
+        %td
+          - if can? :update, user_eco
+            = link_to edit_puntos_point_user_eco_path(user_eco), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
+              %i.icon-pencil
+          - if can? :destroy, user_eco
+            = link_to puntos_point_user_eco_path(user_eco), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-danger' do
+              %i.icon-trash
+
+- if can? :create, model_class
+  = link_to t("helpers.links.new"), new_puntos_point_user_eco_path, class: 'btn btn-warning pull-right'

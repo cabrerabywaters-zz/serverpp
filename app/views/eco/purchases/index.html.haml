@@ -1,0 +1,35 @@
+- model_class = Purchase
+.page-header
+  %h1= @experience.name
+
+= form_tag eco_validate_purchase_path(@experience), method: :post, class: "form-search" do
+  .row
+    .span5
+      %label{for: 'purchase_code'}= model_class.human_attribute_name(:code)
+      %input#purchase_code.string.required{name: "code", type: "text"}
+      %input{type: :submit, class: 'btn', value: I18n.t('helpers.links.validate')}
+    .span4
+      - if @status and @message
+        .alert{class: "alert-#{@status}"}= @message
+
+%table#purchases.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:rut)
+      %th= model_class.human_attribute_name(:email)
+      %th= model_class.human_attribute_name(:code)
+      %th= model_class.human_attribute_name(:reference_codes)
+      %th= model_class.human_attribute_name(:updated_at)
+  %tbody
+    - @purchases.each do |purchase|
+      %tr{class: (defined?(@validated_purchase) and @validated_purchase == purchase.id) ? 'success' : ''}
+        %td= Run.format purchase.rut
+        %td= purchase.email
+        %td= purchase.code
+        %td
+          - purchase.reference_codes.each_with_index do |rc, index|
+            %span.label.label-info= rc
+        %td=l purchase.updated_at, format: :short
+
+- if can? :read, Experience
+  = link_to t("helpers.links.back"), eco_experiences_path, class: 'btn btn-warning pull-right'

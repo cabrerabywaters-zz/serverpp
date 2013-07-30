@@ -1,0 +1,1 @@
+FB = YAML::load(File.open("#{Rails.root}/config/facebook.yml"))['facebook'].symbolize_keys

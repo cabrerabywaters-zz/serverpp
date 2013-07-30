@@ -1,0 +1,25 @@
+- model_class = UserEco
+.page-header
+  %h1= model_class.model_name.human
+
+%dl.dl-horizontal
+  %dt= model_class.human_attribute_name(:rut) + ':'
+  %dd= Run.format @user_eco.rut
+  %dt= model_class.human_attribute_name(:full_name) + ':'
+  %dd= @user_eco.full_name
+  %dt= model_class.human_attribute_name(:nickname) + ':'
+  %dd= @user_eco.nickname
+  %dt= model_class.human_attribute_name(:email) + ':'
+  %dd= @user_eco.email
+  %dt= model_class.human_attribute_name(:eco) + ':'
+  %dd= @user_eco.eco_name
+
+
+.form-actions
+  - if can? :destroy, @user_eco
+    = link_to t("helpers.links.destroy"), puntos_point_user_eco_path(@user_eco), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-danger pull-right ml-10'
+  - if can? :update, @user_eco
+    = link_to t("helpers.links.edit"), edit_puntos_point_user_eco_path(@user_eco), class: 'btn btn-warning pull-right ml-10'
+  - if can? :read, model_class
+    = link_to t("helpers.links.back"), puntos_point_user_ecos_path, class: 'btn btn-inverse pull-right'
+

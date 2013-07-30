@@ -1,0 +1,4 @@
+- model_class = UserEfi
+.page-header
+  %h1= t('helpers.titles.male.new', :model => model_class.model_name.human.camelize)
+= render :partial => "form"

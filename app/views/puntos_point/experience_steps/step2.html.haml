@@ -1,0 +1,140 @@
+.page-header
+  %h1= t('helpers.titles.step2_3')
+
+.row-fluid.configEco
+  - if @experience.errors.any?
+    .alert.alert-error
+      %button{class: "close", 'data-dismiss' => "alert"} ×
+      %ul
+        - @experience.errors.full_messages.each do |messsage|
+          %li.text-error= messsage
+
+  = simple_form_for @experience, url: wizard_path, method: :put, html: { class: 'eco' } do |f|
+    .row-fluid.contenidoEco
+      .span4.well.wellEco
+        %label
+          = Experience.human_attribute_name(:amount)
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.amount'), class: 'icon-tooltip'}
+        .control-group{class: @experience.errors[:amount].any? ? 'error' : ''}
+          .controls
+            .input-prepend
+              .add-on $
+              = f.input_field :amount, class: "input-medium", placeholder: "200.000", value: number_to_currency(@experience.amount, unit: ''), onkeypress: "return permiteNumeros(event);"
+
+        %label
+          = Experience.human_attribute_name(:discounted_price)
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.discounted_price'), class: 'icon-tooltip'}
+        .control-group{class: @experience.errors[:discounted_price].any? ? 'error' : ''}
+          .controls
+            .input-prepend
+              .add-on $
+              = f.input_field :discounted_price, class: "input-medium", placeholder: "170.000", value: number_to_currency(@experience.discounted_price, unit: ''), onkeypress: "return permiteNumeros(event);"
+
+        %label
+          = Experience.human_attribute_name(:discount_percentage)
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.discount_percentage'), class: 'icon-tooltip'}
+        .control-group{class: @experience.errors[:discount_percentage].any? ? 'error' : ''}
+          .controls
+            .input-append
+              = f.input_field :discount_percentage, class: 'input-mini', placeholder: "15", value: number_to_currency(@experience.get_discount_percentage, precision: 2, unit: ''), onkeypress: "return permiteNumeros(event);"
+              .add-on %
+
+      .span3.well.wellGray.exclusibilty_sales
+        = f.input :total_exclusivity_sales
+        = f.input :by_industry_exclusivity_sales
+        = f.input :without_exclusivity_sales
+
+      .span5.well.wellEco
+        %label
+          = Experience.human_attribute_name(:efis)
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.efis'), class: 'icon-tooltip'}
+        %hr.linea2
+        .controls-row
+          .control-group{class: @experience.errors[:available_efis].any? ? 'error' : ''}
+            - efis = Efi.all
+            - i = 0
+            - while i < efis.count do
+              .controls-row.checkboxEfis
+                = render 'efi', efi: efis[i]
+                - i += 1
+                - if i < efis.count
+                  = render 'efi', efi: efis[i]
+                  - i += 1
+                - if i < efis.count
+                  = render 'efi', efi: efis[i]
+                  - i += 1
+                - if i < efis.count
+                  = render 'efi', efi: efis[i]
+                  - i += 1
+
+    .row-fluid.contenidoEco
+      .span12
+        .well.wellGray
+          %label
+            = Experience.human_attribute_name(:advertisings)
+          %hr.linea2
+          .controls-row.checkboxEfis
+            .control-group{class: @experience.errors[:advertisings].any? ? 'error' : ''}
+              - Advertising.all.each do |advertising|
+                = render 'advertising', advertising: advertising
+
+    .row-fluid.contenidoEco
+      .span4.well.wellEco
+        #valid_images
+          %label{class: @experience.errors[:valid_images].any? ? 'error' : ''}
+            = Experience.human_attribute_name(:valid_images)
+          %hr.linea2
+          = f.simple_fields_for :valid_images do |builder|
+            = render 'valid_image_fields', :f => builder
+
+          .links
+            = link_to_add_association f, :valid_images, partial: 'valid_image_fields', class: 'btn btn-icon btn-icon-mini pull-right btn-warning' do
+              %i.icon-plus
+              Agregar
+          .clearfix
+
+
+      .span4.well.wellEco
+        .control-group{class: @experience.errors[:summary].any? ? 'error' : ''}
+          %label
+            = Experience.human_attribute_name(:summary)
+            %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.summary'), class: 'icon-tooltip'}
+          %hr.linea2
+          .controls
+            = f.input_field :summary, class: "tinymce span12", rows: 10
+
+      -# .span4.well.wellEco{class: @experience.eco.bigger? ? '' : 'muted'}
+      .span4.well.wellEco
+        %label= Experience.human_attribute_name(:codes)
+        %hr.linea2
+
+        .control-group.optional.experience_codes
+          = f.label :file_codes
+          .controls
+            - @experience.codes.each_with_index do |code, index|
+              - if index > 0
+                |
+              = code
+            %br
+            = f.input_field :file_codes, as: :file
+            -#- if @experience.eco.bigger
+            -#  = f.input_field :file_codes, as: :file
+            -#- else
+            -#  = f.input_field :file_codes, as: :file, disabled: :disabled
+
+        .control-group.optional.experience_codes_by_purchase
+          = f.label :codes_by_purchase
+          .controls
+            = f.input_field :codes_by_purchase, class: 'input-mini'
+            -#- if @experience.eco.bigger
+            -#  = f.input_field :codes_by_purchase, class: 'input-mini'
+            -#- else
+            -#  = f.input_field :codes_by_purchase, class: 'input-mini', disabled: :disabled
+
+    .form-actions.text-right
+      - if can? :read, Experience
+        = link_to t("helpers.links.cancel"), puntos_point_experiences_path, class: 'btn btn-large btn-inverse'
+
+      = link_to t('helpers.links.previous'), previous_wizard_path, class: 'btn btn-large btn-inverse'
+
+      = f.button :submit, t("helpers.links.continue"), class: 'btn-primary btn-large btn-warning'

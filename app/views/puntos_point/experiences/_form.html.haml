@@ -1,0 +1,94 @@
+= simple_form_for [:puntos_point, @experience], html: {class: 'form-horizontal' } do |f|
+  .control-group.required.state{class: @experience.errors[:state].any? ? 'error' : ''}
+    = f.label :state
+    .controls
+      - if @experience.pending? or @experience.published?
+        %label.collection_radio_buttons.radio.inline{for: "experience_validated_false"}
+          - if @experience.pending?
+            %input#experience_validated_false{checked: :checked, name: "experience[validated]", type: "radio", value: "false"}= t('state_machine.experience.pending')
+          - else
+            %input#experience_validated_false{name: "experience[validated]", type: "radio", value: "false"}= t('state_machine.experience.pending')
+        %label.collection_radio_buttons.radio.inline{for: "experience_validated_true"}
+          - if @experience.published?
+            %input#experience_validated_true{checked: :checked, name: "experience[validated]", type: "radio", value: "true"}= t('state_machine.experience.published')
+          - else
+            %input#experience_validated_true{name: "experience[validated]", type: "radio", value: "true"}= t('state_machine.experience.published')
+      - else
+        .input-large.uneditable-input= @experience.translate_state
+
+
+  = f.association :eco, include_blank: false
+  = f.input :name
+  = f.input :summary
+  = f.input :amount,              as: :string, input_html: {value: number_to_currency(@experience.amount, unit: '')}
+  = f.input :discounted_price,    as: :string, input_html: {value: number_to_currency(@experience.discounted_price, unit: '')}
+  = f.input :discount_percentage, as: :string, input_html: {value: number_to_currency(@experience.get_discount_percentage, precision: 2, unit: '')}
+  = f.input :place
+  = f.association :comuna, include_blank: false
+
+  = f.input :starting_at,          as: :string, wrapper: :datepicker, input_html: {class: 'input-small', value: I18n.l(@experience.starting_at,          format: :datepicker)}
+  = f.input :ending_at,            as: :string, wrapper: :datepicker, input_html: {class: 'input-small', value: I18n.l(@experience.ending_at,            format: :datepicker)}
+  = f.input :validity_starting_at, as: :string, wrapper: :datepicker, input_html: {class: 'input-small', value: I18n.l(@experience.validity_starting_at, format: :datepicker)}
+  = f.input :validity_ending_at,   as: :string, wrapper: :datepicker, input_html: {class: 'input-small', value: I18n.l(@experience.validity_ending_at,   format: :datepicker)}
+
+  = f.input :hour
+  = f.input :swaps, input_html: {class: 'input-mini min_max', data: {min: 1}}
+  = f.input :codes_by_purchase, input_html: {class: 'input-mini min_max', data: {min: 1}}
+
+  .control-group.optional.experience_codes
+    = f.label :codes
+    .controls
+      - @experience.codes.each_with_index do |code, index|
+        - if index > 0
+          |
+        = code
+      %br
+      = f.input_field :file_codes, as: :file
+      = f.error :file_codes
+
+  = f.association :category, include_blank: false
+  = f.association :interests, include_blank: false, as: :check_boxes
+
+  =# f.association :available_efis, as: :check_boxes
+  .control-group.check_boxes.optional.experience_available_efis
+    = f.label :available_efis
+    .controls
+      - Efi.all.each do |efi|
+        %label.checkbox
+          - if @experience.available_efis.include? efi
+            %input.check_boxes.optional{name: "experience[available_efi_ids][]", type: "checkbox", value: efi.id, id: "experience_available_efi_ids_#{efi.id}", checked: :checked}
+          - else
+            %input.check_boxes.optional{name: "experience[available_efi_ids][]", type: "checkbox", value: efi.id, id: "experience_available_efi_ids_#{efi.id}"}
+          = image_tag efi.logo(:thumb)
+
+  = f.simple_fields_for :industry_experiences do |f2|
+    = f2.hidden_field :industry_id
+    .control-group
+      = f2.label :industry
+      .controls
+        %span.uneditable-input= f2.object.industry.name
+    = f2.input :percentage
+
+  = f.input :image
+
+  #valid_images.well
+    %span.help-inline.pull-right= @experience.errors[:valid_images].last
+    %h8{class: @experience.errors[:valid_images].any? ? 'error' : ''}= Experience.human_attribute_name(:valid_images)
+    = f.simple_fields_for :valid_images do |builder|
+      = render 'valid_image_fields', :f => builder
+
+    .links
+      = link_to_add_association f, :valid_images, partial: 'valid_image_fields', class: 'btn btn-icon btn-icon-mini pull-right btn-warning' do
+        %i.icon-plus
+        Agregar
+    .clearfix
+
+  = f.input :exchange_mechanism
+  = f.input :details,    input_html: {class: "tinymce input-xxlarge", rows: 4}
+  = f.input :conditions, input_html: {class: "tinymce input-xxlarge", rows: 4}
+
+
+  .form-actions
+    = f.button :submit, class: 'btn-warning pull-right ml-10'
+    - if can? :read, Experience
+      = link_to t("helpers.links.cancel"), puntos_point_experiences_path, class: 'btn btn-inverse pull-right'

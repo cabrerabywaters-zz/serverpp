@@ -1,0 +1,31 @@
+= simple_form_for [:efi, @banner], html: {class: 'form-horizontal' } do |f|
+
+  = f.association :event, collection: @events, include_blank: false
+
+  - @events.each do |event|
+    .valid_images_container
+      - experience = event.experience
+      .well{class: "valid_images_#{event.id}"}
+        %h8= Experience.human_attribute_name(:valid_images) + ':'
+        %ul
+        - experience.valid_images.each do |valid_image|
+          %br
+          %li= link_to valid_image.image_file_name, valid_image.image.url, target: :_blank
+
+
+  .control-group
+    .control.relative
+      - if @banner.image? and FileTest.exist?('public' + @banner.image.url(:original, timestamp: false))
+        = image_tag @banner.image.url, class: 'preview_container'
+      - else
+        = image_tag 'default_banner.png', class: 'preview_container'
+      .image_size
+        = image_tag 'default_banner_over.png', alt: 'Puntos Point', title: 'Puntos Point'
+  = f.input :image, input_html: {class: 'preview_image'}
+
+  = f.input :published
+
+  .form-actions
+    = f.button :submit, class: 'btn-warning pull-right ml-10'
+    - if can? :read, Banner
+      = link_to t("helpers.links.cancel"), efi_banners_path, class: 'btn btn-inverse pull-right'

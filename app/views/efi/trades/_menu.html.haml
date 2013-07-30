@@ -1,0 +1,7 @@
+%ul.nav.nav-list.navInformes
+  %li{class: current_page?(category_efi_trades_path) ? 'active' : ''}
+    = link_to t('trades.links.category'), category_efi_trades_path
+
+  - if current_user_efi.efi.compared?
+    %li{class: current_page?(efi_efi_trades_path) ? 'active' : ''}
+      = link_to t('trades.links.efi'), efi_efi_trades_path

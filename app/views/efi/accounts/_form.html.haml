@@ -1,0 +1,21 @@
+= simple_form_for [:efi, @account], html: {class: 'form-horizontal' } do |f|
+  = f.input :name
+  = f.input :rut
+  = f.input :password
+
+  - unless @account.new_record?
+    .control-group
+      = f.label :points
+      .controls
+        %span.uneditable-input= @account.points
+
+  %hr
+  %h6= t('views.load_points')
+  = f.simple_fields_for :transactions, @transaction do |f2|
+    = f2.input :points, input_html: {onkeypress: "return permiteNumeros(event);"}
+    = f2.input :operation_id, collection: Operation.all, include_blank: false
+
+  .form-actions
+    = f.button :submit, class: 'btn-warning pull-right ml-10'
+    - if can? :read, Account
+      = link_to t("helpers.links.cancel"), efi_accounts_path, class: 'btn btn-inverse pull-right'

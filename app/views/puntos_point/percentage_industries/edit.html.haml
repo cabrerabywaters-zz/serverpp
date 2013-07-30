@@ -1,0 +1,25 @@
+- model_class = Industry
+.page-header
+  %h1= t('helpers.titles.edit_percentage', :model => model_class.model_name.human.titleize)
+
+= form_tag puntos_point_percentage_industries_path, method: :put, class: 'form-horizontal industries_percentages' do
+  - @industries.each do |industry|
+    = fields_for "industries[]", industry, class: 'simple_form form-horizontal' do |f|
+      .control-group.required{class: industry.errors[:percentage].any? ? "industry_#{industry.id}_percentage error" : "industry_#{industry.id}_percentage"}
+        %label.control-label.required{for: "industries_#{industry.id}_percentage"}= industry.name
+        .controls
+          %input.input-small.required{id: "industries_#{industry.id}_percentage", name: "industries[#{industry.id}][percentage]", type: "text", value: industry.percentage}
+          - if industry.errors[:percentage].any?
+            %span.help-inline= industry.errors[:percentage].first
+
+  .control-group.percentage_total{class: @industries.sum(&:percentage) != 100 ? 'error' : ''}
+    .controls
+      .input-append
+        %span.input-small.uneditable-input= @industries.sum(&:percentage)
+        %span.add-on %
+      %span.help-inline{class: @industries.sum(&:percentage) != 100 ? '' : 'dn'}= I18n.t('errors.messages.equal_to', count: 100)
+
+  .form-actions
+    = submit_tag I18n.t('helpers.submit.update', model: ''), class: 'btn btn-primary'
+    - if can? :read, model_class
+      = link_to t("helpers.links.back"), puntos_point_industries_path, class: 'btn'

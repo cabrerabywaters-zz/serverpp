@@ -1,0 +1,19 @@
+<% if @rut and @points %>
+  $('.points_query').addClass('dn');
+  $('.points_result').removeClass('dn');
+
+  $('.points_result h2 span').html("<%= number_to_currency @points, unit: '', presicion: 0 %>");
+
+<% else %>
+  $('form .control-group').addClass('error')
+  <% if @rut %>
+    <% if @valid_run %>
+      $('form span.help-inline').html("<%= j I18n.t('errors.messages.unknown') %>");
+    <% else %>
+      $('form span.help-inline').html("<%= j I18n.t('errors.messages.invalid') %>");
+    <% end %>
+  <% else %>
+    $('form span.help-inline').html("<%= j I18n.t('errors.messages.blank') %>");
+  <% end %>
+
+<% end %>

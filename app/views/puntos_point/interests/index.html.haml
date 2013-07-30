@@ -1,0 +1,28 @@
+- model_class = Interest
+.page-header
+  %h1= model_class.model_name.human.pluralize
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:created_at)
+      %th= t("helpers.actions")
+  %tbody
+    - @interests.each do |interest|
+      %tr
+        %td
+          - if can? :show, interest
+            = link_to trim_to(interest.name, 80).html_safe, puntos_point_interest_path(interest)
+          - else
+            %td= trim_to(interest.name, 80).html_safe
+        %td=l interest.created_at, format: :short
+        %td
+          - if can? :update, interest
+            = link_to edit_puntos_point_interest_path(interest), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
+              %i.icon-pencil
+          - if can? :destroy, interest
+            = link_to puntos_point_interest_path(interest), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-danger' do
+              %i.icon-trash
+
+- if can? :create, model_class
+  = link_to t("helpers.links.new"), new_puntos_point_interest_path, class: 'btn btn-warning pull-right'

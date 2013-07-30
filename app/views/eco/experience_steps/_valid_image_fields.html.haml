@@ -1,0 +1,10 @@
+.nested-fields.well
+  - if f.object.image? and FileTest.exist?('public' + f.object.image.url(:original, timestamp: false))
+    .control-group
+      .controls
+        = link_to f.object.image_file_name, f.object.image.url, target: :_blank
+
+  = f.input :image
+
+  = link_to_remove_association f, class: 'btn btn-icon btn-icon-mini btn-danger' do
+    %i.icon-minus

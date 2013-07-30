@@ -1,0 +1,49 @@
+.row-fluid
+  .navbar.filterCatergory
+    %ul.nav.pull-left
+      %li= link_to t('views.links.featured'), efi_experiences_path, class: "destacadas"
+
+      - @categories.each do |category|
+        %li
+          %i= image_tag category.icon.url
+          = link_to category.name, efi_experiences_path(category: category)
+
+      %li
+        %i.icon-map-marker
+        %select.regions.selectpicker{'data-width' => "100px"}
+          %option{selected: params[:region].presence ? false : true, 'data-url' => efi_experiences_path}= t('views.region')
+          %option{'data-divider' => 'true'}
+          - ChileanCities::Comuna.unscoped.order(:code).all.uniq(&:region).each do |comuna|
+            %option{'data-url' => efi_experiences_path(region: comuna.region_number), selected: params[:region] == comuna.region_number ? true : false}
+              = comuna.region_number
+              = comuna.region
+      %li=# link_to "Fechas", efi_experiences_path(dates: 'fechas'), class: "fechas"
+    %ul.nav.pull-right.iconos
+      %li
+        = link_to efi_experiences_path(exclusivity: 'total') do
+          %i.icon-star
+      %li
+        = link_to efi_experiences_path(exclusivity: 'by_industry') do
+          %i.icon-suitcase
+      %li
+        = link_to efi_experiences_path(exclusivity: 'without') do
+          %i.icon-group
+
+%h1.title
+  %span
+  = t('views.featured_experiences')
+
+- i = 0
+- while i < @experiences.count do
+  .row-fluid
+    = render 'experience', experience: @experiences[i]
+    - i += 1
+    - if i < @experiences.count
+      = render 'experience', experience: @experiences[i]
+      - i += 1
+    - if i < @experiences.count
+      = render 'experience', experience: @experiences[i]
+      - i += 1
+    - if i < @experiences.count
+      = render 'experience', experience: @experiences[i]
+      - i += 1

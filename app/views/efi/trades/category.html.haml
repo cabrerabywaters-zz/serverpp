@@ -1,0 +1,19 @@
+%h1.title
+  %i.icon-signal.white-text
+  %span
+  = t('trades.historical_exchanges_report')
+
+.row-fluid
+  .span2
+    = render 'menu'
+
+  .span10
+    %form.form-inline.filter{url: category_efi_trades_path, method: :get}
+      %label= Interest.model_name.human.pluralize
+      %select.selectpicker{multiple: true, name: 'interest_ids[]', title: I18n.t('support.select.prompt')}
+        - Interest.all.each do |interest|
+          %option{selected: @interest_ids.include?(interest.id.to_s) ? true : false, value: interest.id}= interest.name
+      %button.btn{type: :submit}= t("helpers.links.filter")
+    .bordes
+      = high_chart "my_bar_div", @trades do
+        = raw "options.tooltip.formatter = function() {return '<b>'+ this.x +'</b><br/>' + this.series.name +': '+ this.y +'<br/>'+'Total: '+ this.point.stackTotal;}"

@@ -1,0 +1,48 @@
+.row-fluid.show-grid
+  .span8
+    .row-fluid.show-grid
+      .span4
+        = image_tag @experience.image
+      .span8.encabezado
+        %h6= t('views.are_exchanging')
+        %h1= @experience.name
+        %h6.interesFutbol= @experience.summary
+        %dl.dl-horizontal.ubicacion
+          %dt= Experience.human_attribute_name(:place)
+          %dd= @experience.place
+          %dt= Experience.human_attribute_name(:comuna)
+          %dd= @experience.comuna_name
+
+    .linea
+
+    .row-fluid
+      = simple_form_for [:corporative, @purchase] do |f|
+        .span5.well.well-large
+          %p
+            %strong= t('views.select_exchange_method')
+          - @event.exchanges.each do |exchange|
+            %label.radio
+              %input.radio_buttons.optional{id: "purchase_exchange_id_#{exchange.id}", name: "purchase[exchange_id]", type: "radio", value: exchange.id, 'data-cash' => exchange.cash.presence}
+              %span.payment_method_datails
+                %span.points= number_to_currency exchange.points, unit: ''
+                = @corporative.zona
+                - if exchange.cash.presence
+                  = t('views.more')
+                  %span.more_cash= number_to_currency exchange.cash
+
+        .span7.well.well-large
+          %h2= t('views.be_deducted')
+          %h6.discount
+            %span
+            = @corporative.zona
+          %fieldset
+            = f.input :rut,      label: false, input_html: {class: 'input-medium', placeholder: 'RUT'}
+            = f.input :password, label: false, input_html: {class: 'input-medium', placeholder: 'Contraseña ' + @corporative.name}
+            = f.input :email,    label: false, input_html: {class: 'input-medium', placeholder: 'E-mail'}
+
+          = f.button :submit, 'Confirmar', class: 'btn btn-warning confirm_purchase_button'
+
+  .span4.condiciones
+    %strong= Experience.human_attribute_name(:conditions)
+    %hr.linea2
+    = raw @experience.conditions

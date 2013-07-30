@@ -1,0 +1,28 @@
+- model_class = Experience
+.page-header
+  %h1= model_class.model_name.human.pluralize
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:amount)
+      %th= model_class.human_attribute_name(:stock_sold)
+      %th= model_class.human_attribute_name(:number_of_issued)
+      %th= model_class.human_attribute_name(:number_of_validations)
+      %th= model_class.human_attribute_name(:swaps)
+      %th= model_class.human_attribute_name(:state)
+      %th= t("helpers.actions")
+  %tbody
+    - @experiences.each do |experience|
+      %tr{class: experience.pending? ? 'warning' : ''}
+        %td= experience.name
+        %td= number_to_currency experience.discounted_price, presicion: 1
+        %td= number_to_currency experience.stock_sold, unit: ''
+        %td= number_to_currency experience.number_of_issued, unit: ''
+        %td= number_to_currency experience.number_of_validations, unit: ''
+        %td= number_to_currency experience.swaps, unit: ''
+        %td= experience.translate_state
+        %td
+          - if can? :read, experience
+            = link_to eco_experience_path(experience), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-primary' do
+              %i.icon-eye-open

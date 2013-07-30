@@ -1,0 +1,38 @@
+- model_class = UserEfi
+.page-header
+  %h1= model_class.model_name.human.pluralize
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:rut)
+      %th= model_class.human_attribute_name(:full_name)
+      %th= model_class.human_attribute_name(:nickname)
+      %th= model_class.human_attribute_name(:email)
+      %th= model_class.human_attribute_name(:efi)
+      %th= model_class.human_attribute_name(:created_at)
+      %th= t("helpers.actions")
+  %tbody
+    - @user_efis.each do |user_efi|
+      %tr
+        %td
+          - if can? :show, user_efi
+            = link_to user_efi.id, puntos_point_user_efi_path(user_efi)
+          - else
+            %td= user_efi.id
+        %td= Run.format user_efi.rut
+        %td= trim_to(user_efi.full_name, 20).html_safe
+        %td= trim_to(user_efi.nickname, 20).html_safe
+        %td= user_efi.email
+        %td= trim_to(user_efi.efi_name, 20).html_safe
+        %td=l user_efi.created_at, format: :short
+        %td
+          - if can? :update, user_efi
+            = link_to edit_puntos_point_user_efi_path(user_efi), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
+              %i.icon-pencil
+          - if can? :destroy, user_efi
+            = link_to puntos_point_user_efi_path(user_efi), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-danger' do
+              %i.icon-trash
+
+- if can? :create, model_class
+  = link_to t("helpers.links.new"), new_puntos_point_user_efi_path, class: 'btn btn-warning pull-right'

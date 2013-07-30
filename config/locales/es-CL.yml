@@ -1,0 +1,720 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+'es-CL':
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%d %b %Y"
+      long: "%d de %B de %Y"
+      medium: "%d %b %Y"
+      with_day_name: "%A %d/%m/%Y"
+      small: "%d %B"
+      datepicker: "%d/%m/%Y"
+
+    day_names:
+      - domingo
+      - lunes
+      - martes
+      - miércoles
+      - jueves
+      - viernes
+      - sábado
+    abbr_day_names:
+      - dom
+      - lun
+      - mar
+      - mié
+      - jue
+      - vie
+      - sáb
+
+    month_names:
+      - ~
+      - Enero
+      - Febrero
+      - Marzo
+      - Abril
+      - Mayo
+      - Junio
+      - Julio
+      - Agosto
+      - Septiembre
+      - Octubre
+      - Noviembre
+      - Diciembre
+    abbr_month_names:
+      - ~
+      - ene
+      - feb
+      - mar
+      - abr
+      - may
+      - jun
+      - jul
+      - ago
+      - sep
+      - oct
+      - nov
+      - dic
+    order:
+      - :day
+      - :month
+      - :year
+
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " y "
+      last_word_connector: ", y "
+
+    select:
+      prompt: "Por favor seleccione"
+
+  time:
+    formats:
+      default: "%A, %d de %B de %Y %H:%M:%S %z"
+      short: "%d-%m-%Y %H:%M"
+      long: "%d de %B de %Y %H:%M"
+      small: "%H:%M hrs."
+      datetimepicker: "%d/%m/%Y %H:%M:%S"
+      conector: "%a, %d %b %Y %H:%M:%S"
+    am: "am"
+    pm: "pm"
+
+  number:
+    format:
+      separator: "."
+      delimiter: ","
+      precision: 3
+      significant: false
+      strip_insignificant_zeros: false
+
+    currency:
+      format:
+        format: "%u%n"
+        unit: "$"
+        separator: ","
+        delimiter: "."
+        precision: 0
+        significant: false
+        strip_insignificant_zeros: false
+
+    percentage:
+      format:
+        separator: ","
+        delimiter: "."
+
+    precision:
+      format:
+        delimiter: ""
+
+    human:
+      format:
+        delimiter: ""
+        precision: 1
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one:   "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+      decimal_units:
+        format: "%n %u"
+        units:
+          unit: ""
+          thousand: "mil"
+          million: "millón"
+          billion: "mil millones"
+          trillion: "billón"
+          quadrillion: "mil billones"
+
+  datetime:
+    distance_in_words:
+      half_a_minute: "medio minuto"
+      less_than_x_seconds:
+        one:  "menos de 1 segundo"
+        other: "menos de %{count} segundos"
+      x_seconds:
+        one:  "1 segundo"
+        other: "%{count} segundos"
+      less_than_x_minutes:
+        one:  "menos de 1 minuto"
+        other: "menos de %{count} minutos"
+      x_minutes:
+        one:  "1 minuto"
+        other: "%{count} minutos"
+      about_x_hours:
+        one:  "alrededor de 1 hora"
+        other: "alrededor de %{count} horas"
+      x_days:
+        one:  "1 día"
+        other: "%{count} días"
+      about_x_months:
+        one:  "alrededor de 1 mes"
+        other: "alrededor de %{count} meses"
+      x_months:
+        one:  "1 mes"
+        other: "%{count} meses"
+      about_x_years:
+        one:  "alrededor de 1 año"
+        other: "alrededor de %{count} años"
+      over_x_years:
+        one:  "más de 1 año"
+        other: "más de %{count} años"
+      almost_x_years:
+        one: "casi 1 año"
+        other: "casi %{count} años"
+    prompts:
+      year:   "Año"
+      month:  "Mes"
+      day:    "Día"
+      hour:   "Hora"
+      minute: "Minutos"
+      second: "Segundos"
+
+  errors:
+    format: "%{attribute} %{message}"
+    messages: &errors_messages
+      inclusion: "no está incluido en la lista"
+      exclusion: "está reservado"
+      invalid: "no es válido"
+      confirmation: "no coincide con la confirmación"
+      accepted: "debe ser aceptado"
+      empty: "no puede estar vacío"
+      blank: "no puede estar en blanco"
+      too_long: "es demasiado largo (%{count} caracteres máximo)"
+      too_short: "es demasiado corto (%{count} caracteres mínimo)"
+      wrong_length: "no tiene la longitud correcta (%{count} caracteres exactos)"
+      not_a_number: "no es un número"
+      not_an_integer: "debe ser un entero"
+      greater_than: "debe ser mayor que %{count}"
+      greater_than_or_equal_to: "debe ser mayor que o igual a %{count}"
+      equal_to: "debe ser igual a %{count}"
+      less_than: "debe ser menor que %{count}"
+      less_than_or_equal_to: "debe ser menor que o igual a %{count}"
+      odd: "debe ser impar"
+      even: "debe ser par"
+      length: "no tiene la cantidad requerida (%{count})"
+      select: debe seleccionar al menos uno
+      taken: 'ya está en uso'
+      record_invalid: 'registro inválido'
+      unknown: no existe
+      exclusivity_required: debe seleccionar al menos un tipo de exclusividad
+
+  helpers:
+    submit:
+      create: Crear %{model}
+      update: Actualizar %{model}
+
+    links:
+      accept: Aceptar
+      reject: Rechazar
+      add: Agregar
+      edit: Editar
+      new: Nuevo
+      back: Volver
+      destroy: Eliminar
+      cancel: Cancelar
+      confirm:
+        destroy: '¿Estás seguro que deseas eliminar este registro?'
+        nested_destroy: '¿Estás seguro que deseas eliminar este registro, recuerda que solo se eliminará al guardar los cambios?'
+        male:
+          bill: '¿Estás seguro que deseas facturar este %{model}?'
+          pay: '¿Estás seguro que deseas pagar este %{model}?'
+        female:
+          bill: '¿Estás seguro que deseas facturar esta %{model}?'
+          pay: '¿Estás seguro que deseas pagar esta %{model}?'
+        participate: '¿Estás seguro que deseas participar en la experiencia?'
+        accept: '¿Estás seguro que deseas aceptar este %{model}?'
+        reject: '¿Estás seguro que deseas rechazar este %{model}?'
+      sign_in: Iniciar Sesión
+      forgot_password: Olvidé mi Contraseña
+      edit_percentage: Editar Porcentajes
+      filter: Filtrar
+      validate: Validar
+      show: Ver
+      continue: Continuar
+      save_and_pending: Finalizar
+      save_and_publish: Publicar
+      only_save: Guardar
+      previous: Anterior
+      generate_credentials: Generar Credenciales
+
+    titles:
+      api: Credenciales API
+      participate_with: 'Participa con:'
+      reject_publicity: Rechazar Comunicado
+      small_ecos: Empresas con capacidad ociosa - Chica
+      new_small_eco: Nueva empresa con capacidad ociosa - Chica
+      edit_small_eco: Editar empresa con capacidad ociosa - Chica
+      show_small_eco: Empresa con capacidad ociosa - Chica
+      big_ecos: Empresas con capacidad ociosa - Grande
+      new_big_eco: Nueva empresa con capacidad ociosa - Grande
+      edit_big_eco: Editar empresa con capacidad ociosa - Grande
+      show_big_eco: Empresa con capacidad ociosa - Grande
+      edit_percentage: "Editar Porcentaje %{model}"
+      edit_profile: 'Editar Mis Datos'
+      male:
+        edit: "Editar %{model}"
+        save: "Guardar"
+        new: "Nuevo %{model}"
+        delete: "Borrar"
+      female:
+        edit: "Editar %{model}"
+        save: "Guardar"
+        new: "Nueva %{model}"
+        delete: "Borrar"
+      welcome: Bienvenido a
+      summary: Estado de Cuenta
+      step1_3: Paso 1 de 3
+      step2_3: Paso 2 de 3
+      step3_3: Paso 3 de 3
+    subtitles:
+      sign_in: Inicia sesión y ¡comienza a disfrutar!
+    sign_out: "Cerrar Sessión"
+    actions: Acciones
+    purchase:
+      title: 'Evento: %{experience}'
+      success: 'Felicitaciones, has canjeado con %{zona}.'
+      send_instructions: 'Hemos enviado el voucher a tu correo electrónico con las indicaciones para validar tu canje.'
+      share: 'Comparte con tus amigos esta oferta a través de tus redes sociales, para que otras personas que conozcas puedan acceder a los beneficios que te ofrece %{efi}.'
+
+  notices:
+    success:
+      male:
+        create: '%{model} creado con éxito.'
+        update: '%{model} actualizado con éxito'
+        made: '%{model} realizado con éxito'
+        validate: '%{model} validado con éxito.'
+      female:
+        create: '%{model} creada con éxito.'
+        update: '%{model} actualizada con éxito'
+        made: '%{model} realizada con éxito'
+        validate: '%{model} validada con éxito.'
+        api_credentials: 'Credenciales creadas con éxito.'
+    error:
+      male:
+        update: 'Imposible realizar la operación solicitada sobre'
+        cant_validate: 'No se puede validar el %{model}'
+        was_validated: 'Ya fue validado'
+        cant_bill: 'No es posible facturar el %{model} seleccionada'
+        cant_pay: 'No es posible pagar el %{model} seleccionada'
+        no_pending: 'No es posible modificar el %{model} dado que no esta pendiente'
+      female:
+        update: 'Imposible realizar la operación solicitada sobre'
+        cant_validate: 'No se puede validar la %{model}'
+        was_validated: 'Ya fue validada'
+        cant_bill: 'No es posible facturar la %{model} seleccionada'
+        cant_pay: 'No es posible pagar la %{model} seleccionada'
+      no_required_models: 'No hay %{model}'
+      has_no_points: 'Lo sentimos, es imposible descontar los puntos necesarios con los datos proporcionados, por favor intentelo nuevamente o más tarde'
+      not_available: '%{model} ya no esta disponible'
+      industry_percentage: 'Debe ajustar el porcentaje antes'
+      not_events: 'Aun no participas en ninguna experiencia'
+      not_pending: 'Solo experiencias pendientes pueden ser editadas'
+      unknown: no existe
+      cant_access: Para acceder deber permitir comparate con otras Empresas de Fidelización
+      not_editable: 'Solo experiencias que no se han publicado pueden ser editadas'
+    not_editable: 'Recuerda que la experiencia ya fue publicada, se minucioso al editar los datos.'
+
+  mailers:
+    purchase_mailer:
+      subject: "Compra realizada con éxito"
+
+  state_machine:
+    experience:
+      step1: Paso 1
+      step2: Paso 2
+      step3: Paso 3
+      pending: Pendiente
+      published: Publicada
+      on_sale: En Venta
+      closed: Cerrada
+      expired: Terminada
+      billed: Facturada
+      paid: Pagada
+    event:
+      taken: En Venta
+      closed: Cerrada
+      billed: Facturada
+      paid: Pagada
+    purchase:
+      sold: Vendido
+      validated: Validado
+    publicity:
+      pending: Pendiente
+      accepted: Aceptada
+      rejected: Rechazada
+
+
+  tooltip:
+    experience:
+      name: 'Esta frase será lo primero que verá el cliente. Por lo tanto, agrega que ofreces y quien eres.'
+      summary: 'Agrega la frase que motive a los clientes a participar de tu oferta.'
+      category: 'Agrega la categoría a la que pertenece tu oferta. Esta opción ayudará a los clientes a encontrarla de manera más rápida y fácil.'
+      interests: 'Agrega los intereses a los cuales pertenece tu oferta. Esta opción ayudará a que tus clientes se sientan identificados con lo que ofreces, facilitando su elección.'
+      amount: 'Agrega el precio full de la oferta que estás publicando.'
+      discounted_price: 'Agrega el precio con descuento de la oferta. Esta opción te ayudará a que las empresas compren stock por anticipado o a que tus clientes se sientan más atraídos por canjear.'
+      discount_percentage: 'Si quieres hacer un descuento porcentual y no por precio, puedes agregar aquí el descuento de tu oferta.'
+      starting_at: 'Agrega el día en el que quieres que los clientes comiences a canjear tu oferta en las páginas de las empresas.'
+      ending_at: 'Agrega el día en el que quieres que desaparezca tu oferta de la página de las empresas, para evitar que sigan canjeando los clientes.'
+      validity_starting_at: 'Agrega el día en el que comienza la validación de tu oferta en tu tienda, ticketera, punto de venta, etc.'
+      validity_ending_at: 'Agrega el día en el que los clientes ya no pueden hacer válido tu oferta canjeada. Recuerda dar un tiempo prudente entre "Disponible hasta" y "Válido hasta".'
+      swaps: 'Agrega aquí el número máximo de canjes que quieres publicar.'
+      codes: 'Si tienes tu propio sistema de códigos o tus tickets se venden a través de ticketeras, agrega aquí los códigos válidos por tu oferta publicada. Deben ser agregadas en la primera columna de la primera hoja de un archivo Excel.'
+      system_codes: 'Si no tienes un sistema de creación de códigos no te preocupes, nosotros creamos los códigos de tu oferta.'
+      efis: 'Indica que empresas de fidelización pueden participar en la experiencia.'
+      details: 'Agrega la descripción y especificaciones de lo que estás ofreciendo.'
+      conditions: 'Agrega los términos y condiciones de lo que estás ofreciendo.'
+      exchange_mechanism: 'En este campo debes describir como los clientes pueden validar su voucher.'
+
+  trades:
+    historical_exchanges_report: 'Informe de canjes históricos'
+    swaps_vs_category:
+      title: 'Canjes vs Categoría'
+      xAxis: 'Canjes de mis clientes'
+      other_xAxis: 'Otros Canjes'
+      yAxis: 'Canjes'
+    swaps_vs_efi:
+      title: 'Canjes vs Empresa de Fidelización'
+      xAxis: 'Empresas de Fidelización'
+      yAxis: 'Canjes'
+    links:
+      category: Canjes por Categoría
+      efi: Canjes por Empresa de Fidelización
+
+
+  menu:
+    puntospoint:
+      title: Menu
+      small_ecos: ECO Chica
+      big_ecos: ECO Grande
+    efi:
+      experiences: Elegir experiencia
+      events: Mis Eventos
+      trades: Reportes
+      banners: Agregar a Favoritos
+      accounts: Clientes
+      publicities: Comunicados
+      api: API
+    eco:
+      experiences: Mis Experiencia
+      new_experience: Crear Experiencia
+      incomes: Mis Ingresos
+      publicities: Comunicados
+
+
+  views:
+    exchange_to: Canje hasta el
+    or: ó
+    more: más
+    know_your_points: Consultar tus
+    you_have: Tienes
+    exchange_your: Canjea tus
+    points: puntos
+    for_the_best: por las mejores
+    experiences: experiencias!
+    featured_experiences: Experiencias Destacadas
+    exchange_with: 'Canjéalo con:'
+    links:
+      featured: Destacadas
+      exchange: Canjear
+      accept: Aceptar
+      participate: Participar
+      add: Agregar
+    advanced_search: Busqueda Avanzada
+    search_experiences: Buscar Experiencias
+    show_all: Ver Todas
+    are_exchanging: 'Estas canjeando:'
+    select_exchange_method: Selecciona Método de Canje
+    be_deducted: 'Se descontaran:'
+    upload_image_to_experience: 'Carga de imagen para experiencia:'
+    exchanges_available: 'Cantidad de Canjes Disponibles:'
+    upload_your_codes: Sube tus códigos
+    use_system_codes: Nosotros subimos tus códigos
+    load_points: Cargar Puntos
+    total_exclusivity: Exclusividad Total
+    by_industry_exclusivity: Exclusividad Por Industria
+    without_exclusivity: Sin Exclusividad
+    events: Lista de Eventos
+    created_event: La experiencia solicitada han sido creadas con éxito.
+    in: En
+    more_information: podrá observar toda la información.
+    region: Región
+    exclusivity:
+      total: Total
+      by_industry: por Industria
+      without: Sin
+    swaps: Canjes
+    account: Tu Cuenta
+
+  activemodel:
+    models:
+      exclusivity:
+        one: 'Exclusividad'
+        other: 'Exclusividades'
+      operation:
+        one: 'Operación'
+        other: 'Operaciones'
+    attributes:
+      exclusivity:
+        name: Nombre
+      operation:
+        name: Nombre
+        mechanism: Mecanismo
+
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'registro inválido'
+        insufficient_points: no dispones de esta cantidad de puntos
+        total_exclusivity_taken: 'Exclusividad total ya fue tomada'
+        industry_exclusivity_taken: 'Exclusividad por Indistria ya fue tomada'
+        has_no_available: '%{model} no disponible'
+        not_available_purchases: 'stock no disponible'
+        invalid_percentage: 'porcentaje inválido'
+        sum_percentage_invalid: debe sumar 100.0%
+        invalid_transition: 'Transacción invalida'
+    models:
+      admin:
+        one: 'Administrador'
+        other: 'Administradores'
+      category:
+        one: 'Categoría'
+        other: 'Categorias'
+      eco:
+        one: 'Empresa con Capacidad Ociosa'
+        other: 'Empresas con Capacidad Ociosa'
+      efi:
+        one: 'Empresa Fidelización'
+        other: 'Empresas Fidelización'
+      event:
+        one: Evento
+        other: Eventos
+      exchange:
+        one: Forma de caje
+        other: Formas de caje
+      experience:
+        one: Experiencia
+        other: Experiencias
+      industry:
+        one: 'Industria'
+        other: 'Industrias'
+      interest:
+        one: 'Interes'
+        other: 'Intereses'
+      user_efi:
+        one: 'Usuario EFI'
+        other: 'Usuarios EFI'
+      transaction:
+        one: Transacción
+        other: Transacciones
+      account:
+        one: Cuenta
+        other: Cuentas
+      purchase:
+        one: Compra
+        other: Compras
+      user_eco:
+        one: 'Usuario ECO'
+        other: 'Usuarios ECO'
+      banner:
+        one: 'Favorito'
+        other: 'Favoritos'
+      valid_image:
+        one: 'Imagen valida para Favoritos'
+        other: 'Imagenes validas para Favoritos'
+      publicity:
+        one: Comunicado
+        other: Comunicados
+    attributes:
+      admin:
+        first_lastname: Apellido Paterno
+        names: Nombres
+        nickname: Nickname
+        rut: Rut
+        second_lastname: Apellido Materno
+        email: Correo electrónico
+        full_name: Nombre completo
+        password: Contraseña
+        password_confirmation: Confirmación contraseña
+        created_at: Creado el
+      category:
+        name: Nombre
+        icon: Icono
+        created_at: Fecha de creación
+      eco:
+        logo: Logo
+        name: Razon Social
+        rut: Rut
+        webpage: Página Web
+        created_at: Creado el
+        fancy_name: Nombre de Fantasía
+        address: Dirección
+        discount: '% mínimo descuento'
+        fee: '% comisión PuntosPoint'
+        comuna_id: Id comuna
+        comuna: Comuna
+        admin_id: Id ejecutivo
+        admin: Ejecutivo
+
+        images: Imagenes para favoritos
+      efi:
+        industries: Industrias
+        industry_ids: Ids Industrias
+        logo: Logo
+        name: Nombre
+        rut: Rut
+        created_at: Creado el
+        zona: Nombre puntos fidelización
+        search_name: Dominio corporativo
+        connector_name: Conector
+        compared: Se Compara con otras EFI's
+        api_username: Usuario API
+        password: Password API
+      event:
+        exclusivity_id: Id Exclusividad
+        exclusivity: Exclusividad
+        swaps: Límite máximo de Canjes
+        efi_id: Id Empresa Fidelización
+        efi: Empresa Fidelización
+        experience_id: Id Experiencia
+        experience: Experiencia
+        quantity: Canjes a reservar
+        state: Estado
+        swaps_or_quantity: Total
+        purchases: Canjes
+      exchange:
+        event: Evento
+        event_id: Id Evento
+        points: Puntos
+        cash: Efectivo
+      experience:
+        amount: Precio
+        category_id: Id Categoría
+        category: Categoría
+        details: Detalles
+        eco_id: id ECO
+        available_efis: Empresas fidelización
+        image: Imagen
+        name: Nombre
+        place: Lugar
+        swaps: Canjes
+        interests: Intereses
+        summary: Enganche
+        starting_at: Disponible desde
+        ending_at: Disponible hasta
+        validity_ending_at: Válido hasta
+        validity_starting_at: Válido desde
+        discounted_price: Precio con descuento
+        discount_percentage: Porcentaje descuento
+        file_codes: Cargar códigos
+        codes: Códigos
+        state: Estado
+        comuna: Comuna
+        efis: Empresas de fidelización
+        valid_images: Imagenes validas para crear favoritos
+        exchange_mechanism: Instrucciones de canje
+        conditions: Condiciones
+        stock_sold: Stock Vendido
+        number_of_issued: Vouchers Emitidos
+        number_of_validations: Vouchers Validados
+        codes_by_purchase: Códigos por canje
+        advertisings: Medios de comunicación autorizados
+        fee: Comisión PuntosPoint
+        total_exclusivity_sales: Exclusividad Total
+        by_industry_exclusivity_sales: Exclusividad por Industria
+        without_exclusivity_sales: Sin Exclusividad
+        total_exclusivity_days: Exclusividad Total
+        by_industry_exclusivity_days: Exclusividad por Industria
+        without_exclusivity_days: Sin Exclusividad
+        exclusivity_deadlines: Plazos Exclusividades
+      industry:
+        name: Nombre
+        percentage: Porcentaje
+        created_at: Fecha de creación
+      interest:
+        name: Nombre
+        created_at: Fecha de creación
+      user_efi:
+        first_lastname: Apellido Paterno
+        names: Nombres
+        nickname: Nickname
+        rut: Rut
+        second_lastname: Apellido Materno
+        email: Correo electrónico
+        full_name: Nombre completo
+        password: Contraseña
+        password_confirmation: Confirmación contraseña
+        efi_id: Id empresa fidelización
+        efi: Empresa fidelización
+        remember_me: No cerrar sesión
+        created_at: Creado el
+        mod_client: Acceso Modulo Clientes
+      transaction:
+        operation: Operación
+        operation_id: Id Operación
+        points: Puntos
+        account_id: Id Cuenta
+      account:
+        points: Puntos
+        efi_id: Id efi
+        efi: Efi
+        name: Nombre
+        rut: Rut
+        transactions: Transacciones
+      purchase:
+        rut: Rut
+        email: Correo electrónico
+        password: Contraseña
+        exchange: Forma de canje
+        exchange_id: Id forma de canje
+        code: Código de validación
+        reference_codes: Códigos de canje
+        created_at: Creado el
+        updated_at: Validado el
+        state: Estado
+      industry_experience:
+        industry: Industria
+        industry_id: Id Industria
+        experience: Experiencia
+        experience_id: Id Experiencia
+        percentage: Porcentaje exclusividad por industria
+      user_eco:
+        first_lastname: Apellido Paterno
+        names: Nombres
+        nickname: Nickname
+        rut: Rut
+        second_lastname: Apellido Materno
+        email: Correo electrónico
+        full_name: Nombre completo
+        password: Contraseña
+        password_confirmation: Confirmación contraseña
+        eco_id: Id Empresa con Capacidad Ociosa
+        eco: Empresa con Capacidad Ociosa
+        remember_me: No cerrar sesión
+        created_at: Creado el
+      banner:
+        event_id: Id Evento
+        event: Evento
+        published: Publicar
+        image: Imagen
+      valid_image:
+        experience: Experiencia
+        experience_id: Id Experiencia
+        image: Imagen
+      publicity:
+        image: Imagen
+        event_id: Id evento
+        event: Evento
+        comment: Comentario
+        state: Estado
+        file_representation: Imagen
+        created_at: Fecha de creación

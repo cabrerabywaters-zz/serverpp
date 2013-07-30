@@ -1,0 +1,8 @@
+= simple_form_for [:puntos_point, @category], html: {class: 'form-horizontal' } do |f|
+  = f.input :name
+  = f.input :icon
+  = f.input :texture_name, collection: Category::TEXTURES, include_blank: false
+  .form-actions
+    = f.button :submit, class: 'btn-warning pull-right ml-10'
+    - if can? :read, Category
+      = link_to t("helpers.links.cancel"), puntos_point_categories_path, class: 'btn btn-inverse pull-right'

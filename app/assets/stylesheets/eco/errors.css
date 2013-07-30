@@ -1,0 +1,5 @@
+form.eco input[type="text"]{
+  font-size: 14px;
+}
+
+form.eco .row-fluid .controls-row div.first_interest{margin-left: 0px;}

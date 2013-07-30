@@ -1,0 +1,48 @@
+!!! 5
+%html(lang="en")
+  %head
+    %meta(charset="utf-8")
+    %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    %title= content_for?(:title) ? yield(:title) : "Puntos Point"
+    = csrf_meta_tags
+    / Le HTML5 shim, for IE6-8 support of HTML elements
+    /[if lt IE 9]
+      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
+    = stylesheet_link_tag "application", :media => "all"
+    %link(href="images/apple-touch-icon-144x144.png" rel="apple-touch-icon-precomposed" sizes="144x144")
+    %link(href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon-precomposed" sizes="114x114")
+    %link(href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon-precomposed" sizes="72x72")
+    %link(href="images/apple-touch-icon.png" rel="apple-touch-icon-precomposed")
+
+    =# favicon_link_tag
+
+  %body
+    #container
+      / Header
+      %header.backgroundHeader
+        #headerContainer.container
+          .navbar
+            .container
+              - unless current_page?(corporative_root_path(corporative_id: @corporative.search_name)) || current_page?(corporative_events_path(corporative_id: @corporative.search_name))
+                / Logo
+                #logo
+                  = link_to corporative_root_path(corporative_id: @corporative.search_name) do
+                    = image_tag @corporative.logo(:thumb), alt: @corporative.name, title: @corporative.name
+
+
+      = bootstrap_flash
+      %section#main
+        #mainContainer.container.contenido
+          = yield
+        .cb
+
+    / %footer#footer.backgroundFooter
+    /   #footerContainer.container
+    /     .row-fluid
+
+    /
+      Javascripts
+      \==================================================
+    / Placed at the end of the document so the pages load faster
+    = javascript_include_tag "corporative/application"

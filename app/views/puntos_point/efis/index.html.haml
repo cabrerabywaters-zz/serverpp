@@ -1,0 +1,36 @@
+- model_class = Efi
+.page-header
+  %h1= model_class.model_name.human.pluralize
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:rut)
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:zona)
+      %th= model_class.human_attribute_name(:compared)
+      %th= model_class.human_attribute_name(:created_at)
+      %th= t("helpers.actions")
+  %tbody
+    - @efis.each do |efi|
+      %tr
+        %td
+          - if can? :show, efi
+            = link_to efi.id, puntos_point_efi_path(efi.id)
+          - else
+            %td= efi.id
+        %td= Run.format efi.rut
+        %td= trim_to(efi.name, 20).html_safe
+        %td= trim_to(efi.zona, 20).html_safe
+        %td= booleanize efi.compared
+        %td=l efi.created_at, format: :short
+        %td
+          - if can? :update, efi
+            = link_to edit_puntos_point_efi_path(efi.id), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
+              %i.icon-pencil
+          - if can? :destroy, efi
+            = link_to puntos_point_efi_path(efi.id), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-danger' do
+              %i.icon-trash
+
+- if can? :create, model_class
+  = link_to t("helpers.links.new"), new_puntos_point_efi_path, class: 'btn btn-warning pull-right'

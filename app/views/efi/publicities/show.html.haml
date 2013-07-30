@@ -1,0 +1,38 @@
+- model_class = Publicity
+.page-header
+  %h1= model_class.model_name.human
+
+%dl.dl-horizontal
+  %dt= model_class.human_attribute_name(:event) + ':'
+  %dd= @publicity.event
+
+  %dt= model_class.human_attribute_name(:state) + ':'
+  %dd
+    - if @publicity.pending?
+      %span.label.label-warning= @publicity.translate_state
+    - elsif @publicity.rejected?
+      %span.label.label-important= @publicity.translate_state
+    - else
+      %span.label.label-success= @publicity.translate_state
+
+  %dt= model_class.human_attribute_name(:comment) + ':'
+  %dd= @publicity.comment || '-'
+
+  %dt= model_class.human_attribute_name(:image) + ':'
+  %dd
+    - if @publicity.is_image?
+      = image_tag @publicity.image.url
+    - elsif @publicity.is_pdf?
+      = image_tag 'pdf.png'
+    - elsif @publicity.is_office?
+      = image_tag 'office.jpg'
+    - elsif @publicity.is_compressed_file?
+      = image_tag 'zip.jpg'
+    - else
+      = image_tag 'file.png'
+
+.form-actions
+  - if can? :destroy, @publicity
+    = link_to t("helpers.links.destroy"), efi_publicity_path(@publicity), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-danger pull-right ml-10'
+  - if can? :read, model_class
+    = link_to t("helpers.links.back"), efi_publicities_path, class: 'btn btn-inverse pull-right'

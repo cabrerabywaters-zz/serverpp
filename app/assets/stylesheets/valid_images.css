@@ -1,0 +1,11 @@
+#valid_images .nested-fields{position: relative;}
+#valid_images .nested-fields .remove_fields{
+  position: absolute;
+  top: 0px;
+  right: 20px;
+}
+
+label.error,
+span.help-inline {
+  color: #b94a48;
+}

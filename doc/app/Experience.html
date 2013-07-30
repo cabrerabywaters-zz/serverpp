@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class Experience - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/experience.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-available_exclusivity_by_industry-3F">#available_exclusivity_by_industry?</a>
+    
+    <li><a href="#method-i-available_total_exclusivity-3F">#available_total_exclusivity?</a>
+    
+    <li><a href="#method-i-available_without_exclusivity-3F">#available_without_exclusivity?</a>
+    
+    <li><a href="#method-i-file_codes-3D">#file_codes=</a>
+    
+    <li><a href="#method-i-get_discount_percentage">#get_discount_percentage</a>
+    
+    <li><a href="#method-i-in_state-3F">#in_state?</a>
+    
+    <li><a href="#method-i-industry_swaps">#industry_swaps</a>
+    
+    <li><a href="#method-i-minimum_without_swaps">#minimum_without_swaps</a>
+    
+    <li><a href="#method-i-number_of_validations">#number_of_validations</a>
+    
+    <li><a href="#method-i-translate_state">#translate_state</a>
+    
+    <li><a href="#method-i-validated-3D">#validated=</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./PuntosPoint.html">PuntosPoint</a>
+  
+    <li><a href="./PuntosPoint/AdminsController.html">PuntosPoint::AdminsController</a>
+  
+    <li><a href="./PuntosPoint/CategoriesController.html">PuntosPoint::CategoriesController</a>
+  
+    <li><a href="./PuntosPoint/EcosController.html">PuntosPoint::EcosController</a>
+  
+    <li><a href="./PuntosPoint/EfisController.html">PuntosPoint::EfisController</a>
+  
+    <li><a href="./PuntosPoint/EventsController.html">PuntosPoint::EventsController</a>
+  
+    <li><a href="./PuntosPoint/ExperiencesController.html">PuntosPoint::ExperiencesController</a>
+  
+    <li><a href="./PuntosPoint/IndustriesController.html">PuntosPoint::IndustriesController</a>
+  
+    <li><a href="./PuntosPoint/InterestsController.html">PuntosPoint::InterestsController</a>
+  
+    <li><a href="./PuntosPoint/PercentageIndustriesController.html">PuntosPoint::PercentageIndustriesController</a>
+  
+    <li><a href="./PuntosPoint/PuntosPointApplicationController.html">PuntosPoint::PuntosPointApplicationController</a>
+  
+    <li><a href="./PuntosPoint/UserEcosController.html">PuntosPoint::UserEcosController</a>
+  
+    <li><a href="./PuntosPoint/UserEfisController.html">PuntosPoint::UserEfisController</a>
+  
+    <li><a href="./Efi.html">Efi</a>
+  
+    <li><a href="./Efi/AccountsController.html">Efi::AccountsController</a>
+  
+    <li><a href="./Efi/BannersController.html">Efi::BannersController</a>
+  
+    <li><a href="./Efi/EfiApplicationController.html">Efi::EfiApplicationController</a>
+  
+    <li><a href="./Efi/EventsController.html">Efi::EventsController</a>
+  
+    <li><a href="./Efi/ExperiencesController.html">Efi::ExperiencesController</a>
+  
+    <li><a href="./Efi/SummaryController.html">Efi::SummaryController</a>
+  
+    <li><a href="./Efi/TradesController.html">Efi::TradesController</a>
+  
+    <li><a href="./Efi/UserEfisController.html">Efi::UserEfisController</a>
+  
+    <li><a href="./Eco.html">Eco</a>
+  
+    <li><a href="./Eco/EcoApplicationController.html">Eco::EcoApplicationController</a>
+  
+    <li><a href="./Eco/ExperiencesController.html">Eco::ExperiencesController</a>
+  
+    <li><a href="./Eco/IncomesController.html">Eco::IncomesController</a>
+  
+    <li><a href="./Eco/PurchasesController.html">Eco::PurchasesController</a>
+  
+    <li><a href="./Eco/UserEcosController.html">Eco::UserEcosController</a>
+  
+    <li><a href="./Corporative.html">Corporative</a>
+  
+    <li><a href="./Corporative/CorporativeApplicationController.html">Corporative::CorporativeApplicationController</a>
+  
+    <li><a href="./Corporative/EventsController.html">Corporative::EventsController</a>
+  
+    <li><a href="./Corporative/PointsController.html">Corporative::PointsController</a>
+  
+    <li><a href="./Corporative/PurchasesController.html">Corporative::PurchasesController</a>
+  
+    <li><a href="./ChileanCities.html">ChileanCities</a>
+  
+    <li><a href="./ChileanCities/Comuna.html">ChileanCities::Comuna</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./Account.html">Account</a>
+  
+    <li><a href="./Admin.html">Admin</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Banner.html">Banner</a>
+  
+    <li><a href="./BaseConnector.html">BaseConnector</a>
+  
+    <li><a href="./Category.html">Category</a>
+  
+    <li><a href="./CloseEventWorker.html">CloseEventWorker</a>
+  
+    <li><a href="./CloseExperienceWorker.html">CloseExperienceWorker</a>
+  
+    <li><a href="./Event.html">Event</a>
+  
+    <li><a href="./Exchange.html">Exchange</a>
+  
+    <li><a href="./Exclusivity.html">Exclusivity</a>
+  
+    <li><a href="./Experience.html">Experience</a>
+  
+    <li><a href="./ExperienceAvailableValidator.html">ExperienceAvailableValidator</a>
+  
+    <li><a href="./ExperienceEfi.html">ExperienceEfi</a>
+  
+    <li><a href="./ExpireExperiencesWorker.html">ExpireExperiencesWorker</a>
+  
+    <li><a href="./Industry.html">Industry</a>
+  
+    <li><a href="./IndustryEfi.html">IndustryEfi</a>
+  
+    <li><a href="./IndustryExclusivityValidator.html">IndustryExclusivityValidator</a>
+  
+    <li><a href="./IndustryExperience.html">IndustryExperience</a>
+  
+    <li><a href="./Interest.html">Interest</a>
+  
+    <li><a href="./InterestExperience.html">InterestExperience</a>
+  
+    <li><a href="./Operation.html">Operation</a>
+  
+    <li><a href="./Purchase.html">Purchase</a>
+  
+    <li><a href="./PurchaseMailer.html">PurchaseMailer</a>
+  
+    <li><a href="./Settings.html">Settings</a>
+  
+    <li><a href="./SwapsValidator.html">SwapsValidator</a>
+  
+    <li><a href="./TotalExclusivityValidator.html">TotalExclusivityValidator</a>
+  
+    <li><a href="./Transaction.html">Transaction</a>
+  
+    <li><a href="./UserEco.html">UserEco</a>
+  
+    <li><a href="./UserEfi.html">UserEfi</a>
+  
+    <li><a href="./ValidImage.html">ValidImage</a>
+  
+    <li><a href="./WithoutExclusivityValidator.html">WithoutExclusivityValidator</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Experience</h1>
+
+  <div id="description" class="description">
+    
+<p>Public: Experiencias.</p>
+
+<p>@public String <a
+href="Experience.html#method-i-translate_state">#translate_state</a>()
+Permite obtener el estado en que se encuentra</p>
+
+<pre>la experiencia.</pre>
+
+<p>@public Boolean in_state?([]) Helper para saber si la experiencia se
+encuentra</p>
+
+<pre>en alguno de los estado dados.</pre>
+
+<p>@public Boolean <a
+href="Experience.html#method-i-number_of_validations">#number_of_validations</a>()
+Número de validaciones realizadas por</p>
+
+<pre>la eco en la experiencia en cuestion.</pre>
+
+<p>@public Boolean <a
+href="Experience.html#method-i-get_discount_percentage">#get_discount_percentage</a>()
+Entrega el porcentaje de descuento</p>
+
+<pre>aplicado a la experiencia.</pre>
+
+<p>@public Boolean available_total_exclusivity?() Indica si la exclusividad
+total</p>
+
+<pre>esta disponible para la experiencia
+en cuestión.</pre>
+
+<p>@public Boolean available_exclusivity_by_industry?(efi) Indica si la
+exclusividad</p>
+
+<pre>por industria esta disponible
+para la experiencia en
+cuestión, en base a las
+industrias de la efi dada.</pre>
+
+<p>@public Boolean available_without_exclusivity?() Indica si sin exclusividad
+esta</p>
+
+<pre>disponible para la experiencia
+en cuestión.</pre>
+
+<p>@public Integer <a
+href="Experience.html#method-i-industry_swaps">#industry_swaps</a>(efi)
+Entrega la cantidad de canjes a reservar</p>
+
+<pre>para exclusividades por industria.</pre>
+
+<p>@public Integer <a
+href="Experience.html#method-i-minimum_without_swaps">#minimum_without_swaps</a>()
+Entrega la cantidad de canjes a reservar</p>
+
+<pre>para sin exclusividad.</pre>
+
+<p>@private Date|NilClass set_starting_at() Callback para setea por defecto un
+valor</p>
+
+<pre>en la columna :starting_at.</pre>
+
+<p>@private Date|NilClass set_ending_at() Callback para setea por defecto un
+valor</p>
+
+<pre>en la columna :set_ending_at.</pre>
+
+<p>@private Date|NilClass set_validity_starting_at() Callback para setea por
+defecto un valor</p>
+
+<pre>en la columna :validity_starting_at.</pre>
+
+<p>@private Date|NilClass set_validity_ending_at() Callback para setea por
+defecto un valor</p>
+
+<pre>en la columna :validity_ending_at.</pre>
+
+<p>@private Integer|NilClass set_discounted_price() Callback para setea por
+defecto</p>
+
+<pre>un valor en la columna discounted_price</pre>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-discount_percentage" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">discount_percentage</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Attributos que no estan persistidos en la base de datos, pero que pueden
+ser seleccionados en algun formulario de experiencias, y que además puedes
+ser validados, traducidos entre otras cosas.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-file_codes" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">file_codes</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Attributos que no estan persistidos en la base de datos, pero que pueden
+ser seleccionados en algun formulario de experiencias, y que además puedes
+ser validados, traducidos entre otras cosas.</p>
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-available_exclusivity_by_industry-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">available_exclusivity_by_industry?</span><span
+            class="method-args">(efi)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Public: Indica si la exclusividad por industria esta disponible para la</p>
+
+<pre>experiencia en cuestión, en base a las industrias de la efi dada.</pre>
+
+<p>@parametros: <a href="Efi.html">Efi</a> efi - <a href="Efi.html">Efi</a>
+para consultar</p>
+
+<p>Returns Boolean.</p>
+          
+
+          
+          <div class="method-source-code" id="available_exclusivity_by_industry-3F-source">
+            <pre><span class="ruby-comment"># File app/models/experience.rb, line 398</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">available_exclusivity_by_industry?</span>(<span class="ruby-identifier">efi</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">events</span>.<span class="ruby-identifier">total_exclusivity</span>.<span class="ruby-identifier">any?</span> <span class="ruby-comment"># No se puede pedir si el evento ya tiene exclusividad total</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">events</span>.<span class="ruby-identifier">exclusivity_by_industry</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-comment"># Si aun no hay nadie con la exclusividad</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">events</span>.<span class="ruby-identifier">exclusivity_by_industry</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">i</span>.<span class="ruby-identifier">efi</span>.<span class="ruby-identifier">industries</span>}.<span class="ruby-identifier">flatten</span> &amp; <span class="ruby-identifier">efi</span>.<span class="ruby-identifier">industries</span>).<span class="ruby-identifier">any?</span> <span class="ruby-comment"># No se puede pedir el evento, si alguna de las EFI actuales tiene la misma industria</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- available_exclusivity_by_industry-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- available_exclusivity_by_industry-3F-method -->
+
+    
+      <div id="method-i-available_total_exclusivity-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">available_total_exclusivity?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Public: Indica si la exclusividad total esta disponible para la experiencia</p>
+
+<pre>en cuestión.</pre>
+
+<p>Returns Boolean.</p>
+          
+
+          
+          <div class="method-source-code" id="available_total_exclusivity-3F-source">
+            <pre><span class="ruby-comment"># File app/models/experience.rb, line 387</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">available_total_exclusivity?</span>
+  <span class="ruby-identifier">events</span>.<span class="ruby-identifier">empty?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- available_total_exclusivity-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- available_total_exclusivity-3F-method -->
+
+    
+      <div id="method-i-available_without_exclusivity-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">available_without_exclusivity?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Public: Indica si sin exclusividad esta disponible para la experiencia en</p>
+
+<pre>cuestión.</pre>
+
+<p>Returns Boolean.</p>
+          
+
+          
+          <div class="method-source-code" id="available_without_exclusivity-3F-source">
+            <pre><span class="ruby-comment"># File app/models/experience.rb, line 412</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">available_without_exclusivity?</span>
+  <span class="ruby-identifier">events</span>.<span class="ruby-identifier">total_exclusivity</span>.<span class="ruby-identifier">empty?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- available_without_exclusivity-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- available_without_exclusivity-3F-method -->
+
+    
+      <div id="method-i-file_codes-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">file_codes=</span><span
+            class="method-args">(file)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Public: Setear para códigos, permite leer el excel que suben con los
+códigos.</p>
+
+<p>@parametros: File file - archivo excel a ser cargado</p>
+
+<p>Returns Array con los códigos leído del excel.</p>
+          
+
+          
+          <div class="method-source-code" id="file_codes-3D-source">
+            <pre><span class="ruby-comment"># File app/models/experience.rb, line 373</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">file_codes=</span> <span class="ruby-identifier">file</span>
+  <span class="ruby-identifier">spreadsheet</span> = <span class="ruby-constant">Roo</span><span class="ruby-operator">::</span><span class="ruby-constant">Excelx</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>.<span class="ruby-identifier">path</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-value">:ignore</span>)
+  <span class="ruby-identifier">read_codes</span> = []
+  (<span class="ruby-identifier">spreadsheet</span>.<span class="ruby-identifier">first_row</span><span class="ruby-operator">..</span><span class="ruby-identifier">spreadsheet</span>.<span class="ruby-identifier">last_row</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">code</span> = <span class="ruby-identifier">spreadsheet</span>.<span class="ruby-identifier">cell</span>(<span class="ruby-string">'A'</span>, <span class="ruby-identifier">i</span>)
+    <span class="ruby-identifier">read_codes</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">code</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">code</span>.<span class="ruby-identifier">presence</span> <span class="ruby-keyword">and</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">read_codes</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">code</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">codes</span> = <span class="ruby-identifier">read_codes</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- file_codes-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- file_codes-3D-method -->
+
+    
+      <div id="method-i-get_discount_percentage" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_discount_percentage</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Public: Entrega el porcentaje de descuento aplicado a la experiencia. Esto</p>
+
+<pre>debido a que la experiencia no almacena el valor del porcentaje, este
+es usado desde el formulario solo para calcular el valor real del precio
+con el descuento aplicado.</pre>
+
+<p>Returns Float.</p>
+          
+
+          
+          <div class="method-source-code" id="get_discount_percentage-source">
+            <pre><span class="ruby-comment"># File app/models/experience.rb, line 358</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_discount_percentage</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">amount</span>.<span class="ruby-identifier">presence</span> <span class="ruby-keyword">and</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">discounted_price</span>.<span class="ruby-identifier">presence</span>
+    <span class="ruby-identifier">discount</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">amount</span> <span class="ruby-operator">-</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">discounted_price</span>
+    <span class="ruby-identifier">discount</span>.<span class="ruby-identifier">to_f</span> * <span class="ruby-value">100</span> <span class="ruby-operator">/</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">amount</span>.<span class="ruby-identifier">to_f</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_discount_percentage-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_discount_percentage-method -->
+
+    
+      <div id="method-i-in_state-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">in_state?</span><span
+            class="method-args">(states)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Public: Helper para saber si la experiencia se encuentra en alguno de los</p>
+
+<pre>estado dados.</pre>
+
+<p>@parametros: Array|String|Symbol states - estado(s) a consultar contra el
+estado de la experiencia</p>
+
+<p>Returns Boolean.</p>
+          
+
+          
+          <div class="method-source-code" id="in_state-3F-source">
+            <pre><span class="ruby-comment"># File app/models/experience.rb, line 315</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">in_state?</span>(<span class="ruby-identifier">states</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">states</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Array</span>
+    <span class="ruby-identifier">states</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">to_s</span>}.<span class="ruby-identifier">include?</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">state</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">states</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">String</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">states</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Symbol</span>
+    <span class="ruby-identifier">states</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">state</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- in_state-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- in_state-3F-method -->
+
+    
+      <div id="method-i-industry_swaps" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">industry_swaps</span><span
+            class="method-args">(efi)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Public: Entrega la cantidad de canjes a reservar para exclusividades por
+industria.</p>
+
+<pre>Para esto utiliza la efi dada, y en base a todas las industrias de la
+misma se calcula este porcentaje.</pre>
+
+<p>@parametros: <a href="Efi.html">Efi</a> efi - <a href="Efi.html">Efi</a>
+para consultar</p>
+
+<p>Returns Integer.</p>
+          
+
+          
+          <div class="method-source-code" id="industry_swaps-source">
+            <pre><span class="ruby-comment"># File app/models/experience.rb, line 424</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">industry_swaps</span> <span class="ruby-identifier">efi</span>
+  <span class="ruby-identifier">efi_percentage</span> = <span class="ruby-value">0.0</span>
+  <span class="ruby-identifier">efi</span>.<span class="ruby-identifier">industries</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">industry</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">industry_experience</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">industry_experiences</span>.<span class="ruby-identifier">find_by_industry_id</span>(<span class="ruby-identifier">industry</span>.<span class="ruby-identifier">id</span>)
+      <span class="ruby-identifier">efi_percentage</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">industry_experience</span>.<span class="ruby-identifier">percentage</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  [(<span class="ruby-identifier">efi_percentage</span> * <span class="ruby-value">0.01</span> * <span class="ruby-identifier">swaps</span>).<span class="ruby-identifier">round</span>, <span class="ruby-value">0</span>].<span class="ruby-identifier">max</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- industry_swaps-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- industry_swaps-method -->
+
+    
+      <div id="method-i-minimum_without_swaps" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">minimum_without_swaps</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Public: Entrega la cantidad de canjes a reservar para sin exclusividad.</p>
+
+<pre>Para esto utiliza el porcentaje definido globalmente.</pre>
+
+<p>Returns Integer.</p>
+          
+
+          
+          <div class="method-source-code" id="minimum_without_swaps-source">
+            <pre><span class="ruby-comment"># File app/models/experience.rb, line 439</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">minimum_without_swaps</span>
+  (<span class="ruby-constant">Settings</span>.<span class="ruby-identifier">minimum_percentage_swap_without_exclusivity</span> * <span class="ruby-identifier">swaps</span>).<span class="ruby-identifier">round</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- minimum_without_swaps-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- minimum_without_swaps-method -->
+
+    
+      <div id="method-i-number_of_validations" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">number_of_validations</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Public: Número de validaciones realizadas por la eco en la experiencia en
+cuestion.</p>
+
+<p>Returns Integer.</p>
+          
+
+          
+          <div class="method-source-code" id="number_of_validations-source">
+            <pre><span class="ruby-comment"># File app/models/experience.rb, line 346</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">number_of_validations</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">events</span>.<span class="ruby-identifier">total_exclusivity</span>.<span class="ruby-identifier">sum</span>(<span class="ruby-value">:quantity</span>) <span class="ruby-operator">+</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">events</span>.<span class="ruby-identifier">exclusivity_by_industry</span>.<span class="ruby-identifier">sum</span>(<span class="ruby-value">:quantity</span>) <span class="ruby-operator">+</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">events</span>.<span class="ruby-identifier">without_exclusivity</span>.<span class="ruby-identifier">joins</span>(<span class="ruby-value">:purchases</span>).<span class="ruby-identifier">where</span>(<span class="ruby-identifier">purchases</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">state</span><span class="ruby-operator">:</span> <span class="ruby-string">'validated'</span>}).<span class="ruby-identifier">count</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- number_of_validations-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- number_of_validations-method -->
+
+    
+      <div id="method-i-translate_state" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">translate_state</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Internal: Permite obtener el estado en que se encuentra la experiencia, en
+un</p>
+
+<pre>formato más legible por el usuario final, para esto usa el archivo
+de traducciones I18n (http://guides.rubyonrails.org/i18n.html).</pre>
+
+<p>Retorna un String con contiene el nombre del estado ya traducido.</p>
+          
+
+          
+          <div class="method-source-code" id="translate_state-source">
+            <pre><span class="ruby-comment"># File app/models/experience.rb, line 301</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">translate_state</span>
+  <span class="ruby-identifier">translate</span> = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">'state_machine.experience.'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">state</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">translate</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">translate</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">'translation missing:'</span>)
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">state</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- translate_state-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- translate_state-method -->
+
+    
+      <div id="method-i-validated-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">validated=</span><span
+            class="method-args">(val)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Setear para state, permite setear el estado en pendiento o publicado segun
+sea el caso, de esta forma los usuarios no pueden setar directamente el
+estado de la experiencia</p>
+          
+
+          
+          <div class="method-source-code" id="validated-3D-source">
+            <pre><span class="ruby-comment"># File app/models/experience.rb, line 272</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">validated=</span> <span class="ruby-identifier">val</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">pending?</span> <span class="ruby-keyword">or</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">published?</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">val</span> <span class="ruby-operator">==</span> <span class="ruby-string">'true'</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">val</span> <span class="ruby-operator">==</span> <span class="ruby-string">'1'</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">val</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">true</span>
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">state</span> = <span class="ruby-string">'published'</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">state</span> = <span class="ruby-string">'pending'</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- validated-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- validated-3D-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

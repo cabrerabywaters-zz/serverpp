@@ -1,0 +1,37 @@
+- model_class = Account
+.page-header
+  %h1= model_class.model_name.human
+
+%dl.dl-horizontal
+  %dt= model_class.human_attribute_name(:rut) + ':'
+  %dd= Run.format @account.rut
+  %dt= model_class.human_attribute_name(:name) + ':'
+  %dd= @account.name
+  %dt= model_class.human_attribute_name(:points) + ':'
+  %dd
+    %strong= number_to_currency @account.points, unit: ''
+  %dt= model_class.human_attribute_name(:transactions) + ':'
+  - if @account.transactions.any?
+    - @account.transactions.each do |transaction|
+      %dd.transaction
+        - if transaction.operation.mechanism == '+'
+          %icon.icon-plus
+        - elsif transaction.operation.mechanism == '-'
+          %icon.icon-minus
+        - else
+          %icon.icon-random
+        = transaction.operation.name
+        %strong= number_to_currency transaction.points, unit: ''
+  - else
+    %dd -
+
+
+
+.form-actions
+  - if can? :destroy, @account
+    = link_to t("helpers.links.destroy"), efi_account_path(@account), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-danger pull-right ml-10'
+  - if can? :update, @account
+    = link_to t("helpers.links.edit"), edit_efi_account_path(@account), class: 'btn btn-warning pull-right ml-10'
+  - if can? :read, model_class
+    = link_to t("helpers.links.back"), efi_accounts_path, class: 'btn btn-inverse pull-right'
+

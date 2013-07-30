@@ -1,0 +1,11 @@
+.page-header
+  = link_to generate_efi_api_index_path, method: :post, class: 'btn btn-warning pull-right' do
+    %i.icon.icon-key.icon-white.icon-large
+    = t(:generate_credentials, scope: [:helpers, :links])
+  %h1= t(:api, scope: [:helpers, :titles])
+
+%dl
+  %dt= Efi.human_attribute_name(:api_username)
+  %dd= current_user_efi.efi.api_username
+  %dt= Efi.human_attribute_name(:api_password)
+  %dd= current_user_efi.efi.api_password

@@ -1,0 +1,245 @@
+.row-fluid.configEco
+  - if @experience.errors.any?
+    .alert.alert-error
+      %button{class: "close", 'data-dismiss' => "alert"} ×
+      %ul
+        - @experience.errors.full_messages.each do |messsage|
+          %li.text-error= messsage
+
+  = simple_form_for [:eco, @experience], html: { class: 'eco' } do |f|
+    = f.hidden_field :eco_id, value: current_user_eco.eco_id
+    .row-fluid
+      .span7
+        .control-group{class: @experience.errors[:name].any? ? 'error' : ''}
+          %label
+            = Experience.human_attribute_name(:name)
+            %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.name'), class: 'icon-tooltip'}
+          .controls
+            = f.input_field :name, class: "input-block-level", placeholder: Experience.human_attribute_name(:name)
+        .control-group{class: @experience.errors[:summary].any? ? 'error' : ''}
+          .controls
+            %label
+              = Experience.human_attribute_name(:summary)
+              %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.summary'), class: 'icon-tooltip'}
+            = f.input_field :summary, class: "input-block-level", placeholder: Experience.human_attribute_name(:summary)
+
+        .controls-row
+          .span3.control-group{class: @experience.errors[:place].any? ? 'error' : ''}
+            .controls
+              %label= Experience.human_attribute_name(:place)
+              = f.input_field :place, class: "input-block-level", placeholder: Experience.human_attribute_name(:place)
+
+          .span3.control-group{class: @experience.errors[:chilean_cities_comuna_id].any? ? 'error' : ''}
+            .controls
+              %label= Experience.human_attribute_name(:comuna)
+              = f.input_field :chilean_cities_comuna_id, include_blank: false, class: "input-block-level", collection: ChileanCities::Comuna.all
+
+          .span3.control-group{class: @experience.errors[:hour].any? ? 'error' : ''}
+            .controls
+              %label
+                = Experience.human_attribute_name(:hour)
+                %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.hour'), class: 'icon-tooltip'}
+              = f.input_field :hour, class: "input-block-level", placeholder: Experience.human_attribute_name(:hour)
+
+          .span3.control-group{class: @experience.errors[:category_id].any? ? 'error' : ''}
+            .controls
+              %label
+                = Experience.human_attribute_name(:category)
+                %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.category'), class: 'icon-tooltip'}
+              = f.input_field :category_id, include_blank: false, class: "input-block-level", collection: Category.all
+
+        .controls-row
+          .span12
+            = Experience.human_attribute_name(:interests)
+            %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.interests'), class: 'icon-tooltip'}
+
+        .controls-row
+          .control-group{class: @experience.errors[:interests].any? ? 'error' : ''}
+            .controls
+              - Interest.all.each_with_index do |interest, index|
+                .span3{class: index % 4 == 0 ? 'first_interest' : ''}
+                  %label.checkbox
+                    - if @experience.interests.include? interest
+                      %input{type: "checkbox", value: interest.id, name: 'experience[interest_ids][]', checked: :checked}
+                    - else
+                      %input{type: "checkbox", value: interest.id, name: 'experience[interest_ids][]'}
+                    = interest.name
+
+      .span5.relative
+        %p= t('views.upload_image_to_experience')
+        - if @experience.image? and FileTest.exist?('public' + @experience.image.url(:original, timestamp: false))
+          = image_tag @experience.image.url, class: 'preview_container'
+        - else
+          = image_tag 'default_experiencia.png', alt: 'Puntos Point', title: 'Puntos Point', class: 'preview_container'
+        .image_size
+          = image_tag 'default_experiencia_over.png', alt: 'Puntos Point', title: 'Puntos Point'
+
+        .control-group{class: @experience.errors[:image].any? ? 'error' : ''}
+          .controls
+            = f.input_field :image, class: 'preview_image'
+
+    %hr.linea2
+    .row-fluid
+      .span4.well.well-small.wellEco
+        %label
+          = Experience.human_attribute_name(:amount)
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.amount'), class: 'icon-tooltip'}
+        .control-group{class: @experience.errors[:amount].any? ? 'error' : ''}
+          .controls
+            .input-prepend
+              .add-on $
+              = f.input_field :amount, class: "input-medium", placeholder: "200.000", value: number_to_currency(@experience.amount, unit: ''), onkeypress: "return permiteNumeros(event);"
+
+        %label
+          = Experience.human_attribute_name(:discounted_price)
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.discounted_price'), class: 'icon-tooltip'}
+        .control-group{class: @experience.errors[:discounted_price].any? ? 'error' : ''}
+          .controls
+            .input-prepend
+              .add-on $
+              = f.input_field :discounted_price, class: "input-medium", placeholder: "170.000", value: number_to_currency(@experience.discounted_price, unit: ''), onkeypress: "return permiteNumeros(event);"
+
+        %label
+          = Experience.human_attribute_name(:discount_percentage)
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.discount_percentage'), class: 'icon-tooltip'}
+        .control-group{class: @experience.errors[:discount_percentage].any? ? 'error' : ''}
+          .controls
+            .input-append
+              = f.input_field :discount_percentage, class: 'input-mini', placeholder: "15", value: number_to_currency(@experience.get_discount_percentage, precision: 2, unit: ''), onkeypress: "return permiteNumeros(event);"
+              .add-on %
+
+      .span4.well.well-small.wellEco
+        %label
+          = Experience.human_attribute_name(:starting_at)
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.starting_at'), class: 'icon-tooltip'}
+        .control-group{class: @experience.errors[:starting_at].any? ? 'error' : ''}
+          .controls
+            .datepicker.input-append.date
+              = f.input_field :starting_at, as: :string, class: 'input-small', value: I18n.l(@experience.starting_at, format: :datepicker)
+              %span.add-on
+                %i.icon-calendar
+        %label
+          = Experience.human_attribute_name(:ending_at)
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.ending_at'), class: 'icon-tooltip'}
+        .control-group{class: @experience.errors[:ending_at].any? ? 'error' : ''}
+          .controls
+            .datepicker.input-append.date
+              = f.input_field :ending_at, as: :string, class: 'input-small', value: I18n.l(@experience.ending_at, format: :datepicker)
+              %span.add-on
+                %i.icon-calendar
+        %label
+          = Experience.human_attribute_name(:validity_starting_at)
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.validity_starting_at'), class: 'icon-tooltip'}
+        .control-group{class: @experience.errors[:validity_starting_at].any? ? 'error' : ''}
+          .controls
+            .datepicker.input-append.date
+              = f.input_field :validity_starting_at, as: :string, class: 'input-small', value: I18n.l(@experience.validity_starting_at, format: :datepicker)
+              %span.add-on
+                %i.icon-calendar
+        %label
+          = Experience.human_attribute_name(:validity_ending_at)
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.validity_ending_at'), class: 'icon-tooltip'}
+        .control-group{class: @experience.errors[:validity_ending_at].any? ? 'error' : ''}
+          .controls
+            .datepicker.input-append.date
+              = f.input_field :validity_ending_at, as: :string, class: 'input-small', value: I18n.l(@experience.validity_ending_at, format: :datepicker)
+              %span.add-on
+                %i.icon-calendar
+
+      .span4.well.well-small.wellEco
+        %label
+          = t('views.exchanges_available')
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.swaps'), class: 'icon-tooltip'}
+        .control-group{class: @experience.errors[:swaps].any? ? 'error' : ''}
+          .controls
+            = f.input_field :swaps, class: 'input-mini min_max', data: { min: 1 }, placeholder: '1.000', onkeypress: "return permiteNumeros(event);"
+
+        %label
+          = Experience.human_attribute_name(:codes_by_purchase)
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.swaps'), class: 'icon-tooltip'}
+        .control-group{class: @experience.errors[:codes_by_purchase].any? ? 'error' : ''}
+          .controls
+            = f.input_field :codes_by_purchase, class: 'input-mini min_max', data: { min: 1 }, placeholder: '1', onkeypress: "return permiteNumeros(event);"
+
+        %label
+          = Experience.human_attribute_name(:exchange_mechanism)
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.exchange_mechanism'), class: 'icon-tooltip'}
+        .control-group{class: @experience.errors[:exchange_mechanism].any? ? 'error' : ''}
+          .controls
+            = f.input_field :exchange_mechanism
+
+        %hr.linea2
+
+        = t('views.upload_your_codes')
+        %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.codes'), class: 'icon-tooltip'}
+        - @experience.codes.each_with_index do |code, index|
+          - if index > 0
+            |
+          = code
+        %br
+        .control-group{class: @experience.errors[:file_codes].any? ? 'error' : ''}
+          .controls
+            = f.input_field :file_codes, as: :file
+        = t('views.use_system_codes')
+        %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.system_codes'), class: 'icon-tooltip'}
+
+    .row-fluid
+      .span6.well.well-small.wellEco
+        %label
+          = Experience.human_attribute_name(:efis)
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.efis'), class: 'icon-tooltip'}
+        %hr.linea2
+        .controls-row
+          .control-group{class: @experience.errors[:available_efis].any? ? 'error' : ''}
+            - efis = Efi.all
+            - i = 0
+            - while i < efis.count do
+              .controls-row.checkboxEfis
+                = render 'efi', efi: efis[i]
+                - i += 1
+                - if i < efis.count
+                  = render 'efi', efi: efis[i]
+                  - i += 1
+                - if i < efis.count
+                  = render 'efi', efi: efis[i]
+                  - i += 1
+                - if i < efis.count
+                  = render 'efi', efi: efis[i]
+                  - i += 1
+
+      .span6.well.well-small.wellEco
+        %label
+          = Experience.human_attribute_name(:details)
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.details'), class: 'icon-tooltip'}
+        %hr.linea2
+        .control-group{class: @experience.errors[:details].any? ? 'error' : ''}
+          .controls
+            = f.input_field :details, class: "tinymce input-xxlarge", rows: 10
+
+    .row-fluid
+      .span6.well.well-small.wellEco
+        #valid_images
+          %h8{class: @experience.errors[:valid_images].any? ? 'error' : ''}= Experience.human_attribute_name(:valid_images)
+          %hr.linea2
+          = f.simple_fields_for :valid_images do |builder|
+            = render 'valid_image_fields', :f => builder
+
+          .links
+            = link_to_add_association f, :valid_images, partial: 'valid_image_fields', class: 'btn btn-icon btn-icon-mini pull-right btn-warning' do
+              %i.icon-plus
+              Agregar
+          .clearfix
+
+      .span6.well.well-small.wellEco
+        %label
+          = Experience.human_attribute_name(:conditions)
+          %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.conditions'), class: 'icon-tooltip'}
+        %hr.linea2
+        .control-group{class: @experience.errors[:conditions].any? ? 'error' : ''}
+          .controls
+            = f.input_field :conditions, class: "tinymce input-xxlarge", rows: 10
+
+    .form-actions.text-right
+      - if can? :read, Experience
+        = link_to t("helpers.links.cancel"), eco_experiences_path, class: 'btn btn-large btn-inverse'
+      = f.button :submit, class: 'btn-primary btn-large btn-warning'

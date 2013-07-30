@@ -1,0 +1,11 @@
+.relative{position: relative;}
+
+.relative .image_size{
+  top: 28px;
+  position: absolute;
+}
+
+.file_representation img{
+  width: 30px;
+  height: 30px;
+}

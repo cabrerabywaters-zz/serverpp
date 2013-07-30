@@ -1,0 +1,81 @@
+!!! 5
+%html(lang="en")
+  %head
+    %meta(charset="utf-8")
+    %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    %title= content_for?(:title) ? yield(:title) : "Puntos Point"
+    = csrf_meta_tags
+    / Le HTML5 shim, for IE6-8 support of HTML elements
+    /[if lt IE 9]
+      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
+    = stylesheet_link_tag "eco/application", :media => "all"
+    %link(href="images/apple-touch-icon-144x144.png" rel="apple-touch-icon-precomposed" sizes="144x144")
+    %link(href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon-precomposed" sizes="114x114")
+    %link(href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon-precomposed" sizes="72x72")
+    %link(href="images/apple-touch-icon.png" rel="apple-touch-icon-precomposed")
+
+    =# favicon_link_tag
+
+    /
+      Javascripts
+      \==================================================
+    / Placed at the end of the document so the pages load faster
+    = javascript_include_tag "eco/application"
+
+  %body
+    #container
+      / Header
+      %header.backgroundHeader
+        #headerContainer.container
+          .navbar
+            .container
+              #logo
+                = link_to eco_root_path do
+                  = image_tag 'logo.png', alt: 'Puntos Point', title: 'Puntos Point'
+              .pull-right
+                %ul.nav.navBg
+                  - if current_user_eco
+                    %li
+                      = link_to edit_eco_user_eco_path(current_user_eco) do
+                        %i.icon-user.icon-white
+                        = t('views.account')
+
+                    %li.dropdown
+                      = link_to destroy_user_eco_session_path do
+                        %i.icon-off.icon-white
+                        = t('helpers.sign_out')
+    %section#main
+      #mainContainer.container.contenido.contenidoEco
+        .row-fluid
+          .span12
+            %ul.nav.navExperiences
+              %li.userEco
+                = image_tag current_user_eco.eco_logo(:thumb)
+                .eco_name= current_user_eco.eco_name
+
+              - if can? :read, Experience
+                %li{class: (current_page?(eco_experiences_path) || eco_experiences_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.eco.experiences'), eco_experiences_path
+
+
+              - if can? :create, Experience
+                %li{class: (current_page?(eco_experience_steps_path) || eco_experience_steps_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.eco.new_experience'), eco_experience_steps_path
+
+              - if can? :read, :incomes
+                %li{class: current_page?(eco_incomes_path) ? 'selected' : ''}= link_to t('menu.eco.incomes'), eco_incomes_path
+
+              - if can?(:read, Experience) and current_user_eco.eco_bigger?
+                %li{class: current_page?(eco_publicities_path) ? 'selected' : ''}= link_to t('menu.eco.publicities'), eco_publicities_path
+
+        .row-fluid
+          %h1.linea3
+        - unless @status and @message
+          = bootstrap_flash
+        = yield
+      .cb
+      %br
+
+    / %footer#footer.backgroundFooter
+    /   #footerContainer.container
+    /     .row-fluid
+

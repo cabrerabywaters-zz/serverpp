@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class Admin - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/admin.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    <!-- Included Modules -->
+<nav id="includes-section" class="section">
+  <h3 class="section-header">Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><span class="include">RunCl::ActAsRun</span>
+  
+  
+  </ul>
+</nav>
+
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-full_name">#full_name</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./PuntosPoint.html">PuntosPoint</a>
+  
+    <li><a href="./PuntosPoint/AdminsController.html">PuntosPoint::AdminsController</a>
+  
+    <li><a href="./PuntosPoint/CategoriesController.html">PuntosPoint::CategoriesController</a>
+  
+    <li><a href="./PuntosPoint/EcosController.html">PuntosPoint::EcosController</a>
+  
+    <li><a href="./PuntosPoint/EfisController.html">PuntosPoint::EfisController</a>
+  
+    <li><a href="./PuntosPoint/EventsController.html">PuntosPoint::EventsController</a>
+  
+    <li><a href="./PuntosPoint/ExperiencesController.html">PuntosPoint::ExperiencesController</a>
+  
+    <li><a href="./PuntosPoint/IndustriesController.html">PuntosPoint::IndustriesController</a>
+  
+    <li><a href="./PuntosPoint/InterestsController.html">PuntosPoint::InterestsController</a>
+  
+    <li><a href="./PuntosPoint/PercentageIndustriesController.html">PuntosPoint::PercentageIndustriesController</a>
+  
+    <li><a href="./PuntosPoint/PuntosPointApplicationController.html">PuntosPoint::PuntosPointApplicationController</a>
+  
+    <li><a href="./PuntosPoint/UserEcosController.html">PuntosPoint::UserEcosController</a>
+  
+    <li><a href="./PuntosPoint/UserEfisController.html">PuntosPoint::UserEfisController</a>
+  
+    <li><a href="./Efi.html">Efi</a>
+  
+    <li><a href="./Efi/AccountsController.html">Efi::AccountsController</a>
+  
+    <li><a href="./Efi/BannersController.html">Efi::BannersController</a>
+  
+    <li><a href="./Efi/EfiApplicationController.html">Efi::EfiApplicationController</a>
+  
+    <li><a href="./Efi/EventsController.html">Efi::EventsController</a>
+  
+    <li><a href="./Efi/ExperiencesController.html">Efi::ExperiencesController</a>
+  
+    <li><a href="./Efi/SummaryController.html">Efi::SummaryController</a>
+  
+    <li><a href="./Efi/TradesController.html">Efi::TradesController</a>
+  
+    <li><a href="./Efi/UserEfisController.html">Efi::UserEfisController</a>
+  
+    <li><a href="./Eco.html">Eco</a>
+  
+    <li><a href="./Eco/EcoApplicationController.html">Eco::EcoApplicationController</a>
+  
+    <li><a href="./Eco/ExperiencesController.html">Eco::ExperiencesController</a>
+  
+    <li><a href="./Eco/IncomesController.html">Eco::IncomesController</a>
+  
+    <li><a href="./Eco/PurchasesController.html">Eco::PurchasesController</a>
+  
+    <li><a href="./Eco/UserEcosController.html">Eco::UserEcosController</a>
+  
+    <li><a href="./Corporative.html">Corporative</a>
+  
+    <li><a href="./Corporative/CorporativeApplicationController.html">Corporative::CorporativeApplicationController</a>
+  
+    <li><a href="./Corporative/EventsController.html">Corporative::EventsController</a>
+  
+    <li><a href="./Corporative/PointsController.html">Corporative::PointsController</a>
+  
+    <li><a href="./Corporative/PurchasesController.html">Corporative::PurchasesController</a>
+  
+    <li><a href="./ChileanCities.html">ChileanCities</a>
+  
+    <li><a href="./ChileanCities/Comuna.html">ChileanCities::Comuna</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./Account.html">Account</a>
+  
+    <li><a href="./Admin.html">Admin</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Banner.html">Banner</a>
+  
+    <li><a href="./BaseConnector.html">BaseConnector</a>
+  
+    <li><a href="./Category.html">Category</a>
+  
+    <li><a href="./CloseEventWorker.html">CloseEventWorker</a>
+  
+    <li><a href="./CloseExperienceWorker.html">CloseExperienceWorker</a>
+  
+    <li><a href="./Event.html">Event</a>
+  
+    <li><a href="./Exchange.html">Exchange</a>
+  
+    <li><a href="./Exclusivity.html">Exclusivity</a>
+  
+    <li><a href="./Experience.html">Experience</a>
+  
+    <li><a href="./ExperienceAvailableValidator.html">ExperienceAvailableValidator</a>
+  
+    <li><a href="./ExperienceEfi.html">ExperienceEfi</a>
+  
+    <li><a href="./ExpireExperiencesWorker.html">ExpireExperiencesWorker</a>
+  
+    <li><a href="./Industry.html">Industry</a>
+  
+    <li><a href="./IndustryEfi.html">IndustryEfi</a>
+  
+    <li><a href="./IndustryExclusivityValidator.html">IndustryExclusivityValidator</a>
+  
+    <li><a href="./IndustryExperience.html">IndustryExperience</a>
+  
+    <li><a href="./Interest.html">Interest</a>
+  
+    <li><a href="./InterestExperience.html">InterestExperience</a>
+  
+    <li><a href="./Operation.html">Operation</a>
+  
+    <li><a href="./Purchase.html">Purchase</a>
+  
+    <li><a href="./PurchaseMailer.html">PurchaseMailer</a>
+  
+    <li><a href="./Settings.html">Settings</a>
+  
+    <li><a href="./SwapsValidator.html">SwapsValidator</a>
+  
+    <li><a href="./TotalExclusivityValidator.html">TotalExclusivityValidator</a>
+  
+    <li><a href="./Transaction.html">Transaction</a>
+  
+    <li><a href="./UserEco.html">UserEco</a>
+  
+    <li><a href="./UserEfi.html">UserEfi</a>
+  
+    <li><a href="./ValidImage.html">ValidImage</a>
+  
+    <li><a href="./WithoutExclusivityValidator.html">WithoutExclusivityValidator</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Admin</h1>
+
+  <div id="description" class="description">
+    
+<p>Public: Administradores o Usuarios <a
+href="PuntosPoint.html">PuntosPoint</a>.</p>
+
+<p>@private String <a href="Admin.html#method-i-full_name">#full_name</a>()
+Entrega el nombre completo del administrador.</p>
+
+<p>Mas información: en <a
+href="https://github.com/ryanb/cancan">github.com/ryanb/cancan</a></p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-full_name" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">full_name</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Internal: Entrega el nombre completo del administrador</p>
+
+<pre>sin espacios en los extremos, ni espacios dobles.</pre>
+
+<p>Ejemplo</p>
+
+<pre class="ruby"><span class="ruby-identifier">a</span>) <span class="ruby-constant">Para</span> <span class="ruby-identifier">un</span> <span class="ruby-identifier">administrador</span> <span class="ruby-identifier">con</span><span class="ruby-operator">:</span>
+    <span class="ruby-operator">-</span> <span class="ruby-identifier">nombres</span><span class="ruby-operator">:</span> <span class="ruby-string">'Pedro Pablo'</span>
+    <span class="ruby-operator">-</span> <span class="ruby-identifier">apellido</span> <span class="ruby-identifier">paterno</span><span class="ruby-operator">:</span> <span class="ruby-string">'Perez'</span>
+    <span class="ruby-operator">-</span> <span class="ruby-identifier">apellido</span> <span class="ruby-identifier">materno</span><span class="ruby-operator">:</span> <span class="ruby-string">'Pereira'</span>
+  <span class="ruby-identifier">full_name</span>
+  <span class="ruby-comment"># =&gt; 'Pedro Pablo Perez Pereira'</span>
+</pre>
+
+<p>Retorna un String con contiene el nombre completo del administrador.</p>
+          
+
+          
+          <div class="method-source-code" id="full_name-source">
+            <pre><span class="ruby-comment"># File app/models/admin.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">full_name</span>
+  (<span class="ruby-identifier">names</span>.<span class="ruby-identifier">strip</span> <span class="ruby-operator">+</span> <span class="ruby-string">' '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">first_lastname</span>.<span class="ruby-identifier">strip</span> <span class="ruby-operator">+</span> <span class="ruby-string">' '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">second_lastname</span>.<span class="ruby-identifier">strip</span>).<span class="ruby-identifier">strip</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- full_name-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- full_name-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

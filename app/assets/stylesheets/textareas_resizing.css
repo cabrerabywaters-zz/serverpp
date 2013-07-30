@@ -1,0 +1,13 @@
+textarea {
+  resize: vertical;
+}
+
+.publicity_comment textarea {
+  resize: none;
+  height: 100px;
+  font-size: 18px;
+}
+
+.publicity_comment.error textarea{
+  border-color: red;
+}

@@ -1,0 +1,15 @@
+- model_class = Interest
+.page-header
+  %h1= model_class.model_name.human
+
+%dl.dl-horizontal
+  %dt= model_class.human_attribute_name(:name) + ':'
+  %dd= @interest.name
+
+.form-actions
+  - if can? :destroy, @interest
+    = link_to t("helpers.links.destroy"), puntos_point_interest_path(@interest), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-danger pull-right ml-10'
+  - if can? :update, @interest
+    = link_to t("helpers.links.edit"), edit_puntos_point_interest_path(@interest), class: 'btn btn-warning pull-right ml-10'
+  - if can? :read, model_class
+    = link_to t("helpers.links.back"), puntos_point_interests_path, class: 'btn btn-inverse pull-right'

@@ -1,0 +1,83 @@
+- model_class = Experience
+
+.row-fluid
+  .span12.encabezado
+    %h1= @experience.name
+    %h6.interesFutbol= @experience.summary
+
+%hr.linea2
+.row-fluid
+  .span7
+    %dl.dl-horizontal
+      %dt= Experience.human_attribute_name(:validity_starting_at)
+      %dd= l @experience.validity_starting_at, format: :datepicker
+
+      %dt= Experience.human_attribute_name(:validity_ending_at)
+      %dd= l @experience.validity_ending_at, format: :datepicker
+
+      %dt= model_class.human_attribute_name(:swaps) + ':'
+      %dd= number_to_currency(@experience.swaps, unit: '').presence || '-'
+
+      %dt= Experience.human_attribute_name(:place)
+      %dd= @experience.place.presence || '-'
+
+      %dt= Experience.human_attribute_name(:comuna)
+      %dd= @experience.comuna_name.presence || '-'
+
+      %dt= model_class.human_attribute_name(:amount) + ':'
+      %dd= number_to_currency(@experience.amount, presicion: 1).presence || '-'
+
+      %dt= model_class.human_attribute_name(:discounted_price) + ':'
+      %dd= number_to_currency(@experience.discounted_price, presicion: 1).presence || '-'
+
+      %dt= model_class.human_attribute_name(:discount_percentage) + ':'
+      %dd= number_to_currency(@experience.discount_percentage, presicion: 1).presence || '-'
+
+      - if current_user_eco.eco_bigger?
+        %dt= model_class.human_attribute_name(:codes) + ':'
+        %dd
+          - if @experience.codes.any?
+            - @experience.codes.each_with_index do |code, index|
+              - if index > 0
+                |
+              = code
+          - else
+            = '-'
+
+      %dt= model_class.human_attribute_name(:available_efis) + ':'
+      - if @experience.available_efis.any?
+        - @experience.available_efis.order(:name).each do |efi|
+          %dd= efi.name
+      - else
+        %dd= '-'
+
+      %dt= model_class.human_attribute_name(:valid_images) + ':'
+      - if @experience.valid_images.any?
+        - @experience.valid_images.each do |valid_image|
+          %dd= link_to valid_image.image_file_name, valid_image.image.url, target: :_blank
+      - else
+        %dd= '-'
+
+  .span5.text-right
+    = image_tag @experience.image.presence || 'default_experiencia.png'
+    %hr.linea
+
+.row-fluid.contenidoEcoModulosexperiencia
+  .span4.well
+    %strong= Experience.human_attribute_name(:details) + ':'
+    %p= @experience.details.html_safe
+  .span4.well
+    %strong= Experience.human_attribute_name(:exchange_mechanism) + ':'
+    %p= @experience.exchange_mechanism
+  .span4.well
+    %strong= Experience.human_attribute_name(:conditions) + ':'
+    %p= raw @experience.conditions
+
+.form-actions
+  - if can? :read, model_class
+    = link_to t("helpers.links.back"), eco_experiences_path, class: 'btn'
+  - if @experience.pending?
+    - if can? :update, @experience
+      = link_to t("helpers.links.edit"), edit_eco_experience_path(@experience), class: 'btn'
+    - if can? :destroy, @experience
+      = link_to t("helpers.links.destroy"), eco_experience_path(@experience), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-danger'

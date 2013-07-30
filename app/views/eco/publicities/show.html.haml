@@ -1,0 +1,58 @@
+- model_class = Publicity
+.page-header
+  %h1= model_class.model_name.human
+
+%dl.dl-horizontal
+  %dt= model_class.human_attribute_name(:event) + ':'
+  %dd= @publicity.event
+
+  %dt= model_class.human_attribute_name(:state) + ':'
+  %dd
+    - if @publicity.pending?
+      %span.label.label-warning= @publicity.translate_state
+    - elsif @publicity.rejected?
+      %span.label.label-important= @publicity.translate_state
+    - else
+      %span.label.label-success= @publicity.translate_state
+
+
+  %dt= model_class.human_attribute_name(:image) + ':'
+  %dd= image_tag @publicity.file_representation
+
+  %dt= model_class.human_attribute_name(:comment) + ':'
+  %dd= @publicity.comment || '-'
+
+  .form-actions
+    .text-right
+      - if can? :read, model_class
+        = link_to t("helpers.links.back"), eco_publicities_path, class: 'btn btn-inverse'
+
+      - if @publicity.pending?
+        - if can? :accept, @publicity
+          = link_to t("helpers.links.accept"), accept_eco_publicity_path(@publicity), class: 'btn', method: :put, data: {confirm: t('helpers.links.confirm.accept', model: model_class.model_name.human)}
+
+        - if can? :reject, @publicity
+          = link_to t("helpers.links.reject"), "#myModal", role: "button", class: "btn", data: {toggle: "modal"}
+
+- if @publicity.pending?
+  #myModal.modal.hide.fade{tabindex: "-1", role: "dialog", aria: {labelledby: "myModalLabel", hidden: "true"}}
+    = simple_form_for @publicity, url: reject_eco_publicity_path(@publicity) do |f|
+      .modal-header
+        %button.close{type: "button", data: {dismiss: "modal"}, aria: {hidden: "true"}} ×
+        %h3#myModalLabel= t('helpers.titles.reject_publicity')
+
+      .modal-body
+        .row-fluid
+          .publicity_comment{class: @publicity.errors.any? ? 'error' : ''}
+            = f.input_field :comment, class: 'span12', placeholder: model_class.human_attribute_name(:comment)
+            = f.error :comment
+
+      .modal-footer
+        .text-right
+          = link_to t("helpers.links.cancel"), "#", class: "btn", data: {dismiss: "modal"}, aria: {hidden: "true"}
+
+          = f.button :submit, t("helpers.links.reject"), class: 'btn-danger', data: {confirm: t('helpers.links.confirm.reject', model: model_class.model_name.human)}
+
+  - if @show_modal
+    :javascript
+      $('#myModal').modal()

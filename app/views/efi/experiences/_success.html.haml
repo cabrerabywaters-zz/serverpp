@@ -1,0 +1,17 @@
+/ Modal
+#myModal.modal.hide.fade.modalPuntospoint{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+  .modal-body.text-center
+    %p
+      = t('views.created_event')
+      %br
+      = t('views.in')
+      = link_to t('menu.efi.events'), efi_events_path
+      = t('views.more_information')
+
+  .modal-footer
+    %button.btn.btn-warning{"aria-hidden" => "true", "data-dismiss" => "modal"}= t('views.links.accept')
+
+:javascript
+  $('#myModal').modal()

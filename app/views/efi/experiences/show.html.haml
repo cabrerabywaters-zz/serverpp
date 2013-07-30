@@ -1,0 +1,142 @@
+.row-fluid
+  .span8.encabezado
+    %h1= @experience.name
+    %h6.interesFutbol= @experience.summary
+
+    %dl.dl-horizontal.ubicacion
+      %dt= Experience.human_attribute_name(:place)
+      %dd= @experience.place
+      %dt= Experience.human_attribute_name(:comuna)
+      %dd= @experience.comuna_name
+      %dt= Experience.human_attribute_name(:amount)
+      %dd= number_to_currency @experience.amount
+      %dt= Experience.human_attribute_name(:discounted_price)
+      %dd= number_to_currency @experience.discounted_price, presicion: 0
+      %dt= Experience.human_attribute_name(:discount_percentage)
+      %dd= number_to_percentage @experience.get_discount_percentage, precision: 1
+
+      %dt= Experience.human_attribute_name(:starting_at)
+      %dd= l @experience.starting_at, format: :datepicker
+      %dt= Experience.human_attribute_name(:ending_at)
+      %dd= l @experience.ending_at, format: :datepicker
+
+      %dt= Experience.human_attribute_name(:validity_starting_at)
+      %dd= l @experience.validity_starting_at, format: :datepicker
+      %dt= Experience.human_attribute_name(:validity_ending_at)
+      %dd= l @experience.validity_ending_at, format: :datepicker
+
+  .span4.text-center
+    .well.well-small.intereses.show-grid
+      = Interest.model_name.human.pluralize + ':'
+      - @experience.interests.each_with_index do |interest, index|
+        - if index == 0
+          %span.interesMayor.label.label-inverse= interest.name
+        - elsif index == 1
+          %span.label.label-important= interest.name
+        - else
+          %span.label.label-warning= interest.name
+
+    = image_tag @experience.image
+
+- if @experience.advertisings.any?
+  .row-fluid
+    .span12
+      .advertisings.thumbnails.well
+        %p
+          %strong= Experience.human_attribute_name(:advertisings) + ':'
+
+        .controls-row
+          - @experience.advertisings.each do |advertising|
+            .thumbnail{class: advertising.name == 'Medios Digitales' ? 'span2' : 'span1'}
+              = image_tag advertising.image(:thumb)
+              %p
+                %strong= advertising.name
+
+.row-fluid.contenidoEcoModulosexperiencia
+  .span4.well
+    %strong= Experience.human_attribute_name(:details) + ':'
+    %p= @experience.details.html_safe
+  .span4.well
+    %strong= Experience.human_attribute_name(:exchange_mechanism) + ':'
+    %p= @experience.exchange_mechanism
+  .span4.well
+    %strong= Experience.human_attribute_name(:conditions) + ':'
+    %p= raw @experience.conditions
+
+- if @event.new_record?
+  .row-fluid
+    .span12.well
+      = simple_form_for [:efi, @experience, @event] do |f|
+        .controls-row.exclusibilty
+          .span3
+            %h2= t('helpers.titles.participate_with')
+          .span3
+            %label.btn.btn-large{class: @experience.available_total_exclusivity? ? 'btn-success' : 'disable'}
+              %i.icon-star
+              .text-left.pull-left
+                - if @experience.available_total_exclusivity?
+                  %input{checked: true, name: "event[exclusivity_id]", type: :radio, value: Exclusivity.total_id, class: 'dn', data: {quantity: @experience.swaps}}
+                = Exclusivity.model_name.human
+                %br
+                = t('views.exclusivity.total')
+            %h6
+              = number_to_currency @experience.swaps, unit: ''
+              %span= t('views.swaps')
+          .span3
+            %label.btn.btn-large{class: @experience.available_exclusivity_by_industry?(current_user_efi.efi) ? 'btn-success' : 'disable'}
+              %i.icon-suitcase
+              .text-left.pull-left
+                - if @experience.available_exclusivity_by_industry?(current_user_efi.efi)
+                  %input{checked: true, name: "event[exclusivity_id]", type: :radio, value: Exclusivity.by_industry_id, class: 'dn', data: {quantity: @experience.industry_swaps(current_user_efi.efi)}}
+                = Exclusivity.model_name.human
+                %br
+                = t('views.exclusivity.by_industry')
+            %h6
+              = number_to_currency @experience.industry_swaps(current_user_efi.efi), unit: ''
+              %span= t('views.swaps')
+          .span3
+            %label.btn.btn-large{class: @experience.available_without_exclusivity? ? 'btn-success' : 'disable'}
+              %i.icon-group
+              .text-left.pull-left
+                - if @experience.available_without_exclusivity?
+                  %input{checked: true, name: "event[exclusivity_id]", type: :radio, value: Exclusivity.without_id, class: 'exchange dn', data: {quantity: 0}}
+                = t('views.exclusivity.without')
+                %br
+                = Exclusivity.model_name.human
+
+        .controls-row.event_form{class: @event.errors.any? ? '' : 'dn'}
+          .span2
+          .span8
+            .swaps_field.clearfix{class: (@event.errors.any? and @event.exclusivity_id == Exclusivity.without_id) ? '' : 'dn'}
+              = f.input :swaps, input_html: {class: 'input-mini min_max', value: @experience.minimum_without_swaps, data: {max: @experience.swaps, min: @experience.minimum_without_swaps}}
+
+            .quantity_field.clearfix{class: (@event.errors.any? and @event.exclusivity_id != Exclusivity.without_id) ? '' : 'dn'}
+              .control-group.integer.optional.event_quantity
+                = f.label :quantity
+                .controls
+                  %span.input-large.uneditable-input.span2= @event.quantity
+
+            .well.exchanges_list
+              #exchanges
+                %h6= Exchange.model_name.human.pluralize
+                - if @event.errors[:exchanges].any?
+                  .control-group.error
+                    = f.error :exchanges
+
+                = f.simple_fields_for :exchanges do |builder|
+                  = render 'efi/events/event_fields', :f => builder
+
+              .links
+                = link_to_add_association f, :exchanges, partial: 'efi/events/event_fields', class: 'btn btn-icon btn-icon-mini pull-right btn-warning' do
+                  %i.icon-plus
+                  = t('views.links.add')
+
+              .clearfix
+            .clearfix
+              .show-grid
+                .text-right
+                  = f.button :submit, t('views.links.participate'), class: 'btn btn-large btn-warning', data: {confirm: t("helpers.links.confirm.participate")}
+
+
+- if @show_modal
+  = render 'efi/experiences/success'

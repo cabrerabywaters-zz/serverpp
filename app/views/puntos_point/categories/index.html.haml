@@ -1,0 +1,28 @@
+- model_class = Category
+.page-header
+  %h1= model_class.model_name.human.pluralize
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:created_at)
+      %th= t("helpers.actions")
+  %tbody
+    - @categories.each do |category|
+      %tr
+        %td
+          - if can? :show, category
+            = link_to trim_to(category.name, 80).html_safe, puntos_point_category_path(category)
+          - else
+            %td= trim_to(category.name, 80).html_safe
+        %td=l category.created_at, format: :short
+        %td
+          - if can? :update, category
+            = link_to edit_puntos_point_category_path(category), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
+              %i.icon-pencil
+          - if can? :destroy, category
+            = link_to puntos_point_category_path(category), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-danger' do
+              %i.icon-trash
+
+- if can? :create, model_class
+  = link_to t("helpers.links.new"), new_puntos_point_category_path, class: 'btn btn-warning pull-right'

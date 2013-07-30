@@ -1,0 +1,57 @@
+.span3.experience
+  #fb-root
+  :javascript
+    window.fbAsyncInit = function() {
+      // init the FB JS SDK
+      FB.init({
+        appId      : "#{FB[:API_KEY]}",     // App ID from the app dashboard
+        channelUrl : "#{FB[:CHANEL_URL]}",  // Channel file for x-domain comms
+        status     : "#{FB[:STATUS]}",      // Check Facebook Login status
+        cookie     : "#{FB[:COOKIES]}",     // enable cookies to allow the server to access the session
+        xfbml      : "#{FB[:XFBMLl]}"       // Look for social plugins on the page
+      });
+
+      // Additional initialization code such as adding Event Listeners goes here
+    };
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/es_ES/all.js#xfbml=1&appId=474033656000471";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+  = link_to corporative_event_path(event, corporative_id: @corporative.search_name) do
+    %span.info
+      %h3.nameExperience{class: experience.category_texture_name}= experience.name
+
+    %span.info.experience_more.text-center.dn
+      %h3
+        = t('views.exchange_to')
+        %br
+        %strong= l experience.ending_at, format: :long
+      %ul
+        - event.exchanges.each_with_index do |exchange, index|
+          - if index > 0
+            %br
+            = t('views.or')
+            %br
+          %li
+            %span.payment_method
+              = number_to_currency exchange.points, unit: ''
+              = @corporative.zona
+              - if exchange.cash.presence
+                = t('views.more')
+                = number_to_currency exchange.cash
+
+    %span.info.experience_info
+      %h4= image_tag experience.image
+
+    %span.socialActions
+      .fb-like.pull-left{data: {send: "false", layout: "button_count", width: "450", 'show-faces' => "false", href: corporative_event_url(event, corporative_id: @corporative.search_name)}}
+      %button.btn.btn-mini.pull-right
+        %i.icon-eye-open
+        = t('helpers.links.show')
+

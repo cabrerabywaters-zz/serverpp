@@ -1,0 +1,48 @@
+- model_class = Experience
+.page-header
+  %h1= model_class.model_name.human.pluralize
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:amount)
+      %th= model_class.human_attribute_name(:place)
+      %th= model_class.human_attribute_name(:starting_at)
+      %th= model_class.human_attribute_name(:ending_at)
+      %th= model_class.human_attribute_name(:swaps)
+      %th= model_class.human_attribute_name(:state)
+      %th= t("helpers.actions")
+  %tbody
+    - @experiences.each do |experience|
+      %tr{class: experience.in_state?([:step1, :step2, :step3, :pending]) ? 'warning' : ''}
+        %td= trim_to(experience.name, 20).html_safe
+        %td= number_to_currency experience.amount, presicion: 1
+        %td= trim_to(experience.place, 20).html_safe
+        %td=l experience.starting_at, format: :short
+        %td=l experience.ending_at, format: :short
+        %td= number_to_currency experience.swaps, unit: ''
+        %td= experience.translate_state
+        %td
+          - if can? :show, experience
+            = link_to puntos_point_experience_path(experience), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
+              %i.icon-eye-open
+
+          - if can? :update, experience
+            = link_to puntos_point_experience_steps_path(experience_id: experience.id), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
+              %i.icon-pencil
+
+          - if can? :destroy, experience
+            = link_to puntos_point_experience_path(experience), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-danger' do
+              %i.icon-trash
+
+          - if can?(:bill, experience) and experience.expired?
+            = link_to bill_puntos_point_experience_path(experience), method: :put, data: {confirm: t("helpers.links.confirm.female.bill", model: model_class.model_name.human)}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-success' do
+              %i.icon-legal
+
+          - if can?(:pay, experience) and experience.billed?
+            = link_to pay_puntos_point_experience_path(experience), method: :put, data: {confirm: t("helpers.links.confirm.female.pay", model: model_class.model_name.human)}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-success' do
+              %i.icon-money
+
+- if can? :create, model_class
+  = link_to t("helpers.links.new"), puntos_point_experience_steps_path, class: 'btn btn-warning pull-right'

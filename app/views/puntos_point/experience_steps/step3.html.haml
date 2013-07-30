@@ -1,0 +1,89 @@
+.page-header
+  %h1= t('helpers.titles.step3_3')
+
+.row-fluid.configEco
+  - if @experience.errors.any?
+    .alert.alert-error
+      %button{class: "close", 'data-dismiss' => "alert"} ×
+      %ul
+        - @experience.errors.full_messages.each do |messsage|
+          %li.text-error= messsage
+
+
+.row-fluid.configEco.contenidoEco
+  = simple_form_for @experience, url: wizard_path, method: :put, html: { class: 'eco' } do |f|
+    = f.simple_fields_for :industry_experiences do |f2|
+      = f2.hidden_field :industry_id
+      = f2.hidden_field :percentage
+
+    .row-fluid
+      .span3.well.wellEco
+        = f.association :category, include_blank: false, input_html: {class: 'span12'}
+        = f.association :interests, include_blank: false, as: :check_boxes
+
+      .span3.well.wellEco
+        .control-group{class: @experience.errors[:starting_at].any? ? 'error' : ''}
+          .controls
+            %label
+              = Experience.human_attribute_name(:starting_at)
+              %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.starting_at'), class: 'icon-tooltip'}
+            .datepicker.input-append.date
+              = f.input_field :starting_at, as: :string, class: 'input-small', value: I18n.l(@experience.starting_at, format: :datepicker)
+              %span.add-on
+                %i.icon-calendar
+
+        .control-group{class: @experience.errors[:ending_at].any? ? 'error' : ''}
+          .controls
+            %label
+              = Experience.human_attribute_name(:ending_at)
+              %i.icon-exclamation-sign{'data-toggle' => "tooltip", title: t('tooltip.experience.ending_at'), class: 'icon-tooltip'}
+            .datepicker.input-append.date
+              = f.input_field :ending_at, as: :string, class: 'input-small', value: I18n.l(@experience.ending_at, format: :datepicker)
+              %span.add-on
+                %i.icon-calendar
+
+      .span3.well.wellEco
+        = f.label :exclusivity_deadlines
+        %hr.linea2
+        .control-group{class: @experience.errors[:total_exclusivity_days].any? ? 'error' : ''}
+          = f.label :total_exclusivity_days
+          .controls
+            - if @experience.total_exclusivity_sales?
+              = f.input_field :total_exclusivity_days, class: 'input-mini min_max', data: {min: 1, blank: true}, value: @experience.total_exclusivity_days.presence, onkeypress: "return permiteNumeros(event);"
+            - else
+              %span.input-mini.uneditable-input
+
+
+        .control-group{class: @experience.errors[:by_industry_exclusivity_days].any? ? 'error' : ''}
+          = f.label :by_industry_exclusivity_days
+          .controls
+            - if @experience.by_industry_exclusivity_sales?
+              = f.input_field :by_industry_exclusivity_days, class: 'input-mini min_max', data: {min: 1, blank: true}, value: @experience.by_industry_exclusivity_days.presence, onkeypress: "return permiteNumeros(event);"
+            - else
+              %span.input-mini.uneditable-input
+
+        .control-group{class: @experience.errors[:without_exclusivity_days].any? ? 'error' : ''}
+          = f.label :without_exclusivity_days
+          .controls
+            - if @experience.without_exclusivity_sales?
+              = f.input_field :without_exclusivity_days, class: 'input-mini min_max', data: {min: 1, blank: true}, value: @experience.without_exclusivity_days.presence, onkeypress: "return permiteNumeros(event);"
+            - else
+              %span.input-mini.uneditable-input
+
+
+      .span3.well.wellEco
+        .control-group{class: @experience.errors[:fee].any? ? 'error' : ''}
+          = f.label :fee
+          .controls
+            .input-append
+              = f.input_field :fee, class: 'input-mini min_max', placeholder: "15", data: {min: 0, max: 100}, value: number_to_currency(@experience.fee.presence || @experience.eco.fee, precision: 2, unit: ''), onkeypress: "return permiteNumeros(event);"
+              .add-on %
+
+    .form-actions.text-right
+      - if can? :read, Experience
+        = link_to t("helpers.links.cancel"), puntos_point_experiences_path, class: 'btn btn-large btn-inverse'
+
+      = link_to t('helpers.links.previous'), previous_wizard_path, class: 'btn btn-large btn-inverse'
+
+      = f.button :submit, t("helpers.links.only_save"), name: :only_save, class: 'btn-primary btn-large btn-warning'
+      = f.button :submit, t("helpers.links.save_and_publish"), name: :save_and_publish,class: 'btn-primary btn-large btn-warning'

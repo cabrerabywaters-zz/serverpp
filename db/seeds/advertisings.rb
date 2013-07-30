@@ -1,0 +1,11 @@
+# encoding: utf-8
+Advertising.find_or_create_by_name('Televisión',         image: File.new(Rails.root + 'spec/fixtures/advertisings/television.png'))
+Advertising.find_or_create_by_name('Radio',              image: File.new(Rails.root + 'spec/fixtures/advertisings/radio.png'))
+Advertising.find_or_create_by_name('Escritos',           image: File.new(Rails.root + 'spec/fixtures/advertisings/escritos.png'))
+Advertising.find_or_create_by_name('Vía pública',        image: File.new(Rails.root + 'spec/fixtures/advertisings/viapublica.png'))
+Advertising.find_or_create_by_name('SMS',                image: File.new(Rails.root + 'spec/fixtures/advertisings/sms.png'))
+Advertising.find_or_create_by_name('Catálogos',          image: File.new(Rails.root + 'spec/fixtures/advertisings/catalogos.png'))
+Advertising.find_or_create_by_name('Llamada telefónica', image: File.new(Rails.root + 'spec/fixtures/advertisings/llamadatelefonica.png'))
+Advertising.find_or_create_by_name('Mail',               image: File.new(Rails.root + 'spec/fixtures/advertisings/mail.png'))
+Advertising.find_or_create_by_name('Medios Digitales',   image: File.new(Rails.root + 'spec/fixtures/advertisings/mediosdigitales.png'))
+Advertising.find_or_create_by_name('POP',                image: File.new(Rails.root + 'spec/fixtures/advertisings/pop.png'))

@@ -1,0 +1,21 @@
+%h2= t('devise.views.change_password')
+
+= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
+  = devise_error_messages!
+  = f.hidden_field :reset_password_token
+
+  .control-group
+    = f.label :password, t('devise.views.inputs.password'), class: 'control-label'
+    .controls
+      = f.password_field :password, :autofocus => true
+
+  .control-group
+    = f.label :password_confirmation, t('devise.views.inputs.password_confirmation'), class: 'control-label'
+    .controls
+      = f.password_field :password_confirmation
+
+  .form-actions
+    = f.submit t('devise.views.links.change_password'), class: 'btn btn-primary'
+
+
+    = render "devise/shared/links"

@@ -1,0 +1,37 @@
+- model_class = Event
+
+%h1.title
+  %span
+  = t('helpers.titles.summary')
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th= Experience.human_attribute_name(:name)
+      %th= Experience.human_attribute_name(:amount)
+      %th= model_class.human_attribute_name(:purchases)
+      %th= model_class.human_attribute_name(:swaps_or_quantity)
+      %th= model_class.human_attribute_name(:state)
+      %th= t("helpers.actions")
+  %tbody
+    - @events.each do |event|
+      - experience = event.experience
+
+      - tr_class = ''
+      - if event.billed?
+        - tr_class = 'warning'
+      - elsif event.paid?
+        - tr_class = 'success'
+      - elsif event.closed?
+        - tr_class = 'error'
+
+      %tr{class: tr_class}
+        %td= experience.name
+        %td= number_to_currency experience.discounted_price, presicion: 1
+        %td= number_to_currency event.purchases.count, unit: ''
+        %td= number_to_currency event.swaps_or_quantity, unit: ''
+        %td= event.translate_state
+        %td
+          - if can? :read, experience
+            = link_to efi_event_path(event), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-primary' do
+              %i.icon-eye-open

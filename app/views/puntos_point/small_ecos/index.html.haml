@@ -1,0 +1,37 @@
+- model_class = Eco
+.page-header
+  %h1= t('helpers.titles.small_ecos', :model => model_class.model_name.human.titleize)
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:rut)
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:webpage)
+      %th= model_class.human_attribute_name(:images)
+      %th= model_class.human_attribute_name(:created_at)
+      %th= t("helpers.actions")
+  %tbody
+    - @ecos.each do |eco|
+      %tr
+        %td
+          - if can? :show, eco
+            = link_to eco.id, puntos_point_small_eco_path(eco)
+          - else
+            %td= eco.id
+        %td= Run.format eco.rut
+        %td= trim_to(eco.name, 20).html_safe
+        %td= eco.webpage
+        %td= booleanize eco.images
+        %td=l eco.created_at, format: :short
+        %td
+          - if can? :update, eco
+            = link_to edit_puntos_point_small_eco_path(eco), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
+              %i.icon-pencil
+          - if can? :destroy, eco
+            = link_to puntos_point_small_eco_path(eco), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-danger' do
+              %i.icon-trash
+
+- if can? :create, model_class
+  = link_to t("helpers.links.new"), new_puntos_point_small_eco_path, class: 'btn btn-warning pull-right'

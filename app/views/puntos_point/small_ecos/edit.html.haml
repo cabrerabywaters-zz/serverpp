@@ -1,0 +1,5 @@
+- model_class = Eco
+.page-header
+  %h1= t('helpers.titles.edit_small_eco', :model => model_class.model_name.human.titleize)
+
+= render partial: "form", locals: {url: puntos_point_small_eco_path(@eco)}

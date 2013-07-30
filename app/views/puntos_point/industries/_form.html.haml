@@ -1,0 +1,7 @@
+= simple_form_for [:puntos_point, @industry], html: {class: 'form-horizontal' } do |f|
+  = f.input :name
+  = f.input :percentage, input_html: {class: 'min_max', data: {min: 0, max: 100, blank: true}}
+  .form-actions
+    = f.button :submit, class: 'btn-warning pull-right ml-10'
+    - if can? :read, Industry
+      = link_to t("helpers.links.cancel"), puntos_point_industries_path, class: 'btn btn-inverse pull-right'

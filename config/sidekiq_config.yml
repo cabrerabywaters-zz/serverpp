@@ -1,0 +1,6 @@
+#   sidekiq -C sidekiq_config.yml
+verbose: false
+pidfile: /tmp/pids/sidekiq.pid
+concurrency:  4
+queues:
+ - [default, 5]

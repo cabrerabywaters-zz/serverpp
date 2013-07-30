@@ -1,0 +1,7 @@
+%label.span3.checkbox.inline
+  - if @experience.available_efis.include? efi
+    %input.check_boxes.optional{name: "experience[available_efi_ids][]", type: "checkbox", value: efi.id, id: "experience_available_efi_ids_#{efi.id}", checked: :checked}
+  - else
+    %input.check_boxes.optional{name: "experience[available_efi_ids][]", type: "checkbox", value: efi.id, id: "experience_available_efi_ids_#{efi.id}"}
+  = image_tag efi.logo(:thumb)
+  .hoverEfis{class: @experience.available_efis.include?(efi) ? '' : 'dn'}

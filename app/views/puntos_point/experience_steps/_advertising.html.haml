@@ -1,0 +1,9 @@
+%label.checkbox.inline{class: advertising.name == 'Medios Digitales' ? 'span2' : 'span1'}
+  - if @experience.advertisings.include? advertising
+    %input.check_boxes.optional{name: "experience[advertising_ids][]", type: "checkbox", value: advertising.id, id: "experience_advertising_ids_#{advertising.id}", checked: :checked}
+  - else
+    %input.check_boxes.optional{name: "experience[advertising_ids][]", type: "checkbox", value: advertising.id, id: "experience_advertising_ids_#{advertising.id}"}
+  = image_tag advertising.image(:thumb)
+  %p
+    %strong= advertising.name
+  .hoverEfis{class: @experience.advertisings.include?(advertising) ? '' : 'dn'}

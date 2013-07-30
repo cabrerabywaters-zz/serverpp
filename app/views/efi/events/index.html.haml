@@ -1,0 +1,18 @@
+%h1.title
+  %span
+  = t('views.events')
+
+- i = 0
+- while i < @events.count do
+  .row-fluid
+    = render 'experience', experience: @events[i].experience, event: @events[i]
+    - i += 1
+    - if i < @events.count
+      = render 'experience', experience: @events[i].experience, event: @events[i]
+      - i += 1
+    - if i < @events.count
+      = render 'experience', experience: @events[i].experience, event: @events[i]
+      - i += 1
+    - if i < @events.count
+      = render 'experience', experience: @events[i].experience, event: @events[i]
+      - i += 1

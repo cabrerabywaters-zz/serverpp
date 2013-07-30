@@ -1,0 +1,35 @@
+- model_class = Industry
+.page-header
+  %h1= model_class.model_name.human.pluralize
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:percentage)
+      %th= model_class.human_attribute_name(:created_at)
+      %th= t("helpers.actions")
+  %tbody
+    - @industries.each do |industry|
+      %tr
+        %td
+          - if can? :show, industry
+            = link_to trim_to(industry.name, 70).html_safe, puntos_point_industry_path(industry)
+          - else
+            %td= trim_to(industry.name, 70).html_safe
+        %td= number_to_percentage industry.percentage, precision: 1
+        %td=l industry.created_at, format: :short
+        %td
+          - if can? :update, industry
+            = link_to edit_puntos_point_industry_path(industry), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
+              %i.icon-pencil
+          - if can? :destroy, industry
+            = link_to puntos_point_industry_path(industry), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-danger' do
+              %i.icon-trash
+
+- if can? :create, model_class
+  = link_to t("helpers.links.new"), new_puntos_point_industry_path, class: 'btn btn-warning pull-right ml-10'
+
+= link_to t("helpers.links.edit_percentage"), puntos_point_edit_percentage_industries_path, class: 'btn btn-inverse pull-right '
+
+

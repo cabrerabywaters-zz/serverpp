@@ -1,0 +1,23 @@
+= simple_form_for [:puntos_point, @eco], url: url, html: {class: 'form-horizontal' } do |f|
+  = f.input :rut, input_html: {class: 'input-medium'}
+  = f.input :name, input_html: {class: 'input-large'}
+  = f.input :fancy_name, input_html: {class: 'input-large'}
+
+  = f.input :address, input_html: {class: 'input-large'}
+  = f.association :comuna, include_blank: false
+
+  = f.input :discount, input_html: {class: 'input-mini min_max', data: { min: 0, max: 100 }, onkeypress: "return permiteNumeros(event);"}
+  = f.input :fee, input_html: {class: 'input-mini min_max', data: { min: 0, max: 100 }, onkeypress: "return permiteNumeros(event);"}
+
+  = f.association :admin, include_blank: false
+
+  = f.input :webpage, input_html: {class: 'input-xlarge'}
+  = f.input :logo
+
+
+  = f.input :images
+
+  .form-actions
+    = f.button :submit, class: 'btn-warning pull-right ml-10'
+    - if can? :read, Eco
+      = link_to t("helpers.links.cancel"), puntos_point_big_ecos_path, class: 'btn btn-inverse pull-right'

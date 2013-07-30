@@ -1,0 +1,7 @@
+.relative{position: relative;}
+
+.relative .image_size,
+.relative .image_size.t0{
+  top: 0px;
+  position: absolute;
+}

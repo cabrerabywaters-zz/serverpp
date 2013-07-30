@@ -1,0 +1,6 @@
+facebook:
+  API_KEY: '474033656000471'
+  STATUS: true
+  XFBMLl: true
+  COOKIES: true
+  CHANEL_URL: 'ec2-54-225-244-183.compute-1.amazonaws.com/channel.html'

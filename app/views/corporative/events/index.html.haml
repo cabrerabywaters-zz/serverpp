@@ -1,0 +1,92 @@
+.row-fluid
+  .span3.logo_home_efis
+    = link_to corporative_root_path(@corporative.search_name) do
+      = image_tag @corporative.logo, alt: @corporative.name
+
+  .span9.show-grid
+    .pull-right
+      .well.well-large.points_query{class: (session[:rut].presence and session[:points].presence) ? 'dn' : ''}
+        %p
+          = t('views.know_your_points')
+          = @corporative.zona
+        %form.form-inline{action: corporative_point_path(format: :js), method: :post, 'data-remote' => true}
+
+          .control-group
+            .controls
+              %input{placeholder: Account.human_attribute_name(:rut), type: "text", name: "rut"}
+              %span.help-inline
+              %button.btn.btn-warning{:type => "submit"} Consultar
+
+      .well.well-large.points_result{class: (session[:rut].presence and session[:points].presence) ? '' : 'dn'}
+        %h2
+          = t('views.you_have')
+          %span= session[:points]
+          = @corporative.zona
+
+.row-fluid.leyenda
+  .span2.linea-centercorporative_experience_path
+  .span8.text-center
+    %h1
+      = t('views.exchange_your')
+      %span= t('views.points')
+      = t('views.for_the_best')
+      %span= t('views.experiences')
+  .span2.linea-center
+
+.row-fluid
+  .navbar.filterCatergory
+    %ul.nav.pull-left
+      %li= link_to t('views.links.featured'), corporative_events_path(@corporative.search_name), class: "destacadas"
+
+      - @categories.each do |category|
+        %li
+          %i= image_tag category.icon.url
+          = link_to category.name, corporative_events_path(@corporative.search_name, category: category)
+
+    %ul.nav.pull-right
+      %li
+        %i.icon-map-marker
+        %select.regions.selectpicker{'data-width' => "100px"}
+          %option{selected: params[:region].presence ? false : true, 'data-url' => corporative_events_path}= t('views.region')
+          %option{'data-divider' => 'true'}
+          - ChileanCities::Comuna.unscoped.order(:code).all.uniq(&:region).each do |comuna|
+            %option{'data-url' => corporative_events_path(@corporative.search_name, region: comuna.region_number), selected: params[:region] == comuna.region_number ? true : false}
+              = comuna.region_number
+              = comuna.region
+      %li=# link_to "Fechas", corporative_events_path(@corporative.search_name, category: 'fechas'), class: "fechas"
+
+- if @corporative.banners.published.any?
+  #myCarousel.carousel.slide
+    %ol.carousel-indicators
+      - @corporative.banners.published.each_with_index do |banner, index|
+        %li{class: index == 0 ? 'active' : '',"data-slide-to" => index, "data-target" => "#myCarousel"}
+
+    / Carousel items
+    .carousel-inner
+      - @corporative.banners.published.each_with_index do |banner, index|
+        .item{class: index == 0 ? 'active' : ''}
+          = link_to corporative_event_path(id: banner.event_id, corporative_id: @corporative.search_name) do
+            = image_tag banner.image.url
+
+    / Carousel nav
+    %a.carousel-control.left{'data-slide'=>'prev', :href => "#myCarousel"}
+    %a.carousel-control.right{'data-slide'=>'next', :href => "#myCarousel"}
+
+%h1.title
+  %span
+  = t('views.featured_experiences')
+
+- i = 0
+- while i < @events.count do
+  .row-fluid
+    = render 'experience', experience: @events[i].experience, event: @events[i]
+    - i += 1
+    - if i < @events.count
+      = render 'experience', experience: @events[i].experience, event: @events[i]
+      - i += 1
+    - if i < @events.count
+      = render 'experience', experience: @events[i].experience, event: @events[i]
+      - i += 1
+    - if i < @events.count
+      = render 'experience', experience: @events[i].experience, event: @events[i]
+      - i += 1
