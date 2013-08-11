@@ -34,9 +34,12 @@ group :development, :test do
 
   gem 'lorem'
 
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'guard-rspec'
   gem 'database_cleaner'
+end
+
+group :development, :test, :darwin do
+  gem 'rb-fsevent'
 end
 
 group :test do
