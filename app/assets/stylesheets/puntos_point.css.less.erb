@@ -29,15 +29,15 @@
 
 /* Backgrounds */
 .background{
-	background: url("/assets/bg.png") repeat scroll 0 0 @defaultBackground;
+	background: url(<%= asset_path "bg.png" %>) repeat scroll 0 0 @defaultBackground;
 }
 .backgroundHeader, .backgroundFooter, .boxCanje{
-	background: url("/assets/textura_negra_bg.jpg") repeat scroll 0 0 transparent;
+	background: url(<%= asset_path "textura_negra_bg.jpg" %>) repeat scroll 0 0 transparent;
 }
 .backgroundHeader{
 	border-bottom: 2px solid @fourthColor;
 }
-.background-transparencia-negra{background:url("/assets/bg_negro.png") repeat scroll 0px 0px transparent;}
+.background-transparencia-negra{background:url(<%= asset_path "bg_negro.png" %>) repeat scroll 0px 0px transparent;}
 .background-transparencia-negra div i{color: white;}
 /* Radius */
 .defaultRadius (@radius:6px) {
@@ -287,7 +287,7 @@ div.hidden {visibility:hidden;}
 .logo_home_efis img{border: 1px solid (@white *0.9);}
 
 .linea, .linea2, .linea3{
-	background:url("/assets/linea_bg.jpg") repeat-x 0 0 transparent;
+	background:url(<%= asset_path "linea_bg.jpg" %>) repeat-x 0 0 transparent;
 	border: none;
 	height: 2px;
 }
@@ -295,10 +295,10 @@ div.hidden {visibility:hidden;}
 .linea2{ margin: 5px 0;}
 .linea3{ margin:0;}
 .linea-center{
-	background:url("/assets/linea_bg.jpg") repeat-x 0 25px transparent;
+	background:url(<%= asset_path "linea_bg.jpg" %>) repeat-x 0 25px transparent;
 }
 .lineaNegra{
-	background:url("/assets/linea_negra_bg.jpg") repeat-x 0 0 transparent;
+	background:url(<%= asset_path "linea_negra_bg.jpg" %>) repeat-x 0 0 transparent;
 	border: none;
 	margin: 5px 0;
 	height: 2px;
@@ -378,29 +378,29 @@ div.hidden {visibility:hidden;}
 
 
 .destacadas{
-	background:url("/assets/layout.png") no-repeat scroll -114px -10px transparent
+	background:url(<%= asset_path "layout.png" %>) no-repeat scroll -114px -10px transparent
 }
 
 .futbol{
-	background:url("/assets/layout.png") no-repeat scroll 2px 7px transparent
+	background:url(<%= asset_path "layout.png" %>) no-repeat scroll 2px 7px transparent
 }
 .conciertos{
-	background:url("/assets/layout.png") no-repeat scroll 1px -13px transparent
+	background:url(<%= asset_path "layout.png" %>) no-repeat scroll 1px -13px transparent
 }
 .teatros{
-	background:url("/assets/layout.png") no-repeat scroll 3px -35px transparent
+	background:url(<%= asset_path "layout.png" %>) no-repeat scroll 3px -35px transparent
 }
 .restaurant{
-	background:url("/assets/layout.png") no-repeat scroll 2px -55px transparent
+	background:url(<%= asset_path "layout.png" %>) no-repeat scroll 2px -55px transparent
 }
 .viajes{
-	background:url("/assets/layout.png") no-repeat scroll 2px -76px transparent
+	background:url(<%= asset_path "layout.png" %>) no-repeat scroll 2px -76px transparent
 }
 .region{
-	background:url("/assets/layout.png") no-repeat scroll 2px -97px transparent
+	background:url(<%= asset_path "layout.png" %>) no-repeat scroll 2px -97px transparent
 }
 .fechas{
-	background:url("/assets/layout.png") no-repeat scroll 2px -118px transparent
+	background:url(<%= asset_path "layout.png" %>) no-repeat scroll 2px -118px transparent
 }
 
 .title{
@@ -416,7 +416,7 @@ div.hidden {visibility:hidden;}
 	margin-bottom: 1em;
 }
 .title span{
-	background:url("/assets/layout.png") no-repeat scroll -123px 0px transparent;
+	background:url(<%= asset_path "layout.png" %>) no-repeat scroll -123px 0px transparent;
 	height: 12px;
 	width: 15px;
 	position: absolute;
@@ -483,7 +483,7 @@ div.hidden {visibility:hidden;}
 	background: none repeat scroll 0 0 transparent;
 }
 .navExperiences .selected{
-	background:url("/assets/layout.png") repeat-x scroll 0px -210px transparent;
+	background:url(<%= asset_path "layout.png" %>) repeat-x scroll 0px -210px transparent;
 }
 .navExperiences .selected a{
 	color: (@white * 0.2) !important;
@@ -586,25 +586,25 @@ div.hidden {visibility:hidden;}
 ------------------------------------------------------------------*/
 
 .experience .futbol{
-	background:url("/assets/textura_azul_bg.jpg") repeat scroll 0 0 transparent;
+	background:url(<%= asset_path "textura_azul_bg.jpg" %>) repeat scroll 0 0 transparent;
 }
 .experience .conciertos{
-	background:url("/assets/textura_negra_bg.jpg") repeat scroll 0 0 transparent;
+	background:url(<%= asset_path "textura_negra_bg.jpg" %>) repeat scroll 0 0 transparent;
 }
 .experience .teatros{
-	background:url("/assets/textura_mora_bg.jpg") repeat scroll 0 0 transparent;
+	background:url(<%= asset_path "textura_mora_bg.jpg" %>) repeat scroll 0 0 transparent;
 }
 .experience .restaurant{
-	background:url("/assets/textura_roja_bg.jpg") repeat scroll 0 0 transparent;
+	background:url(<%= asset_path "textura_roja_bg.jpg" %>) repeat scroll 0 0 transparent;
 }
 .experience .viajes{
-	background:url("/assets/textura_naranja_bg.jpg") repeat scroll 0 0 transparent;
+	background:url(<%= asset_path "textura_naranja_bg.jpg" %>) repeat scroll 0 0 transparent;
 }
 .experience .region{
-	background:url("/assets/textura_verde_bg.jpg") repeat scroll 0 0 transparent;
+	background:url(<%= asset_path "textura_verde_bg.jpg" %>) repeat scroll 0 0 transparent;
 }
 .experience .fechas{
-	background:url("/assets/textura_roja_bg.jpg") repeat scroll 0 0 transparent;
+	background:url(<%= asset_path "textura_roja_bg.jpg" %>) repeat scroll 0 0 transparent;
 }
 
 /* Clases Colores Intereses
@@ -651,16 +651,16 @@ div.hidden {visibility:hidden;}
 	right: -31px;
 }
 .carousel-control.left{
-	background:url("/assets/layout.png") repeat scroll -2px -148px transparent;	
+	background:url(<%= asset_path "layout.png" %>) repeat scroll -2px -148px transparent;	
 }
 .carousel-control.left:hover{
-	background:url("/assets/layout.png") repeat scroll -69px -148px transparent;	
+	background:url(<%= asset_path "layout.png" %>) repeat scroll -69px -148px transparent;	
 }
 .carousel-control.right{
-	background:url("/assets/layout.png") repeat scroll -38px -148px transparent;	
+	background:url(<%= asset_path "layout.png" %>) repeat scroll -38px -148px transparent;	
 }
 .carousel-control.right:hover{
-	background:url("/assets/layout.png") repeat scroll -340px -148px transparent;	
+	background:url(<%= asset_path "layout.png" %>) repeat scroll -340px -148px transparent;	
 }
 
 /* DETALLE EXPERIENCIA
@@ -877,7 +877,7 @@ a:hover.selectable_efi.selected{
 	width: 100% !important;
 }
 .contenidoEco .hoverEfis{
-	background: url("/assets/ECO_efis_hover.png") repeat scroll center center transparent;
+	background: url(<%= asset_path "ECO_efis_hover.png" %>) repeat scroll center center transparent;
 	min-height: 35px;
 	width: 100%;
 	position: absolute;
