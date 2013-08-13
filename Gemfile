@@ -17,7 +17,6 @@ group :assets do
 end
 
 group :development do
-  gem 'mysql2'
   gem 'route66'
   gem 'letter_opener'
   gem "better_errors"
