@@ -46,6 +46,7 @@ group :test do
   gem 'email_spec'
 end
 
+gem 'asset_sync'
 gem 'jquery-rails'
 
 gem 'therubyracer'
