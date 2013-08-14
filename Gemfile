@@ -60,6 +60,7 @@ gem 'thin'
 gem 'run_cl', '1.1.0'
 
 gem "paperclip"#, :git => "git://github.com/thoughtbot/paperclip.git"
+gem 'aws-sdk'
 
 gem 'cancan'
 
