@@ -39,8 +39,8 @@ Showtime::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
-  default_url_options = { :host => 'localhost:3000' }
-  config.default_url_options = { :host => 'localhost:3000' }
-  routes.default_url_options = { :host => 'localhost:3000' }
-  config.action_controller.asset_host = "localhost:3000"
+  default_url_options = { :host => ENV['HOST'] }
+  config.default_url_options = { :host => ENV['HOST'] }
+  routes.default_url_options = { :host => ENV['HOST'] }
+  config.action_controller.asset_host = ENV['HOST']
 end

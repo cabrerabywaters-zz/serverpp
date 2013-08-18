@@ -98,6 +98,8 @@ GEM
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
     ffi (1.7.0)
+    figaro (0.5.3)
+      rails (~> 3.0)
     fog (1.10.1)
       builder
       excon (~> 0.20)
@@ -129,7 +131,7 @@ GEM
     hash-deep-merge (0.1.1)
     hashery (2.1.0)
     hike (1.2.3)
-    i18n (0.6.4)
+    i18n (0.6.5)
     ice_cube (0.10.1)
     journey (1.0.4)
     jquery-datatables-rails (1.11.2)
@@ -163,19 +165,18 @@ GEM
       treetop (~> 1.4.8)
     metaclass (0.0.1)
     method_source (0.8.1)
-    mime-types (1.23)
+    mime-types (1.24)
     mocha (0.13.3)
       metaclass (~> 0.0.1)
-    multi_json (1.7.7)
+    multi_json (1.7.9)
     net-scp (1.1.0)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.7)
     nokogiri (1.5.9)
     nori (2.2.0)
     orm_adapter (0.4.0)
-    paperclip (3.4.1)
+    paperclip (3.5.1)
       activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
       mime-types
@@ -364,6 +365,7 @@ DEPENDENCIES
   email_spec
   factory_girl
   factory_girl_rails
+  figaro
   friendly_id
   guard-rspec
   haml-rails
