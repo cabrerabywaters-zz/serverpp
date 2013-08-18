@@ -36,12 +36,12 @@ Showtime::Application.configure do
   config.assets.debug = true
 
   config.action_mailer.delivery_method = :letter_opener
-  config.action_mailer.default_url_options = {:host => "localhost:3000"}
+  config.action_mailer.default_url_options = {:host => ENV['HOST']}
 
-  default_url_options = { :host => 'localhost:3000' }
-  config.default_url_options = { :host => 'localhost:3000' }
-  routes.default_url_options = { :host => 'localhost:3000' }
-  config.action_controller.asset_host = "localhost:3000"
+  default_url_options = { :host => ENV['HOST'] }
+  config.default_url_options = { :host => ENV['HOST'] }
+  routes.default_url_options = { :host => ENV['HOST'] }
+  config.action_controller.asset_host = ENV['HOST']
 
   # WashOut configuration
   config.wash_out.snakecase_input = true
