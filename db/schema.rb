@@ -190,7 +190,6 @@ ActiveRecord::Schema.define(:version => 20130820202928) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.string   "state"
-    t.datetime "sold_at"
   end
 
   add_index "events", ["efi_id"], :name => "index_events_on_efi_id"
@@ -259,6 +258,7 @@ ActiveRecord::Schema.define(:version => 20130820202928) do
     t.boolean  "without_exclusivity_sales"
     t.integer  "total_exclusivity_days"
     t.integer  "by_industry_exclusivity_days"
+    t.integer  "without_exclusivity_days"
   end
 
   add_index "experiences", ["category_id"], :name => "index_experiences_on_category_id"
@@ -333,7 +333,6 @@ ActiveRecord::Schema.define(:version => 20130820202928) do
     t.string   "reference_code"
     t.string   "state"
     t.text     "reference_codes"
-    t.datetime "confirmed_at"
   end
 
   add_index "purchases", ["exchange_id"], :name => "index_purchases_on_exchange_id"
