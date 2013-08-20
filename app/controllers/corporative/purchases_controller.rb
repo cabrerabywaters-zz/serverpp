@@ -12,7 +12,7 @@ class Corporative::PurchasesController < Corporative::CorporativeApplicationCont
 
   # GET /empresa/1/events/1/purchases/new
   def new
-    all_events = @corporative.events.joins(:experience).are_taken.started
+    all_events = @corporative.events.joins(:experience).are_published.started
 
     unless all_events.exists?(params[:id])
       redirect_to corporative_root_path(@corporative), notice: t('notices.error.not_available', model: Event.model_name.human)
@@ -26,7 +26,7 @@ class Corporative::PurchasesController < Corporative::CorporativeApplicationCont
 
   # POST /empresa/1/events/1/purchases
   def create
-    all_events = @corporative.events.joins(:experience).are_taken.started
+    all_events = @corporative.events.joins(:experience).are_published.started
 
     unless all_events.exists?(params[:id])
       redirect_to corporative_root_path(@corporative), notice: t('notices.error.not_available', model: Event.model_name.human)

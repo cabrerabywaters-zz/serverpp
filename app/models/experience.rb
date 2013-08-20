@@ -137,6 +137,9 @@ class Experience < ActiveRecord::Base
   has_attached_file :image,
                     styles: {original: "470x350!", medium: "270x220!", small: "180x245!", thumb: "100x100!"}
 
+  # Búsqueda predefinida que permite filtrar/buscar experiencia que fueron publicadas.
+  scope :was_published,          where(state: ['published', 'on_sale', 'closed', 'expired', 'billed', 'paid'])
+
   # Búsqueda predefinida que permite filtrar/buscar experiencia publicadas o en venta.
   scope :are_published,          where(state: ['published', 'on_sale'])
 
@@ -251,13 +254,11 @@ class Experience < ActiveRecord::Base
                       :without_exclusivity_sales,
                       :total_exclusivity_days,
                       :by_industry_exclusivity_days,
-                      :without_exclusivity_days,
                       :advertising_ids,
                       as: :puntos_point
 
 
       validates_presence_of   :name
-      validates_uniqueness_of :name
     end
 
     state :step3 do
@@ -272,18 +273,15 @@ class Experience < ActiveRecord::Base
                       as: :puntos_point
 
       validates_presence_of   :name
-      validates_uniqueness_of :name
     end
 
     state :pending do
       validates_presence_of   :name
-      validates_uniqueness_of :name
 
     end
 
     state :published do
       validates_presence_of   :name
-      validates_uniqueness_of :name
 
       validates_presence_of :amount,
                             :category_id,
@@ -322,6 +320,13 @@ class Experience < ActiveRecord::Base
     end
 
     state :paid do
+    end
+
+    state :step2, :step3, :pending, :published, :on_sale, :closed, :expired, :billed, :paid do
+      # Validador personalizado encargado de validar una experiencia
+      # impidiendo que experiencias con el mismo nombre no puedan estar disponibles a mismo tiempo
+      # Mas información en: lib/experience_name_validator.rb
+      validates_with ExperienceNameValidator
     end
 
     state :step3, :pending, :published, :on_sale, :closed, :expired, :billed, :paid do
@@ -384,15 +389,54 @@ class Experience < ActiveRecord::Base
 
       validates_numericality_of :fee, greater_than_or_equal_to: Proc.new {|item| item.eco.presence ? [item.eco.fee, 0].max : 0}, less_than: 100
 
-      validates_presence_of :total_exclusivity_days,       if: 'total_exclusivity_sales.presence'
-      validates_presence_of :by_industry_exclusivity_days, if: 'by_industry_exclusivity_sales.presence'
-      validates_presence_of :without_exclusivity_days,     if: 'without_exclusivity_sales.presence'
+      validates_presence_of :total_exclusivity_days,       if: 'total_exclusivity_sales.presence and (by_industry_exclusivity_sales.presence or without_exclusivity_sales.presence)'
+      validates_presence_of :by_industry_exclusivity_days, if: 'by_industry_exclusivity_sales.presence and without_exclusivity_sales.presence'
 
-      validates_numericality_of :total_exclusivity_days,       greater_than: 0, only_integer: true, if: 'total_exclusivity_days.presence'
-      validates_numericality_of :by_industry_exclusivity_days, greater_than: 0, only_integer: true, if: 'by_industry_exclusivity_days.presence'
-      validates_numericality_of :without_exclusivity_days,     greater_than: 0, only_integer: true, if: 'without_exclusivity_days.presence'
+      validates_numericality_of :total_exclusivity_days,       greater_than: 0, only_integer: true, if: 'total_exclusivity_days.presence or (total_exclusivity_sales.presence and by_industry_exclusivity_sales.presence) or (total_exclusivity_sales.presence and without_exclusivity_sales.presence)'
+      validates_numericality_of :by_industry_exclusivity_days, greater_than: 0, only_integer: true, if: 'by_industry_exclusivity_days.presence or (by_industry_exclusivity_sales.presence and without_exclusivity_sales.presence)'
 
+      # Internal: Indica si una experiencia se puede tomar con exclusividad total
+      #
+      # Retorna Boolean.
+      def total_exclusivity_enabled?
+        self.total_exclusivity_sales.present?
+      end
 
+      # Internal: Indica si una experiencia se puede tomar con exclusividad por industria
+      #
+      # Retorna Boolean.
+      def by_industry_exclusivity_enabled?
+        if self.by_industry_exclusivity_sales.present?
+          wait_days = self.total_exclusivity_sales.present? ? self.total_exclusivity_days : 0
+
+          if wait_days > 0
+            (self.starting_at + wait_days.days) <= Date.today
+          else
+            true
+          end
+        else
+          false
+        end
+      end
+
+      # Internal: Indica si una experiencia se puede tomar sin exclusividad
+      #
+      # Retorna Boolean.
+      def without_exclusivity_enabled?
+        if self.without_exclusivity_sales.present?
+          wait_days = 0
+          wait_days += self.total_exclusivity_sales.present?       ? self.total_exclusivity_days       : 0
+          wait_days += self.by_industry_exclusivity_sales.present? ? self.by_industry_exclusivity_days : 0
+
+          if wait_days > 0
+            (self.starting_at + wait_days.days) <= Date.today
+          else
+            true
+          end
+        else
+          false
+        end
+      end
     end
   end
 

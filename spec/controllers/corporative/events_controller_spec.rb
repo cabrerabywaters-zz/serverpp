@@ -36,6 +36,14 @@ describe Corporative::EventsController do
       assigns(:events).should eq [@event]
       response.should be_success
     end
+
+    it "no deberia mostrar los events que no esten publicados" do
+      event_taken  = FactoryGirl.create(:event, efi_id: @efi.id, state: 'taken')
+
+      get :index, corporative_id: @efi.search_name
+      assigns(:events).should_not include(event_taken)
+      response.should be_success
+    end
   end
 
   describe "GET show" do
@@ -64,6 +72,13 @@ describe Corporative::EventsController do
 
       it "no deberia mostrar el event si este esta cerrado" do
         get :show, id: @closed_event, corporative_id: @efi.search_name
+        response.should redirect_to(corporative_root_path(@efi))
+      end
+
+      it "no deberia mostrar el event si este no esta publicado" do
+        event_taken  = FactoryGirl.create(:event, efi_id: @efi.id, state: 'taken')
+
+        get :show, id: event_taken, corporative_id: @efi.search_name
         response.should redirect_to(corporative_root_path(@efi))
       end
     end

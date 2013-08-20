@@ -1,64 +1,10 @@
-.row-fluid
-  .span8.encabezado
-    %h1= @experience.name
-    %h6.interesFutbol= @experience.summary
-
-    %dl.dl-horizontal.ubicacion
-      %dt= Experience.human_attribute_name(:place)
-      %dd= @experience.place
-      %dt= Experience.human_attribute_name(:comuna)
-      %dd= @experience.comuna_name
-      %dt= Experience.human_attribute_name(:amount)
-      %dd= number_to_currency @experience.amount
-      %dt= Experience.human_attribute_name(:discounted_price)
-      %dd= number_to_currency @experience.discounted_price, presicion: 0
-      %dt= Experience.human_attribute_name(:discount_percentage)
-      %dd= number_to_percentage @experience.get_discount_percentage, precision: 1
-
-      %dt= Experience.human_attribute_name(:starting_at)
-      %dd= l @experience.starting_at, format: :datepicker
-      %dt= Experience.human_attribute_name(:ending_at)
-      %dd= l @experience.ending_at, format: :datepicker
-
-      %dt= Experience.human_attribute_name(:validity_starting_at)
-      %dd= l @experience.validity_starting_at, format: :datepicker
-      %dt= Experience.human_attribute_name(:validity_ending_at)
-      %dd= l @experience.validity_ending_at, format: :datepicker
-
-  .span4
-    .well.well-small.intereses.show-grid
-      = Interest.model_name.human.pluralize + ':'
-      - @experience.interests.each_with_index do |interest, index|
-        - if index == 0
-          %span.interesMayor.label.label-inverse= interest.name
-        - elsif index == 1
-          %span.label.label-important= interest.name
-        - else
-          %span.label.label-warning= interest.name
-
-    = image_tag @experience.image
-
-- if @experience.advertisings.any?
+- if @event.in_state? [:taken, :published]
   .row-fluid
-    .span12
-      .advertisings.thumbnails.well
-        %p
-          %strong= Experience.human_attribute_name(:advertisings) + ':'
+    .text-right
+      %br
+      - if @event.taken?
+        = link_to t('helpers.links.publish'), publish_efi_event_path(@event), class: 'btn btn-success btn-large', method: :put, confirm: t('helpers.links.confirm.publish', model: Event.model_name.human)
+      - if @event.published?
+        = link_to t('helpers.links.unpublish'), unpublish_efi_event_path(@event), class: 'btn btn-warning btn-large', method: :put, confirm: t('helpers.links.confirm.unpublish', model: Event.model_name.human)
 
-        .controls-row
-          - @experience.advertisings.each do |advertising|
-            .thumbnail{class: advertising.name == 'Medios Digitales' ? 'span2' : 'span1'}
-              = image_tag advertising.image(:thumb)
-              %p
-                %strong= advertising.name
-
-.row-fluid.contenidoEcoModulosexperiencia
-  .span4.well
-    %strong= Experience.human_attribute_name(:details) + ':'
-    %p= @experience.details.html_safe
-  .span4.well
-    %strong= Experience.human_attribute_name(:exchange_mechanism) + ':'
-    %p= @experience.exchange_mechanism
-  .span4.well
-    %strong= Experience.human_attribute_name(:conditions) + ':'
-    %p= raw @experience.conditions
+= render 'experience_details'

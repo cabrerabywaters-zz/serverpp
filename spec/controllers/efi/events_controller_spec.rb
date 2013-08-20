@@ -5,7 +5,11 @@ describe Efi::EventsController do
 
   before :each do
     @efi        = @current_user_efi.efi
+
     @experience = FactoryGirl.create(:experience)
+    @experience.starting_at = Date.today - 4.days
+    @experience.save validate: false
+
     @efi.industries << @experience.industry_experiences.first.industry
     @efi.reload
     @experience.available_efis << @efi
@@ -153,6 +157,52 @@ describe Efi::EventsController do
               post :create, event: { }, experience_id: experience.id
             }.to raise_error(ActiveRecord::RecordNotFound)
           end
+        end
+      end
+    end
+  end
+
+  describe "PUT publish" do
+    context "cuando el evento esta :taken" do
+      it "debe publicar el evento" do
+        event = FactoryGirl.create(:event, state: 'taken', efi_id: @efi.id)
+        put :publish, id: event
+        assigns(:event).published?.should be_true
+        response.should redirect_to(efi_event_path(event))
+      end
+    end
+
+    context "cuando la experience no esta :taken" do
+      it "no debe actualizar el estado de la experience solicitada" do
+        ['published', 'closed', 'billed', 'paid'].each do |state|
+          event = FactoryGirl.create(:event, state: state, efi_id: @efi.id)
+          event.taken?.should_not be_true
+          put :publish, id: event
+          flash[:notice].should_not be_nil
+          response.should redirect_to(efi_event_path(event))
+        end
+      end
+    end
+  end
+
+  describe "PUT unpublish" do
+    context "cuando el evento esta :published" do
+      it "debe despublicar el evento" do
+        event = FactoryGirl.create(:event, state: 'published', efi_id: @efi.id)
+        put :unpublish, id: event
+        assigns(:event).taken?.should be_true
+        response.should redirect_to(efi_event_path(event))
+      end
+    end
+
+    context "cuando la experience no esta :published" do
+      it "no debe actualizar el estado de la experience solicitada" do
+        ['taken', 'closed', 'billed', 'paid'].each do |state|
+          event = FactoryGirl.create(:event, state: state, efi_id: @efi.id)
+          event.published?.should_not be_true
+          put :unpublish, id: event
+          flash[:notice].should_not be_nil
+          response.should redirect_to(efi_event_path(event))
         end
       end
     end

@@ -129,10 +129,6 @@ describe Experience do
     it "debe responder a by_industry_exclusivity_days" do
       should respond_to :by_industry_exclusivity_days
     end
-
-    it "debe responder a without_exclusivity_days" do
-      should respond_to :without_exclusivity_days
-    end
   end
 
   ################
@@ -195,68 +191,163 @@ describe Experience do
   end
 
   describe ":total_exclusivity_days validations" do
-    it "debe requerir un :total_exclusivity_days numerico" do
-      subject.stub(:state){'published'}
-      should validate_numericality_of(:total_exclusivity_days).only_integer
+    context "con :by_industry_exclusivity_sales y :without_exclusivity_sales" do
+      it "debe requerir un :total_exclusivity_days numerico" do
+        subject.stub(:state){'published'}
+        subject.stub(:by_industry_exclusivity_sales){true}
+        subject.stub(:without_exclusivity_sales){true}
+        should validate_numericality_of(:total_exclusivity_days).only_integer
 
-      FactoryGirl.build(:experience, total_exclusivity_days: 'a').should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days: 'a', by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
+      end
+
+      it "debe requerir un :total_exclusivity_days mayor que cero" do
+        FactoryGirl.build(:experience, total_exclusivity_days: '0',    by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  0,     by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days: '-1',   by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  -1,    by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days: '-1.5', by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  -1.5,  by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
+      end
+
+      it "debe estar presente" do
+        FactoryGirl.build(:experience, total_exclusivity_days:  1,   total_exclusivity_sales: true,  by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  nil, total_exclusivity_sales: false, by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  '',  total_exclusivity_sales: false, by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should be_valid
+
+        FactoryGirl.build(:experience, total_exclusivity_days:  nil, total_exclusivity_sales: true, by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  '',  total_exclusivity_sales: true, by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
+      end
     end
-    it "debe requerir un :fee mayor que cero" do
-      FactoryGirl.build(:experience, total_exclusivity_days: '0').should_not    be_valid
-      FactoryGirl.build(:experience, total_exclusivity_days:  0).should_not     be_valid
-      FactoryGirl.build(:experience, total_exclusivity_days: '-1').should_not   be_valid
-      FactoryGirl.build(:experience, total_exclusivity_days:  -1).should_not    be_valid
-      FactoryGirl.build(:experience, total_exclusivity_days: '-1.5').should_not be_valid
-      FactoryGirl.build(:experience, total_exclusivity_days:  -1.5).should_not  be_valid
+
+    context "con :by_industry_exclusivity_sales" do
+      it "debe requerir un :total_exclusivity_days numerico" do
+        subject.stub(:state){'published'}
+        subject.stub(:by_industry_exclusivity_sales){true}
+        should validate_numericality_of(:total_exclusivity_days).only_integer
+
+        FactoryGirl.build(:experience, total_exclusivity_days: 'a', by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should_not be_valid
+      end
+
+      it "debe requerir un :total_exclusivity_days mayor que cero" do
+        FactoryGirl.build(:experience, total_exclusivity_days: '0',    by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  0,     by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days: '-1',   by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  -1,    by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days: '-1.5', by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  -1.5,  by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should_not be_valid
+      end
+
+      it "debe estar presente" do
+        FactoryGirl.build(:experience, total_exclusivity_days:  1,   total_exclusivity_sales: true,  by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  nil, total_exclusivity_sales: false, by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  '',  total_exclusivity_sales: false, by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should be_valid
+
+        FactoryGirl.build(:experience, total_exclusivity_days:  nil, total_exclusivity_sales: true, by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  '',  total_exclusivity_sales: true, by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should_not be_valid
+      end
     end
-    it "debe estar presente junto con :total_exclusivity_sales" do
-      FactoryGirl.build(:experience, total_exclusivity_days:  1,   total_exclusivity_sales: true).should  be_valid
-      FactoryGirl.build(:experience, total_exclusivity_days:  nil, total_exclusivity_sales: false).should  be_valid
-      FactoryGirl.build(:experience, total_exclusivity_days:  '',  total_exclusivity_sales: false).should  be_valid
+
+    context "con :without_exclusivity_sales" do
+      it "debe requerir un :total_exclusivity_days numerico" do
+        subject.stub(:state){'published'}
+        subject.stub(:without_exclusivity_sales){true}
+        should validate_numericality_of(:total_exclusivity_days).only_integer
+
+        FactoryGirl.build(:experience, total_exclusivity_days: 'a', by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should_not be_valid
+      end
+
+      it "debe requerir un :total_exclusivity_days mayor que cero" do
+        FactoryGirl.build(:experience, total_exclusivity_days: '0',    by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  0,     by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days: '-1',   by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  -1,    by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days: '-1.5', by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  -1.5,  by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should_not be_valid
+      end
+
+      it "debe estar presente" do
+        FactoryGirl.build(:experience, total_exclusivity_days:  1,   total_exclusivity_sales: true,  by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  nil, total_exclusivity_sales: false, by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  '',  total_exclusivity_sales: false, by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should be_valid
+
+        FactoryGirl.build(:experience, total_exclusivity_days:  nil, total_exclusivity_sales: true, by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  '',  total_exclusivity_sales: true, by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should_not be_valid
+      end
+    end
+
+    context "sin :by_industry_exclusivity_sales y :without_exclusivity_sales" do
+      it "debe requerir un :total_exclusivity_days numerico" do
+        FactoryGirl.build(:experience, total_exclusivity_days: 'a', by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days: nil, by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should     be_valid
+      end
+
+      it "debe requerir un :total_exclusivity_days mayor que cero" do
+        FactoryGirl.build(:experience, total_exclusivity_days: '0',    by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  0,     by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days: '-1',   by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  -1,    by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days: '-1.5', by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  -1.5,  by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should_not be_valid
+      end
+
+      it "debe estar presente" do
+        FactoryGirl.build(:experience, total_exclusivity_days:  1,   total_exclusivity_sales: true, by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  nil, total_exclusivity_sales: true, by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  '',  total_exclusivity_sales: true, by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should be_valid
+      end
     end
   end
 
   describe ":by_industry_exclusivity_days validations" do
-    it "debe requerir un :by_industry_exclusivity_days numerico" do
-      subject.stub(:state){'published'}
-      should validate_numericality_of(:by_industry_exclusivity_days).only_integer
+    context "con :without_exclusivity_sales" do
+      it "debe requerir un :by_industry_exclusivity_days numerico" do
+        subject.stub(:state){'published'}
+        subject.stub(:without_exclusivity_sales){true}
+        should validate_numericality_of(:by_industry_exclusivity_days).only_integer
 
-      FactoryGirl.build(:experience, by_industry_exclusivity_days: 'a').should_not be_valid
-    end
-    it "debe requerir un :fee mayor que cero" do
-      FactoryGirl.build(:experience, by_industry_exclusivity_days: '0').should_not    be_valid
-      FactoryGirl.build(:experience, by_industry_exclusivity_days:  0).should_not     be_valid
-      FactoryGirl.build(:experience, by_industry_exclusivity_days: '-1').should_not   be_valid
-      FactoryGirl.build(:experience, by_industry_exclusivity_days:  -1).should_not    be_valid
-      FactoryGirl.build(:experience, by_industry_exclusivity_days: '-1.5').should_not be_valid
-      FactoryGirl.build(:experience, by_industry_exclusivity_days:  -1.5).should_not  be_valid
-    end
-    it "debe estar presente junto con :total_exclusivity_sales" do
-      FactoryGirl.build(:experience, by_industry_exclusivity_days:  1,   by_industry_exclusivity_sales: true).should  be_valid
-      FactoryGirl.build(:experience, by_industry_exclusivity_days:  nil, by_industry_exclusivity_sales: false).should  be_valid
-      FactoryGirl.build(:experience, by_industry_exclusivity_days:  '',  by_industry_exclusivity_sales: false).should  be_valid
-    end
-  end
+        FactoryGirl.build(:experience, by_industry_exclusivity_days: 'a', without_exclusivity_sales: true).should_not be_valid
+      end
 
-  describe ":without_exclusivity_days validations" do
-    it "debe requerir un :without_exclusivity_days numerico" do
-      subject.stub(:state){'published'}
-      should validate_numericality_of(:without_exclusivity_days).only_integer
+      it "debe requerir un :by_industry_exclusivity_days mayor que cero" do
+        FactoryGirl.build(:experience, by_industry_exclusivity_days: '0',    without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days:  0,     without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days: '-1',   without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days:  -1,    without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days: '-1.5', without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days:  -1.5,  without_exclusivity_sales: true).should_not be_valid
+      end
 
-      FactoryGirl.build(:experience, without_exclusivity_days: 'a').should_not be_valid
+      it "debe estar presente" do
+        FactoryGirl.build(:experience, by_industry_exclusivity_days:  1,   by_industry_exclusivity_sales: true,  without_exclusivity_sales: true).should be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days:  nil, by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days:  '',  by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should be_valid
+
+        FactoryGirl.build(:experience, by_industry_exclusivity_days:  nil, by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days:  '',  by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
+      end
     end
-    it "debe requerir un :fee mayor que cero" do
-      FactoryGirl.build(:experience, without_exclusivity_days: '0').should_not    be_valid
-      FactoryGirl.build(:experience, without_exclusivity_days:  0).should_not     be_valid
-      FactoryGirl.build(:experience, without_exclusivity_days: '-1').should_not   be_valid
-      FactoryGirl.build(:experience, without_exclusivity_days:  -1).should_not    be_valid
-      FactoryGirl.build(:experience, without_exclusivity_days: '-1.5').should_not be_valid
-      FactoryGirl.build(:experience, without_exclusivity_days:  -1.5).should_not  be_valid
-    end
-    it "debe estar presente junto con :total_exclusivity_sales" do
-      FactoryGirl.build(:experience, without_exclusivity_days:  1,   without_exclusivity_sales: true).should  be_valid
-      FactoryGirl.build(:experience, without_exclusivity_days:  nil, without_exclusivity_sales: false).should  be_valid
-      FactoryGirl.build(:experience, without_exclusivity_days:  '',  without_exclusivity_sales: false).should  be_valid
+
+    context "sin :without_exclusivity_sales" do
+      it "debe requerir un :by_industry_exclusivity_days numerico" do
+        FactoryGirl.build(:experience, by_industry_exclusivity_days: 'a', without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days: nil, without_exclusivity_sales: false).should     be_valid
+      end
+
+      it "debe requerir un :by_industry_exclusivity_days mayor que cero" do
+        FactoryGirl.build(:experience, by_industry_exclusivity_days: '0',    without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days:  0,     without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days: '-1',   without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days:  -1,    without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days: '-1.5', without_exclusivity_sales: false).should_not be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days:  -1.5,  without_exclusivity_sales: false).should_not be_valid
+      end
+
+      it "debe estar presente" do
+        FactoryGirl.build(:experience, by_industry_exclusivity_days:  1,   by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days:  nil, by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days:  '',  by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should be_valid
+      end
     end
   end
 
@@ -362,9 +453,44 @@ describe Experience do
     FactoryGirl.build(:experience, ending_at: '').should_not be_valid
   end
 
-  it "debe requerir un name" do
-    FactoryGirl.build(:experience, name: nil).should_not be_valid
-    FactoryGirl.build(:experience, name: '').should_not be_valid
+  describe ":name validations" do
+    it "debe requerir un name" do
+      FactoryGirl.build(:experience, name: nil).should_not be_valid
+      FactoryGirl.build(:experience, name: '').should_not be_valid
+    end
+
+    context "cuando las otras experiencias no estan publicadas" do
+      it "no debe requerir un name único" do
+        ['step1', 'step2', 'step3', 'closed', 'expired', 'billed', 'paid'].each do |s|
+          Experience.destroy_all
+          FactoryGirl.create(:experience, name: 'Evento', state: s)
+          FactoryGirl.build(:experience,  name: 'Evento').should be_valid
+        end
+      end
+    end
+
+    context "cuando las otras experiencias estan publicadas" do
+      it "debe requerir un name único cuando esta published" do
+        ['published', 'on_sale'].each do |s|
+          Experience.destroy_all
+          FactoryGirl.create(:experience, name: 'Evento', state: s)
+          FactoryGirl.build(:experience,  name: 'Evento').should_not be_valid
+        end
+      end
+    end
+
+    context "cuando las otras experiencias estan publicadas pero sin stock" do
+      it "debe requerir un name único cuando esta published" do
+        Experience.destroy_all
+        experience = FactoryGirl.create(:experience, name: 'Evento', swaps: 1, codes: ['asdf'])
+        event      = FactoryGirl.create(:event, experience_id: experience.id)
+        exchange   = event.exchanges.first
+        FactoryGirl.create(:purchase, exchange_id: exchange.id)
+
+        experience.in_state?(['published', 'on_sale']).should be_true
+        FactoryGirl.build(:experience,  name: 'Evento').should be_valid
+      end
+    end
   end
 
   it "debe requerir un place" do
@@ -420,11 +546,6 @@ describe Experience do
   it "debe requerir un chilean_cities_comuna_id" do
     FactoryGirl.build(:experience, chilean_cities_comuna_id: nil).should_not be_valid
     FactoryGirl.build(:experience, chilean_cities_comuna_id: '').should_not  be_valid
-  end
-
-  it "debe requerir un name único" do
-    FactoryGirl.create(:experience, name: 'Evento')
-    FactoryGirl.build(:experience,  name: 'Evento').should_not be_valid
   end
 
   it "debe requerir un image" do
@@ -784,6 +905,9 @@ describe Experience do
 
     it "debe devolver un valor correcto" do
       experience = FactoryGirl.create(:experience, swaps: 10)
+      experience.starting_at = Date.today - 4.days
+      experience.save validate: false
+
       experience.industry_experiences.destroy_all
       Industry.destroy_all
       industry   = FactoryGirl.create(:industry, percentage: 30)
@@ -817,7 +941,7 @@ describe Experience do
       experience.industry_experiences.destroy_all
       Industry.destroy_all
       industry   = FactoryGirl.create(:industry, percentage: 30)
-      experience.industry_experiences << FactoryGirl.create(:industry_experience, industry_id: industry.id, experience_id: experience.id, percentage: 30.0)
+      experience.industry_experiences << FactoryGirl.create(:industry_experience, experience_id: experience.id, percentage: 30.0, industry_id: industry.id)
       experience.industry_experiences << FactoryGirl.create(:industry_experience, experience_id: experience.id, percentage: 70.0)
       experience.reload
       experience.industry_experiences.should_not be_empty
@@ -825,6 +949,10 @@ describe Experience do
 
       efi1       = FactoryGirl.create(:efi, industry_ids: [industry.id])
       efi2       = FactoryGirl.create(:efi, industry_ids: [industry.id])
+
+      experience.starting_at = Date.today - 4.days
+      experience.save validate: false
+
       event1     = FactoryGirl.create(:event, experience_id: experience.id, efi_id: efi2.id, exclusivity_id: Exclusivity.without_id, swaps: 5)
       event2     = FactoryGirl.create(:event, experience_id: experience.id, efi_id: efi1.id, exclusivity_id: Exclusivity.by_industry_id)
       experience.stock_sold.should eq(event2.quantity)
@@ -858,6 +986,10 @@ describe Experience do
 
       efi1       = FactoryGirl.create(:efi, industry_ids: [industry.id])
       efi2       = FactoryGirl.create(:efi, industry_ids: [industry.id])
+
+      experience.starting_at = Date.today - 4.days
+      experience.save validate: false
+
       event1     = FactoryGirl.create(:event, experience_id: experience.id, efi_id: efi2.id, exclusivity_id: Exclusivity.without_id, swaps: 5)
       event2     = FactoryGirl.create(:event, experience_id: experience.id, efi_id: efi1.id, exclusivity_id: Exclusivity.by_industry_id)
       experience.number_of_issued.should eq(0)
@@ -916,6 +1048,9 @@ describe Experience do
     context "cuando ya tomaron la exclusividad por industria" do
       it "debe devolver FALSE" do
         experience = FactoryGirl.create(:experience)
+        experience.starting_at = Date.today - 4.days
+        experience.save validate: false
+
         industry   = experience.industry_experiences.first.industry
         efi        = FactoryGirl.create(:efi, industry_ids: [industry.id])
 
@@ -926,7 +1061,8 @@ describe Experience do
 
     context "cuando ya tomaron 'sin exclusividad'" do
       it "debe devolver FALSE" do
-        event = FactoryGirl.create(:event, exclusivity_id: Exclusivity.without_id, swaps: 1)
+        experience = FactoryGirl.create(:experience, total_exclusivity_sales: false, by_industry_exclusivity_sales: false)
+        event = FactoryGirl.create(:event, experience_id: experience.id, exclusivity_id: Exclusivity.without_id, swaps: 1)
         experience = event.experience
         experience.reload
         experience.available_total_exclusivity?().should be_false
@@ -952,7 +1088,8 @@ describe Experience do
 
     context "cuando hay solo eventos 'sin exclusividad'" do
       it "debe devolver TRUE" do
-        event = FactoryGirl.create(:event, exclusivity_id: Exclusivity.without_id, swaps: 1)
+        experience = FactoryGirl.create(:experience, total_exclusivity_sales: false, by_industry_exclusivity_sales: false)
+        event = FactoryGirl.create(:event, experience_id: experience.id, exclusivity_id: Exclusivity.without_id, swaps: 1)
 
         experience = event.experience
         industry   = experience.industry_experiences.first.industry
@@ -965,7 +1102,7 @@ describe Experience do
     context "cuando ya tomaron la 'exclusividad por industria'" do
       context "cuando son efis de distintas industrias" do
         it "debe devolver TRUE" do
-          experience = FactoryGirl.create(:experience)
+          experience = FactoryGirl.create(:experience, total_exclusivity_sales: false)
           industry1  = FactoryGirl.create(:industry)
           industry2  = FactoryGirl.create(:industry)
           efi1       = FactoryGirl.create(:efi, industry_ids: [industry1.id])
@@ -984,7 +1121,7 @@ describe Experience do
       end
       context "cuando son efis de la misma industria" do
         it "debe devolver FALSE" do
-          experience = FactoryGirl.create(:experience)
+          experience = FactoryGirl.create(:experience, total_exclusivity_sales: false)
           industry   = experience.industry_experiences.first.industry
           efi1       = FactoryGirl.create(:efi, industry_ids: [industry.id])
           efi2       = FactoryGirl.create(:efi, industry_ids: [industry.id])
@@ -1142,6 +1279,10 @@ describe Experience do
     it "deberia responder a pending_published_on_sale_or_closed" do
       Experience.should respond_to :pending_published_on_sale_or_closed
     end
+
+    it "deberia responder a was_published" do
+      Experience.should respond_to :was_published
+    end
   end
 
   context 'para obtener el estado en que se encuentra la experience' do
@@ -1184,6 +1325,186 @@ describe Experience do
   describe 'purchases' do
     it "debe responder a purchases" do
       should respond_to :purchases
+    end
+  end
+
+  describe "para saber con que exclusividad puedo participar en una experience" do
+    it "debe responder a :total_exclusivity_enabled?" do
+      subject.stub(:state){'published'}
+      should respond_to :total_exclusivity_enabled?
+    end
+
+    it "debe responder a :by_industry_exclusivity_enabled?" do
+      subject.stub(:state){'published'}
+      should respond_to :by_industry_exclusivity_enabled?
+    end
+
+    it "debe responder a :without_exclusivity_enabled?" do
+      subject.stub(:state){'published'}
+      should respond_to :without_exclusivity_enabled?
+    end
+
+    context ":total_exclusivity_sales & :by_industry_exclusivity_sales & :without_exclusivity_sales" do
+      it "debe retornar un valor valido" do
+        experience = FactoryGirl.create(:experience,
+                                        total_exclusivity_sales:       true, total_exclusivity_days:       2,
+                                        by_industry_exclusivity_sales: true, by_industry_exclusivity_days: 2,
+                                        without_exclusivity_sales:     true)
+
+        day = experience.starting_at
+
+        experience.total_exclusivity_enabled?.should be_true
+        experience.by_industry_exclusivity_enabled?.should be_false
+        experience.without_exclusivity_enabled?.should be_false
+
+        experience.starting_at = day - 2.days
+        experience.total_exclusivity_enabled?.should be_true
+        experience.by_industry_exclusivity_enabled?.should be_true
+        experience.without_exclusivity_enabled?.should be_false
+
+        experience.starting_at = day - 4.days
+        experience.total_exclusivity_enabled?.should be_true
+        experience.by_industry_exclusivity_enabled?.should be_true
+        experience.without_exclusivity_enabled?.should be_true
+      end
+    end
+
+    context ":total_exclusivity_sales & :by_industry_exclusivity_sales" do
+      it "debe retornar un valor valido" do
+        experience = FactoryGirl.create(:experience,
+                                        total_exclusivity_sales:       true, total_exclusivity_days:       2,
+                                        by_industry_exclusivity_sales: true, by_industry_exclusivity_days: nil,
+                                        without_exclusivity_sales:     false)
+
+        day = experience.starting_at
+
+        experience.total_exclusivity_enabled?.should be_true
+        experience.by_industry_exclusivity_enabled?.should be_false
+        experience.without_exclusivity_enabled?.should be_false
+
+        experience.starting_at = day - 2.days
+        experience.total_exclusivity_enabled?.should be_true
+        experience.by_industry_exclusivity_enabled?.should be_true
+        experience.without_exclusivity_enabled?.should be_false
+
+        experience.starting_at = day - 4.days
+        experience.total_exclusivity_enabled?.should be_true
+        experience.by_industry_exclusivity_enabled?.should be_true
+        experience.without_exclusivity_enabled?.should be_false
+      end
+    end
+
+    context ":total_exclusivity_sales & :without_exclusivity_sales" do
+      it "debe retornar un valor valido" do
+        experience = FactoryGirl.create(:experience,
+                                        total_exclusivity_sales:       true,  total_exclusivity_days:       2,
+                                        by_industry_exclusivity_sales: false, by_industry_exclusivity_days: nil,
+                                        without_exclusivity_sales:     true)
+
+        day = experience.starting_at
+
+        experience.total_exclusivity_enabled?.should be_true
+        experience.by_industry_exclusivity_enabled?.should be_false
+        experience.without_exclusivity_enabled?.should be_false
+
+        experience.starting_at = day - 2.days
+        experience.total_exclusivity_enabled?.should be_true
+        experience.by_industry_exclusivity_enabled?.should be_false
+        experience.without_exclusivity_enabled?.should be_true
+
+        experience.starting_at = day - 4.days
+        experience.total_exclusivity_enabled?.should be_true
+        experience.by_industry_exclusivity_enabled?.should be_false
+        experience.without_exclusivity_enabled?.should be_true
+      end
+    end
+
+    context ":by_industry_exclusivity_sales & :without_exclusivity_sales" do
+      it "debe retornar un valor valido" do
+        experience = FactoryGirl.create(:experience,
+                                        total_exclusivity_sales:       false, total_exclusivity_days:      nil,
+                                        by_industry_exclusivity_sales: true, by_industry_exclusivity_days: 2,
+                                        without_exclusivity_sales:     true)
+
+        day = experience.starting_at
+
+        experience.total_exclusivity_enabled?.should be_false
+        experience.by_industry_exclusivity_enabled?.should be_true
+        experience.without_exclusivity_enabled?.should be_false
+
+        experience.starting_at = day - 2.days
+        experience.total_exclusivity_enabled?.should be_false
+        experience.by_industry_exclusivity_enabled?.should be_true
+        experience.without_exclusivity_enabled?.should be_true
+
+        experience.starting_at = day - 4.days
+        experience.total_exclusivity_enabled?.should be_false
+        experience.by_industry_exclusivity_enabled?.should be_true
+        experience.without_exclusivity_enabled?.should be_true
+      end
+    end
+
+    context ":total_exclusivity_sales" do
+      it "debe retornar un valor valido" do
+        experience = FactoryGirl.create(:experience,
+                                        total_exclusivity_sales:       true,  total_exclusivity_days:       nil,
+                                        by_industry_exclusivity_sales: false, by_industry_exclusivity_days: nil,
+                                        without_exclusivity_sales:     false)
+
+        day = experience.starting_at
+
+        Date.stub!(:today).and_return(day)
+        experience.total_exclusivity_enabled?.should be_true
+        experience.by_industry_exclusivity_enabled?.should be_false
+        experience.without_exclusivity_enabled?.should be_false
+
+        Date.stub!(:today).and_return(day - 100.days)
+        experience.total_exclusivity_enabled?.should be_true
+        experience.by_industry_exclusivity_enabled?.should be_false
+        experience.without_exclusivity_enabled?.should be_false
+      end
+    end
+
+    context ":by_industry_exclusivity_sales" do
+      it "debe retornar un valor valido" do
+        experience = FactoryGirl.create(:experience,
+                                        total_exclusivity_sales:       false,  total_exclusivity_days:       nil,
+                                        by_industry_exclusivity_sales: true,   by_industry_exclusivity_days: nil,
+                                        without_exclusivity_sales:     false)
+
+        day = experience.starting_at
+
+        Date.stub!(:today).and_return(day)
+        experience.total_exclusivity_enabled?.should be_false
+        experience.by_industry_exclusivity_enabled?.should be_true
+        experience.without_exclusivity_enabled?.should be_false
+
+        Date.stub!(:today).and_return(day - 100.days)
+        experience.total_exclusivity_enabled?.should be_false
+        experience.by_industry_exclusivity_enabled?.should be_true
+        experience.without_exclusivity_enabled?.should be_false
+      end
+    end
+
+    context ":without_exclusivity_sales" do
+      it "debe retornar un valor valido" do
+        experience = FactoryGirl.create(:experience,
+                                        total_exclusivity_sales:       false, total_exclusivity_days:       nil,
+                                        by_industry_exclusivity_sales: false, by_industry_exclusivity_days: nil,
+                                        without_exclusivity_sales:     true)
+
+        day = experience.starting_at
+
+        Date.stub!(:today).and_return(day)
+        experience.total_exclusivity_enabled?.should be_false
+        experience.by_industry_exclusivity_enabled?.should be_false
+        experience.without_exclusivity_enabled?.should be_true
+
+        Date.stub!(:today).and_return(day - 100.days)
+        experience.total_exclusivity_enabled?.should be_false
+        experience.by_industry_exclusivity_enabled?.should be_false
+        experience.without_exclusivity_enabled?.should be_true
+      end
     end
   end
 

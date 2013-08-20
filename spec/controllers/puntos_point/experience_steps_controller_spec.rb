@@ -55,8 +55,7 @@ describe PuntosPoint::ExperienceStepsController do
                                                                       {'industry_id' => @industry2.id.to_s, 'percentage' => '90.0'}],
                                 'fee' => @eco.fee.to_s,
                                 'total_exclusivity_days' => '1',
-                                'by_industry_exclusivity_days' => '1',
-                                'without_exclusivity_days' => '1' }
+                                'by_industry_exclusivity_days' => '1' }
   end
 
   describe "GET index" do

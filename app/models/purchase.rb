@@ -17,17 +17,30 @@
 # Mas información en: https://github.com/ryanb/cancan
 #
 class Purchase < ActiveRecord::Base
+  def self.default_scope
+    self.where(:state => [:sold, :validated])
+  end
+
   # identifier_name:  Nombre del valor extra requerido para la integración.
   #                   EJ: número de teléfono, correo electrónico, etc.
   # identifier_value: Valor extra requerido para la integración.
   # points:           Puntos que se van a descontar.
   # Mas información en: http://www.rubyist.net/~slagell/ruby/accessors.html
-  attr_accessor   :password
+  attr_accessor   :password, :required_password
 
   attr_accessible :rut,
                   :email,
                   :password,
-                  :exchange_id
+                  :exchange_id,
+                  :reference_codes
+
+    attr_accessible :rut,
+                    :email,
+                    :password,
+                    :exchange_id,
+                    :reference_codes,
+                    :required_password,
+                    as: :efi
 
   belongs_to :exchange
 
@@ -38,7 +51,7 @@ class Purchase < ActiveRecord::Base
   validates_presence_of :exchange_id,
                         :email
 
-  validates_presence_of :password, on: :create
+  validates_presence_of :password, on: :create, unless: lambda { self.required_password == false }
 
   # Valida la presencia y la unicidad de la columna :code
   validates :code, presence: true, uniqueness: true
@@ -55,6 +68,13 @@ class Purchase < ActiveRecord::Base
   state_machine initial: :sold do
     event :validate! do
       transition sold: :validated
+    end
+
+    event :redeem! do
+      transition any => :redeemed
+    end
+
+    state :redeemed do
     end
 
     state :sold do
@@ -81,7 +101,7 @@ class Purchase < ActiveRecord::Base
   # para el evento que puso a disposición la EFI, para esto se consideran las
   # formas de canje dispuestas por cada EFI al momento de crear el evento, además
   # se toma en cuenta los eventos sin exclusividades, versus los eventos con
-  # exclusividad por indistria.
+  # exclusividad por industria.
   # Mas información en: lib/swaps_validator.rb
   validates_with SwapsValidator
 

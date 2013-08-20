@@ -6,7 +6,10 @@ class Api::BaseController < ActionController::Base
   private
 
   def authenticate!
-    @efi ||= Efi.find_by_api_password(request.headers["Authentication"])
-    raise WashOut::Dispatcher::SOAPError, "Unauthorized" if @efi.nil?
+    @efi = Efi.find_by_api_password(request.headers["Authentication"])
+
+    if @efi.nil? and not action_name == '_generate_wsdl'
+      raise WashOut::Dispatcher::SOAPError, "Unauthorized"
+    end
   end
 end

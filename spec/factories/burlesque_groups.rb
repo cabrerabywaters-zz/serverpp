@@ -3,7 +3,7 @@
 # Good's Factories
 FactoryGirl.define do
   factory :burlesque_group, class: Burlesque::Group do
-    sequence(:name) { |n| "Good #{n}" }
+    sequence(:name) { |n| "God #{n}" }
 
     after(:build) do |user|
       user.roles << Burlesque::Role.find_or_create_by_name('all#manage')

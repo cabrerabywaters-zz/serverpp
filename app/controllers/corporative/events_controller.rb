@@ -10,7 +10,7 @@ class Corporative::EventsController < Corporative::CorporativeApplicationControl
 
   # GET /empresa/1/events
   def index
-    @events = @corporative.events.joins(experience: :comuna).are_taken.started
+    @events = @corporative.events.joins(experience: :comuna).are_published.started
 
     if params[:category].presence
       @events = @events.where('experiences.category_id = ?', params[:category])
@@ -21,7 +21,7 @@ class Corporative::EventsController < Corporative::CorporativeApplicationControl
 
   # GET /empresa/1/events/1
   def show
-    all_events = @corporative.events.joins(:experience).are_taken.started
+    all_events = @corporative.events.joins(:experience).are_published.started
 
     if all_events.exists?(params[:id])
       @event = all_events.find(params[:id])

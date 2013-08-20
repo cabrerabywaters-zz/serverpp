@@ -77,6 +77,13 @@ describe Corporative::PurchasesController do
         flash[:notice].should_not be_nil
         response.should redirect_to(corporative_root_path(@efi.search_name))
       end
+
+      it "no deberia mostrar el event si este no esta publicado" do
+        event_taken  = FactoryGirl.create(:event, efi_id: @efi.id, state: 'taken')
+
+        get :new, id: event_taken, corporative_id: @efi.search_name
+        response.should redirect_to(corporative_root_path(@efi.search_name))
+      end
     end
   end
 
@@ -182,6 +189,13 @@ describe Corporative::PurchasesController do
         invalid_attributes[:exchange_id] = @closed_event.exchanges.last.id
         post :create, purchase: @valid_attributes, corporative_id: @efi.search_name, id: @closed_event.id
         flash[:notice].should_not be_nil
+        response.should redirect_to(corporative_root_path(@efi.search_name))
+      end
+
+      it "no deberia mostrar el event si este no esta publicado" do
+        event_taken  = FactoryGirl.create(:event, efi_id: @efi.id, state: 'taken')
+
+        post :create, purchase: @valid_attributes, id: event_taken, corporative_id: @efi.search_name
         response.should redirect_to(corporative_root_path(@efi.search_name))
       end
     end

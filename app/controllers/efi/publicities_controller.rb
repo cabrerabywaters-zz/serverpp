@@ -29,13 +29,13 @@ class Efi::PublicitiesController < Efi::EfiApplicationController
 
   # GET /efi/publicities/new
   def new
-    unless current_user_efi.events.are_taken.any?
+    unless current_user_efi.events.are_taken_or_published.any?
       redirect_to efi_root_path, notice: t('notices.error.not_events')
       return
     end
 
     @publicity = current_user_efi.efi.publicities.build({event_id: current_user_efi.events.last.id}, as: :efi)
-    @events    = current_user_efi.efi.events.joins(experience: :eco).where(ecos: {bigger: true}).are_taken
+    @events    = current_user_efi.efi.events.joins(experience: :eco).where(ecos: {bigger: true}).are_taken_or_published
 
     respond_to do |format|
       format.html # new.html.erb
@@ -50,7 +50,7 @@ class Efi::PublicitiesController < Efi::EfiApplicationController
       if @publicity.save
         format.html { redirect_to efi_publicities_path, notice: t('notices.success.male.create', model: Publicity.model_name.human) }
       else
-        @events = current_user_efi.efi.events.joins(experience: :eco).where(ecos: {bigger: true}).are_taken
+        @events = current_user_efi.efi.events.joins(experience: :eco).where(ecos: {bigger: true}).are_taken_or_published
         format.html { render action: "new" }
       end
     end

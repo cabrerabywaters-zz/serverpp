@@ -85,6 +85,12 @@ class UserEco < ActiveRecord::Base
   #   self.eco.name
   delegate :name,        to: :eco, prefix: true
 
+  # Se delega el método :fancy_name a la ECO asocida,
+  # permitiendo acceder al método eco_fancy_name()
+  # el resultado es el mismo resultado que utilizar:
+  #   self.eco.fancy_name
+  delegate :fancy_name,  to: :eco, prefix: true
+
   # Se delega el método :logo a la ECO asocida,
   # permitiendo acceder al método eco_logo()
   # el resultado es el mismo resultado que utilizar:

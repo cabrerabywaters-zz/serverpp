@@ -40,4 +40,32 @@ class Efi::EventsController < Efi::EfiApplicationController
       end
     end
   end
+
+  # PUT /efi/events/1/publish
+  def publish
+    @event = current_user_efi.events.find(params[:id])
+
+    # Acción para facturar una experiencia
+    respond_to do |format|
+      if @event.publish!
+        format.html { redirect_to efi_event_path(@event) }
+      else
+        format.html { redirect_to efi_event_path(@event), notice: I18n.t('notices.error.male.cant_publish', model: Event.model_name.human) }
+      end
+    end
+  end
+
+  # PUT /efi/events/1/unpublish
+  def unpublish
+    @event = current_user_efi.events.find(params[:id])
+
+    # Acción para facturar una experiencia
+    respond_to do |format|
+      if @event.unpublish!
+        format.html { redirect_to efi_event_path(@event) }
+      else
+        format.html { redirect_to efi_event_path(@event), notice: I18n.t('notices.error.male.cant_unpublish', model: Event.model_name.human) }
+      end
+    end
+  end
 end

@@ -80,6 +80,14 @@ describe Efi::PublicitiesController do
       assigns(:events).should_not be_nil
     end
 
+    it "deberia mostrar los events tomados y publicados" do
+      event_taken     = FactoryGirl.create(:event, efi_id: @efi.id, state: 'taken')
+      event_published = FactoryGirl.create(:event, efi_id: @efi.id, state: 'published')
+
+      get :new
+      assigns(:events).should include(event_taken, event_published)
+    end
+
     it "debe asignar events de ECO's grande" do
       eco1 = FactoryGirl.create(:eco, bigger: true)
       eco2 = FactoryGirl.create(:eco, bigger: false)
@@ -132,6 +140,13 @@ describe Efi::PublicitiesController do
         assigns(:events).should_not be_nil
       end
 
+      it "deberia mostrar los events tomados y publicados" do
+        event_taken     = FactoryGirl.create(:event, efi_id: @efi.id, state: 'taken')
+        event_published = FactoryGirl.create(:event, efi_id: @efi.id, state: 'published')
+
+        post :create, publicity: { event_id: @event.id }
+        assigns(:events).should include(event_taken, event_published)
+      end
 
       it "debe asignar events de ECO's grande" do
         eco1 = FactoryGirl.create(:eco, bigger: true)

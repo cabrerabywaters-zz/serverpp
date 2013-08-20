@@ -1,5 +1,7 @@
 module Api
   class Cmr::Event < WashOut::Type
+    type_name 'event'
+
     map event_id: :integer, name: :string, details: :string, summary: :string, conditions: :string,
         exchange_mechanism: :string, ending_at: :date, validity_starting_at: :date, validity_ending_at: :date,
         starting_at: :date, interest: [Api::Cmr::Interests], place: :string, comuna: :string,
@@ -7,9 +9,8 @@ module Api
         quantity: :integer, swaps: :integer, category: Api::Cmr::Category, eco: Api::Cmr::Eco,
         number_of_issued: :integer, exclusivity_id: :integer,
         image_original_url: :string, image_medium_url: :string, image_small_url: :string, image_thumb_url: :string
-
     def self.fetch efi, event_id
-      event = efi.events.includes(experience: [:interests, :category]).includes(:exchanges).find(event_id)
+      event = efi.events.are_published.started.includes(experience: [:interests, :category]).includes(:exchanges).find(event_id)
       experience = event.experience
       {
         value: {

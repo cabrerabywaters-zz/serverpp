@@ -48,6 +48,8 @@ class Ability
         can :read,   Experience
         can :read,   Event
         can :create, Event
+        can :publish, Event
+        can :unpublish, Event
         can :manage, Account
         can :create, Transaction
         can :manage, Banner,    event: {efi_id: user.efi_id}

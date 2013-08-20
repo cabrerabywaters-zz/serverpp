@@ -32,6 +32,7 @@
               %span.add-on
                 %i.icon-calendar
 
+
         .control-group{class: @experience.errors[:ending_at].any? ? 'error' : ''}
           .controls
             %label
@@ -48,7 +49,7 @@
         .control-group{class: @experience.errors[:total_exclusivity_days].any? ? 'error' : ''}
           = f.label :total_exclusivity_days
           .controls
-            - if @experience.total_exclusivity_sales?
+            - if @experience.total_exclusivity_sales? and (@experience.by_industry_exclusivity_sales? or @experience.without_exclusivity_sales?)
               = f.input_field :total_exclusivity_days, class: 'input-mini min_max', data: {min: 1, blank: true}, value: @experience.total_exclusivity_days.presence, onkeypress: "return permiteNumeros(event);"
             - else
               %span.input-mini.uneditable-input
@@ -57,16 +58,8 @@
         .control-group{class: @experience.errors[:by_industry_exclusivity_days].any? ? 'error' : ''}
           = f.label :by_industry_exclusivity_days
           .controls
-            - if @experience.by_industry_exclusivity_sales?
+            - if @experience.by_industry_exclusivity_sales? and @experience.without_exclusivity_sales?
               = f.input_field :by_industry_exclusivity_days, class: 'input-mini min_max', data: {min: 1, blank: true}, value: @experience.by_industry_exclusivity_days.presence, onkeypress: "return permiteNumeros(event);"
-            - else
-              %span.input-mini.uneditable-input
-
-        .control-group{class: @experience.errors[:without_exclusivity_days].any? ? 'error' : ''}
-          = f.label :without_exclusivity_days
-          .controls
-            - if @experience.without_exclusivity_sales?
-              = f.input_field :without_exclusivity_days, class: 'input-mini min_max', data: {min: 1, blank: true}, value: @experience.without_exclusivity_days.presence, onkeypress: "return permiteNumeros(event);"
             - else
               %span.input-mini.uneditable-input
 

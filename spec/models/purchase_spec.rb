@@ -29,6 +29,10 @@ describe Purchase do
     it "debe responder a reference_codes" do
       should respond_to :reference_codes
     end
+
+    it "debe responder a required_password" do
+      should respond_to :required_password
+    end
   end
 
   ################
@@ -61,6 +65,14 @@ describe Purchase do
 
       purchase.password = ''
       purchase.should_not be_valid
+    end
+
+    it "debe no requerir un password si required_password is false" do
+      purchase = FactoryGirl.build(:purchase)
+
+      purchase.required_password = false
+      purchase.password = nil
+      purchase.should be_valid
     end
   end
 
@@ -105,7 +117,7 @@ describe Purchase do
 
   context "cuando se trata de un evento sin exclusividad" do
     it "debe validar la cantidad de cupones del event" do
-      experience = FactoryGirl.create(:experience)
+      experience = FactoryGirl.create(:experience, total_exclusivity_sales: false, by_industry_exclusivity_sales: false)
       event      = FactoryGirl.create(:event, experience_id: experience.id, exclusivity_id: Exclusivity.without_id, swaps: 2)
       exchange   = event.exchanges.last
 
@@ -116,6 +128,9 @@ describe Purchase do
 
     it "debe validar la cantidad de cupones disponibles del event" do
       experience = FactoryGirl.create(:experience)
+      experience.starting_at = Date.today - 4.days
+      experience.save validate: false
+
       industry1  = FactoryGirl.create(:industry)
       industry2  = FactoryGirl.create(:industry)
       efi        = FactoryGirl.create(:efi, industry_ids: [industry1.id])
@@ -139,7 +154,7 @@ describe Purchase do
 
   context "cuando se trata de un evento con exclusividad por industria" do
     it "debe validar la cantidad de cupones del event" do
-      experience = FactoryGirl.create(:experience, swaps: 10)
+      experience = FactoryGirl.create(:experience, swaps: 10, total_exclusivity_sales: false)
       industry   = experience.industry_experiences.first.industry
       efi        = FactoryGirl.create(:efi, industry_ids: [industry.id])
 
@@ -256,6 +271,61 @@ describe Purchase do
   describe "validate!" do
     it "debe responder a validate!" do
       should respond_to :validate!
+    end
+  end
+
+  describe "no elimina compras pero si las oculta" do
+    it "debe ocultar por defecto las compras redeem" do
+      Purchase.count.should eq(0)
+      FactoryGirl.create(:purchase, state: 'redeemed')
+      Purchase.count.should eq(0)
+
+      Purchase.unscoped.count.should eq(1)
+    end
+  end
+
+  #################
+  # state_machine #
+  #################
+  describe "state_machine" do
+    context "states" do
+      it "debe tener estados" do
+        FactoryGirl.create(:purchase, state: 'redeemed').should be_valid
+        FactoryGirl.create(:purchase, state: 'sold').should be_valid
+        FactoryGirl.create(:purchase, state: 'validated').should be_valid
+
+        expect {
+          FactoryGirl.create(:purchase, state: 'otro_estado_no_valido')
+        }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
+    context "events" do
+      describe "redeem!" do
+        it "debe cambiar el estado" do
+          ['sold', 'validated'].each do |s|
+            purchase = FactoryGirl.create(:purchase, state: s)
+            purchase.redeem!.should be_true
+            purchase.redeemed?.should be_true
+          end
+        end
+      end
+
+      describe "validate!" do
+        it "debe cambiar el estado" do
+          purchase = FactoryGirl.create(:purchase, state: 'sold')
+          purchase.sold?.should be_true
+          purchase.validate!.should be_true
+          purchase.validated?.should be_true
+        end
+
+        it "no debe cambiar el estado" do
+          ['redeemed', 'validated'].each do |s|
+            purchase = FactoryGirl.create(:purchase, state: s)
+            purchase.sold?.should be_false
+            purchase.validate!.should be_false
+          end
+        end
+      end
     end
   end
 end

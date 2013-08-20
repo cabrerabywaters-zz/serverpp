@@ -8,7 +8,7 @@ class Eco::IncomesController < Eco::EcoApplicationController
     # reviso que tenga el permiso para ver :incomes
     authorize! :read, :incomes
 
-    @experiences = current_user_eco.experiences.expired_billed_or_paid
+    @experiences = current_user_eco.experiences.was_published
 
     respond_to do |format|
       format.html

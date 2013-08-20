@@ -44,7 +44,7 @@ GEM
     bourne (1.4.0)
       mocha (~> 0.13.2)
     builder (3.0.4)
-    burlesque (2.0.1)
+    burlesque (2.0.4)
       rails (~> 3.2.12)
     cancan (1.6.9)
     celluloid (0.12.4)
@@ -330,7 +330,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-datepicker-rails
   bootstrap-datetimepicker-rails
-  burlesque (= 2.0.1)
+  burlesque (= 2.0.4)
   cancan
   cocoon
   coffee-rails (~> 3.2.1)

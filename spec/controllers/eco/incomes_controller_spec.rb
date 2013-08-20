@@ -25,9 +25,9 @@ describe Eco::IncomesController do
       response.should render_template("index")
     end
 
-    it "debe mostrar solo las experiences facturadas" do
+    it "debe mostrar las experiences desde que se publican" do
       get :index
-      assigns(:experiences).order(:id).should eq([@experience1, @experience2, @experience3])
+      assigns(:experiences).order(:id).should eq([@experience1, @experience2, @experience3, @experience5, @experience6, @experience7])
       response.should be_success
       response.should render_template("index")
     end

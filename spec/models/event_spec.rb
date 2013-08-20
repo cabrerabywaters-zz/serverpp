@@ -5,28 +5,30 @@ describe Event do
   ##############
   # attributes #
   ##############
-  it "debe responder a quantity" do
-    should respond_to :quantity
-  end
+  describe "attributes" do
+    it "debe responder a quantity" do
+      should respond_to :quantity
+    end
 
-  it "debe responder a exclusivity_id" do
-    should respond_to :exclusivity_id
-  end
+    it "debe responder a exclusivity_id" do
+      should respond_to :exclusivity_id
+    end
 
-  it "debe responder a swaps" do
-    should respond_to :swaps
-  end
+    it "debe responder a swaps" do
+      should respond_to :swaps
+    end
 
-  it "debe responder a efi_id" do
-    should respond_to :efi_id
-  end
+    it "debe responder a efi_id" do
+      should respond_to :efi_id
+    end
 
-  it "debe responder a experience_id" do
-    should respond_to :experience_id
-  end
+    it "debe responder a experience_id" do
+      should respond_to :experience_id
+    end
 
-  it "debe responder a state" do
-    should respond_to :state
+    it "debe responder a state" do
+      should respond_to :state
+    end
   end
 
   ################
@@ -63,9 +65,75 @@ describe Event do
     FactoryGirl.build(:event).should be_valid
   end
 
-  it "debe requerir un exclusivity_id" do
-    FactoryGirl.build(:event, exclusivity_id: nil).should_not be_valid
-    FactoryGirl.build(:event, exclusivity_id: '').should_not be_valid
+  describe ":exclusivity_id validations" do
+    it "debe requerir un exclusivity_id" do
+      FactoryGirl.build(:event, exclusivity_id: nil).should_not be_valid
+      FactoryGirl.build(:event, exclusivity_id: '').should_not be_valid
+    end
+
+    context "debe requerir un exclusivity_id valido" do
+      it "solo exclusividad total" do
+        experience = FactoryGirl.create(:experience,
+                                        total_exclusivity_sales:       true,  total_exclusivity_days:       nil,
+                                        by_industry_exclusivity_sales: false, by_industry_exclusivity_days: nil,
+                                        without_exclusivity_sales:     false)
+
+        FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.by_industry_id).should_not be_valid
+        FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.without_id).should_not be_valid
+
+        FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.total_id).should be_valid
+      end
+      it "solo exclusividad por industria" do
+        experience = FactoryGirl.create(:experience,
+                                        total_exclusivity_sales:       false, total_exclusivity_days:       nil,
+                                        by_industry_exclusivity_sales: true,  by_industry_exclusivity_days: nil,
+                                        without_exclusivity_sales:     false)
+
+        FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.total_id).should_not be_valid
+        FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.without_id).should_not be_valid
+
+        FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.by_industry_id).should_not be_valid
+      end
+      it "solo sin exclusividad" do
+        experience = FactoryGirl.create(:experience,
+                                        total_exclusivity_sales:       false, total_exclusivity_days:       nil,
+                                        by_industry_exclusivity_sales: false, by_industry_exclusivity_days: nil,
+                                        without_exclusivity_sales:     true)
+
+        FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.total_id).should_not be_valid
+        FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.by_industry_id).should_not be_valid
+
+        FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.without_id, swaps: 10).should be_valid
+      end
+
+      it "segun duraciones" do
+        experience = FactoryGirl.create(:experience,
+                                        total_exclusivity_sales:       true, total_exclusivity_days:       2,
+                                        by_industry_exclusivity_sales: true, by_industry_exclusivity_days: 3,
+                                        without_exclusivity_sales:     true)
+
+        industry   = experience.industry_experiences.first.industry
+        efi        = FactoryGirl.create(:efi, industry_ids: [industry.id])
+
+        day = experience.starting_at
+
+        FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.total_id).should be_valid
+        FactoryGirl.build(:event, efi_id: efi.id, experience_id: experience.id, exclusivity_id: Exclusivity.by_industry_id).should_not be_valid
+        FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.without_id, swaps: 10).should_not be_valid
+
+        experience.starting_at = day - 2.days
+        experience.save(validate: false)
+        FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.total_id).should be_valid
+        FactoryGirl.build(:event, efi_id: efi.id, experience_id: experience.id, exclusivity_id: Exclusivity.by_industry_id).should be_valid
+        FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.without_id, swaps: 10).should_not be_valid
+
+        experience.starting_at = day - 5.days
+        experience.save(validate: false)
+        FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.total_id).should be_valid
+        FactoryGirl.build(:event, efi_id: efi.id, experience_id: experience.id, exclusivity_id: Exclusivity.by_industry_id).should be_valid
+        FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.without_id, swaps: 10).should be_valid
+      end
+    end
   end
 
   it "debe requerir un efi_id" do
@@ -94,7 +162,7 @@ describe Event do
 
   context "cuando se trata de un evento 'sin exclusividad'" do
     it "no debe requerir un quantity" do
-      experience = FactoryGirl.create(:experience, swaps: 10)
+      experience = FactoryGirl.create(:experience, swaps: 10, total_exclusivity_sales: false, by_industry_exclusivity_sales: false)
       FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.without_id, swaps: experience.minimum_without_swaps, quantity: nil).should be_valid
       FactoryGirl.build(:event, experience_id: experience.id, exclusivity_id: Exclusivity.without_id, swaps: experience.minimum_without_swaps, quantity: '').should be_valid
     end
@@ -120,7 +188,7 @@ describe Event do
     end
 
     it "debe requerir un swaps minimo" do
-      experience = FactoryGirl.create(:experience, swaps: 100, codes: [], codes_by_purchase: nil)
+      experience = FactoryGirl.create(:experience, swaps: 100, codes: [], codes_by_purchase: nil, total_exclusivity_sales: false, by_industry_exclusivity_sales: false)
 
       [*1..experience.minimum_without_swaps-1].each do |i|
         FactoryGirl.build(:event, exclusivity_id: Exclusivity.without_id, experience_id: experience.id, swaps: i).should_not be_valid
@@ -131,7 +199,7 @@ describe Event do
 
     context "cuando no hay empresas participando de la experience" do
       it "debe requerir un swaps inferior o igual al total de swaps de la experience" do
-        experience = FactoryGirl.create(:experience, swaps: 2, codes: [], codes_by_purchase: nil)
+        experience = FactoryGirl.create(:experience, swaps: 2, codes: [], codes_by_purchase: nil, total_exclusivity_sales: false, by_industry_exclusivity_sales: false)
         FactoryGirl.build(:event, exclusivity_id: Exclusivity.without_id, experience_id: experience.id, swaps: 1).should be_valid
         FactoryGirl.build(:event, exclusivity_id: Exclusivity.without_id, experience_id: experience.id, swaps: 2).should be_valid
         FactoryGirl.build(:event, exclusivity_id: Exclusivity.without_id, experience_id: experience.id, swaps: 3).should_not be_valid
@@ -148,7 +216,10 @@ describe Event do
 
     context "cuando ya tomaron la exclusividad por industria" do
       it "debe requerir un swaps inferior al total disponible" do
-        experience = FactoryGirl.create(:experience, swaps: 100, codes: [], codes_by_purchase: nil)
+        experience = FactoryGirl.create(:experience, swaps: 100, codes: [], codes_by_purchase: nil, total_exclusivity_sales: false)
+        experience.starting_at = Date.today - 4.days
+        experience.save validate: false
+
         industry1  = FactoryGirl.create(:industry)
         industry2  = FactoryGirl.create(:industry)
         efi        = FactoryGirl.create(:efi, industry_ids: [industry1.id])
@@ -180,7 +251,7 @@ describe Event do
 
   context "cuando se trata de un evento con 'exclusividad por industria'" do
     it "no debe requerir un swaps" do
-      experience = FactoryGirl.create(:experience)
+      experience = FactoryGirl.create(:experience, total_exclusivity_sales: false)
       industry   = experience.industry_experiences.first.industry
       efi        = FactoryGirl.create(:efi, industry_ids: [industry.id])
 
@@ -189,7 +260,7 @@ describe Event do
     end
 
     it "debe setear por defecto el quantity" do
-      experience = FactoryGirl.create(:experience)
+      experience = FactoryGirl.create(:experience, total_exclusivity_sales: false)
       industry   = experience.industry_experiences.first.industry
       efi        = FactoryGirl.create(:efi, industry_ids: [industry.id])
 
@@ -206,7 +277,7 @@ describe Event do
       it "debe requerir un quantity segun porcentaje por industria" do
         industry1  = FactoryGirl.create(:industry)
         industry2  = FactoryGirl.create(:industry)
-        experience = FactoryGirl.create(:experience, swaps: 30, codes: [], codes_by_purchase: nil)
+        experience = FactoryGirl.create(:experience, swaps: 30, codes: [], codes_by_purchase: nil, total_exclusivity_sales: false)
         efi        = FactoryGirl.create(:efi, industry_ids: [industry1.id])
 
         experience.industry_experiences.destroy_all
@@ -245,7 +316,7 @@ describe Event do
         industry2  = FactoryGirl.create(:industry)
         efi1       = FactoryGirl.create(:efi, industry_ids: [industry1.id])
         efi2       = FactoryGirl.create(:efi, industry_ids: [industry1.id])
-        experience = FactoryGirl.create(:experience, available_efi_ids: [efi1.id, efi2.id])
+        experience = FactoryGirl.create(:experience, available_efi_ids: [efi1.id, efi2.id], total_exclusivity_sales: false)
 
         experience.industry_experiences.destroy_all
         FactoryGirl.create(:industry_experience, experience_id: experience.id, industry_id: industry1.id, percentage: 50.0)
@@ -260,7 +331,7 @@ describe Event do
         industry2  = FactoryGirl.create(:industry)
         efi1       = FactoryGirl.create(:efi, industry_ids: [industry1.id])
         efi2       = FactoryGirl.create(:efi, industry_ids: [industry2.id])
-        experience = FactoryGirl.create(:experience, available_efi_ids: [efi1.id, efi2.id])
+        experience = FactoryGirl.create(:experience, available_efi_ids: [efi1.id, efi2.id], total_exclusivity_sales: false)
 
         experience.industry_experiences.destroy_all
         FactoryGirl.create(:industry_experience, experience_id: experience.id, industry_id: industry1.id, percentage: 50.0)
@@ -337,11 +408,17 @@ describe Event do
     context "cuando hay empresas participando de la experience" do
       it "no debe permitir nuevos eventos si alguien tomo la experience sin exclusividad" do
         experience = FactoryGirl.create(:experience, swaps: 30, codes: [], codes_by_purchase: nil)
+        experience.starting_at = Date.today - 4.days
+        experience.save validate: false
+
         FactoryGirl.create(:event, exclusivity_id: Exclusivity.without_id, experience_id: experience.id, swaps: experience.minimum_without_swaps)
         FactoryGirl.build(:event,  exclusivity_id: Exclusivity.total_id,   experience_id: experience.id).should_not be_valid
       end
       it "no debe permitir nuevos eventos si alguien tomo la experience con exclusividad por industria" do
         experience = FactoryGirl.create(:experience, swaps: 30, codes: [], codes_by_purchase: nil)
+        experience.starting_at = Date.today - 4.days
+        experience.save validate: false
+
         industry   = experience.industry_experiences.first.industry
         efi        = FactoryGirl.create(:efi, industry_ids: [industry.id])
 
@@ -401,7 +478,7 @@ describe Event do
 
   context "cuando no es el primer evento en la experience" do
     it 'despues de crear el event el state de la experience debe ser on_sale' do
-      experience = FactoryGirl.create(:experience)
+      experience = FactoryGirl.create(:experience, total_exclusivity_sales: false, by_industry_exclusivity_sales: false)
       experience.published?.should be_true
 
       FactoryGirl.create(:event, experience_id: experience.id, exclusivity_id: Exclusivity.without_id, swaps: experience.minimum_without_swaps)
@@ -540,6 +617,14 @@ describe Event do
       Event.should respond_to :are_taken
     end
 
+    it "debe responder a are_taken_or_published" do
+      Event.should respond_to :are_taken_or_published
+    end
+
+    it "debe responder a are_published" do
+      Event.should respond_to :are_published
+    end
+
     it "debe responder a are_closed" do
       Event.should respond_to :are_closed
     end
@@ -567,15 +652,16 @@ describe Event do
       event1.swaps_or_quantity.should eq(event1.quantity)
 
 
-      experience  = FactoryGirl.create(:experience, swaps: 10)
-      efi          = FactoryGirl.create(:efi)
+      experience = FactoryGirl.create(:experience, swaps: 10, total_exclusivity_sales: false)
+      efi        = FactoryGirl.create(:efi)
       efi.industries << experience.industry_experiences.first.industry
       efi.reload
       event2       = FactoryGirl.create(:event, experience_id: experience.id, efi_id: efi.id, exclusivity_id: Exclusivity.by_industry_id)
       event2.swaps_or_quantity.should eq(event2.quantity)
 
 
-      event3 = FactoryGirl.create(:event, exclusivity_id: Exclusivity.without_id, swaps: 5)
+      experience = FactoryGirl.create(:experience, total_exclusivity_sales: false, by_industry_exclusivity_sales: false)
+      event3 = FactoryGirl.create(:event, experience_id: experience.id, exclusivity_id: Exclusivity.without_id, swaps: 5)
       event3.swaps_or_quantity.should eq(event3.swaps)
     end
   end
@@ -587,7 +673,7 @@ describe Event do
 
     it "debe responder con una traducción legible" do
       event = FactoryGirl.create(:event)
-      ['taken', 'closed', 'billed', 'paid'].each do |s|
+      ['taken', 'published', 'closed', 'billed', 'paid'].each do |s|
         event.state = s
         event.translate_state.include?('translation missing:').should be_false
       end
@@ -595,6 +681,27 @@ describe Event do
       event.state = 'estado_no_existente'
       event.translate_state.include?('translation missing:').should be_false
       event.translate_state.should eq('estado_no_existente')
+    end
+  end
+
+  context 'para si el evento se encuentra en algun(os) estado(s) en particular' do
+    it "debe responder a in_state?" do
+      should respond_to :in_state?
+    end
+
+    it "debe responder con un valor valido" do
+      event = FactoryGirl.create(:event, state: 'published')
+      event.in_state?(['published']).should be_true
+      event.in_state?('published').should be_true
+      event.in_state?(:published).should be_true
+      event.in_state?(['taken', 'published', 'closed', 'billed', 'paid']).should be_true
+      event.in_state?([:taken, :published, :closed, :billed, :paid]).should be_true
+
+      event.in_state?(['taken', 'closed', 'billed', 'paid']).should be_false
+      event.in_state?('alfa').should be_false
+      event.in_state?(:alfa).should be_false
+      event.in_state?(1).should be_nil
+      event.in_state?(nil).should be_nil
     end
   end
 
@@ -608,6 +715,7 @@ describe Event do
         FactoryGirl.create(:event, state: 'closed').should be_valid
         FactoryGirl.create(:event, state: 'billed').should be_valid
         FactoryGirl.create(:event, state: 'paid').should be_valid
+        FactoryGirl.create(:event, state: 'published').should be_valid
 
         expect {
           FactoryGirl.create(:event, state: 'otro_estado_no_valido')
@@ -616,9 +724,44 @@ describe Event do
     end
 
     context "events" do
-      describe "close!" do
+      describe "unpublish!" do
+        it "debe cambiar el estado" do
+          event = FactoryGirl.create(:event, state: 'published')
+          event.unpublish!.should be_true
+          event.taken?.should be_true
+        end
+
+        it "no debe cambiar el estado" do
+          ['taken', 'closed', 'billed', 'paid'].each do |s|
+            event = FactoryGirl.create(:event, state: s)
+            event.unpublish!.should be_false
+          end
+        end
+      end
+
+      describe "publish!" do
         it "debe cambiar el estado" do
           event = FactoryGirl.create(:event, state: 'taken')
+          event.publish!.should be_true
+          event.published?.should be_true
+        end
+
+        it "no debe cambiar el estado" do
+          ['published', 'closed', 'billed', 'paid'].each do |s|
+            event = FactoryGirl.create(:event, state: s)
+            event.publish!.should be_false
+          end
+        end
+      end
+
+      describe "close!" do
+        it "debe cambiar el estado cuando esta en :taken" do
+          event = FactoryGirl.create(:event, state: 'taken')
+          event.close!.should be_true
+          event.closed?.should be_true
+        end
+        it "debe cambiar el estado cuando esta en :published" do
+          event = FactoryGirl.create(:event, state: 'published')
           event.close!.should be_true
           event.closed?.should be_true
         end
@@ -639,7 +782,7 @@ describe Event do
         end
 
         it "no debe cambiar el estado" do
-          ['taken', 'billed', 'paid'].each do |s|
+          ['taken', 'published', 'billed', 'paid'].each do |s|
             event = FactoryGirl.create(:event, state: s)
             event.bill!.should be_false
           end
@@ -655,7 +798,7 @@ describe Event do
         end
 
         it "no debe cambiar el estado" do
-          ['taken', 'closed', 'paid'].each do |s|
+          ['taken', 'published', 'closed', 'paid'].each do |s|
             event = FactoryGirl.create(:event, state: s)
             event.pay!.should be_false
           end

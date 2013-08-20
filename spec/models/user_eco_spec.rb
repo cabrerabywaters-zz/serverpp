@@ -151,6 +151,9 @@ describe UserEco do
     it "debe responder a eco_name" do
       should respond_to :eco_name
     end
+    it "debe responder a eco_fancy_name" do
+      should respond_to :eco_fancy_name
+    end
 
     it "debe responder a eco_logo" do
       should respond_to :eco_logo

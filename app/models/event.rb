@@ -5,6 +5,9 @@
 # @public String translate_state() Permite obtener el estado en que se encuentra
 #                                  el evento
 #
+# @public Boolean in_state?([]) Helper para saber si la experiencia se encuentra
+#                               en alguno de los estado dados.
+#
 # @public String swaps_or_quantity() Entrega la cantidad de reservada o la
 #                                    cantidad máxima de canjes del evento.
 #
@@ -88,16 +91,24 @@ class Event < ActiveRecord::Base
   scope :without_exclusivity,     where(exclusivity_id: Exclusivity.without_id)
 
   # Búsqueda predefinida que permite filtrar/buscar los eventos que estén tomados.
-  scope :are_taken,             where(state: 'taken')
+  scope :are_taken,               where(state: :taken)
+
+  # Búsqueda predefinida que permite filtrar/buscar los eventos que estén tomados o publicados.
+  scope :are_taken_or_published,  where(state: [:taken, :published])
+
+  # Búsqueda predefinida que permite filtrar/buscar los eventos que estén publicados.
+  scope :are_published,           joins(:experience)
+                                  .where(experiences: {state: [:published, :on_sale]})
+                                  .where(events: {state: :published})
 
   # Búsqueda predefinida que permite filtrar/buscar los eventos que estén cerrados.
-  scope :are_closed,            where(state: 'closed')
+  scope :are_closed,              where(state: :closed)
 
   # Búsqueda predefinida que permite filtrar/buscar los eventos que estén facturados.
-  scope :are_billed,            where(state: 'billed')
+  scope :are_billed,              where(state: :billed)
 
   # Búsqueda predefinida que permite filtrar/buscar los eventos que estén pagados.
-  scope :are_paid,              where(state: 'paid')
+  scope :are_paid,                where(state: :paid)
 
   # Búsqueda predefinida que permite filtrar/buscar los eventos cuyas experiencias aun no estan cerradas.
   scope :started, lambda { joins(:experience).where('experiences.starting_at <= :now', now: Date.current) }
@@ -135,9 +146,17 @@ class Event < ActiveRecord::Base
   # Definición de una maquina de estados para el evento, para lo cual se usa la
   # columna :state
   # Mas información en: https://github.com/pluginaweek/state_machine
-  state_machine :initial => :taken do
+  state_machine :initial => :published do
+    event :publish! do
+      transition taken: :published
+    end
+
+    event :unpublish! do
+      transition published: :taken
+    end
+
     event :close! do
-      transition taken: :closed
+      transition [:taken, :published] => :closed
     end
 
     event :bill! do
@@ -149,6 +168,9 @@ class Event < ActiveRecord::Base
     end
 
     state :taken do
+    end
+
+    state :published do
     end
 
     state :closed do
@@ -171,6 +193,23 @@ class Event < ActiveRecord::Base
     return translate unless translate.include?('translation missing:')
 
     return state
+  end
+
+  # Public: Helper para saber si la experiencia se encuentra en alguno de los
+  #         estado dados.
+  #
+  # @parametros:
+  # Array|String|Symbol states - estado(s) a consultar contra el estado de la experiencia
+  #
+  # Returns Boolean.
+  def in_state?(states)
+    if states.class == Array
+      states.map{|item| item.to_s}.include? self.state
+    elsif states.class == String or states.class == Symbol
+      states.to_s == self.state
+    else
+      nil
+    end
   end
 
   # Internal: Entrega la cantidad de reservada o la cantidad máxima de canjes

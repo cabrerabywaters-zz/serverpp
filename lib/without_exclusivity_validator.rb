@@ -12,6 +12,8 @@ class WithoutExclusivityValidator < ActiveModel::Validator
       record.validates_presence_of :swaps
 
       if record.experience.presence
+        record.errors[:base] << I18n.t('activerecord.errors.messages.without_exclusivity_not_enabled') unless record.experience.without_exclusivity_enabled?
+
         if record.experience.events.exclusivity_by_industry.any? and record.new_record?
           max_swaps = record.experience_swaps - record.experience.events.exclusivity_by_industry.sum(&:quantity)
         else

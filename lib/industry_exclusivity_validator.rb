@@ -11,6 +11,8 @@ class IndustryExclusivityValidator < ActiveModel::Validator
     if record.exclusivity_id == Exclusivity.by_industry_id
       record.validates_presence_of :quantity
       if record.experience.presence
+        record.errors[:base] << I18n.t('activerecord.errors.messages.industry_exclusivity_not_enabled') unless record.experience.by_industry_exclusivity_enabled?
+
         if record.efi_id.presence
           record.validates_numericality_of :quantity, greater_than: 0, equal_to: record.experience.industry_swaps(record.efi), only_integer: true
         else

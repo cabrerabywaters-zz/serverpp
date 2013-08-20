@@ -75,7 +75,13 @@ Showtime::Application.routes.draw do
     resources :experiences, only: [:index, :show] do
       resources :events, only: :create
     end
-    resources :events, only: [:index, :show]
+    resources :events, only: [:index, :show] do
+      member do
+        put :publish
+        put :unpublish
+      end
+    end
+
     resources :trades, except: [:index, :show, :create, :new, :update, :destroy, :edit] do
       collection do
         get :category

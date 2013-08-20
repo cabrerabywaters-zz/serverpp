@@ -32,5 +32,5 @@
             = link_to efi_publicity_path(publicity), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-danger' do
               %i.icon-trash
 
-- if can?(:create, model_class) and current_user_efi.events.are_taken.any?
+- if can?(:create, model_class) and current_user_efi.events.are_taken_or_published.any?
   = link_to t("helpers.links.add"), new_efi_publicity_path, class: 'btn btn-warning pull-right'

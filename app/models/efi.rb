@@ -54,6 +54,8 @@ class Efi < ActiveRecord::Base
   has_many :events, dependent: :destroy
   has_many :banners,     through: :events
   has_many :publicities, through: :events
+  has_many :exchanges,   through: :events
+  has_many :purchases,   through: :exchanges
 
   validates_presence_of :name,
                         :zona,

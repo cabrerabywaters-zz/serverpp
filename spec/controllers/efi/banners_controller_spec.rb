@@ -76,6 +76,14 @@ describe Efi::BannersController do
       get :new
       assigns(:events).should_not be_nil
     end
+
+    it "deberia mostrar los events tomados y publicados" do
+      event_taken     = FactoryGirl.create(:event, efi_id: @efi.id, state: 'taken')
+      event_published = FactoryGirl.create(:event, efi_id: @efi.id, state: 'published')
+
+      get :new
+      assigns(:events).should include(event_taken, event_published)
+    end
   end
 
   describe "GET edit" do
@@ -98,6 +106,14 @@ describe Efi::BannersController do
     it "debe assignar los eventos disponibles" do
       get :edit, id: @banner
       assigns(:events).should_not be_nil
+    end
+
+    it "deberia mostrar los events tomados y publicados" do
+      event_taken     = FactoryGirl.create(:event, efi_id: @efi.id, state: 'taken')
+      event_published = FactoryGirl.create(:event, efi_id: @efi.id, state: 'published')
+
+      get :edit, id: @banner
+      assigns(:events).should include(event_taken, event_published)
     end
   end
 
@@ -152,8 +168,16 @@ describe Efi::BannersController do
       end
 
       it "debe assignar los eventos disponibles" do
-         post :create, banner: { event_id: @event.id }
+        post :create, banner: { event_id: @event.id }
         assigns(:events).should_not be_nil
+      end
+
+      it "deberia mostrar los events tomados y publicados" do
+        event_taken     = FactoryGirl.create(:event, efi_id: @efi.id, state: 'taken')
+        event_published = FactoryGirl.create(:event, efi_id: @efi.id, state: 'published')
+
+        post :create, banner: { event_id: @event.id }
+        assigns(:events).should include(event_taken, event_published)
       end
     end
   end
@@ -199,6 +223,14 @@ describe Efi::BannersController do
       it "debe assignar los eventos disponibles" do
         put :update, id: @banner, banner:  { event_id: "" }
         assigns(:events).should_not be_nil
+      end
+
+      it "deberia mostrar los events tomados y publicados" do
+        event_taken     = FactoryGirl.create(:event, efi_id: @efi.id, state: 'taken')
+        event_published = FactoryGirl.create(:event, efi_id: @efi.id, state: 'published')
+
+        put :update, id: @banner, banner:  { event_id: "" }
+        assigns(:events).should include(event_taken, event_published)
       end
     end
   end

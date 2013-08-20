@@ -52,7 +52,7 @@
             %ul.nav.navExperiences
               %li.userEco
                 = image_tag current_user_eco.eco_logo(:thumb)
-                .eco_name= current_user_eco.eco_name
+                .eco_name= current_user_eco.eco_fancy_name
 
               - if can? :read, Experience
                 %li{class: (current_page?(eco_experiences_path) || eco_experiences_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.eco.experiences'), eco_experiences_path

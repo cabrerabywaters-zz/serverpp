@@ -29,13 +29,13 @@ class Efi::BannersController < Efi::EfiApplicationController
 
   # GET /efi/banners/new
   def new
-    unless current_user_efi.events.are_taken.any?
+    unless current_user_efi.events.are_taken_or_published.any?
       redirect_to efi_root_path, notice: t('notices.error.not_events')
       return
     end
 
     @banner = Banner.new(event_id: current_user_efi.events.last.id)
-    @events = current_user_efi.efi.events.joins(:experience).are_taken
+    @events = current_user_efi.efi.events.joins(:experience).are_taken_or_published
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,7 +44,7 @@ class Efi::BannersController < Efi::EfiApplicationController
 
   # GET /efi/banners/1/edit
   def edit
-    @events = current_user_efi.efi.events.joins(:experience).are_taken
+    @events = current_user_efi.efi.events.joins(:experience).are_taken_or_published
   end
 
   # POST /efi/banners
@@ -53,7 +53,7 @@ class Efi::BannersController < Efi::EfiApplicationController
       if @banner.save
         format.html { redirect_to efi_banners_path, notice: t('notices.success.male.create', model: Banner.model_name.human) }
       else
-        @events = current_user_efi.efi.events.joins(:experience).are_taken
+        @events = current_user_efi.efi.events.joins(:experience).are_taken_or_published
         format.html { render action: "new" }
       end
     end
@@ -67,7 +67,7 @@ class Efi::BannersController < Efi::EfiApplicationController
       if @banner.update_attributes(params[:banner])
         format.html { redirect_to efi_banners_path, notice: t('notices.success.male.update', model: Banner.model_name.human) }
       else
-        @events = current_user_efi.efi.events.joins(:experience).are_taken
+        @events = current_user_efi.efi.events.joins(:experience).are_taken_or_published
         format.html { render action: "edit" }
       end
     end

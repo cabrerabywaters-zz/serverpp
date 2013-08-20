@@ -76,6 +76,14 @@ describe Efi do
     should have_many(:publicities).through(:events)
   end
 
+  it "debe tener muchos exchanges" do
+    should have_many(:exchanges).through(:events)
+  end
+
+  it "debe tener muchos purchases" do
+    should have_many(:purchases).through(:exchanges)
+  end
+
   ###############
   # validations #
   ###############

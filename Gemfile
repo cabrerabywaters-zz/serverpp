@@ -89,7 +89,7 @@ gem 'sinatra', :require=> false
 gem "slim-rails"
 
 gem 'wicked'
-gem 'burlesque', '2.0.1'#, path: '~/Documents/Proyects/burlesque'
+gem 'burlesque', '2.0.4'#, path: '~/Documents/Proyects/burlesque'
 
 # SOAP Webservices
 gem 'wash_out'

@@ -32,7 +32,6 @@ FactoryGirl.define do
 
     total_exclusivity_days       2
     by_industry_exclusivity_days 2
-    without_exclusivity_days     2
 
     # Se asume que la ECO tiene un porcentaje de 20 o inferior
     fee  20

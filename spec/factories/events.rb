@@ -8,7 +8,7 @@ FactoryGirl.define do
     efi
     experience
 
-    state 'taken'
+    state 'published'
 
     after(:build) do |e|
       e.exchanges << FactoryGirl.build(:exchange, event: e)

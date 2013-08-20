@@ -17,7 +17,7 @@ class CloseExperienceWorker
   end
 
   # Callback que ejecutado
-  def perform(last_occurrence, current_occurrence)
+  def perform#(last_occurrence, current_occurrence)
     Experience.published_or_on_sale.each do |experience|
       experience.close! if experience.ending_at < Date.current
     end

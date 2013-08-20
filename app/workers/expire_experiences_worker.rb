@@ -17,7 +17,7 @@ class ExpireExperiencesWorker
   end
 
   # Callback que ejecutado
-  def perform(last_occurrence, current_occurrence)
+  def perform#(last_occurrence, current_occurrence)
     Experience.are_closed.each do |experience|
       experience.expire! if experience.validity_ending_at < Date.current
     end

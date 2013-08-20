@@ -15,5 +15,17 @@ describe Efi::EventsController do
       post("/efi/experiences/1/events").should route_to("efi/events#create", :experience_id => "1")
     end
 
+
+
+
+
+    it "routes to #publish" do
+      put("/efi/events/1/publish").should route_to("efi/events#publish", :id => "1")
+    end
+
+    it "routes to #unpublish" do
+      put("/efi/events/1/unpublish").should route_to("efi/events#unpublish", :id => "1")
+    end
+
   end
 end

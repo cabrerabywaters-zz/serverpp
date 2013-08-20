@@ -17,8 +17,8 @@ class CloseEventWorker
   end
 
   # Callback que ejecutado
-  def perform(last_occurrence, current_occurrence)
-    Event.are_taken.each do |event|
+  def perform#(last_occurrence, current_occurrence)
+    Event.are_taken_or_published.each do |event|
       event.close! if event.experience.ending_at < Date.current
     end
   end
