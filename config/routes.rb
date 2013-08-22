@@ -2,6 +2,8 @@ require 'sidekiq/web'
 require 'sidetiq/web'
 
 Showtime::Application.routes.draw do
+  get "billing/index"
+
   authenticate :admin do
     mount Sidekiq::Web => '/sidekiq'
   end
@@ -55,6 +57,8 @@ Showtime::Application.routes.draw do
     resources :experiences, only: [:index, :show, :destroy]
     resources :experience_steps, only: [:index, :show, :update]
 
+    resources :billing, only: [:index, :detail]
+    get "billing/detail" => "billing#detail"
 
     get  "experiences/:id/purchases" => "purchases#index", as: :experience_purchases
     post "experiences/:id/purchases/validate/" => "purchases#validate", as: :validate_purchase
