@@ -1,27 +1,103 @@
 .row
   .span10.offset1
     .panel
-      = render "eco/widgets/invoice_header"
+      .row.invoice-header
+        .span7
+          .row.secondary
+            .span4
+              .value.left Mes Actual
+            .span3
+              .value.right Agosto
+          .row.primary
+            .span4
+              .value.left TOTAL INGRESOS
+            .span3
+              .value.right.strong $300.000
       .row
-        .span10
-          .page-break
-      = render partial: "eco/widgets/invoice_summary", locals: { experiences: @billing.income_by_experience }
-
+        .span7.page-break
+      .row.invoice-row
+        .span4
+          .value.left Tírate en Paracaídas con Andes Beat
+        .span3
+          .value.right $130.000
+      .row.invoice-row
+        .span4
+          .value.left Canjea un Masaje Thai en Spa Mund
+        .span3
+          .value.right $50.000
+      .row.invoice-row
+        .span4
+          .value.left Salta en Bungee en Cascada Las Ánimas
+        .span3
+          .value.right $120.000
+      .row.action-row
+        .span3.offset4
+          .value.right
+            = link_to "Ver Detalle", eco_billing_detail_path, class: "btn btn-primary"
+    .panel.panel-margin
       .row.invoice-header
         .span10
           .row.primary
             .span4
               .value.left Meses Anteriores
-              
-      - if @billing.historical.empty?
-        .row.invoice-header
-          .span10
-            .row.primary
-              .span10
-                .empty No existen datos históricos de facturación.
-      - else
-        .row
-          .span10
-            .chart-container
-              = high_chart "month_billing", @data
-        = render partial: "eco/widgets/invoice_month_list", locals: { invoices: @billing.historical }
+      .row.invoice-row
+        .span3
+          .value.left
+            %a JULIO 2013
+        .span2
+          .value.center Por Pagar
+        .span2
+          .value.right $280.000
+      .row
+        .span7
+          .border
+      .row.invoice-row
+        .span3
+          .value.left 
+            %a JUNIO 2013
+        .span2
+          .value.center Pagado
+        .span2
+          .value.right $210.000
+      .row
+        .span7
+          .border
+      .row.invoice-row
+        .span3
+          .value.left 
+            %a MAYO 2013
+        .span2
+          .value.center Pagado
+        .span2
+          .value.right $250.000
+      .row
+        .span7
+          .border
+      .row.invoice-row
+        .span3
+          .value.left 
+            %a ABRIL 2013
+        .span2
+          .value.center Pagado
+        .span2
+          .value.right $350.000
+      .row
+        .span7
+          .border
+      .row.invoice-row
+        .span3
+          .value.left 
+            %a MARZO 2013
+        .span2
+          .value.center Pagado
+        .span2
+          .value.right $150.000
+      .row.action-row
+        .span3
+          .value.left
+            %button.btn.btn-primary{:type => "button"} Ver Más
+  .span5
+    .panel
+      .row
+        .span5
+          = high_chart "month_billing", @data
