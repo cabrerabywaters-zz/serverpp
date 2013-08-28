@@ -1,6 +1,4 @@
-.page-header
-  %h1= "Mis Ingresos"
-.row        
+.row       
   .span7
     .panel
       .row.invoice-header
@@ -14,25 +12,25 @@
             .span4
               .value.left TOTAL INGRESOS
             .span3
-              .value.right $300.000
+              .value.right.strong $300.000
       .row
         .span7.page-break
-      .row.invoice-body
+      .row.invoice-row
         .span4
-          .value.left.strong Tírate en Paracaídas con Andes Beat
+          .value.left Tírate en Paracaídas con Andes Beat
         .span3
-          .value.right.strong $130.000
-      .row.invoice-body
+          .value.right $130.000
+      .row.invoice-row
         .span4
-          .value.left.strong Canjea un Masaje Thai en Spa Mund
+          .value.left Canjea un Masaje Thai en Spa Mund
         .span3
-          .value.right.strong $50.000
-      .row.invoice-body
+          .value.right $50.000
+      .row.invoice-row
         .span4
-          .value.left.strong Salta en Bungee en Cascada Las Ánimas
+          .value.left Salta en Bungee en Cascada Las Ánimas
         .span3
-          .value.right.strong $120.000
-      .row
+          .value.right $120.000
+      .row.action-row
         .span3.offset4
           .value.right
             = link_to "Ver Detalle", eco_billing_detail_path, class: "btn btn-primary"
@@ -42,59 +40,59 @@
           .row.primary
             .span4
               .value.left Meses Anteriores
-      .row.invoice-body
+      .row.invoice-row
         .span3
-          .value.left.strong
+          .value.left
             %a JULIO 2013
         .span2
-          .value.center.strong Por Pagar
+          .value.center Por Pagar
         .span2
-          .value.right.strong $280.000
+          .value.right $280.000
       .row
         .span7
           .border
-      .row.invoice-body
+      .row.invoice-row
         .span3
-          .value.left.strong 
+          .value.left 
             %a JUNIO 2013
         .span2
-          .value.center.strong Pagado
+          .value.center Pagado
         .span2
-          .value.right.strong $210.000
+          .value.right $210.000
       .row
         .span7
           .border
-      .row.invoice-body
+      .row.invoice-row
         .span3
-          .value.left.strong 
+          .value.left 
             %a MAYO 2013
         .span2
-          .value.center.strong Pagado
+          .value.center Pagado
         .span2
-          .value.right.strong $250.000
+          .value.right $250.000
       .row
         .span7
           .border
-      .row.invoice-body
+      .row.invoice-row
         .span3
-          .value.left.strong 
+          .value.left 
             %a ABRIL 2013
         .span2
-          .value.center.strong Pagado
+          .value.center Pagado
         .span2
-          .value.right.strong $350.000
+          .value.right $350.000
       .row
         .span7
           .border
-      .row.invoice-body
+      .row.invoice-row
         .span3
-          .value.left.strong 
+          .value.left 
             %a MARZO 2013
         .span2
-          .value.center.strong Pagado
+          .value.center Pagado
         .span2
-          .value.right.strong $150.000
-      .row
+          .value.right $150.000
+      .row.action-row
         .span3
           .value.left
             %button.btn.btn-primary{:type => "button"} Ver Más
