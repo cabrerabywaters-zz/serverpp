@@ -13,6 +13,17 @@ class Eco::BillingController < Eco::EcoApplicationController
     end
   end
 
+  def index2
+    @data = LazyHighCharts::HighChart.new('column') do |f|
+      f.options[:xAxis] = {categories: ["Marzo", "Abril", "Mayo", "Junio", "Julio"], labels: {enabled: false}} #
+      f.options[:yAxis] = {labels: {enabled: false}, gridLineWidth: 0, title: {text: ""}}
+      f.series(name: 'Ingresos', data: [150000, 350000, 250000, 210000, 280000])
+      f.options[:chart][:defaultSeriesType] = "column"
+      f.options[:chart][:height] = 150
+      f.legend({enabled: false})
+    end
+  end
+
   def detail
   end
 end
