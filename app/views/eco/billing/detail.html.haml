@@ -1,86 +1,86 @@
-.page-header
-  %h1= "Detalle Ingresos Mensuales"
-.row
-  .span12
-    .panel.panel-margin
-      .row.invoice-header
-        .span12
-          .row.secondary
-            .span6
-              .value.left.medium JULIO 2013
-            .span6
-              .value.right.medium Por Pagar
-          .row.primary
-            .span6
-              .value.left.big TOTAL INGRESOS
-            .span6
-              .value.right.big $300.000
-      .row
-        .span12.page-break
-      .row.thead
-        .span3
-          .value.left.strong Experiencia
-        .span2
-          .value.right.strong $ Precio Unitario
-        .span2
-          .value.center.strong Fx Ingreso
-        .span1
-          .value.center.strong Vendido
-        .span1
-          .value.center.strong Canjes
-        .span1
-          .value.center.strong Validaciones
-        .span2
-          .value.right.strong $ Total
-      .row
-        .span12
-          .border
-      .row.tbody
-        .span3
-          .value.left.strong.description Tírate en Paracaídas con Andes Beat
-        .span2
-          .value.right $13.000
-        .span2
-          .value.center.strong Stock Canjeado
-        .span1
-          .value.center.strong 15
-        .span1
-          .value.center.strong 10
-        .span1
-          .value.center.strong 8
-        .span2
-          .value.right.strong $130.000
-      .row.tbody
-        .span3
-          .value.left.strong.description Canjea un Masaje Thai en Spa Mund
-        .span2
-          .value.right $1.000
-        .span2
-          .value.center.strong Stock Vendido
-        .span1
-          .value.center.strong 50
-        .span1
-          .value.center.strong 40
-        .span1
-          .value.center.strong 28
-        .span2
-          .value.right.strong $50.000
-      .row.tbody
-        .span3
-          .value.left.strong.description Salta en Bungee en Cascada Las Ánimas
-        .span2
-          .value.right $20.000
-        .span2
-          .value.center.strong Stock Validado
-        .span1
-          .value.center.strong 10
-        .span1
-          .value.center.strong 8
-        .span1
-          .value.center.strong 6
-        .span2
-          .value.right.strong $120.000
-      .row
-        .span3.panel-margin
-          .value.left
-            = link_to "Volver a Mis Ingresos", eco_billing_index_path, class: "btn btn-primary"
+#index2
+  .row
+    .span10.offset1
+      .panel.panel-margin
+        .row.invoice-header
+          .span10
+            .row.secondary
+              .span5
+                .value.left JULIO 2013
+              .span5
+                .value.right Por Pagar
+            .row.primary
+              .span5
+                .value.left TOTAL INGRESOS
+              .span5
+                .value.right.strong $300.000
+        .row
+          .span10
+            .page-break
+        .row.thead
+          .span3
+            .value.left Experiencia
+          .span1
+            .value.right Unitario
+          .span1
+            .value.center Fx Ingreso
+          .span1
+            .value.center Vendido
+          .span1
+            .value.center Canjes
+          .span1
+            .value.center Validaciones
+          .span2
+            .value.right $ Total
+        .row
+          .span10
+            .border
+        .row.tbody
+          .span3
+            .value.left Tírate en Paracaídas con Andes Beat
+          .span1
+            .value.right $13.000
+          .span1
+            .value.center Stock Canjeado
+          .span1
+            .value.center 15
+          .span1
+            .value.center 10
+          .span1
+            .value.center 8
+          .span2
+            .value.right $130.000
+        .row.tbody
+          .span3
+            .value.left Canjea un Masaje Thai en Spa Mund
+          .span1
+            .value.right $1.000
+          .span1
+            .value.center Stock Vendido
+          .span1
+            .value.center 50
+          .span1
+            .value.center 40
+          .span1
+            .value.center 28
+          .span2
+            .value.right $50.000
+        .row.tbody
+          .span3
+            .value.left Salta en Bungee en Cascada Las Ánimas
+          .span1
+            .value.right $20.000
+          .span1
+            .value.center Stock Validado
+          .span1
+            .value.center 10
+          .span1
+            .value.center 8
+          .span1
+            .value.center 6
+          .span2
+            .value.right $120.000
+        .row
+          .span10.panel-margin
+            .value.right
+              = link_to "Volver a Mis Ingresos", eco_billing_index2_path, class: "btn btn-primary"
