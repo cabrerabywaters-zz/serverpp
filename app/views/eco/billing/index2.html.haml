@@ -13,9 +13,10 @@
               .span5
                 .value.left TOTAL INGRESOS
               .span5
-                .value.right.strong $300.000
+                .value.right.strong $300.000            
         .row
-          .span10.page-break
+          .span10
+            .page-break
         .row.invoice-row
           .span5
             .value.left Tírate en Paracaídas con Andes Beat
@@ -34,16 +35,16 @@
         .row.action-row
           .span5.offset5
             .value.right
-              = link_to "Ver Detalle", eco_billing_detail_path, class: "btn btn-primary"
-        .row
-          .span10
-            .chart-container
-              = high_chart "month_billing", @data
+              = link_to "Ver Detalle", eco_billing_detail_path, class: "btn btn-primary"        
         .row.invoice-header
           .span10
             .row.primary
               .span4
                 .value.left Meses Anteriores
+        .row
+          .span10
+            .chart-container
+              = high_chart "month_billing", @data        
         .row.invoice-row
           .span4
             .value.left
@@ -95,8 +96,81 @@
           .span2
             .value.center Pagado
           .span4
-            .value.right $150.000
-        .row.action-row
+            .value.right $280.000
+        .row
+          .span10
+            .border
+        .row.invoice-row
           .span4
-            .value.left
-              %button.btn.btn-primary{:type => "button"} Ver Más
+            .value.left 
+              %a FEBRERO 2013
+          .span2
+            .value.center Pagado
+          .span4
+            .value.right $180.000
+        .row
+          .span10
+            .border
+        .row.invoice-row
+          .span4
+            .value.left 
+              %a ENERO 2013
+          .span2
+            .value.center Pagado
+          .span4
+            .value.right $200.000
+        .row
+          .span10
+            .border
+        .row.invoice-row
+          .span4
+            .value.left 
+              %a DICIEMBRE 2012
+          .span2
+            .value.center Pagado
+          .span4
+            .value.right $150.000
+        .row
+          .span10
+            .border
+        .row.invoice-row
+          .span4
+            .value.left 
+              %a NOVIEMBRE 2012
+          .span2
+            .value.center Pagado
+          .span4
+            .value.right $120.000
+        .row
+          .span10
+            .border
+        .row.invoice-row
+          .span4
+            .value.left 
+              %a OCTUBRE 2012
+          .span2
+            .value.center Pagado
+          .span4
+            .value.right $100.000
+        .row
+          .span10
+            .border
+        .row.invoice-row
+          .span4
+            .value.left 
+              %a SEPTIEMBRE 2012
+          .span2
+            .value.center Pagado
+          .span4
+            .value.right $70.000
+        .row
+          .span10
+            .border
+        .row.invoice-row
+          .span4
+            .value.left 
+              %a AGOSTO 2012
+          .span2
+            .value.center Pagado
+          .span4
+            .value.right $50.000
