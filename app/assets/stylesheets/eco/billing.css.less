@@ -74,6 +74,10 @@ body {
 	.strong {
 		font-weight: bold;		
 	}
+	.value {
+		line-height: 20px;
+		padding-top: 20px;
+	}
 	.left {
 		text-align: left;
 		padding-left: 40px;
@@ -107,11 +111,19 @@ body {
 			.primary {
 				color: #5a5a5a;
 				font-size: 1.6em;
+				.value {
+					padding-top: 5px;
+				}
 			}
 			.secondary {
 				font-size: 1em;
-				line-height: 0px;
+				line-height: 0px;				
 			}		
+		}
+
+		.thead {
+			margin-top: 10px;
+			font-weight: bold;
 		}
 
 		.btn {
@@ -125,7 +137,7 @@ body {
 		}
 
 		.page-break {
-			border-bottom: 2px solid #d8d8d8;
+			border-bottom: 1px solid #d8d8d8;
 			margin-bottom: 20px;
 			margin-left: 60px;
 			margin-right: 60px;
@@ -144,7 +156,10 @@ body {
 		}
 
 		.action-row {
-			margin: 24px -30px;
+			margin: 40px -30px;
+			.value {
+				padding-top: 0px;
+			}
 		}
 
 		.chart-container {
@@ -155,12 +170,7 @@ body {
 		.border {
 			border-bottom: 1px solid #d8d8d8;
 			margin: 0 60px;
-		}
-		.big {
-			font-size: 24px;
-		}
-		.medium {
-			font-size: 16px;
+			margin-top: 10px;
 		}
 
 		.description {
