@@ -30,6 +30,7 @@ class Eco::BillingController < Eco::EcoApplicationController
       f.options[:colors] = ["#34495e"]
       f.legend({enabled: false})
       f.options[:tooltip][:valuePrefix] = "$ "
+      f.options[:plotOptions] = {column: {borderWidth: 0, shadow: false}}
     end
   end
 
