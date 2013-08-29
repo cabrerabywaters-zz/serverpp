@@ -1,5 +1,5 @@
 #index2
-  .row       
+  .row
     .span10.offset1
       .panel
         .row.invoice-header
@@ -13,7 +13,7 @@
               .span5
                 .value.left TOTAL INGRESOS
               .span5
-                .value.right.strong $300.000            
+                .value.right.strong $300.000
         .row
           .span10
             .page-break
@@ -35,7 +35,7 @@
         .row.action-row
           .span5.offset5
             .value.right
-              = link_to "Ver Detalle", eco_billing_detail_path, class: "btn btn-primary"        
+              = link_to "Ver Detalle", eco_billing_detail_path, class: "btn btn-primary"
         .row.invoice-header
           .span10
             .row.primary
@@ -44,7 +44,7 @@
         .row
           .span10
             .chart-container
-              = high_chart "month_billing", @data        
+              = high_chart "month_billing", @data
         .row.invoice-row
           .span4
             .value.left
@@ -58,7 +58,7 @@
             .border
         .row.invoice-row
           .span4
-            .value.left 
+            .value.left
               %a JUNIO 2013
           .span2
             .value.center Pagado
@@ -69,7 +69,7 @@
             .border
         .row.invoice-row
           .span4
-            .value.left 
+            .value.left
               %a MAYO 2013
           .span2
             .value.center Pagado
@@ -80,7 +80,7 @@
             .border
         .row.invoice-row
           .span4
-            .value.left 
+            .value.left
               %a ABRIL 2013
           .span2
             .value.center Pagado
@@ -91,7 +91,7 @@
             .border
         .row.invoice-row
           .span4
-            .value.left 
+            .value.left
               %a MARZO 2013
           .span2
             .value.center Pagado
@@ -102,7 +102,7 @@
             .border
         .row.invoice-row
           .span4
-            .value.left 
+            .value.left
               %a FEBRERO 2013
           .span2
             .value.center Pagado
@@ -113,7 +113,7 @@
             .border
         .row.invoice-row
           .span4
-            .value.left 
+            .value.left
               %a ENERO 2013
           .span2
             .value.center Pagado
@@ -124,7 +124,7 @@
             .border
         .row.invoice-row
           .span4
-            .value.left 
+            .value.left
               %a DICIEMBRE 2012
           .span2
             .value.center Pagado
@@ -135,7 +135,7 @@
             .border
         .row.invoice-row
           .span4
-            .value.left 
+            .value.left
               %a NOVIEMBRE 2012
           .span2
             .value.center Pagado
@@ -146,7 +146,7 @@
             .border
         .row.invoice-row
           .span4
-            .value.left 
+            .value.left
               %a OCTUBRE 2012
           .span2
             .value.center Pagado
@@ -157,7 +157,7 @@
             .border
         .row.invoice-row
           .span4
-            .value.left 
+            .value.left
               %a SEPTIEMBRE 2012
           .span2
             .value.center Pagado
@@ -168,9 +168,26 @@
             .border
         .row.invoice-row
           .span4
-            .value.left 
+            .value.left
               %a AGOSTO 2012
           .span2
             .value.center Pagado
           .span4
             .value.right $50.000
+        .row.action-row
+          .span5.offset5
+            .value.right
+              .pagination
+                %ul
+                  %li
+                    %a &laquo;
+                  %li
+                    %a 1
+                  %li
+                    %a 2
+                  %li
+                    %a 3
+                  %li
+                    %a 4
+                  %li
+                    %a &raquo;
