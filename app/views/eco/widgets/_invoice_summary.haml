@@ -1,0 +1,27 @@
+.row.invoice-row
+  .span5
+  .span2
+    .value.right Ingreso
+  .span1
+    .value.center Comisión
+  .span2
+    .value.right Total a Pagar
+- experiences.each do |e|
+  .row.invoice-row
+    .span5
+      .value.text-value.left
+        = e[:name]
+    .span2
+      .value.right
+        = e[:income]
+    .span1
+      .value.text-value.center
+        = e[:commision]
+    .span2
+      .value.right
+        = e[:to_pay]
+
+.row.action-row
+  .span5.offset5
+    .value.right
+      = link_to "Ver Detalle", eco_billing_detail_path, class: "btn btn-primary"
