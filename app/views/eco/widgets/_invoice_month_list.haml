@@ -1,0 +1,44 @@
+.row.invoice-row
+  .span2.offset3
+    .value.center Estado
+  .span2
+    .value.right Ingreso
+  .span1
+    .value.right Comisión
+  .span2
+    .value.right Total a Pagar
+- months.each do |m|
+  .row
+    .span10
+      .border
+  .row.invoice-row
+    .span3
+      .value.left
+        %a
+          = m
+    .span2
+      .value.center Por Pagar
+    .span2
+      .value.right $280.000
+    .span1
+      .value.right $28.000
+    .span2
+      .value.right $252.000
+
+.row.action-row
+  .span5.offset5
+    .value.right
+      .pagination
+        %ul
+          %li
+            %a &laquo;
+          %li
+            %a 1
+          %li
+            %a 2
+          %li
+            %a 3
+          %li
+            %a 4
+          %li
+            %a &raquo;
