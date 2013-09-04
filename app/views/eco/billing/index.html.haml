@@ -1,103 +1,19 @@
-.row       
-  .span7
+.row
+  .span10.offset1
     .panel
-      .row.invoice-header
-        .span7
-          .row.secondary
-            .span4
-              .value.left Mes Actual
-            .span3
-              .value.right Agosto
-          .row.primary
-            .span4
-              .value.left TOTAL INGRESOS
-            .span3
-              .value.right.strong $300.000
+      = render "eco/widgets/invoice_header"
       .row
-        .span7.page-break
-      .row.invoice-row
-        .span4
-          .value.left Tírate en Paracaídas con Andes Beat
-        .span3
-          .value.right $130.000
-      .row.invoice-row
-        .span4
-          .value.left Canjea un Masaje Thai en Spa Mund
-        .span3
-          .value.right $50.000
-      .row.invoice-row
-        .span4
-          .value.left Salta en Bungee en Cascada Las Ánimas
-        .span3
-          .value.right $120.000
-      .row.action-row
-        .span3.offset4
-          .value.right
-            = link_to "Ver Detalle", eco_billing_detail_path, class: "btn btn-primary"
-    .panel.panel-margin
+        .span10
+          .page-break
+      = render :partial => "eco/widgets/invoice_summary", :locals => {:experiences => [{:name => "Tírate en Paracaídas con Andes Beat", :income => "$130.000" , :commision => "$13.000 (10%)" , :to_pay => "$117.000"}, {:name => "Canjea un Masaje Thai en Spa Mund", :income => "$50.000" , :commision => "$5.000 (10%)" , :to_pay => "$45.000"}, {:name => "Salta en Bungee en Cascada Las Ánimas", :income => "$120.000" , :commision => "$12.000 (10%)" , :to_pay => "$108.000"}] }
+
       .row.invoice-header
-        .span7
+        .span10
           .row.primary
             .span4
               .value.left Meses Anteriores
-      .row.invoice-row
-        .span3
-          .value.left
-            %a JULIO 2013
-        .span2
-          .value.center Por Pagar
-        .span2
-          .value.right $280.000
       .row
-        .span7
-          .border
-      .row.invoice-row
-        .span3
-          .value.left 
-            %a JUNIO 2013
-        .span2
-          .value.center Pagado
-        .span2
-          .value.right $210.000
-      .row
-        .span7
-          .border
-      .row.invoice-row
-        .span3
-          .value.left 
-            %a MAYO 2013
-        .span2
-          .value.center Pagado
-        .span2
-          .value.right $250.000
-      .row
-        .span7
-          .border
-      .row.invoice-row
-        .span3
-          .value.left 
-            %a ABRIL 2013
-        .span2
-          .value.center Pagado
-        .span2
-          .value.right $350.000
-      .row
-        .span7
-          .border
-      .row.invoice-row
-        .span3
-          .value.left 
-            %a MARZO 2013
-        .span2
-          .value.center Pagado
-        .span2
-          .value.right $150.000
-      .row.action-row
-        .span3
-          .value.left
-            %button.btn.btn-primary{:type => "button"} Ver Más
-  .span5
-    .panel
-      .row
-        .span5
-          = high_chart "month_billing", @data
+        .span10
+          .chart-container
+            = high_chart "month_billing", @data
+      = render :partial => "eco/widgets/invoice_month_list", :locals => { :months => ["JULIO 2013", "JUNIO 2013", "MAYO 2013",  "ABRIL 2013","MARZO 2013", "FEBRERO 2013", "ENERO 2013", "DICIEMBRE 2012", "NOVIEMBRE 2012", "OCTUBRE 2012", "SEPTIEMBRE 2012", "AGOSTO 2012"]}

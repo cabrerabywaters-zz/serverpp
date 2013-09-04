@@ -1,0 +1,51 @@
+.row
+  .accordion-heading
+    .span3
+      %a.accordion-toggle{"data-toggle" => "collapse", :href => "##{experience[:accordion_id]}"}
+        .value.text-value.left 
+          = experience[:title]
+    .span1
+      .value.right
+        = experience[:unit_price]
+    .span1
+      .value.text-value.center 
+        = experience[:income_type]
+    .span1
+      .value.center 
+        = experience[:units]
+    .span1
+      .value.center
+        = experience[:income_amount]
+    .span1
+      .value.text-value.center 
+        = experience[:commision]
+    .span2
+      .value.right
+        = experience[:to_pay]
+.row
+  .span10
+    .accordion-body.collapse{:id => "#{experience[:accordion_id]}"}
+      .accordion-inner
+        .subheader
+          .row
+            .span3
+              .value.left.strong Detalle Transacciones
+            .span7
+              .subtable
+                .row.thead
+                  .span2
+                    .value.left
+                      = detail[:headers][0]
+                  .span3
+                    .value.right
+                      = detail[:headers][1]
+              - detail[:transactions].each do |i|
+                .row
+                  .span2
+                    .value.left
+                      = i[0]
+                  .span3
+                    .value.right
+                      = i[1]
+
+              
