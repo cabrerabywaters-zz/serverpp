@@ -99,6 +99,20 @@ namespace :app do
     efi_purchase('Entel', 'Cine Estreno')
     efi_purchase('BCI', 'Cine Premium')
   end
+  
+  desc "Load historical invoices"
+  task :load_invoices => :environment do
+    eco = Eco.find_by_name!('Ticketek')
+    date = 
+    eco.invoices.create(
+      start_at: 1.month.ago.beginning_of_month.to_date, 
+      end_at: 1.month.ago.end_of_month.to_date, 
+      state: :paid, 
+      income: 10000, 
+      charge: 2000, 
+      to_pay: 8000
+    )
+  end
 
     # FIXME: Admin Group should be the same for all ECOs
     eco_user = FactoryGirl.build(:eco_user, names: name)
