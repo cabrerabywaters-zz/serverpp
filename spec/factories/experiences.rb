@@ -41,8 +41,10 @@ FactoryGirl.define do
 
 
     after(:build) do |e|
-      e.industry_experiences << FactoryGirl.build(:industry_experience, experience_id: e.id, percentage: 100.0) unless e.pending?
-      e.valid_images << FactoryGirl.build(:valid_image, experience_id: e.id) if e.eco_id.presence and e.eco.images?
+      e.industry_experiences = [FactoryGirl.build(:industry_experience, experience_id: e.id, percentage: 100.0)] unless e.pending?
+      e.valid_images = [FactoryGirl.build(:valid_image, experience_id: e.id)] if e.eco_id.presence and e.eco.images?
     end
+    
+    initialize_with { Experience.find_or_initialize_by_name(name) }
   end
 end
