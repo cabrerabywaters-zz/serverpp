@@ -1,30 +1,31 @@
+- headers = get_transaction_headers(experience)
 .row
   .accordion-heading
     .span3
-      %a.accordion-toggle{"data-toggle" => "collapse", :href => "##{experience[:accordion_id]}"}
+      %a.accordion-toggle{"data-toggle" => "collapse", :href => "#experience_#{experience.id}"}
         .value.text-value.left 
-          = experience[:title]
+          = summary[:experience]
     .span1
       .value.right
-        = experience[:unit_price]
+        = number_to_currency summary[:price]
     .span1
       .value.text-value.center 
-        = experience[:income_type]
+        = :sales
     .span1
       .value.center 
-        = experience[:units]
+        = summary[:total_q]
     .span1
       .value.center
-        = experience[:income_amount]
+        = number_to_currency summary[:income]
     .span1
       .value.text-value.center 
-        = experience[:commision]
+        = number_to_currency summary[:charge]
     .span2
       .value.right
-        = experience[:to_pay]
+        = number_to_currency summary[:to_pay]
 .row
   .span10
-    .accordion-body.collapse{:id => "#{experience[:accordion_id]}"}
+    .accordion-body.collapse{id: "experience_#{experience.id}"}
       .accordion-inner
         .subheader
           .row
@@ -33,19 +34,19 @@
             .span7
               .subtable
                 .row.thead
-                  .span2
+                  .span3
                     .value.left
-                      = detail[:headers][0]
+                      = headers[0]
                   .span3
                     .value.right
-                      = detail[:headers][1]
-              - detail[:transactions].each do |i|
+                      = headers[1]
+                      
+              - transactions.each do |t|
                 .row
-                  .span2
+                  .span3
                     .value.left
-                      = i[0]
+                      = l t.created_at.localtime, format: :long
                   .span3
                     .value.right
-                      = i[1]
-
-              
+                      = t.quantity
+           
