@@ -16,12 +16,15 @@
 .row
   .span10
     .border
+    
+- @experiences.each do |experience|
+  = render partial: "eco/widgets/invoice_experience_detail", locals: { experience: experience[:experience], summary: experience[:summary], transactions: experience[:transactions] }
 
-= render :partial => "eco/widgets/invoice_experience_detail", :locals => {:experience => { :title => "Tírate en Paracaídas con Andes Beat", :unit_price => "$13.000", :income_type => "Stock Canjeado", :units => "10", :income_amount => "$130.000", :commision => "$13.000 (10%)", :to_pay => "$117.000", :accordion_id => "e1"}, :detail => { :headers => ["Fecha Canje","Código Validación"], :transactions => [["10 Agosto 2013","A6R824"], ["11 Agosto 2013", "Z5R856"]] }}
-
-= render :partial => "eco/widgets/invoice_experience_detail", :locals => {:experience => { :title => "Canjea un Masaje Thai en Spa Mund", :unit_price => "$1.000", :income_type => "Stock Vendido", :units => "50", :income_amount => "$50.000", :commision => "$5.000 (10%)", :to_pay => "$45.000", :accordion_id => "e2"}, :detail => { :headers => ["Fecha Venta","Stock Vendido"], :transactions => [["12 Agosto 2013","50"], ["13 Agosto 2013", "20"]] }}
-
-= render :partial => "eco/widgets/invoice_experience_detail", :locals => {:experience => { :title => "Salta en Bungee en Cascada Las Ánimas", :unit_price => "$20.000", :income_type => "Stock Validado", :units => "6", :income_amount => "$120.000", :commision => "$12.000 (10%)", :to_pay => "$108.000", :accordion_id => "e3"}, :detail => { :headers => ["Fecha Validación","Código Seguridad"], :transactions => [["16 Agosto 2013","X6Y824"], ["17 Agosto 2013", "D5Q856"]] }}
+/ = render partial: "eco/widgets/invoice_experience_detail", locals: {:experience => { :title => "Tírate en Paracaídas con Andes Beat", :unit_price => "$13.000", :income_type => "Stock Canjeado", :units => "10", :income_amount => "$130.000", :commision => "$13.000 (10%)", :to_pay => "$117.000", :accordion_id => "e1"}, :detail => { :headers => ["Fecha Canje","Código Validación"], :transactions => [["10 Agosto 2013","A6R824"], ["11 Agosto 2013", "Z5R856"]] }}
+/ 
+/ = render partial: "eco/widgets/invoice_experience_detail", locals: {:experience => { :title => "Canjea un Masaje Thai en Spa Mund", :unit_price => "$1.000", :income_type => "Stock Vendido", :units => "50", :income_amount => "$50.000", :commision => "$5.000 (10%)", :to_pay => "$45.000", :accordion_id => "e2"}, :detail => { :headers => ["Fecha Venta","Stock Vendido"], :transactions => [["12 Agosto 2013","50"], ["13 Agosto 2013", "20"]] }}
+/ 
+/ = render partial: "eco/widgets/invoice_experience_detail", locals: {:experience => { :title => "Salta en Bungee en Cascada Las Ánimas", :unit_price => "$20.000", :income_type => "Stock Validado", :units => "6", :income_amount => "$120.000", :commision => "$12.000 (10%)", :to_pay => "$108.000", :accordion_id => "e3"}, :detail => { :headers => ["Fecha Validación","Código Seguridad"], :transactions => [["16 Agosto 2013","X6Y824"], ["17 Agosto 2013", "D5Q856"]] }}
 
 .row
   .span10.panel-margin
