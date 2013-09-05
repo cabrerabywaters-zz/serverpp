@@ -18,7 +18,11 @@ class EcoBillingManager
         income_by_validations(t)
       end
     end
-    income_by_experience.inject(0) { |total, i| i + total }
+    income_by_experience.zip(transactions).inject(0) do |total, (income, t)|
+      fee = t["experience_fee"].to_i 
+      to_pay = income - income * fee/100.0
+      to_pay + total
+    end
   end
   
   def income_by_experience
