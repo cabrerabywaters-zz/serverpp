@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130905042554) do
+ActiveRecord::Schema.define(:version => 20130905140612) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "efi_id"
@@ -308,6 +308,20 @@ ActiveRecord::Schema.define(:version => 20130905042554) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "invoices", :force => true do |t|
+    t.integer  "eco_id"
+    t.date     "start_at"
+    t.date     "end_at"
+    t.float    "income"
+    t.float    "charge"
+    t.float    "to_pay"
+    t.string   "state"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "invoices", ["eco_id"], :name => "index_invoices_on_eco_id"
 
   create_table "publicities", :force => true do |t|
     t.string   "image_file_name"

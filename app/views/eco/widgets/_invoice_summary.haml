@@ -14,13 +14,13 @@
         = e[:experience]
     .span2
       .value.right
-        = e[:income]
+        = number_to_currency e[:income]
     .span1
       .value.text-value.center
-        = e[:charge]
+        = number_to_currency e[:charge]
     .span2
       .value.right
-        = e[:to_pay]
+        = number_to_currency e[:to_pay]
 
 .row.action-row
   .span5.offset5
