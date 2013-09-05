@@ -2,11 +2,11 @@
   .span10
     .row.secondary
       .span5
-        .value.left JULIO 2013
+        .value.left= l Time.now, format: :month_and_year
       .span5
         .value.right Por Pagar
     .row.primary
       .span5
         .value.left TOTAL A PAGAR
       .span5
-        .value.right.strong $270.000
+        .value.right.strong= number_to_currency @billing.total_income

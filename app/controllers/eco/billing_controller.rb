@@ -4,6 +4,7 @@
 #
 class Eco::BillingController < Eco::EcoApplicationController
   def index
+    @billing = EcoBillingManager.new current_user_eco.eco
     @data = LazyHighCharts::HighChart.new('column') do |f|
       f.options[:xAxis] = {categories: ["Agosto","Septiembre","Octubre","Noviembre","Diciembre","Enero","Febrero","Marzo", "Abril", "Mayo", "Junio", "Julio"], labels: { enabled: true, rotation: -45, align: 'right'}}
       f.options[:yAxis] = {labels: {enabled: false}, gridLineWidth: 0, title: {text: ""}}
@@ -18,5 +19,7 @@ class Eco::BillingController < Eco::EcoApplicationController
   end
 
   def detail
+    @billing = EcoBillingManager.new current_user_eco.eco
+    @experiences = @billing.transactions_by_experience
   end
 end
