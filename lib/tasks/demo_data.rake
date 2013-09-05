@@ -1,4 +1,102 @@
+# coding: utf-8
+
 namespace :app do
+  
+  def create_efi(name, industry_name)
+    industry = Industry.find_by_name!(industry_name)
+    efi = FactoryGirl.build(:efinew, name: name)
+    efi.industries = [industry]
+    efi.save!
+    
+    efi_user = FactoryGirl.build(:efi_user, names: name)
+    efi_user.efi = efi
+    efi_user.save
+    
+    10.times do |n|
+      client_name = "Cliente #{n}"
+      create_clients(client_name, efi)
+    end
+  end
+  
+  def create_clients(name, efi)
+    FactoryGirl.create(:client, name: name, efi: efi)
+  end
+  
+  def create_eco(name)
+    eco = FactoryGirl.create(:econew, name: name)
+    
+    # FIXME: Admin Group should be the same for all ECOs
+    eco_user = FactoryGirl.build(:eco_user, names: name)
+    eco_user.eco = eco
+    eco_user.save!
+  end
+  
+  def create_experiences(eco_name)
+    eco = Eco.find_by_name!(eco_name)
+    eco_folder = eco_name.downcase.gsub(/\s+/, '')
+    Dir.glob(Rails.root.join('db', 'images', 'experiences', eco_folder, '*.jpg')).each do |image_name|
+      experience_name = File.basename(image_name, '.jpg').titleize
+      experience = FactoryGirl.create(:experience, 
+        eco: eco, 
+        name: experience_name, 
+        details: experience_name, 
+        image: File.new(image_name),
+        comuna: FactoryGirl.build(:santiago), 
+        category: FactoryGirl.create(:category, name: 'Entretención')
+      )
+      # Available to all EFIs
+      efis_ids = Efi.pluck(:id)
+      efis_ids.each do |efi_id|
+        ExperienceEfi.find_or_create_by_efi_id_and_experience_id(efi_id, experience.id)
+      end
+    end
+  end
+  
+  desc "Load demo data via factories"
+  task :factory_data => :environment do
+    # Load Industries
+    retail = Industry.find_or_create_by_name({name: 'Retail'})
+    retail.update_attributes(percentage: 30)
+    teleco = Industry.find_or_create_by_name({name: 'Telecomunicaciones'})
+    teleco.update_attributes(percentage: 30)
+    banca = Industry.find_or_create_by_name({name: 'Banca'})
+    banca.update_attributes(percentage: 40)
+    
+    # Add EFIs
+    %w{Falabella Paris Ripley}.each do |efi_name|
+      create_efi(efi_name, 'Retail')
+    end
+    %w{Entel Movistar Claro}.each do |efi_name|
+      create_efi(efi_name, 'Telecomunicaciones')
+    end
+    %w{BCI Santander BBVA}.each do |efi_name|
+      create_efi(efi_name, 'Banca')
+    end
+    
+    # Add ECOs with experiences
+    ['Cine Hoyts', 'Rip Curl', 'Sushi House', 'Spa Mund', 'Ticketek'].each do |eco_name|
+      create_eco(eco_name)
+      create_experiences(eco_name)
+    end
+  end
+  
+  def efi_purchase(efi_name, experience_name)
+    efi = Efi.find_by_name!(efi_name)
+    experience = Experience.find_by_name!(experience_name)
+    efi_purchase = Event.find_or_initialize_by_efi_id_and_experience_id(efi.id, experience.id)
+    efi_purchase.exclusivity_id = 1
+    efi_purchase.efi = efi
+    efi_purchase.experience = experience
+    efi_purchase.exchanges = [Exchange.new(points: 100, cash: 0)] if efi_purchase.exchanges.empty?
+    efi_purchase.save!    
+  end
+  
+  desc "Load events"
+  task :load_events => :environment do
+    efi_purchase('Falabella', 'Cine 2x1')
+    efi_purchase('Entel', 'Cine Estreno')
+    efi_purchase('BCI', 'Cine Premium')
+  end
 
   desc "Load demo data"
   task :load_demo_data => [:environment, :load_efi_users, :load_experiences] do

@@ -12,5 +12,7 @@ FactoryGirl.define do
     password_confirmation      '12345678'
 
     second_lastname            "MyString"
+    
+    initialize_with { Admin.find_or_create_by_email(email) }
   end
 end

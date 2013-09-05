@@ -16,4 +16,28 @@ FactoryGirl.define do
 
     efi
   end
+  
+  factory :efi_user, class: UserEfi do
+    # ignore do
+    #   industry_name 'Industry'
+    # end
+    
+    names 'Default Names'
+    first_lastname "EFI"
+    second_lastname "User"
+    sequence(:rut) { Run.for(:user_efi, :rut) }    
+    
+    nickname { names.downcase.gsub(' ', '_') }
+    email { "#{nickname}@efi.com" }
+    password { "efiuser123" }
+    password_confirmation { "efiuser123" }
+    
+    mod_client true
+    
+    initialize_with { UserEfi.find_or_initialize_by_email(email) }
+    
+    # after(:build) do |u, evaluator|
+    #   u.efi = FactoryGirl.create(:efinew, name: u.names, industry_name: evaluator.industry_name)
+    # end
+  end
 end
