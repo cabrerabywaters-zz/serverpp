@@ -35,6 +35,7 @@ group :development, :test do
 
   gem 'guard-rspec'
   gem 'database_cleaner'
+  gem 'pry-rails'
 end
 
 group :development, :test, :darwin do
