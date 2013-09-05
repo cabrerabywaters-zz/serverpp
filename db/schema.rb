@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130905042554) do
+ActiveRecord::Schema.define(:version => 20130905140612) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "efi_id"
