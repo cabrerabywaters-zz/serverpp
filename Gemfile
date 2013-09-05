@@ -23,15 +23,15 @@ group :development do
   gem "binding_of_caller"
 end
 
+gem 'factory_girl'
+gem 'lorem'
+
 group :development, :test do
-  gem 'factory_girl'
   gem 'factory_girl_rails'
   gem 'rspec'
   gem 'rspec-rails'
 
   ## gem 'jasmine-rails'
-
-  gem 'lorem'
 
   gem 'guard-rspec'
   gem 'database_cleaner'
