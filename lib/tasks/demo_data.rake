@@ -88,7 +88,8 @@ namespace :app do
     efi_purchase.efi = efi
     efi_purchase.experience = experience
     efi_purchase.exchanges = [Exchange.new(points: 100, cash: 0)] if efi_purchase.exchanges.empty?
-    efi_purchase.save!    
+    efi_purchase.save!
+    experience.sell! 
   end
   
   desc "Load events"

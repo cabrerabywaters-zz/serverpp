@@ -654,6 +654,7 @@
         by_industry_exclusivity_days: Días Exclusividad por Industria
         without_exclusivity_days: Días Sin Exclusividad
         exclusivity_deadlines: Plazos Exclusividades
+        income_type: Función de Ingreso
       industry:
         name: Nombre
         percentage: Porcentaje
