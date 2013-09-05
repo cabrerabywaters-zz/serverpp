@@ -16,6 +16,7 @@ FactoryGirl.define do
 
     amount               1000
     discounted_price     1
+    income_type "Ventas"
     # discount_percentage  10
 
     codes                ['a1', 'b2', 'c3', 'd4', 'e5', 'f6', 'g7', 'h8', 'i9', 'j0']
