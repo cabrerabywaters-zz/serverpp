@@ -87,6 +87,7 @@ class Experience < ActiveRecord::Base
                   :conditions,
                   :valid_images_attributes,
                   :codes_by_purchase,
+                  :income_type,
                   as: :puntos_point
 
   belongs_to :category
