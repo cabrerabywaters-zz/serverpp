@@ -24,4 +24,4 @@
           .span10
             .chart-container
               = high_chart "month_billing", @data
-        = render partial: "eco/widgets/invoice_month_list", locals: { months: ["JULIO 2013", "JUNIO 2013", "MAYO 2013",  "ABRIL 2013","MARZO 2013", "FEBRERO 2013", "ENERO 2013", "DICIEMBRE 2012", "NOVIEMBRE 2012", "OCTUBRE 2012", "SEPTIEMBRE 2012", "AGOSTO 2012"]}
+        = render partial: "eco/widgets/invoice_month_list", locals: { invoices: @billing.historical }
