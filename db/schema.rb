@@ -258,7 +258,6 @@ ActiveRecord::Schema.define(:version => 20131022155851) do
     t.boolean  "without_exclusivity_sales"
     t.integer  "total_exclusivity_days"
     t.integer  "by_industry_exclusivity_days"
-    t.integer  "without_exclusivity_days"
   end
 
   add_index "experiences", ["category_id"], :name => "index_experiences_on_category_id"
