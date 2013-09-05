@@ -1,4 +1,7 @@
 # coding: utf-8
+require 'factory_girl'
+# require Rails.root.join('spec','spec_helper.rb')
+
 
 namespace :app do
   
@@ -52,8 +55,14 @@ namespace :app do
     end
   end
   
+  task :factory_girl_env do
+    Dir.glob(Rails.root.join('spec', 'factories', '*.rb')).each do |factory|
+      require factory
+    end
+  end
+  
   desc "Load demo data via factories"
-  task :factory_data => :environment do
+  task :factory_data => [:environment, :factory_girl_env] do
     # Load Industries
     retail = Industry.find_or_create_by_name({name: 'Retail'})
     retail.update_attributes(percentage: 30)
