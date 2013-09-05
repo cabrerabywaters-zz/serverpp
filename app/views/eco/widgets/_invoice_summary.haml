@@ -17,7 +17,7 @@
         = number_to_currency e[:income]
     .span1
       .value.text-value.center
-        = number_to_currency e[:charge]
+        = "#{number_to_currency(e[:charge])} (#{e[:fee]}%)"
     .span2
       .value.right
         = number_to_currency e[:to_pay]
