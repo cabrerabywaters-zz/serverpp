@@ -6,17 +6,18 @@
     .value.center Comisión
   .span2
     .value.right Total a Pagar
+    
 - experiences.each do |e|
   .row.invoice-row
     .span5
       .value.text-value.left
-        = e[:name]
+        = e[:experience]
     .span2
       .value.right
         = e[:income]
     .span1
       .value.text-value.center
-        = e[:commision]
+        = e[:charge]
     .span2
       .value.right
         = e[:to_pay]
