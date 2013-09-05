@@ -85,4 +85,8 @@ class EcoBillingManager
     end
   end
   
+  def historical
+    eco.invoices.order(:start_at)
+  end
+  
 end

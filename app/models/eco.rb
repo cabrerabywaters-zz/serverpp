@@ -35,6 +35,7 @@ class Eco < ActiveRecord::Base
   has_many :experiences, dependent: :destroy
   has_many :events,      through: :experiences
   has_many :publicities, through: :events
+  has_many :invoices
 
   has_many :user_ecos,   dependent: :destroy
 
