@@ -19,4 +19,24 @@ FactoryGirl.define do
       user.groups << FactoryGirl.build(:burlesque_group) unless user.group.presence
     end
   end
+  
+  factory :eco_user, class: UserEco do
+    sequence(:rut) { Run.for(:user_eco, :rut) }
+    names "Default ECO User Names"
+    first_lastname "ECO"
+    second_lastname "User"
+    nickname { names.downcase.gsub(/\s+/, '') }
+    
+    
+    email { "#{nickname}@eco.com" }
+    password "ecouser123"
+    password_confirmation "ecouser123"
+    
+    after(:build) do |user|
+      # user.eco = FactoryGirl.build(:econew, name: user.names)
+      user.groups = [FactoryGirl.build(:admin_group)] unless user.group.present?
+    end
+    
+    initialize_with { UserEco.find_or_initialize_by_names(names) }
+  end
 end
