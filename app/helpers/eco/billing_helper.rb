@@ -3,11 +3,13 @@
 module Eco::BillingHelper
   def get_transaction_headers(experience)
     case experience[:income_type]
-    when "Ventas"
+    when "sales"
       ["Fecha Venta", "Stock Vendido"]
-    when "Canjes"
+    when "purchases"
       ["Fecha Canje", "Código Validación"]
-    when "Validaciones"
+    when "validations"
+      ["Fecha Validación", "Código Seguridad"]
+    else
       ["Fecha Validación", "Código Seguridad"]
     end
   end
