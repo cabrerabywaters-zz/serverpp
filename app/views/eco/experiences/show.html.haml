@@ -78,6 +78,6 @@
     = link_to t("helpers.links.back"), eco_experiences_path, class: 'btn'
   - if @experience.pending?
     - if can? :update, @experience
-      = link_to t("helpers.links.edit"), edit_eco_experience_path(@experience), class: 'btn'
+      = link_to t("helpers.links.edit"), eco_experience_steps_path(experience_id: @experience.id), class: 'btn'
     - if can? :destroy, @experience
       = link_to t("helpers.links.destroy"), eco_experience_path(@experience), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-danger'

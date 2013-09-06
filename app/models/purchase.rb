@@ -2,6 +2,11 @@
 
 # Public: Compras de los usuarios finales.
 #
+# @public String translate_state() Permite obtener el estado en que se encuentra
+#                                  la experiencia.
+#
+# @public NilClass check_event_stock!() Revisa el stock del evento.
+#
 # @private String make_run_format!() Quita cualquier tipo de formato del rut
 #                                    para mantener los datos consistentes.
 #
@@ -34,13 +39,13 @@ class Purchase < ActiveRecord::Base
                   :exchange_id,
                   :reference_codes
 
-    attr_accessible :rut,
-                    :email,
-                    :password,
-                    :exchange_id,
-                    :reference_codes,
-                    :required_password,
-                    as: :efi
+  attr_accessible :rut,
+                  :email,
+                  :password,
+                  :exchange_id,
+                  :reference_codes,
+                  :required_password,
+                  as: :efi
 
   belongs_to :exchange
 
@@ -72,6 +77,10 @@ class Purchase < ActiveRecord::Base
 
     event :redeem! do
       transition any => :redeemed
+    end
+
+    after_transition sold: :redeemed do |item|
+      item.check_event_stock!
     end
 
     state :redeemed do
@@ -114,7 +123,23 @@ class Purchase < ActiveRecord::Base
 
   before_save :make_run_format!
 
+  after_create  :check_event_stock!
+  after_destroy :check_event_stock!
+
+  # Internal: Revisa el stock del evento.
+  #
+  # Retorna nil.
+  def check_event_stock!
+    event = self.exchange.event
+    event.check_stock!
+
+    # Agrego una tarea para revisar que los otros eventos de la misma experiencia tengan stock,
+    # esto sirve principalmente para el stock de los eventos sin exclusividad.
+    CheckEventStockWorker.perform_async(event.experience_id)
+  end
+
   private
+
   # Internal: Quita cualquier tipo de formato del rut para guardar los rut de
   #           forma consistente en la base de datos.
   #

@@ -56,6 +56,12 @@
             .well.exchanges_list
               #exchanges
                 %h6= Exchange.model_name.human.pluralize
+
+                .links
+                  = link_to_add_association f, :exchanges, partial: 'efi/events/event_fields', class: 'btn btn-icon btn-icon-mini pull-right btn-warning' do
+                    %i.icon-plus
+                    = t('views.links.add')
+
                 - if @event.errors[:exchanges].any?
                   .control-group.error
                     = f.error :exchanges
@@ -63,10 +69,6 @@
                 = f.simple_fields_for :exchanges do |builder|
                   = render 'efi/events/event_fields', :f => builder
 
-              .links
-                = link_to_add_association f, :exchanges, partial: 'efi/events/event_fields', class: 'btn btn-icon btn-icon-mini pull-right btn-warning' do
-                  %i.icon-plus
-                  = t('views.links.add')
 
               .clearfix
             .clearfix

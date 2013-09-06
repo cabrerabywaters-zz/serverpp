@@ -2,15 +2,26 @@ module Api
   class Cmr::Purchase < WashOut::Type
     type_name 'purchase'
 
+    # map purchase_id: :integer,
+    #     exchange_id: :integer,
+    #     rut: :string,
+    #     email: :string,
+    #     reference_codes: [:string],
+    #     errors: [:string],
+    #     url: :string
+
     map purchase_id: :integer,
-        exchange_id: :integer,
-        rut: :string,
-        email: :string,
-        reference_codes: [:string],
         errors: [:string],
-        url: :string
+        status: :string
+
     def self.create efi, purchase_attributes
       if efi.exchanges.exists?(purchase_attributes[:exchange_id])
+        # Si no envian codigos de referencia no tomo en cuenta el valor enviado
+        purchase_attributes.delete(:reference_codes) unless purchase_attributes[:reference_codes].empty?
+
+        # Elimino el formato del Rut
+        purchase_attributes[:rut] = Run.remove_format(purchase_attributes[:rut])
+
         purchase = Purchase.new(purchase_attributes)
         purchase.required_password = false
 
@@ -18,20 +29,13 @@ module Api
           {
             value: {
               purchase_id: purchase.id,
-              exchange_id: purchase.exchange_id,
-              rut: purchase.rut,
-              email: purchase.email,
-              reference_codes: purchase.reference_codes,
-              url: Rails.application.routes.url_helpers.corporative_purchase_url(purchase, corporative_id: efi.search_name)
+              status: 'ok'
             }
           }
         else
           {
             value: {
-              exchange_id: purchase.exchange_id,
-              rut: purchase.rut,
-              email: purchase.email,
-              reference_codes: purchase.reference_codes,
+              status: 'error',
               errors: purchase.errors.full_messages
             }
           }
@@ -39,19 +43,13 @@ module Api
       else
         {
           value: {
-            exchange_id: purchase_attributes[:exchange_id],
-            rut: purchase_attributes[:rut],
-            email: purchase_attributes[:email],
-            reference_codes: purchase_attributes[:reference_codes],
+            status: 'error',
             errors: [I18n.t('errors.messages.unknown_model', model: Exchange.model_name.human)]
           }
         }
       end
     end
 
-    map purchase_id: :integer,
-        errors: [:string],
-        status: :string
     def self.redeem efi, purchase_id
       if efi.purchases.exists?(purchase_id)
         purchase = Purchase.find(purchase_id)

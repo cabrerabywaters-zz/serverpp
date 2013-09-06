@@ -9,7 +9,8 @@ module Api
     # List of attributes returned by the Webservice
     map event_id: :integer, event_name: :string, ending_at: :date,
         exchange: [Api::Cmr::Exchanges], category: Api::Cmr::Category,
-        image_original_url: :string, image_medium_url: :string, image_small_url: :string, image_thumb_url: :string
+        image_original_url: :string, image_medium_url: :string, image_small_url: :string, image_thumb_url: :string,
+        out_of_stock_at: :datetime
     # Format attributes for return
     def self.fetch efi
       events = efi.events.are_published.started.includes(experience: :category).includes(:exchanges).order(:id).map { |e|
@@ -22,7 +23,8 @@ module Api
           image_original_url: e.experience.image_url(:original),
           image_medium_url: e.experience.image_url(:medium),
           image_small_url: e.experience.image_url(:small),
-          image_thumb_url: e.experience.image_url(:thumb)
+          image_thumb_url: e.experience.image_url(:thumb),
+          out_of_stock_at: e.sold_at.presence ? I18n.l(e.sold_at.localtime, format: :api) : nil
         }
       }
       return { value: events }

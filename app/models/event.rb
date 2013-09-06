@@ -25,6 +25,8 @@
 #
 # @public String exclusivity_name() Entrega el nombre de la exclusividad del evento.
 #
+# @public NilClass check_stock!() Revisa si aun tiene stock disponible o no.
+#
 # @private NilClass sell_experience!() Callback para indicarle a la experiencia
 #                                      asociada que fue tomada.
 #
@@ -320,6 +322,30 @@ class Event < ActiveRecord::Base
   # Retorna una instancia de Exclusivity.
   def exclusivity_name
     exclusivity.name
+  end
+
+  # Internal: Revisa si aun tiene stock disponible o no.
+  #           Si ya no tiene stock guarda la fecha de cuando se agoto.
+  #           Si aun tiene o vuelve a tener stock disponible eliminando la fecha de cuando se agoto.
+  #
+  # Retorna nil.
+  def check_stock!
+    purchase_temp = Purchase.new(exchange_id: self.exchanges.last.id,
+                                 rut:         '123456785',
+                                 email:       'test@acid.cl',
+                                 password:    '12345678')
+
+    if purchase_temp.valid?
+      unless self.sold_at.nil?
+        self.sold_at = nil
+        self.save
+      end
+    else
+      unless self.sold_at.presence
+        self.sold_at = DateTime.now
+        self.save
+      end
+    end
   end
 
   before_validation :set_quantity_and_swaps!

@@ -24,9 +24,9 @@ module Api
 
     soap_action :confirm_purchase,
                 :args => { :purchase_id => :integer },
-                :return => :string
+                :return => Api::Cmr::PurchaseDetails
     def confirm_purchase
-
+      render soap: Api::Cmr::PurchaseDetails.confirm(@efi, params[:purchase_id])
     end
 
     soap_action :redeem_purchase,

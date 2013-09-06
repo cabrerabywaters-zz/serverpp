@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130729200843) do
+ActiveRecord::Schema.define(:version => 20130820202928) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "efi_id"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(:version => 20130729200843) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.string   "state"
+    t.datetime "sold_at"
   end
 
   add_index "events", ["efi_id"], :name => "index_events_on_efi_id"
@@ -332,6 +333,7 @@ ActiveRecord::Schema.define(:version => 20130729200843) do
     t.string   "reference_code"
     t.string   "state"
     t.text     "reference_codes"
+    t.datetime "confirmed_at"
   end
 
   add_index "purchases", ["exchange_id"], :name => "index_purchases_on_exchange_id"

@@ -8,7 +8,9 @@ module Api
         exchange: [Api::Cmr::Exchanges],
         quantity: :integer, swaps: :integer, category: Api::Cmr::Category, eco: Api::Cmr::Eco,
         number_of_issued: :integer, exclusivity_id: :integer,
-        image_original_url: :string, image_medium_url: :string, image_small_url: :string, image_thumb_url: :string
+        image_original_url: :string, image_medium_url: :string, image_small_url: :string, image_thumb_url: :string,
+        out_of_stock_at: :datetime
+
     def self.fetch efi, event_id
       event = efi.events.are_published.started.includes(experience: [:interests, :category]).includes(:exchanges).find(event_id)
       experience = event.experience
@@ -22,7 +24,8 @@ module Api
           image_medium_url: experience.image_url(:medium), image_small_url: experience.image_url(:small),
           image_thumb_url: experience.image_url(:thumb), exchange_mechanism: experience.exchange_mechanism,
           conditions: experience.conditions, summary: experience.summary, exclusivity_id: event.exclusivity_id,
-          number_of_issued: experience.number_of_issued
+          number_of_issued: experience.number_of_issued,
+          out_of_stock_at: event.sold_at.presence ? I18n.l(event.sold_at.localtime, format: :api) : nil
         }
       }
     end

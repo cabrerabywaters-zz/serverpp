@@ -392,8 +392,8 @@ class Experience < ActiveRecord::Base
       validates_presence_of :total_exclusivity_days,       if: 'total_exclusivity_sales.presence and (by_industry_exclusivity_sales.presence or without_exclusivity_sales.presence)'
       validates_presence_of :by_industry_exclusivity_days, if: 'by_industry_exclusivity_sales.presence and without_exclusivity_sales.presence'
 
-      validates_numericality_of :total_exclusivity_days,       greater_than: 0, only_integer: true, if: 'total_exclusivity_days.presence or (total_exclusivity_sales.presence and by_industry_exclusivity_sales.presence) or (total_exclusivity_sales.presence and without_exclusivity_sales.presence)'
-      validates_numericality_of :by_industry_exclusivity_days, greater_than: 0, only_integer: true, if: 'by_industry_exclusivity_days.presence or (by_industry_exclusivity_sales.presence and without_exclusivity_sales.presence)'
+      validates_numericality_of :total_exclusivity_days,       greater_than_or_equal_to: 0, only_integer: true, if: 'total_exclusivity_days.presence or (total_exclusivity_sales.presence and by_industry_exclusivity_sales.presence) or (total_exclusivity_sales.presence and without_exclusivity_sales.presence)'
+      validates_numericality_of :by_industry_exclusivity_days, greater_than_or_equal_to: 0, only_integer: true, if: 'by_industry_exclusivity_days.presence or (by_industry_exclusivity_sales.presence and without_exclusivity_sales.presence)'
 
       # Internal: Indica si una experiencia se puede tomar con exclusividad total
       #

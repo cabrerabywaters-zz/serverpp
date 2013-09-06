@@ -201,13 +201,14 @@ describe Experience do
         FactoryGirl.build(:experience, total_exclusivity_days: 'a', by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
       end
 
-      it "debe requerir un :total_exclusivity_days mayor que cero" do
-        FactoryGirl.build(:experience, total_exclusivity_days: '0',    by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
-        FactoryGirl.build(:experience, total_exclusivity_days:  0,     by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
+      it "debe requerir un :total_exclusivity_days mayor o igual que cero" do
         FactoryGirl.build(:experience, total_exclusivity_days: '-1',   by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
         FactoryGirl.build(:experience, total_exclusivity_days:  -1,    by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
         FactoryGirl.build(:experience, total_exclusivity_days: '-1.5', by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
         FactoryGirl.build(:experience, total_exclusivity_days:  -1.5,  by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should_not be_valid
+
+        FactoryGirl.build(:experience, total_exclusivity_days: '0',    by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  0,     by_industry_exclusivity_sales: true, without_exclusivity_sales: true).should be_valid
       end
 
       it "debe estar presente" do
@@ -229,13 +230,14 @@ describe Experience do
         FactoryGirl.build(:experience, total_exclusivity_days: 'a', by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should_not be_valid
       end
 
-      it "debe requerir un :total_exclusivity_days mayor que cero" do
-        FactoryGirl.build(:experience, total_exclusivity_days: '0',    by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should_not be_valid
-        FactoryGirl.build(:experience, total_exclusivity_days:  0,     by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should_not be_valid
+      it "debe requerir un :total_exclusivity_days mayor o igual que cero" do
         FactoryGirl.build(:experience, total_exclusivity_days: '-1',   by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should_not be_valid
         FactoryGirl.build(:experience, total_exclusivity_days:  -1,    by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should_not be_valid
         FactoryGirl.build(:experience, total_exclusivity_days: '-1.5', by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should_not be_valid
         FactoryGirl.build(:experience, total_exclusivity_days:  -1.5,  by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should_not be_valid
+
+        FactoryGirl.build(:experience, total_exclusivity_days: '0',    by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  0,     by_industry_exclusivity_sales: true, without_exclusivity_sales: false).should be_valid
       end
 
       it "debe estar presente" do
@@ -257,13 +259,14 @@ describe Experience do
         FactoryGirl.build(:experience, total_exclusivity_days: 'a', by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should_not be_valid
       end
 
-      it "debe requerir un :total_exclusivity_days mayor que cero" do
-        FactoryGirl.build(:experience, total_exclusivity_days: '0',    by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should_not be_valid
-        FactoryGirl.build(:experience, total_exclusivity_days:  0,     by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should_not be_valid
+      it "debe requerir un :total_exclusivity_days mayor o igual que cero" do
         FactoryGirl.build(:experience, total_exclusivity_days: '-1',   by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should_not be_valid
         FactoryGirl.build(:experience, total_exclusivity_days:  -1,    by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should_not be_valid
         FactoryGirl.build(:experience, total_exclusivity_days: '-1.5', by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should_not be_valid
         FactoryGirl.build(:experience, total_exclusivity_days:  -1.5,  by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should_not be_valid
+
+        FactoryGirl.build(:experience, total_exclusivity_days: '0',    by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  0,     by_industry_exclusivity_sales: false, without_exclusivity_sales: true).should be_valid
       end
 
       it "debe estar presente" do
@@ -282,13 +285,14 @@ describe Experience do
         FactoryGirl.build(:experience, total_exclusivity_days: nil, by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should     be_valid
       end
 
-      it "debe requerir un :total_exclusivity_days mayor que cero" do
-        FactoryGirl.build(:experience, total_exclusivity_days: '0',    by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should_not be_valid
-        FactoryGirl.build(:experience, total_exclusivity_days:  0,     by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should_not be_valid
+      it "debe requerir un :total_exclusivity_days mayor o igual que cero" do
         FactoryGirl.build(:experience, total_exclusivity_days: '-1',   by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should_not be_valid
         FactoryGirl.build(:experience, total_exclusivity_days:  -1,    by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should_not be_valid
         FactoryGirl.build(:experience, total_exclusivity_days: '-1.5', by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should_not be_valid
         FactoryGirl.build(:experience, total_exclusivity_days:  -1.5,  by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should_not be_valid
+
+        FactoryGirl.build(:experience, total_exclusivity_days: '0',    by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should be_valid
+        FactoryGirl.build(:experience, total_exclusivity_days:  0,     by_industry_exclusivity_sales: false, without_exclusivity_sales: false).should be_valid
       end
 
       it "debe estar presente" do
@@ -309,13 +313,14 @@ describe Experience do
         FactoryGirl.build(:experience, by_industry_exclusivity_days: 'a', without_exclusivity_sales: true).should_not be_valid
       end
 
-      it "debe requerir un :by_industry_exclusivity_days mayor que cero" do
-        FactoryGirl.build(:experience, by_industry_exclusivity_days: '0',    without_exclusivity_sales: true).should_not be_valid
-        FactoryGirl.build(:experience, by_industry_exclusivity_days:  0,     without_exclusivity_sales: true).should_not be_valid
+      it "debe requerir un :by_industry_exclusivity_days mayor o igual que cero" do
         FactoryGirl.build(:experience, by_industry_exclusivity_days: '-1',   without_exclusivity_sales: true).should_not be_valid
         FactoryGirl.build(:experience, by_industry_exclusivity_days:  -1,    without_exclusivity_sales: true).should_not be_valid
         FactoryGirl.build(:experience, by_industry_exclusivity_days: '-1.5', without_exclusivity_sales: true).should_not be_valid
         FactoryGirl.build(:experience, by_industry_exclusivity_days:  -1.5,  without_exclusivity_sales: true).should_not be_valid
+
+        FactoryGirl.build(:experience, by_industry_exclusivity_days: '0',    without_exclusivity_sales: true).should be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days:  0,     without_exclusivity_sales: true).should be_valid
       end
 
       it "debe estar presente" do
@@ -334,13 +339,14 @@ describe Experience do
         FactoryGirl.build(:experience, by_industry_exclusivity_days: nil, without_exclusivity_sales: false).should     be_valid
       end
 
-      it "debe requerir un :by_industry_exclusivity_days mayor que cero" do
-        FactoryGirl.build(:experience, by_industry_exclusivity_days: '0',    without_exclusivity_sales: false).should_not be_valid
-        FactoryGirl.build(:experience, by_industry_exclusivity_days:  0,     without_exclusivity_sales: false).should_not be_valid
+      it "debe requerir un :by_industry_exclusivity_days mayor o igual que cero" do
         FactoryGirl.build(:experience, by_industry_exclusivity_days: '-1',   without_exclusivity_sales: false).should_not be_valid
         FactoryGirl.build(:experience, by_industry_exclusivity_days:  -1,    without_exclusivity_sales: false).should_not be_valid
         FactoryGirl.build(:experience, by_industry_exclusivity_days: '-1.5', without_exclusivity_sales: false).should_not be_valid
         FactoryGirl.build(:experience, by_industry_exclusivity_days:  -1.5,  without_exclusivity_sales: false).should_not be_valid
+
+        FactoryGirl.build(:experience, by_industry_exclusivity_days: '0',    without_exclusivity_sales: false).should be_valid
+        FactoryGirl.build(:experience, by_industry_exclusivity_days:  0,     without_exclusivity_sales: false).should be_valid
       end
 
       it "debe estar presente" do

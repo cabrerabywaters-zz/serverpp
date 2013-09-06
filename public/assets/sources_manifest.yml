@@ -50,9 +50,11 @@ corporative/application.js: 8dfb12aa809d39caa18b8267598fa505
 eco/application.js: 0dfedd8bfcf6a430841dde1f37803e6d
 efi/application.js: e4fa3f7bbf6d84555832368fdeefdeb5
 puntos_point/application.js: bbabd9c1ffe87dcc4990037694df7d93
-application.css: 32a5ac849c253c20a32e1c36fb4f8d38
-eco/application.css: 1058f266c52a71e039f2e86742240d08
-puntos_point/application.css: 794393296230c933d8b7e03398d289ce
+application.css: 87d8554c692b6f3669aa6ede8cf0155a
+eco/application.css: 03d0c008f01c8d7b8546625bab92589e
+puntos_point/application.css: 4222ce1b8a3ec360e5415a1b15a588ac
+burlesque/application.js: 9a7ba61c01b78556b4c0cba01a569360
+burlesque/application.css: e1e25f5530998b76317739a1762b3401
 dataTables/back_disabled.png: 7a902951219d10f938f642f8dcfbd0b2
 dataTables/back_enabled.png: 6eb9125f3bb6cbca38c2f71664f9e000
 dataTables/back_enabled_hover.png: e11d6a4aa2aa496d78fed7bff91f0391

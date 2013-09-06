@@ -55,7 +55,7 @@ The application is using workers to change the status of events and experiences 
 
 And start sidekiq executing:
 
-    $ nohup bundle exec sidekiq -C config/sidekiq_config.yml -e production
+    $ nohup bundle exec sidekiq -C config/sidekiq_config.yml -e production &
 
 ***Note:*** More information on [sidekiq webpage](http://mperham.github.io/sidekiq/)
 

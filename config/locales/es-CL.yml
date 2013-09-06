@@ -79,6 +79,7 @@
       small: "%H:%M hrs."
       datetimepicker: "%d/%m/%Y %H:%M:%S"
       conector: "%a, %d %b %Y %H:%M:%S"
+      api: "%Y-%m-%d %H:%M"
     am: "am"
     pm: "pm"
 
@@ -207,6 +208,7 @@
       record_invalid: 'registro inválido'
       unknown: no existe
       unknown_model: '%{model} no existe'
+      already_confirmed_at: '%{model} ya fue confirmada el %{at}'
 
   helpers:
     submit:
@@ -353,9 +355,11 @@
       closed: Cerrada
       billed: Facturada
       paid: Pagada
+      published: Publicado
     purchase:
       sold: Vendido
       validated: Validado
+      redeemed: Eliminado
     publicity:
       pending: Pendiente
       accepted: Aceptada
@@ -603,6 +607,7 @@
         state: Estado
         swaps_or_quantity: Total
         purchases: Canjes
+        sold_at: Stock agotado el
       exchange:
         event: Evento
         event_id: Id Evento
@@ -693,6 +698,7 @@
         created_at: Creado el
         updated_at: Validado el
         state: Estado
+        confirmed_at: Confirmado el
       industry_experience:
         industry: Industria
         industry_id: Id Industria

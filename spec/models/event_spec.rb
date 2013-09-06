@@ -29,6 +29,10 @@ describe Event do
     it "debe responder a state" do
       should respond_to :state
     end
+
+    it "debe responder a sold_at" do
+      should respond_to :sold_at
+    end
   end
 
   ################
@@ -494,6 +498,35 @@ describe Event do
   ###########
   # methods #
   ###########
+  describe "para revisar el stock del evento" do
+    it "debe responder a :check_stock!" do
+      should respond_to :check_stock!
+    end
+
+    it "debe setear/des-setear la fecha en que se acabo el stock" do
+      experience = FactoryGirl.create(:experience, total_exclusivity_sales: false,
+                                                    by_industry_exclusivity_sales: false,
+                                                    without_exclusivity_sales: true)
+
+      event      = FactoryGirl.create(:event, experience_id: experience.id,
+                                              exclusivity_id: Exclusivity.without_id,
+                                              swaps: 1)
+      exchange   = event.exchanges.last
+
+      event.sold_at.should be_nil
+
+      purchase = FactoryGirl.create(:purchase, exchange_id: exchange.id)
+
+      event.reload
+      event.sold_at.should_not be_nil
+
+      purchase.redeem!
+
+      event.reload
+      event.sold_at.should be_nil
+    end
+  end
+
   describe 'para filtrar Events' do
     it "deberia responder a total_exclusivity" do
       Event.should respond_to :total_exclusivity

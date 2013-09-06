@@ -33,6 +33,10 @@ describe Purchase do
     it "debe responder a required_password" do
       should respond_to :required_password
     end
+
+    it "debe responder a confirmed_at" do
+      should respond_to :confirmed_at
+    end
   end
 
   ################
@@ -268,7 +272,7 @@ describe Purchase do
     end
   end
 
-  describe "validate!" do
+  describe "Para validar un compra y cambiarla de estado" do
     it "debe responder a validate!" do
       should respond_to :validate!
     end
@@ -281,6 +285,12 @@ describe Purchase do
       Purchase.count.should eq(0)
 
       Purchase.unscoped.count.should eq(1)
+    end
+  end
+
+  describe "para validar el stock del evento" do
+    it "debe responder a check_event_stock!" do
+      should respond_to :check_event_stock!
     end
   end
 

@@ -65,11 +65,11 @@ Showtime::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  default_url_options = { :host => '54.225.244.183' }
-  config.default_url_options = { :host => '54.225.244.183' }
-  routes.default_url_options = { :host => '54.225.244.183' }
-  config.action_controller.asset_host = "54.225.244.183"
-  config.action_mailer.default_url_options = {:host => "54.225.244.183"}
+  default_url_options = { :host => '107.22.255.20' }
+  config.default_url_options = { :host => '107.22.255.20' }
+  routes.default_url_options = { :host => '107.22.255.20' }
+  config.action_controller.asset_host = "107.22.255.20"
+  config.action_mailer.default_url_options = {:host => "107.22.255.20"}
 
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.sendmail_settings = {
