@@ -44,7 +44,7 @@ class EcoBillingManager
   end
   
   def transactions_grouped_by_experience
-    experience_ids = Experience.where(state: 'on_sale').pluck(:id)
+    experience_ids = self.eco.experiences.where(state: 'on_sale').pluck(:id)
     Event.select("experience_id, experiences.name as experience_name, experiences.fee as experience_fee, experiences.amount as price, experiences.discounted_price as discounted_price, experiences.income_type as income_type, SUM(quantity) as total_q").
       where("experience_id IN (?)", experience_ids).
       where("events.created_at >= ?", invoice_start_at).
