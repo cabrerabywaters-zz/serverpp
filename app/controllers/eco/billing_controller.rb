@@ -22,7 +22,7 @@ class Eco::BillingController < Eco::EcoApplicationController
   def detail
     @billing = EcoBillingManager.new current_user_eco.eco
   end
-  
+
   private
   def get_months
     current_month = Date.current.month
