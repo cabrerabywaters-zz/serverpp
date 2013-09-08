@@ -2,27 +2,27 @@
 require 'factory_girl'
 
 namespace :app do
-  
+
   def create_efi(name, industry_name)
     industry = Industry.find_by_name!(industry_name)
     efi = FactoryGirl.build(:efinew, name: name)
     efi.industries = [industry]
     efi.save!
-    
+
     efi_user = FactoryGirl.build(:efi_user, names: name)
     efi_user.efi = efi
     efi_user.save
-    
+
     10.times do |n|
       client_name = "Cliente #{n}"
       create_clients(client_name, efi)
     end
   end
-  
+
   def create_clients(name, efi)
     FactoryGirl.create(:client, name: name, efi: efi)
   end
-  
+
   def create_eco(name)
     eco = FactoryGirl.create(:econew, name: name)
 
@@ -31,7 +31,7 @@ namespace :app do
     eco_user.eco = eco
     eco_user.save!
   end
-  
+
   def create_experiences(eco_name)
     eco = Eco.find_by_name!(eco_name)
     eco_folder = eco_name.downcase.gsub(/\s+/, '')
@@ -40,11 +40,11 @@ namespace :app do
       experience_name = File.basename(image_name, '.jpg').titleize
       experience_prices = prices[n%3]
       experience = FactoryGirl.create(:experience,
-        eco: eco, 
-        name: experience_name, 
-        details: experience_name, 
+        eco: eco,
+        name: experience_name,
+        details: experience_name,
         image: File.new(image_name),
-        comuna: FactoryGirl.build(:santiago), 
+        comuna: FactoryGirl.build(:santiago),
         category: FactoryGirl.create(:category, name: 'Entretención'),
         amount: experience_prices[0],
         discounted_price: experience_prices[1],
@@ -58,7 +58,7 @@ namespace :app do
       end
     end
   end
-  
+
   task :factory_girl_env do
     if Rails.env.production?
       Dir.glob(Rails.root.join('spec', 'factories', '*.rb')).each do |factory|
@@ -66,7 +66,7 @@ namespace :app do
       end
     end
   end
-  
+
   desc "Load demo data via factories"
   task :factory_data => [:environment, :factory_girl_env] do
     # Load Industries
@@ -76,7 +76,7 @@ namespace :app do
     teleco.update_attributes(percentage: 30)
     banca = Industry.find_or_create_by_name({name: 'Banca'})
     banca.update_attributes(percentage: 40)
-    
+
     # Add EFIs
     %w{Falabella Paris Ripley}.each do |efi_name|
       create_efi(efi_name, 'Retail')
@@ -87,14 +87,14 @@ namespace :app do
     %w{BCI Santander BBVA}.each do |efi_name|
       create_efi(efi_name, 'Banca')
     end
-    
+
     # Add ECOs with experiences
     ['Cine Hoyts', 'Rip Curl', 'Sushi House', 'Spa Mund', 'Ticketek'].each do |eco_name|
       create_eco(eco_name)
       create_experiences(eco_name)
     end
   end
-  
+
   def efi_purchase(efi_name, experience_name, opts={})
     efi = Efi.find_by_name!(efi_name)
     experience = Experience.find_by_name!(experience_name)
@@ -112,43 +112,43 @@ namespace :app do
     end
     p efi_purchase.errors unless efi_purchase.valid?
     efi_purchase.save!
-    experience.sell! 
+    experience.sell!
   end
-  
+
   desc "Load events"
   task :load_events => :environment do
     # Exclusividad Total
     efi_purchase('Falabella', 'Cine 2x1')
-    
+
     experience = Experience.find_by_name!('Cine Estreno')
     experience.income_type ='Canjes'
     experience.save!
     efi_purchase('Entel', 'Cine Estreno')
-    
+
     experience = Experience.find_by_name!('Cine Premium')
     experience.income_type = 'Validaciones'
     experience.save!
     efi_purchase('BCI', 'Cine Premium')
-    
+
     # Exclusividad por Industria
     experience = Experience.find_by_name!('Clases De Surf')
     experience.total_exclusivity_days = 0
     experience.update_attributes(total_exclusivity_sales: false, by_industry_exclusivity_sales: true, without_exclusivity_sales: false)
     efi_purchase('Paris', 'Clases De Surf', exclusivity_id: 2, quantity: 0)
-    
+
     # Sin exclusividad
     experience = Experience.find_by_name!('Spa Y Sauna')
     experience.total_exclusivity_days = 0
     experience.by_industry_exclusivity_days = 0
     experience.update_attributes(total_exclusivity_sales: false, by_industry_exclusivity_sales: false, without_exclusivity_sales: true)
     efi_purchase('Santander', 'Spa Y Sauna', exclusivity_id: 3)
-    
+
     # Exclusividad por Industria y Sin exclusividad
     experience = Experience.find_by_name!('Colo Colo Vs Universidad De Chile')
     experience.update_attributes(total_exclusivity_sales: false, by_industry_exclusivity_sales: true, without_exclusivity_sales: true)
-    
+
   end
-  
+
   desc "Load purchases"
   task :load_purchases => :environment do
     experience = Experience.find_by_name!('Cine Estreno')
@@ -159,7 +159,7 @@ namespace :app do
     Purchase.create rut: clients.first.rut, email: 'cliente1@entel.cl', password: 'passC1P2', exchange_id: event.exchanges.first.id
     Purchase.create rut: clients.second.rut, email: 'cliente2@entel.cl', password: 'passC2P1', exchange_id: event.exchanges.first.id
     Purchase.create rut: clients.third.rut, email: 'cliente3@entel.cl', password: 'passC3P1', exchange_id: event.exchanges.first.id
-    
+
     experience = Experience.find_by_name!('Cine Premium')
     event = Event.find_by_experience_id(experience.id)
     efi = Efi.find_by_name!('BCI')
@@ -168,20 +168,20 @@ namespace :app do
     purchase2 = Purchase.create rut: clients.first.rut, email: 'cliente1@bci.cl', password: 'passC1P2', exchange_id: event.exchanges.first.id
     purchase3 = Purchase.create rut: clients.second.rut, email: 'cliente2@bci.cl', password: 'passC2P1', exchange_id: event.exchanges.first.id
     purchase4 = Purchase.create rut: clients.third.rut, email: 'cliente3@bci.cl', password: 'passC3P1', exchange_id: event.exchanges.first.id
-    
+
     purchase1.validate!
   end
-  
+
   desc "Load historical invoices"
   task :load_invoices => :environment do
     eco = Eco.find_by_name!('Ticketek')
-    date = 
+    date =
     eco.invoices.create(
-      start_at: 1.month.ago.beginning_of_month.to_date, 
-      end_at: 1.month.ago.end_of_month.to_date, 
-      state: :paid, 
-      income: 10000, 
-      charge: 2000, 
+      start_at: 1.month.ago.beginning_of_month.to_date,
+      end_at: 1.month.ago.end_of_month.to_date,
+      state: :paid,
+      income: 10000,
+      charge: 2000,
       to_pay: 8000
     )
   end
