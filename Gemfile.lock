@@ -351,6 +351,7 @@ PLATFORMS
 
 DEPENDENCIES
   asset_sync
+  aws-sdk
   better_errors
   binding_of_caller
   bootstrap-datepicker-rails
