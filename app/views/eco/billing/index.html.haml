@@ -5,7 +5,7 @@
       .row
         .span10
           .page-break
-      = render partial: "eco/widgets/invoice_summary", locals: { experiences: @billing.income_by_experience }
+      = render partial: "eco/widgets/invoice_summary", locals: { experiences: @billing.by_experience }
 
       .row.invoice-header
         .span10
@@ -13,7 +13,7 @@
             .span4
               .value.left Meses Anteriores
               
-      - if @billing.historical.empty?
+      - if @billing.invoices.empty?
         .row.invoice-header
           .span10
             .row.primary
@@ -24,4 +24,4 @@
           .span10
             .chart-container
               = high_chart "month_billing", @data
-        = render partial: "eco/widgets/invoice_month_list", locals: { invoices: @billing.historical }
+        = render partial: "eco/widgets/invoice_month_list", locals: { invoices: @billing.invoices }
