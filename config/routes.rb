@@ -58,6 +58,7 @@ Showtime::Application.routes.draw do
     resources :experience_steps, only: [:index, :show, :update]
 
     resources :billing, only: [:index, :detail]
+    get "billing/index" => "billing#index"
     get "billing/detail" => "billing#detail"
 
     get  "experiences/:id/purchases" => "purchases#index", as: :experience_purchases

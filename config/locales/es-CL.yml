@@ -2,6 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 'es-CL':
+  paid: Pagado
   date:
     formats:
       default: "%d/%m/%Y"
@@ -11,6 +12,7 @@
       with_day_name: "%A %d/%m/%Y"
       small: "%d %B"
       datepicker: "%d/%m/%Y"
+      month_and_year: '%B %Y'
 
     day_names:
       - domingo
@@ -79,7 +81,7 @@
       small: "%H:%M hrs."
       datetimepicker: "%d/%m/%Y %H:%M:%S"
       conector: "%a, %d %b %Y %H:%M:%S"
-      api: "%Y-%m-%d %H:%M"
+      month_and_year: '%B %Y'
     am: "am"
     pm: "pm"
 
@@ -653,6 +655,7 @@
         by_industry_exclusivity_days: Días Exclusividad por Industria
         without_exclusivity_days: Días Sin Exclusividad
         exclusivity_deadlines: Plazos Exclusividades
+        income_type: Función de Ingreso
       industry:
         name: Nombre
         percentage: Porcentaje

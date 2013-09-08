@@ -1,0 +1,52 @@
+- headers = get_transaction_headers(experience)
+.row
+  .accordion-heading
+    .span3
+      %a.accordion-toggle{"data-toggle" => "collapse", :href => "#experience_#{experience.id}"}
+        .value.text-value.left 
+          = summary[:experience]
+    .span1
+      .value.right
+        = number_to_currency summary[:price]
+    .span1
+      .value.text-value.center 
+        = summary[:income_type]
+    .span1
+      .value.center 
+        = summary[:total_q]
+    .span1
+      .value.center
+        = number_to_currency summary[:income]
+    .span1
+      .value.text-value.center 
+        = number_to_currency summary[:charge]
+    .span2
+      .value.right
+        = number_to_currency summary[:to_pay]
+.row
+  .span10
+    .accordion-body.collapse{id: "experience_#{experience.id}"}
+      .accordion-inner
+        .subheader
+          .row
+            .span3
+              .value.left.strong Detalle Transacciones
+            .span7
+              .subtable
+                .row.thead
+                  .span3
+                    .value.left
+                      = headers[0]
+                  .span3
+                    .value.right
+                      = headers[1]
+                      
+              - transactions.each do |t|
+                .row
+                  .span3
+                    .value.left
+                      = l t.created_at.localtime, format: :long
+                  .span3
+                    .value.right
+                      = t.quantity
+           

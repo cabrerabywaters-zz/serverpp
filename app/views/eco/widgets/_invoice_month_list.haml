@@ -1,0 +1,46 @@
+.row.invoice-row
+  .span2.offset3
+    .value.center Estado
+  .span2
+    .value.right Ingreso
+  .span1
+    .value.right Comisión
+  .span2
+    .value.right Total a Pagar
+    
+- invoices.each do |i|
+  .row
+    .span10
+      .border
+  .row.invoice-row
+    .span3
+      .value.left
+        %a
+          = l i.start_at, format: :month_and_year
+    .span2
+      .value.center= t i.state
+    .span2
+      .value.right= number_to_currency i.income
+    .span1
+      .value.right= number_to_currency i.charge
+    .span2
+      .value.right= number_to_currency i.to_pay
+
+- if invoices.count > 12
+  .row.action-row
+    .span5.offset5
+      .value.right
+        .pagination
+          %ul
+            %li
+              %a &laquo;
+            %li
+              %a 1
+            %li
+              %a 2
+            %li
+              %a 3
+            %li
+              %a 4
+            %li
+              %a &raquo;
