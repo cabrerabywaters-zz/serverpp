@@ -48,5 +48,8 @@
                       = l t.created_at.localtime, format: :long
                   .span3
                     .value.right
-                      = t.quantity
+                      - if t.kind_of?(Purchase)
+                        = t.code
+                      - else
+                        = t.quantity
            
