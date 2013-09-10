@@ -2,28 +2,48 @@ class EcoBillingManager
   attr_accessor :eco, :start_at, :end_at
   def initialize(eco, opts={})
     self.eco = eco
-    self.start_at = opts[:start_at] || Time.now.beginning_of_month
-    self.end_at = opts[:end_at] || Time.now.end_of_month
+    start_at, end_at = invoice_period
+    self.start_at = opts[:start_at] || start_at
+    self.end_at = opts[:end_at] || end_at
   end
 
-  def total_to_pay
-    experiences.inject(0) do |result, e|
-      result + to_pay(e)
+  def invoice_period
+    start_day = Settings.eco_billing_day
+    now = Time.now
+    current_month = now.month
+    current_year = now.year
+    start_at = Time.new(current_year, current_month, start_day).beginning_of_day
+    end_at = (Time.new(current_year, (current_month + 1) % 12, start_day) - 1.day).end_of_day
+    [start_at, end_at]
+  end
+
+  def totals
+    income = charge = to_pay = 0
+    experiences.each do |e|
+      t = invoice_summary(e)
+      income += t[:income]
+      charge += t[:charge]
+      to_pay += t[:to_pay]
     end
+    {
+      income: income,
+      charge: charge,
+      to_pay: to_pay
+    }
   end
 
   def to_pay(experience)
-    experience_income = income_summary(experience)[:income]
+    experience_income = invoice_summary(experience)[:income]
     experience_income - experience_income * experience.fee/100.0
   end
 
   def by_experience
     experiences.collect do |experience|
-      income_summary(experience)
+      invoice_summary(experience)
     end
   end
 
-  def income_summary(experience)
+  def invoice_summary(experience)
     case experience.income_type
     when "Ventas"
       income_by_sales(experience)
@@ -88,6 +108,16 @@ class EcoBillingManager
 
   def invoices
     eco.invoices.order(:start_at)
+  end
+
+  def store_invoice!
+    invoice = eco.invoices.find_or_initialize_by_start_at_and_end_at(start_at: self.start_at, end_at: self.end_at)
+    t = totals
+    invoice.income = t[:income]
+    invoice.charge = t[:charge]
+    invoice.to_pay = t[:to_pay]
+    invoice.state = :to_pay
+    invoice.save!
   end
 
 end

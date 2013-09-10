@@ -3,6 +3,7 @@
 
 'es-CL':
   paid: Pagado
+  to_pay: Por pagar
   date:
     formats:
       default: "%d/%m/%Y"
