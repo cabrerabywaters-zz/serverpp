@@ -16,11 +16,11 @@
 .row
   .span10
     .border
-    
+
 - @billing.experiences.each do |experience|
   = render partial: "eco/widgets/invoice_experience_detail", locals: { experience: experience, summary: @billing.income_summary(experience), transactions: @billing.transactions_detail(experience) }
 
 .row
   .span10.panel-margin
     .value.right
-      = link_to "Volver a Mis Ingresos", eco_billing_index_path, class: "btn btn-primary"
+      = link_to "Volver a Mis Ingresos", eco_billings_path, class: "btn btn-primary"
