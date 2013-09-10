@@ -120,4 +120,14 @@ class EcoBillingManager
     invoice.save!
   end
 
+  def store_invoice!
+    invoice = eco.invoices.find_or_initialize_by_start_at_and_end_at(start_at: self.start_at, end_at: self.end_at)
+    t = totals
+    invoice.income = t[:income]
+    invoice.charge = t[:charge]
+    invoice.to_pay = t[:to_pay]
+    invoice.state = :to_pay
+    invoice.save!
+  end
+
 end
