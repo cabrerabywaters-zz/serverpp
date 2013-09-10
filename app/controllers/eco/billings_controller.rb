@@ -2,7 +2,7 @@
 
 # Public: Controlador encargado manejar la facturacion de una ECO.
 #
-class Eco::BillingController < Eco::EcoApplicationController
+class Eco::BillingsController < Eco::EcoApplicationController
   def index
     @billing = EcoBillingManager.new current_user_eco.eco
     @data = LazyHighCharts::HighChart.new('column') do |f|
