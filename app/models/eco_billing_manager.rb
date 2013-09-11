@@ -74,12 +74,12 @@ class EcoBillingManager
   def income_by_purchases(experience)
     transactions = transactions_detail(experience)
     total_q = transactions.count
-    income = total_q * experience.amount
+    income = total_q * experience.discounted_price
     charge = income * experience.fee/100.0
     {
       experience: experience.name,
       total_q: total_q,
-      price: experience.amount,
+      price: experience.discounted_price,
       income_type: experience.income_type,
       income: income,
       fee: experience.fee,
