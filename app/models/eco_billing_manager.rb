@@ -106,8 +106,8 @@ class EcoBillingManager
       order("experiences.name")
   end
 
-  def invoices
-    eco.invoices.order(:start_at)
+  def invoices(opts={})
+    eco.invoices.order("start_at desc").paginate(page: opts[:page], per_page: 12)
   end
 
   def store_invoice!
