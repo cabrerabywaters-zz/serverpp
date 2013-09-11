@@ -90,6 +90,7 @@ gem 'lazy_high_charts'
 
 gem 'jquery-datatables-rails'#, git: 'git://github.com/rweng/jquery-datatables-rails.git'
 gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 gem 'sidetiq'
 gem 'sinatra', :require=> false

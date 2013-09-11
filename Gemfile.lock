@@ -48,6 +48,8 @@ GEM
     bootstrap-datepicker-rails (1.0.0.5)
       railties (>= 3.0)
     bootstrap-datetimepicker-rails (0.0.10.1)
+    bootstrap-will_paginate (0.0.9)
+      will_paginate
     bourne (1.4.0)
       mocha (~> 0.13.2)
     builder (3.0.4)
@@ -357,6 +359,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-datepicker-rails
   bootstrap-datetimepicker-rails
+  bootstrap-will_paginate
   burlesque (= 2.0.4)
   cancan
   cocoon
