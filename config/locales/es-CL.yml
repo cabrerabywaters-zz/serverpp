@@ -740,3 +740,6 @@
         state: Estado
         file_representation: Imagen
         created_at: Fecha de creación
+  will_paginate:
+    previous_label: 'Anterior'
+    next_label: 'Siguiente'
