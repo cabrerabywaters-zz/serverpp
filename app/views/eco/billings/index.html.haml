@@ -12,7 +12,7 @@
           .row.primary
             .span4
               .value.left Meses Anteriores
-              
+
       - if @billing.invoices.empty?
         .row.invoice-header
           .span10
@@ -24,4 +24,4 @@
           .span10
             .chart-container
               = high_chart "month_billing", @data
-        = render partial: "eco/widgets/invoice_month_list", locals: { invoices: @billing.invoices }
+        = render partial: "eco/widgets/invoice_month_list", locals: { invoices: @billing.invoices(page: params[:page]) }
