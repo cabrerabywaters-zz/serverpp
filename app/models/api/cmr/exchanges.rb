@@ -6,7 +6,7 @@ module Api
         points: :integer,
         cash: :integer
     def self.fetch exchanges
-      exchanges.map { |exchange| { points: exchange.points, cash: exchange.cash } }
+      exchanges.map { |exchange| { exchange_id: exchange.id, points: exchange.points, cash: exchange.cash } }
     end
   end
 end
