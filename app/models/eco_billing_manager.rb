@@ -93,9 +93,9 @@ class EcoBillingManager
     when "Ventas"
       experience.events.where("events.created_at >= ?", self.start_at).where("events.created_at <= ?", self.end_at)
     when "Canjes"
-      experience.purchases.where("purchases.created_at >= ?", self.start_at).where("purchases.created_at <= ?", self.end_at)
+      experience.purchases.where(state: :sold).where("purchases.created_at >= ?", self.start_at).where("purchases.created_at <= ?", self.end_at)
     when "Validaciones"
-      experience.purchases.where("purchases.updated_at >= ?", self.start_at).where("purchases.updated_at <= ?", self.end_at)
+      experience.purchases.are_validated.where("purchases.updated_at >= ?", self.start_at).where("purchases.updated_at <= ?", self.end_at)
     end
   end
 
