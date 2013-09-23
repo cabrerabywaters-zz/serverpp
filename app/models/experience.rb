@@ -63,6 +63,7 @@ class Experience < ActiveRecord::Base
 
   # Utilizado por el administrador de PuntosPoint
   # Mas información en: http://guides.rubyonrails.org/security.html#countermeasures
+  # FIXME: Hay que agregar y quitar los campos según la nueva definición en mockup
   attr_accessible :amount,
                   :available_efi_ids,
                   :category_id,
@@ -138,29 +139,18 @@ class Experience < ActiveRecord::Base
   has_attached_file :image,
                     styles: {original: "470x350!", medium: "270x220!", small: "180x245!", thumb: "100x100!"}
 
+  # Mantuve los scope que me parecian utiles
   # Búsqueda predefinida que permite filtrar/buscar experiencia que fueron publicadas.
-  scope :was_published,          where(state: ['published', 'on_sale', 'closed', 'expired', 'billed', 'paid'])
+  scope :was_published,          where(state: ['published', 'active', 'closed', 'expired'])
 
-  # Búsqueda predefinida que permite filtrar/buscar experiencia publicadas o en venta.
-  scope :are_published,          where(state: ['published', 'on_sale'])
-
-  # Búsqueda predefinida que permite filtrar/buscar experiencia facturadas.
-  scope :are_billed,             where(state: 'billed')
+  # Búsqueda predefinida que permite filtrar/buscar experiencia publicadas.
+  scope :is_published,          where(state: ['published'])
 
   # Búsqueda predefinida que permite filtrar/buscar experiencia cerradas.
-  scope :are_closed,             where(state: 'closed')
+  scope :is_closed,             where(state: 'closed')
 
-  # Búsqueda predefinida que permite filtrar/buscar experiencia expiradas, facturads o pagadas.
-  scope :expired_billed_or_paid,              where(state: ['expired', 'billed', 'paid'])
-
-  # Búsqueda predefinida que permite filtrar/buscar experiencia publicadas, o en venta.
-  scope :published_or_on_sale,                where(state: ['published', 'on_sale'])
-
-  # Búsqueda predefinida que permite filtrar/buscar experiencia en venta o cerradas.
-  scope :on_sale_or_closed,                   where(state: ['on_sale', 'closed'])
-
-  # Búsqueda predefinida que permite filtrar/buscar experiencia en pendientes, publicadas, en venta o cerradas.
-  scope :pending_published_on_sale_or_closed, where(state: ['pending', 'published', 'on_sale', 'closed'])
+  # Búsqueda predefinida que permite filtrar/buscar experiencia publicadas, o en venta(activas).
+  scope :published_or_active,                where(state: ['published', 'active'])
 
   # Búsqueda predefinida que permite filtrar/buscar experiencia que aun no estan cerradas.
   scope :started, lambda { where('starting_at <= :now', now: Date.current) }
@@ -168,49 +158,31 @@ class Experience < ActiveRecord::Base
   # Definición de una maquina de estados para la experiencia, para lo cual se usa
   # la columna :state
   # Mas información en: https://github.com/pluginaweek/state_machine
-  state_machine :initial => :step1 do
+  state_machine :initial => :draft do
+    event :publish! do
+      transition draft: :published
+    end
+
     event :sell! do
-      transition published: :on_sale
+      transition published: :active
     end
 
-    event :close! do
-      transition pending:   :closed
-      transition published: :closed
-      transition on_sale:   :closed
+    event :sell_expired! do
+      transition published: :expired
     end
 
-    event :expire! do
+    event :exchange_expired! do
+      transition active: :closed
+    end
+
+    # Aqui no le encontre sentido a: transition active: :expired, pues siempre deberia cumplirse antes closed: :expired,
+    # pues fecha_canje > fecha_validacion
+    event :validation_expired! do
       transition closed: :expired
     end
 
-    event :bill! do
-      transition expired: :billed
-    end
-
-    event :pay! do
-      transition billed: :paid
-    end
-
-    event :step2! do
-      transition step1: :step2
-    end
-
-    state :step1 do
-      attr_accessible :eco_id,
-                      :name,
-                      :validity_ending_at,
-                      :validity_starting_at,
-                      :swaps,
-                      :place,
-                      :chilean_cities_comuna_id,
-                      :image,
-                      :details,
-                      :exchange_mechanism,
-                      :conditions
-
-      # La diferencia con la definición anterior es que
-      # estos se usan por el administrador de PuntosPoint
-      # Mas información en: http://guides.rubyonrails.org/security.html#countermeasures
+    # FIXME: Revisar los campos para que cubran el mockup
+    state :draft do
       attr_accessible :eco_id,
                       :name,
                       :validity_ending_at,
@@ -222,11 +194,7 @@ class Experience < ActiveRecord::Base
                       :details,
                       :exchange_mechanism,
                       :conditions,
-                      as: :puntos_point
-    end
-
-    state :step2 do
-      attr_accessible :amount,
+                      :amount,
                       :discounted_price,
                       :discount_percentage,
                       :available_efi_ids,
@@ -242,7 +210,18 @@ class Experience < ActiveRecord::Base
       # La diferencia con la definición anterior es que
       # estos se usan por el administrador de PuntosPoint
       # Mas información en: http://guides.rubyonrails.org/security.html#countermeasures
-      attr_accessible :amount,
+      attr_accessible :eco_id,
+                      :name,
+                      :validity_ending_at,
+                      :validity_starting_at,
+                      :swaps,
+                      :place,
+                      :chilean_cities_comuna_id,
+                      :image,
+                      :details,
+                      :exchange_mechanism,
+                      :conditions,
+                      :amount,
                       :discounted_price,
                       :discount_percentage,
                       :available_efi_ids,
@@ -256,33 +235,17 @@ class Experience < ActiveRecord::Base
                       :total_exclusivity_days,
                       :by_industry_exclusivity_days,
                       :advertising_ids,
-                      as: :puntos_point
-
-
-      validates_presence_of   :name
-    end
-
-    state :step3 do
-      # Utilizado por el administrador de PuntosPoint
-      # Mas información en: http://guides.rubyonrails.org/security.html#countermeasures
-      attr_accessible :category_id,
+                      :category_id,
                       :interest_ids,
                       :starting_at,
                       :ending_at,
                       :industry_experiences_attributes,
                       :fee,
                       as: :puntos_point
-
-      validates_presence_of   :name
-    end
-
-    state :pending do
-      validates_presence_of   :name
-
     end
 
     state :published do
-      validates_presence_of   :name
+      validates_presence_of :name
 
       validates_presence_of :amount,
                             :category_id,
@@ -308,7 +271,7 @@ class Experience < ActiveRecord::Base
       validates :validity_ending_at,   date: { after_or_equal_to: Proc.new {|item| item.ending_at} }
     end
 
-    state :on_sale do
+    state :active do
     end
 
     state :closed do
@@ -317,21 +280,8 @@ class Experience < ActiveRecord::Base
     state :expired do
     end
 
-    state :billed do
-    end
-
-    state :paid do
-    end
-
-    state :step2, :step3, :pending, :published, :on_sale, :closed, :expired, :billed, :paid do
-      # Validador personalizado encargado de validar una experiencia
-      # impidiendo que experiencias con el mismo nombre no puedan estar disponibles a mismo tiempo
-      # Mas información en: lib/experience_name_validator.rb
-      validates_with ExperienceNameValidator
-    end
-
-    state :step3, :pending, :published, :on_sale, :closed, :expired, :billed, :paid do
-      # Valida que se lecciones al menos un tipo de exclusividad
+    state :published, :active, :closed, :expired do
+      # Valida que selecciones al menos un tipo de exclusividad
       validate  {
         if self.eco.presence and self.eco.bigger?
           self.errors[:base] << I18n.t('errors.messages.exclusivity_required') unless self.total_exclusivity_sales or self.by_industry_exclusivity_sales or self.without_exclusivity_sales
@@ -339,19 +289,15 @@ class Experience < ActiveRecord::Base
       }
     end
 
-    state :step1, :step2, :step3, :pending, :published do
+    state :draft, :published do
       attr_accessor   :validated
       attr_accessible :validated, as: :puntos_point
 
-      # Setear para state, permite setear el estado en pendiento o publicado
-      # segun sea el caso, de esta forma los usuarios no pueden setar directamente
-      # el estado de la experiencia
+      # Legacy. Hay que revisar si sacarlo tiene algun efecto en otra parte del codigo
       def validated= val
-        if self.pending? or self.published?
+        if self.published?
           if val == 'true' or val == '1' or val == true
             self.state = 'published'
-          else
-            self.state = 'pending'
           end
         end
       end
@@ -365,7 +311,7 @@ class Experience < ActiveRecord::Base
       validate  {|e| e.send :valid_file_codes }
     end
 
-    state :published, :on_sale, :closed, :expired, :billed, :paid do
+    state :published, :active, :closed, :expired do
       # Valida el porcentaje asignado a cada industria
       validate {|e|
         if self.industry_experiences.map(&:percentage).sum != 100.0
@@ -393,8 +339,8 @@ class Experience < ActiveRecord::Base
       validates_presence_of :total_exclusivity_days,       if: 'total_exclusivity_sales.presence and (by_industry_exclusivity_sales.presence or without_exclusivity_sales.presence)'
       validates_presence_of :by_industry_exclusivity_days, if: 'by_industry_exclusivity_sales.presence and without_exclusivity_sales.presence'
 
-      validates_numericality_of :total_exclusivity_days,       greater_than_or_equal_to: 0, only_integer: true, if: 'total_exclusivity_days.presence or (total_exclusivity_sales.presence and by_industry_exclusivity_sales.presence) or (total_exclusivity_sales.presence and without_exclusivity_sales.presence)'
-      validates_numericality_of :by_industry_exclusivity_days, greater_than_or_equal_to: 0, only_integer: true, if: 'by_industry_exclusivity_days.presence or (by_industry_exclusivity_sales.presence and without_exclusivity_sales.presence)'
+      validates_numericality_of :total_exclusivity_days,       greater_than: 0, only_integer: true, if: 'total_exclusivity_days.presence or (total_exclusivity_sales.presence and by_industry_exclusivity_sales.presence) or (total_exclusivity_sales.presence and without_exclusivity_sales.presence)'
+      validates_numericality_of :by_industry_exclusivity_days, greater_than: 0, only_integer: true, if: 'by_industry_exclusivity_days.presence or (by_industry_exclusivity_sales.presence and without_exclusivity_sales.presence)'
 
       # Internal: Indica si una experiencia se puede tomar con exclusividad total
       #
