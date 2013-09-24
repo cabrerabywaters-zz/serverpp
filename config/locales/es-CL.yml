@@ -344,16 +344,11 @@
 
   state_machine:
     experience:
-      step1: Paso 1
-      step2: Paso 2
-      step3: Paso 3
-      pending: Pendiente
+      draft: Borrador
       published: Publicada
-      on_sale: En Venta
+      active: Activas
       closed: Cerrada
       expired: Terminada
-      billed: Facturada
-      paid: Pagada
     event:
       taken: En Venta
       closed: Cerrada
@@ -368,7 +363,6 @@
       pending: Pendiente
       accepted: Aceptada
       rejected: Rechazada
-
 
   tooltip:
     experience:

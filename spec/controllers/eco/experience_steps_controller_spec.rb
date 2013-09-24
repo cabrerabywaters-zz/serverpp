@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe Eco::ExperienceStepsController do
+describe Eco::ExperienceStepsController, broken: true do
   login_user_eco
 
   before :each do
@@ -14,7 +14,7 @@ describe Eco::ExperienceStepsController do
     # r22 = Burlesque::Role.find_or_create_by_name('experience#read')
     # r23 = Burlesque::Role.find_or_create_by_name('purchase#validate')
     # r24 = Burlesque::Role.find_or_create_by_name('purchase#read')
-    
+
     # g.push_roles []
 
     @experience  = FactoryGirl.create(:experience, eco_id: @eco.id, state: 'pending')

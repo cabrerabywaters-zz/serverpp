@@ -6,7 +6,7 @@ describe Efi::ExperiencesController do
   before :each do
     @experience1 = FactoryGirl.create(:experience, available_efi_ids: ['', @current_user_efi.efi.id])
     @experience2 = FactoryGirl.create(:experience, available_efi_ids: ['', @current_user_efi.efi.id])
-    @experience3 = FactoryGirl.create(:experience, available_efi_ids: ['', @current_user_efi.efi.id], state: 'pending')
+    @experience3 = FactoryGirl.create(:experience, available_efi_ids: ['', @current_user_efi.efi.id], state: 'draft')
     @experience4 = FactoryGirl.create(:experience)
   end
 
@@ -43,7 +43,7 @@ describe Efi::ExperiencesController do
     end
 
     it "no deberia mostrar experiencias que no esten publicadas on en venta" do
-      ['pending', 'closed', 'expired', 'billed', 'paid'].each do |state|
+      ['draft', 'closed', 'expired'].each do |state|
         experience = FactoryGirl.create(:experience, available_efi_ids: ['', @current_user_efi.efi.id], state: state)
 
         get :index
@@ -80,6 +80,7 @@ describe Efi::ExperiencesController do
     context "para ver los datos de una experience en la que estoy participando" do
       it "debe asignar el evento existente" do
         event = FactoryGirl.create(:event, experience_id: @experience1.id, efi_id: @current_user_efi.efi_id)
+        # current_user_efi.available_experiences.are_published.started.find(params[:id])
         get :show, id: @experience1
         assigns(:event).should be_persisted
       end

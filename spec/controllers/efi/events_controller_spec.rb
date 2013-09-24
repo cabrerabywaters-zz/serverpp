@@ -148,9 +148,9 @@ describe Efi::EventsController do
         end
       end
 
-      context "cuando la experience no esta publicada ni on_sale" do
+      context "cuando la experience no esta publicada ni active" do
         it "debe generar un error al no encontrar la experiencia" do
-          ['pending', 'closed', 'expired', 'billed', 'paid'].each do |state|
+          ['draft', 'closed', 'expired'].each do |state|
             experience = FactoryGirl.create(:experience, available_efi_ids: ['', @efi.id], state: state)
 
             expect {
