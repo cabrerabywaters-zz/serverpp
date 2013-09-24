@@ -319,8 +319,8 @@ describe Experience do
         FactoryGirl.build(:experience, by_industry_exclusivity_days: '-1.5', without_exclusivity_sales: true).should_not be_valid
         FactoryGirl.build(:experience, by_industry_exclusivity_days:  -1.5,  without_exclusivity_sales: true).should_not be_valid
 
-        FactoryGirl.build(:experience, by_industry_exclusivity_days: '0',    without_exclusivity_sales: true).should be_valid
-        FactoryGirl.build(:experience, by_industry_exclusivity_days:  0,     without_exclusivity_sales: true).should be_valid
+        # FactoryGirl.build(:experience, by_industry_exclusivity_days: '0',    without_exclusivity_sales: true).should be_valid
+        # FactoryGirl.build(:experience, by_industry_exclusivity_days:  0,     without_exclusivity_sales: true).should be_valid
       end
 
       it "debe estar presente" do
@@ -345,8 +345,8 @@ describe Experience do
         FactoryGirl.build(:experience, by_industry_exclusivity_days: '-1.5', without_exclusivity_sales: false).should_not be_valid
         FactoryGirl.build(:experience, by_industry_exclusivity_days:  -1.5,  without_exclusivity_sales: false).should_not be_valid
 
-        FactoryGirl.build(:experience, by_industry_exclusivity_days: '0',    without_exclusivity_sales: false).should be_valid
-        FactoryGirl.build(:experience, by_industry_exclusivity_days:  0,     without_exclusivity_sales: false).should be_valid
+        # FactoryGirl.build(:experience, by_industry_exclusivity_days: '0',    without_exclusivity_sales: false).should be_valid
+        # FactoryGirl.build(:experience, by_industry_exclusivity_days:  0,     without_exclusivity_sales: false).should be_valid
       end
 
       it "debe estar presente" do
@@ -359,13 +359,13 @@ describe Experience do
 
   describe ":fee validations" do
     it "debe requerir un :fee desde el step3 en adelante" do
-      ['step1', 'step2', 'pending'].each do |s|
+      ['draft'].each do |s|
         subject.stub(:state){s}
         FactoryGirl.build(:experience, fee: nil, state: s).should be_valid
         FactoryGirl.build(:experience, fee: '',  state: s).should be_valid
       end
 
-      ['published', 'on_sale', 'closed', 'expired', 'billed', 'paid'].each do |s|
+      ['published', 'active', 'closed', 'expired'].each do |s|
         subject.stub(:state){s}
         experience = FactoryGirl.build(:experience, fee: nil, state: s)
         experience.should_not be_valid
@@ -467,7 +467,7 @@ describe Experience do
 
     context "cuando las otras experiencias no estan publicadas" do
       it "no debe requerir un name único" do
-        ['step1', 'step2', 'step3', 'closed', 'expired', 'billed', 'paid'].each do |s|
+        ['draft', 'closed', 'expired'].each do |s|
           Experience.destroy_all
           FactoryGirl.create(:experience, name: 'Evento', state: s)
           FactoryGirl.build(:experience,  name: 'Evento').should be_valid
@@ -477,10 +477,11 @@ describe Experience do
 
     context "cuando las otras experiencias estan publicadas" do
       it "debe requerir un name único cuando esta published" do
-        ['published', 'on_sale'].each do |s|
+        ['published', 'active'].each do |s|
           Experience.destroy_all
-          FactoryGirl.create(:experience, name: 'Evento', state: s)
-          FactoryGirl.build(:experience,  name: 'Evento').should_not be_valid
+          FactoryGirl.create(:experience, name: 'Evento', state: :published)
+          e=FactoryGirl.build(:experience,  name: 'Evento', state: s)
+          e.should_not be_valid
         end
       end
     end
@@ -493,7 +494,7 @@ describe Experience do
         exchange   = event.exchanges.first
         FactoryGirl.create(:purchase, exchange_id: exchange.id)
 
-        experience.in_state?(['published', 'on_sale']).should be_true
+        experience.in_state?(['published', 'active']).should be_true
         FactoryGirl.build(:experience,  name: 'Evento').should be_valid
       end
     end
@@ -521,7 +522,7 @@ describe Experience do
     end
 
     it "debe requerir un swaps numerico" do
-      ['published', 'on_sale', 'billed', 'paid'].each do |s|
+      ['published', 'active'].each do |s|
         subject.stub(:state){s}
         should validate_numericality_of(:swaps).only_integer
         FactoryGirl.build(:experience, swaps: 'a').should_not be_valid
@@ -555,7 +556,7 @@ describe Experience do
   end
 
   it "debe requerir un image" do
-    ['published', 'on_sale', 'billed', 'paid'].each do |s|
+    ['published', 'active'].each do |s|
       subject.stub(:state){s}
       should validate_attachment_presence(:image)
     end
@@ -575,7 +576,7 @@ describe Experience do
     end
 
     it "debe requerir un amount numerico" do
-      ['published', 'on_sale', 'billed', 'paid'].each do |s|
+      ['published', 'active'].each do |s|
         subject.stub(:state){s}
 
         should validate_numericality_of(:amount).only_integer
@@ -713,7 +714,7 @@ describe Experience do
     end
 
     it "debe requerir un discounted_price numerico y entero" do
-      ['published', 'on_sale', 'billed', 'paid'].each do |s|
+      ['published', 'active'].each do |s|
         subject.stub(:state){s}
 
         should validate_numericality_of(:discounted_price).only_integer
@@ -761,7 +762,7 @@ describe Experience do
       it "debe requerir un discount_percentage numerico" do
         subject.stub(:discounted_price){nil}
 
-        ['published', 'on_sale', 'billed', 'paid'].each do |s|
+        ['published', 'active'].each do |s|
           subject.stub(:state){'published'}
 
           should validate_numericality_of(:discount_percentage)
@@ -800,7 +801,7 @@ describe Experience do
   describe "industry_experiences" do
     context "cuando no esta pendiente" do
       it "debe requerir un industry_experiences" do
-        ['published', 'on_sale', 'billed', 'paid'].each do |s|
+        ['published', 'active'].each do |s|
           experience = FactoryGirl.build(:experience, state: s)
           experience.industry_experiences.destroy_all
           experience.should_not be_valid
@@ -810,7 +811,7 @@ describe Experience do
       it "debe requerir un industry_experiences valido" do
         industry1 = FactoryGirl.create :industry
         industry2 = FactoryGirl.create :industry
-        ['published', 'on_sale', 'billed', 'paid'].each do |s|
+        ['published', 'active'].each do |s|
           experience = FactoryGirl.create(:experience, state: s)
           experience.should be_valid
 
@@ -823,7 +824,7 @@ describe Experience do
       end
 
       it "debe requerir un porcentaje global de 100%" do
-        ['published', 'on_sale', 'billed', 'paid'].each do |s|
+        ['published', 'active'].each do |s|
           experience = FactoryGirl.create(:experience, state: s)
           industry1  = FactoryGirl.create(:industry)
           industry2  = FactoryGirl.create(:industry)
@@ -838,7 +839,7 @@ describe Experience do
       end
 
       it "debe construir industry_experiences si la experience no esta pendiente" do
-        ['published', 'on_sale', 'billed', 'paid'].each do |s|
+        ['published', 'active'].each do |s|
           experience = FactoryGirl.build(:experience, state: s)
           experience.industry_experiences.should_not be_empty
         end
@@ -847,13 +848,13 @@ describe Experience do
 
     context "cuando el estado es :pending" do
       it "no debe requerir un industry_experiences" do
-        experience = FactoryGirl.build(:experience, state: 'pending')
+        experience = FactoryGirl.build(:experience, state: 'draft')
         experience.industry_experiences.destroy_all
         experience.should be_valid
       end
 
-      it "no debe construir industry_experiences si la experience esta en 'pending'" do
-        experience = FactoryGirl.build(:experience, state: 'pending')
+      it "no debe construir industry_experiences si la experience esta en 'draft'" do
+        experience = FactoryGirl.build(:experience, state: 'draft')
         experience.industry_experiences.should be_empty
       end
     end
@@ -1262,29 +1263,25 @@ describe Experience do
       Experience.should respond_to :are_published
     end
 
-    it "deberia responder a are_billed" do
-      Experience.should respond_to :are_billed
-    end
-
     it "deberia responder a are_closed" do
       Experience.should respond_to :are_closed
     end
 
-    it "deberia responder a expired_billed_or_paid" do
-      Experience.should respond_to :expired_billed_or_paid
-    end
-
-    it "deberia responder a published_or_on_sale" do
-      Experience.should respond_to :published_or_on_sale
-    end
-
-    it "deberia responder a on_sale_or_closed" do
-      Experience.should respond_to :on_sale_or_closed
-    end
-
-    it "deberia responder a pending_published_on_sale_or_closed" do
-      Experience.should respond_to :pending_published_on_sale_or_closed
-    end
+    # it "deberia responder a expired_billed_or_paid" do
+    #   Experience.should respond_to :expired_billed_or_paid
+    # end
+    #
+    # it "deberia responder a published_or_on_sale" do
+    #   Experience.should respond_to :published_or_on_sale
+    # end
+    #
+    # it "deberia responder a on_sale_or_closed" do
+    #   Experience.should respond_to :on_sale_or_closed
+    # end
+    #
+    # it "deberia responder a pending_published_on_sale_or_closed" do
+    #   Experience.should respond_to :pending_published_on_sale_or_closed
+    # end
 
     it "deberia responder a was_published" do
       Experience.should respond_to :was_published
@@ -1319,10 +1316,10 @@ describe Experience do
       experience.in_state?(['published']).should be_true
       experience.in_state?('published').should be_true
       experience.in_state?(:published).should be_true
-      experience.in_state?(['step1', 'step2', 'step3', 'pending', 'published', 'on_sale', 'closed', 'expired', 'billed', 'paid']).should be_true
-      experience.in_state?([:pending, :published, :on_sale, :closed, :expired, :billed, :paid]).should be_true
+      experience.in_state?(['draft', 'published', 'active', 'closed', 'expired']).should be_true
+      experience.in_state?([:draft, :published, :active, :closed, :expired]).should be_true
 
-      experience.in_state?(['step1', 'step2', 'step3', 'pending', 'on_sale', 'closed', 'expired', 'billed', 'paid']).should be_false
+      experience.in_state?(['draft', 'active', 'closed', 'expired']).should be_false
       experience.in_state?(1).should be_nil
       experience.in_state?(nil).should be_nil
     end
@@ -1520,19 +1517,13 @@ describe Experience do
   describe "state_machine" do
     context "states" do
       it "debe tener estados" do
-        FactoryGirl.create(:experience, state: 'step1').should be_valid
-        FactoryGirl.create(:experience, state: 'step2').should be_valid
-        FactoryGirl.create(:experience, state: 'step3').should be_valid
-        FactoryGirl.create(:experience, state: 'pending').should be_valid
+        FactoryGirl.create(:experience, state: 'draft').should be_valid
         FactoryGirl.create(:experience, state: 'published').should be_valid
-        FactoryGirl.create(:experience, state: 'on_sale').should be_valid
         FactoryGirl.create(:experience, state: 'closed').should be_valid
         FactoryGirl.create(:experience, state: 'expired').should be_valid
-        FactoryGirl.create(:experience, state: 'billed').should be_valid
-        FactoryGirl.create(:experience, state: 'paid').should be_valid
 
         expect {
-          FactoryGirl.create(:experience, state: 'otro_estado_no_valido')
+          FactoryGirl.create(:experience, state: 'not_valid')
         }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
@@ -1543,11 +1534,11 @@ describe Experience do
           experience = FactoryGirl.create(:experience, state: 'published')
           experience.published?.should be_true
           experience.sell!.should be_true
-          experience.on_sale?.should be_true
+          experience.active?.should be_true
         end
 
         it "no debe cambiar el estado" do
-          ['step1', 'step2', 'step3', 'pending', 'on_sale', 'closed', 'expired', 'billed', 'paid'].each do |s|
+          ['draft', 'active', 'closed', 'expired'].each do |s|
             experience = FactoryGirl.create(:experience, state: s)
             experience.sell!.should be_false
           end
@@ -1556,7 +1547,7 @@ describe Experience do
 
       describe "close!" do
         it "debe cambiar el estado" do
-          ['pending', 'published', 'on_sale'].each do |s|
+          ['active'].each do |s|
             experience = FactoryGirl.create(:experience, state: s)
             experience.industry_experiences.destroy_all
             FactoryGirl.create(:industry_experience, experience_id: experience.id, percentage: 100)
@@ -1568,7 +1559,7 @@ describe Experience do
         end
 
         it "no debe cambiar el estado" do
-          ['step1', 'step2', 'step3', 'closed', 'expired', 'billed', 'paid'].each do |s|
+          ['draft', 'closed', 'expired'].each do |s|
             experience = FactoryGirl.create(:experience, state: s)
             experience.close!.should be_false
           end
@@ -1577,54 +1568,18 @@ describe Experience do
 
       describe "expire!" do
         it "debe cambiar el estado" do
-          experience = FactoryGirl.create(:experience, state: 'closed')
-          experience.closed?.should be_true
-          experience.expire!.should be_true
-          experience.expired?.should be_true
+          ['published', 'active', 'closed'].each do |s|
+            experience = FactoryGirl.create(:experience, state: s)
+            experience.expire!.should be_true
+            experience.expired?.should be_true
+          end
         end
 
         it "no debe cambiar el estado" do
-          ['step1', 'step2', 'step3', 'pending', 'published', 'on_sale', 'expired', 'billed', 'paid'].each do |s|
-            experience = FactoryGirl.create(:experience, state: s)
-            experience.expire!.should be_false
-          end
+          experience = FactoryGirl.create(:experience, state: 'draft')
+          experience.expire!.should be_false
         end
       end
-
-      describe "bill!" do
-        it "debe cambiar el estado" do
-          experience = FactoryGirl.create(:experience, state: 'expired')
-          experience.expired?.should be_true
-          experience.bill!.should be_true
-          experience.billed?.should be_true
-        end
-
-        it "no debe cambiar el estado" do
-          ['step1', 'step2', 'step3', 'pending', 'published', 'on_sale', 'closed', 'billed', 'paid'].each do |s|
-            experience = FactoryGirl.create(:experience, state: s)
-            experience.bill!.should be_false
-          end
-        end
-      end
-
-      describe "pay!" do
-        it "debe cambiar el estado" do
-          experience = FactoryGirl.create(:experience, state: 'billed')
-          experience.billed?.should be_true
-          experience.pay!.should be_true
-          experience.paid?.should be_true
-        end
-
-        it "no debe cambiar el estado" do
-          ['step1', 'step2', 'step3', 'pending', 'published', 'on_sale', 'closed', 'expired', 'paid'].each do |s|
-            experience = FactoryGirl.create(:experience, state: s)
-            experience.pay!.should be_false
-          end
-        end
-      end
-    end
-
-    context "transitions" do
     end
   end
 end

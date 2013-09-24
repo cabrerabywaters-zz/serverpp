@@ -1,7 +1,7 @@
-# coding: utf-8 
+# coding: utf-8
 
 def clean(str)
-  str.downcase.gsub(/\s+/, '')  
+  str.downcase.gsub(/\s+/, '')
 end
 
 FactoryGirl.define do
@@ -23,7 +23,7 @@ FactoryGirl.define do
 
     images true
   end
-  
+
   factory :econew, class: Eco do
     sequence(:rut) { Run.for(:eco, :rut) }
     name "Default ECO Name"
@@ -34,12 +34,12 @@ FactoryGirl.define do
     address "Av. Los Leones 123"
     discount 20
     fee 10
-    
+
     admin { create(:admin, names: name, first_lastname: "ECO", second_lastname: "Admin", nickname: "admin#{clean(name)}", email: "admin@#{clean(name)}.cl", password: "admin123", password_confirmation: "admin123") }
     comuna factory: :santiago
-    
+
     images true
-    
+
     initialize_with { Eco.find_or_initialize_by_name(name) }
   end
 end
