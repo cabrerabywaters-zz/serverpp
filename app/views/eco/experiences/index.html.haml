@@ -1,5 +1,14 @@
 .row
   .span12    
     = render partial: "application/experiences/box", locals: { experience: { first: true, title: "Real Madrid Vs Barcelona", image: "http://www.asportsnews.com/wp-content/uploads/2013/03/Real-Madrid-vs-Barcelona-Live-Score-Match-Highlights-2-Mar-2013-asportsnews.jpg", stats: {purchases: 50, swaps: 18, validations: 10}} }
-    = render partial: "application/experiences/box", locals: { experience: { title: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commo", image: "http://clande-products.s3.amazonaws.com/52034-ch_04_04_capriccio_ag-thumb.jpg", stats: {purchases: 88, swaps: 23, validations: 15}} }
+    = render partial: "application/experiences/box", locals: { experience: { title: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.", image: "http://clande-products.s3.amazonaws.com/52034-ch_04_04_capriccio_ag-thumb.jpg", stats: {purchases: 88, swaps: 23, validations: 15}} }
     = render partial: "application/experiences/box", locals: { experience: { title: "Vamos todos al cine! $ 1.900", image: "http://www.login.cl/cms/images/stories/promocion%20cine.jpg", stats: {purchases: 128, swaps: 93, validations: 55}} }
+.row
+  .span12
+    = render partial: "application/experiences/filters", locals: { stats: { for_review: 4, published: 5, closed: 10 }}
+.row
+  .span12
+    = render partial: "application/experiences/box", locals: { experience: { first: true, small: true, title: "Real Madrid Vs Barcelona", image: "http://www.asportsnews.com/wp-content/uploads/2013/03/Real-Madrid-vs-Barcelona-Live-Score-Match-Highlights-2-Mar-2013-asportsnews.jpg"} }
+    = render partial: "application/experiences/box", locals: { experience: { small: true, title: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.", image: "http://clande-products.s3.amazonaws.com/52034-ch_04_04_capriccio_ag-thumb.jpg"} }
+    = render partial: "application/experiences/box", locals: { experience: { small: true, title: "Vamos todos al cine! $ 1.900", image: "http://www.login.cl/cms/images/stories/promocion%20cine.jpg"} }
+    = render partial: "application/experiences/box", locals: { experience: { small: true, title: "Real Madrid Vs Barcelona", image: "http://www.asportsnews.com/wp-content/uploads/2013/03/Real-Madrid-vs-Barcelona-Live-Score-Match-Highlights-2-Mar-2013-asportsnews.jpg"} }
