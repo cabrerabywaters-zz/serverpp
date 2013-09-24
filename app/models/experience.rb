@@ -146,7 +146,7 @@ class Experience < ActiveRecord::Base
   scope :are_published,          where(state: ['published'])
 
   # Búsqueda predefinida que permite filtrar/buscar experiencia cerradas.
-  scope :is_closed,             where(state: 'closed')
+  scope :are_closed,             where(state: 'closed')
 
   # Búsqueda predefinida que permite filtrar/buscar experiencia publicadas, o en venta(activas).
   scope :published_or_active,                where(state: ['published', 'active'])
