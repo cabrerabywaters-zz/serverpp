@@ -100,7 +100,7 @@ class EcoBillingManager
   end
 
   def experiences
-    self.eco.experiences.where("experiences.state IN (?)", [:on_sale, :closed]).
+    self.eco.experiences.where("experiences.state IN (?)", [:active, :closed]).
       includes(:events, :purchases).
       where("(events.created_at >= :start_at AND events.created_at <= :end_at) OR (purchases.created_at >= :start_at AND purchases.created_at <= :end_at) OR (purchases.updated_at >= :start_at AND purchases.updated_at <= :end_at)", start_at: self.start_at, end_at: self.end_at).
       order("experiences.name")

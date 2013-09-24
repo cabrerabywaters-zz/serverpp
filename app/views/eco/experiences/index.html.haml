@@ -13,9 +13,9 @@
       %th= t("helpers.actions")
   %tbody
     - @experiences.each do |experience|
-      %tr{class: experience.in_state?([:step1, :step2, :pending]) ? 'warning' : ''}
+      %tr{class: experience.draft? ? 'warning' : ''}
         %td
-          - if can?(:validate, Purchase) and experience.in_state?([:pending, :published, :on_sale, :closed])
+          - if can?(:validate, Purchase) and experience.in_state?([:draft, :published, :active, :closed])
             = link_to trim_to(experience.name, 20).html_safe, eco_experience_purchases_path(experience)
           - else
             = trim_to(experience.name, 20).html_safe
@@ -29,7 +29,7 @@
             = link_to eco_experience_path(experience), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-primary' do
               %i.icon-eye-open
 
-          - if experience.in_state? [:step1, :step2, :step3, :pending]
+          - if experience.draft?
             - if can? :update, experience
               = link_to eco_experience_steps_path(experience_id: experience.id), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
                 %i.icon-pencil

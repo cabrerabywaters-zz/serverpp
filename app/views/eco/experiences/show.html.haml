@@ -76,7 +76,7 @@
 .form-actions
   - if can? :read, model_class
     = link_to t("helpers.links.back"), eco_experiences_path, class: 'btn'
-  - if @experience.pending?
+  - if @experience.draft?
     - if can? :update, @experience
       = link_to t("helpers.links.edit"), eco_experience_steps_path(experience_id: @experience.id), class: 'btn'
     - if can? :destroy, @experience
