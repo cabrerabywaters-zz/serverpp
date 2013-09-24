@@ -12,7 +12,7 @@ class Eco::PurchasesController < Eco::EcoApplicationController
 
   # GET /eco/purchases
   def index
-    @experience = current_user_eco.experiences.pending_published_on_sale_or_closed.find(params[:id])
+    @experience = current_user_eco.experiences.with_states(:published, :active, :closed).find(params[:id])
     @purchases  = @experience.purchases.are_validated.order('updated_at DESC')
 
     if session[:validated_purchase]
@@ -33,7 +33,7 @@ class Eco::PurchasesController < Eco::EcoApplicationController
 
   # POST /eco/purchases/validate
   def validate
-    @experience = current_user_eco.experiences.pending_published_on_sale_or_closed.find(params[:id])
+    @experience = current_user_eco.experiences.with_states(:published, :active, :closed).find(params[:id])
     @purchase = @experience.purchases.find_by_code(params[:code])
 
     respond_to do |format|

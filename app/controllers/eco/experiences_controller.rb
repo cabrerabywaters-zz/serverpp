@@ -30,7 +30,7 @@ class Eco::ExperiencesController < Eco::EcoApplicationController
   # DELETE /eco/experiences/1
   def destroy
     # Revisa que antes de eliminar la experience, esta debe estar en estado pendiente.
-    unless @experience.in_state? [:step1, :step2, :pending]
+    unless @experience.draft?
       redirect_to eco_experiences_path, notice: t('notices.error.not_pending', model: Experience.model_name.human)
       return
     end

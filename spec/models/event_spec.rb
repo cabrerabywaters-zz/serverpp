@@ -470,28 +470,28 @@ describe Event do
   end
 
   context "cuando es el primer evento en la experience" do
-    it 'despues de crear el event debe cambiar la experience a on_sale' do
+    it 'despues de crear el event debe cambiar la experience a active' do
       experience = FactoryGirl.create(:experience)
       experience.published?.should be_true
 
       FactoryGirl.create(:event, experience_id: experience.id)
       experience.reload
-      experience.on_sale?.should be_true
+      experience.active?.should be_true
     end
   end
 
   context "cuando no es el primer evento en la experience" do
-    it 'despues de crear el event el state de la experience debe ser on_sale' do
+    it 'despues de crear el event el state de la experience debe ser active' do
       experience = FactoryGirl.create(:experience, total_exclusivity_sales: false, by_industry_exclusivity_sales: false)
       experience.published?.should be_true
 
       FactoryGirl.create(:event, experience_id: experience.id, exclusivity_id: Exclusivity.without_id, swaps: experience.minimum_without_swaps)
       experience.reload
-      experience.on_sale?.should be_true
+      experience.active?.should be_true
 
       FactoryGirl.create(:event, experience_id: experience.id, exclusivity_id: Exclusivity.without_id, swaps: experience.minimum_without_swaps)
       experience.reload
-      experience.on_sale?.should be_true
+      experience.active?.should be_true
     end
   end
 

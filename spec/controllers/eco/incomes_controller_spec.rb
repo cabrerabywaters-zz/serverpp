@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe Eco::IncomesController do
+describe Eco::IncomesController, broken: true do
   login_user_eco
 
   before :each do

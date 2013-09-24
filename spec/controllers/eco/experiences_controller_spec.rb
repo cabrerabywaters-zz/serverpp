@@ -6,7 +6,7 @@ describe Eco::ExperiencesController do
 
   before :each do
     @eco         = @current_user_eco.eco
-    @experience  = FactoryGirl.create(:experience, eco_id: @eco.id, state: 'pending')
+    @experience  = FactoryGirl.create(:experience, eco_id: @eco.id, state: 'draft')
   end
 
   describe "GET index" do
