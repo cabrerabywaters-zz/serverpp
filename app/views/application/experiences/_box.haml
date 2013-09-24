@@ -1,0 +1,21 @@
+.panel.span4.experience-box{:class => ("experience-box-first" if experience[:first])}
+	.title 
+		= experience[:title]
+	.image
+		= image_tag experience[:image]
+	.stats
+		.stat.purchases
+			%i.icon-shopping-cart
+			%span.indicator
+				= experience[:stats][:purchases]
+		.stat.swaps
+			%i.icon-tags
+			%span.indicator
+				= experience[:stats][:swaps]
+		.stat.validations
+			%i.icon-user
+			%span.indicator
+				= experience[:stats][:validations]
+	.validation-box
+		%input{placeholder: "Ingrese Código Validación", type: "text"}
+		%button.btn.btn-success{type: "button"} Validar
