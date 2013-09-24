@@ -139,21 +139,20 @@ class Experience < ActiveRecord::Base
   has_attached_file :image,
                     styles: {original: "470x350!", medium: "270x220!", small: "180x245!", thumb: "100x100!"}
 
-  # Mantuve los scope que me parecian utiles
   # Búsqueda predefinida que permite filtrar/buscar experiencia que fueron publicadas.
   scope :was_published,          where(state: ['published', 'active', 'closed', 'expired'])
 
   # Búsqueda predefinida que permite filtrar/buscar experiencia publicadas.
-  scope :is_published,          where(state: ['published'])
+  scope :are_published,          where(state: ['published'])
 
   # Búsqueda predefinida que permite filtrar/buscar experiencia cerradas.
-  scope :is_closed,             where(state: 'closed')
+  scope :are_closed,             where(state: 'closed')
 
   # Búsqueda predefinida que permite filtrar/buscar experiencia publicadas, o en venta(activas).
   scope :published_or_active,                where(state: ['published', 'active'])
 
   # Búsqueda predefinida que permite filtrar/buscar experiencia que aun no estan cerradas.
-  scope :started, lambda { where('starting_at <= :now', now: Date.current) }
+  scope :started, -> { where('starting_at <= :now', now: Date.current) }
 
   # Definición de una maquina de estados para la experiencia, para lo cual se usa
   # la columna :state
@@ -167,21 +166,14 @@ class Experience < ActiveRecord::Base
       transition published: :active
     end
 
-    event :sell_expired! do
-      transition published: :expired
-    end
-
-    event :exchange_expired! do
+    event :close! do
       transition active: :closed
     end
 
-    # Aqui no le encontre sentido a: transition active: :expired, pues siempre deberia cumplirse antes closed: :expired,
-    # pues fecha_canje > fecha_validacion
-    event :validation_expired! do
-      transition closed: :expired
+    event :expire! do
+      transition [:published, :active, :closed] => :expired
     end
 
-    # FIXME: Revisar los campos para que cubran el mockup
     state :draft do
       attr_accessible :eco_id,
                       :name,
@@ -280,6 +272,10 @@ class Experience < ActiveRecord::Base
     state :expired do
     end
 
+    state :published, :active do
+      validates_with ExperienceNameValidator
+    end
+
     state :published, :active, :closed, :expired do
       # Valida que selecciones al menos un tipo de exclusividad
       validate  {
@@ -334,13 +330,13 @@ class Experience < ActiveRecord::Base
       # Mas información en: http://guides.rubyonrails.org/active_record_validations_callbacks.html#custom-methods
       validate  {|e| e.send :valid_file_codes }
 
-      validates_numericality_of :fee, greater_than_or_equal_to: Proc.new {|item| item.eco.presence ? [item.eco.fee, 0].max : 0}, less_than: 100
+      validates_numericality_of :fee, greater_than_or_equal_to: Proc.new {|item| item.eco.present? ? [item.eco.fee, 0].max : 0}, less_than: 100
 
       validates_presence_of :total_exclusivity_days,       if: 'total_exclusivity_sales.presence and (by_industry_exclusivity_sales.presence or without_exclusivity_sales.presence)'
       validates_presence_of :by_industry_exclusivity_days, if: 'by_industry_exclusivity_sales.presence and without_exclusivity_sales.presence'
 
-      validates_numericality_of :total_exclusivity_days,       greater_than: 0, only_integer: true, if: 'total_exclusivity_days.presence or (total_exclusivity_sales.presence and by_industry_exclusivity_sales.presence) or (total_exclusivity_sales.presence and without_exclusivity_sales.presence)'
-      validates_numericality_of :by_industry_exclusivity_days, greater_than: 0, only_integer: true, if: 'by_industry_exclusivity_days.presence or (by_industry_exclusivity_sales.presence and without_exclusivity_sales.presence)'
+      validates_numericality_of :total_exclusivity_days,       greater_than_or_equal_to: 0, only_integer: true, if: 'total_exclusivity_days.presence or (total_exclusivity_sales.presence and by_industry_exclusivity_sales.presence) or (total_exclusivity_sales.presence and without_exclusivity_sales.presence)'
+      validates_numericality_of :by_industry_exclusivity_days, greater_than_or_equal_to: 0, only_integer: true, if: 'by_industry_exclusivity_days.presence or (by_industry_exclusivity_sales.presence and without_exclusivity_sales.presence)'
 
       # Internal: Indica si una experiencia se puede tomar con exclusividad total
       #
