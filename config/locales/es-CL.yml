@@ -652,6 +652,8 @@
         without_exclusivity_days: Días Sin Exclusividad
         exclusivity_deadlines: Plazos Exclusividades
         income_type: Función de Ingreso
+        addresses: Direcciones comerciales
+        observations: Observaciones
       industry:
         name: Nombre
         percentage: Porcentaje
