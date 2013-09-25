@@ -1,46 +1,14 @@
-- model_class = Experience
-.page-header
-  %h1= model_class.model_name.human.pluralize
-%table.table.table-striped
-  %thead
-    %tr
-      %th= model_class.human_attribute_name(:name)
-      %th= model_class.human_attribute_name(:discounted_price)
-      %th= model_class.human_attribute_name(:place)
-      %th= model_class.human_attribute_name(:validity_starting_at)
-      %th= model_class.human_attribute_name(:validity_ending_at)
-      %th= model_class.human_attribute_name(:swaps)
-      %th= t("helpers.actions")
-  %tbody
-    - @experiences.each do |experience|
-      %tr{class: experience.draft? ? 'warning' : ''}
-        %td
-          - if can?(:validate, Purchase) and experience.in_state?([:draft, :published, :active, :closed])
-            = link_to trim_to(experience.name, 20).html_safe, eco_experience_purchases_path(experience)
-          - else
-            = trim_to(experience.name, 20).html_safe
-        %td= number_to_currency experience.discounted_price, presicion: 1
-        %td= trim_to(experience.place, 20).html_safe
-        %td=l experience.validity_starting_at, format: :short
-        %td=l experience.validity_ending_at, format: :short
-        %td= number_to_currency experience.swaps, unit: ''
-        %td
-          - if can? :read, experience
-            = link_to eco_experience_path(experience), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-primary' do
-              %i.icon-eye-open
-
-          - if experience.draft?
-            - if can? :update, experience
-              = link_to eco_experience_steps_path(experience_id: experience.id), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
-                %i.icon-pencil
-
-            - if can? :destroy, experience
-              = link_to eco_experience_path(experience), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
-                %i.icon-trash
-
-- if can? :create, model_class
-  .pull-right
-    - if current_user_eco.eco_bigger?
-      = link_to t("helpers.links.new"), eco_experience_steps_path,   class: ' btn btn-large btn-warning'
-    - else
-      = link_to t("helpers.links.new"), eco_experience_steps_path, class: 'btn btn-large btn-warning'
+.row
+  .span12    
+    = render partial: "application/experiences/box", locals: { experience: { first: true, title: "Real Madrid Vs Barcelona", image: "http://www.asportsnews.com/wp-content/uploads/2013/03/Real-Madrid-vs-Barcelona-Live-Score-Match-Highlights-2-Mar-2013-asportsnews.jpg", stats: {purchases: 50, swaps: 18, validations: 10}} }
+    = render partial: "application/experiences/box", locals: { experience: { title: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.", image: "http://clande-products.s3.amazonaws.com/52034-ch_04_04_capriccio_ag-thumb.jpg", stats: {purchases: 88, swaps: 23, validations: 15}} }
+    = render partial: "application/experiences/box", locals: { experience: { title: "Vamos todos al cine! $ 1.900", image: "http://www.login.cl/cms/images/stories/promocion%20cine.jpg", stats: {purchases: 128, swaps: 93, validations: 55}} }
+.row
+  .span12
+    = render partial: "application/experiences/filters", locals: { stats: { for_review: 4, published: 5, closed: 10 }}
+.row
+  .span12
+    = render partial: "application/experiences/box", locals: { experience: { first: true, small: true, title: "Real Madrid Vs Barcelona", image: "http://www.asportsnews.com/wp-content/uploads/2013/03/Real-Madrid-vs-Barcelona-Live-Score-Match-Highlights-2-Mar-2013-asportsnews.jpg"} }
+    = render partial: "application/experiences/box", locals: { experience: { small: true, title: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.", image: "http://clande-products.s3.amazonaws.com/52034-ch_04_04_capriccio_ag-thumb.jpg"} }
+    = render partial: "application/experiences/box", locals: { experience: { small: true, title: "Vamos todos al cine! $ 1.900", image: "http://www.login.cl/cms/images/stories/promocion%20cine.jpg"} }
+    = render partial: "application/experiences/box", locals: { experience: { small: true, title: "Real Madrid Vs Barcelona", image: "http://www.asportsnews.com/wp-content/uploads/2013/03/Real-Madrid-vs-Barcelona-Live-Score-Match-Highlights-2-Mar-2013-asportsnews.jpg"} }
