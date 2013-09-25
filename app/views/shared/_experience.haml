@@ -1,0 +1,22 @@
+.panel.experience-box{ class: "#{experience.active? ? '' : 'small'}" }
+  .title
+    = experience.name
+  .image
+    = image_tag experience.image.url
+  - if experience.active?
+    .stats
+      .stat.purchases
+        %i.icon-shopping-cart
+        %span.indicator
+          = experience.total_purchases
+      .stat.swaps
+        %i.icon-tags
+        %span.indicator
+          = experience.total_swaps
+      .stat.validations
+        %i.icon-user
+        %span.indicator
+          = experience.total_validations
+    .validation-box
+      %input{placeholder: "Ingrese Código Validación", type: "text"}
+      %button.btn.btn-success{type: "button"} Validar

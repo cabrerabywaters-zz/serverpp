@@ -13,6 +13,10 @@ class Eco::ExperiencesController < Eco::EcoApplicationController
 
   # GET /eco/experiences
   def index
+    @experiences = current_user_eco.experiences.active
+    @experience_drafts = current_user_eco.experiences.draft
+    @published_experiences = current_user_eco.experiences.published
+    @expired_experiences = current_user_eco.experiences.expired
     respond_to do |format|
       format.html # index.html.erb
     end
