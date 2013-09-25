@@ -27,7 +27,7 @@ describe PuntosPoint::ExperiencesController do
     end
   end
 
-  describe "PUT bill" do
+  describe "PUT bill", broken: true do
     context "cuando la experience esta :expired" do
       it "debe actualizar el estado de la experience solicitada" do
         experience = FactoryGirl.create(:experience, state: 'expired')
@@ -50,7 +50,7 @@ describe PuntosPoint::ExperiencesController do
     end
   end
 
-  describe "PUT pay" do
+  describe "PUT pay", broken: true do
     context "cuando la experience esta billed" do
       it "updates the requested experience" do
         experience = FactoryGirl.create(:experience, state: 'billed')

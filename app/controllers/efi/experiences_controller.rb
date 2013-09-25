@@ -53,8 +53,8 @@ class Efi::ExperiencesController < Efi::EfiApplicationController
   #
   # Retorna la(s) experiencia(s) en las que puede participar la EFI.
   def find_available_experiences
-    if params[:id].presence
-      @experience  = current_user_efi.available_experiences.are_published.started.find(params[:id])
+    if params[:id].present?
+      @experience  = current_user_efi.available_experiences.published_or_active.started.find(params[:id])
     else
       @experiences = current_user_efi.available_experiences.are_published.started
     end

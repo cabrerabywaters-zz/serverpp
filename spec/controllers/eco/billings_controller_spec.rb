@@ -1,6 +1,7 @@
 require 'spec_helper'
 
-describe Eco::BillingController do
+describe Eco::BillingsController do
+  login_user_eco
 
   describe "GET 'index'" do
     it "returns http success" do

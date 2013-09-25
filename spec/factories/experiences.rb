@@ -19,7 +19,7 @@ FactoryGirl.define do
     income_type "Ventas"
     # discount_percentage  10
 
-    codes                { swaps.times.collect {|n| "C#{n}"} }
+    codes                { (swaps.to_i.times.collect {|n| "C#{n}"} if swaps.present?) || [] }
 
     eco
     category
@@ -42,10 +42,10 @@ FactoryGirl.define do
 
 
     after(:build) do |e|
-      e.industry_experiences ||= [FactoryGirl.build(:industry_experience, experience_id: e.id, percentage: 100.0)] unless e.pending?
+      e.industry_experiences = [FactoryGirl.build(:industry_experience, experience_id: e.id, percentage: 100.0)] unless e.draft?
       e.valid_images = [FactoryGirl.build(:valid_image, experience_id: e.id)] if e.eco_id.presence and e.eco.images?
     end
-    
-    initialize_with { Experience.find_or_initialize_by_name(name) }
+
+    #initialize_with { Experience.find_or_initialize_by_name(name) }
   end
 end

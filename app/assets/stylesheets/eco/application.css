@@ -23,4 +23,5 @@
  *= require ../preview_image
  *= require ../static
  *= require_tree .
+ *= require ../application/experiences
  */
