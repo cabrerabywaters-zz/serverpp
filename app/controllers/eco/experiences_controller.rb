@@ -31,6 +31,28 @@ class Eco::ExperiencesController < Eco::EcoApplicationController
     end
   end
 
+  def new
+    @experience = params[:id].present? ? Experience.find(params[:id]) : Experience.create
+  end
+
+  def update
+    @experience = Experience.find(params[:id])
+    respond_to do |format|
+      if @experience.update_attributes(params[:experience])
+        if params[:publish_experience].present? && @experience.publish!
+          format.html
+          format.json @experience
+        else
+          redirect_to new_eco_experience_path(id: @experience.id)
+          format.json { render json: {errors: @experience.errors}, status: :unprocessable_entity }
+        end
+      else
+        redirect_to new_eco_experience_path(id: @experience.id)
+        format.json { render json: {errors: @experience.errors}, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # DELETE /eco/experiences/1
   def destroy
     # Revisa que antes de eliminar la experience, esta debe estar en estado pendiente.

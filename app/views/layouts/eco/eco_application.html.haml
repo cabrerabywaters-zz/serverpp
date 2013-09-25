@@ -55,11 +55,11 @@
                 .eco_name= current_user_eco.eco_fancy_name
 
               - if can? :read, Experience
-                %li{class: (current_page?(eco_experiences_path) || eco_experiences_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.eco.experiences'), eco_experiences_path
+                %li{class: current_page?(eco_experiences_path) ? 'selected' : ''}= link_to t('menu.eco.experiences'), eco_experiences_path
 
 
               - if can? :create, Experience
-                %li{class: (current_page?(eco_experience_steps_path) || eco_experience_steps_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.eco.new_experience'), eco_experience_steps_path
+                %li{class: (current_page?(new_eco_experience_path) || new_eco_experience_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.eco.new_experience'), new_eco_experience_path
 
               - if can? :read, :incomes
                 %li{class: current_page?(eco_billings_path) ? 'selected' : ''}= link_to t('menu.eco.incomes'), eco_billings_path
