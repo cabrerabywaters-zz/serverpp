@@ -151,6 +151,12 @@ class Experience < ActiveRecord::Base
   # Búsqueda predefinida que permite filtrar/buscar experiencia publicadas, o en venta(activas).
   scope :published_or_active,                where(state: ['published', 'active'])
 
+  # Experiences by state
+  scope :draft, -> { where(state: :draft) }
+  scope :active, -> { with_states(:active, :closed) }
+  scope :published, -> { where(state: :published) }
+  scope :expired, -> { where(state: :expired) }
+
   # Búsqueda predefinida que permite filtrar/buscar experiencia que aun no estan cerradas.
   scope :started, -> { where('starting_at <= :now', now: Date.current) }
 
@@ -444,6 +450,18 @@ class Experience < ActiveRecord::Base
     self.events.total_exclusivity.sum(:quantity) +
     self.events.exclusivity_by_industry.sum(:quantity) +
     self.events.without_exclusivity.joins(:purchases).count
+  end
+
+  def total_purchases
+    events.count
+  end
+
+  def total_swaps
+    purchases.count
+  end
+
+  def total_validations
+    purchases.where(state: :validated).count
   end
 
   # Public: Número de compras realizadas por los usuario finales.
