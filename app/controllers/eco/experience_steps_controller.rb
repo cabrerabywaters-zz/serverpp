@@ -86,9 +86,9 @@ class Eco::ExperienceStepsController < Eco::EcoApplicationController
     @experience.attributes = params[:experience]
 
     if step.to_sym == :step1
-      @experience.state = 'step2'
+      @experience.state = 'draft'
     else # if step.to_sym == :step2
-      @experience.state = 'pending'
+      @experience.state = 'draft'
     end
 
     if @experience.save
