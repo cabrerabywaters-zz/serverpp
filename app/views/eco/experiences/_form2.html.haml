@@ -1,0 +1,80 @@
+:sass
+  .new_experience
+    textarea
+      height: 80px
+
+.experience-state= t @experience.state
+
+.container.panel
+  = simple_form_for [:eco, @experience] do |f|
+    .row-fluid
+      .span10.offset1.section
+        %h1 Información General
+        .row-fluid
+          .span6
+            = f.input :name, hint: 'Coloca el nombre de la experiencia', input_html: { class: 'span12' }
+            = f.input :summary, input_html: { class: 'span12' }
+            = f.input :details, input_html: { class: 'span12' }
+          .span4= f.input :image
+        .row-fluid
+          .span12= f.input :addresses, input_html: { class: 'span12' }
+        .row-fluid
+          .span4= f.input :exchange_mechanism, input_html: { class: 'span12' }
+          .span4= f.input :conditions, input_html: { class: 'span12' }
+          .span4= f.input :observations, input_html: { class: 'span12' }
+
+    .row-fluid
+      .span10.offset1.section
+        %h1 2. Información de Venta
+        .row-fluid
+          .span12
+            = f.input :swaps
+        .row-fluid
+          .span6= f.input :starting_at, as: :string, wrapper: :datepicker
+          .span6= f.input :ending_at, as: :string, wrapper: :datepicker
+        .row-fluid
+          .span6= f.input :validity_starting_at, as: :string, wrapper: :datepicker
+          .span6= f.input :validity_ending_at, as: :string, wrapper: :datepicker
+        .row-fluid
+          .span4= f.input :amount, input_html: { class: 'span12' }
+          .span4= f.input :discounted_price, input_html: { class: 'span12' }
+          .span4= f.input :discount_percentage, input_html: { class: 'span12' }
+
+        .row-fluid
+          .span12
+            .sub-section{ style: "margin-left: 40px;" }
+              %h3 Empresas que pueden acceder a la experiencia
+              = f.input :available_efi_ids, label: false, as: :check_boxes, collection: Efi.all, item_wrapper_class: :inline
+
+              %h3 Exclusividad para las empresas
+              .row-fluid
+                .span4
+                  = f.input :total_exclusivity_sales, label: false, inline_label: true
+                  = f.input :total_exclusivity_days
+                .span4
+                  = f.input :by_industry_exclusivity_sales, label: false, inline_label: true
+                  = f.input :by_industry_exclusivity_days
+                .span4
+                  = f.input :without_exclusivity_sales, label: false, inline_label: true
+
+              %h3 Medios de comunicación autorizados para las empresas
+              = f.input :advertising_ids, label: false, as: :check_boxes, collection: Advertising.all, item_wrapper_class: :inline
+
+              %h3 Códigos de canje por parte de la empresa
+              = f.input :file_codes, as: :file
+              = f.input :codes_by_purchase
+
+              %h3 Archivos adicionales de la experiencia
+
+    .row-fluid
+      .span10.offset1.section
+        %h1 3. Información de Facturación
+        .row-fluid
+          .span6= f.input :fee
+          .span6= f.input :income_type, as: :select, collection: ["Ventas", "Canjes", "Validaciones"], prompt: false, input_html: { class: 'span12' }
+
+    .row-fluid
+      .span12
+        .center
+          = f.submit 'Guardar Borrador', name: :save_draft, class: 'btn'
+          = f.submit 'Publicar', name: :publish_experience, class: 'btn'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130905140612) do
+ActiveRecord::Schema.define(:version => 20130925125208) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "efi_id"
@@ -260,6 +260,8 @@ ActiveRecord::Schema.define(:version => 20130905140612) do
     t.integer  "total_exclusivity_days"
     t.integer  "by_industry_exclusivity_days"
     t.string   "income_type"
+    t.text     "addresses"
+    t.text     "observations"
   end
 
   add_index "experiences", ["category_id"], :name => "index_experiences_on_category_id"

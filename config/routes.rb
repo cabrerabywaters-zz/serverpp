@@ -53,7 +53,7 @@ Showtime::Application.routes.draw do
   namespace :eco do
     resources :user_ecos, only: [:edit, :update]
 
-    resources :experiences, only: [:index, :show, :destroy]
+    resources :experiences
     resources :experience_steps, only: [:index, :show, :update]
 
     resources :billings, only: [:index] do
