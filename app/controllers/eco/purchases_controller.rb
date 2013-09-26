@@ -40,20 +40,20 @@ class Eco::PurchasesController < Eco::EcoApplicationController
       if @purchase.nil?
         session[:status] = :info
         session[:message] = t('notices.error.unknown', model: Purchase.model_name.human)
-        format.html { redirect_to eco_experience_purchases_path(@experience), notice: t('notices.error.unknown', model: Purchase.model_name.human) }
+        format.html { redirect_to eco_experiences_path, notice: t('notices.error.unknown', model: Purchase.model_name.human) }
       elsif @purchase.validated?
         session[:status] = :error
         session[:message] = t('notices.error.female.was_validated', model: Purchase.model_name.human)
-        format.html { redirect_to eco_experience_purchases_path(@experience), notice: t('notices.error.female.was_validated', model: Purchase.model_name.human) }
+        format.html { redirect_to eco_experiences_path, notice: t('notices.error.female.was_validated', model: Purchase.model_name.human) }
       elsif @purchase.validate!
         session[:status] = :success
         session[:message] = t('notices.success.female.validate', model: Purchase.model_name.human)
         session[:validated_purchase] = @purchase.id
-        format.html { redirect_to eco_experience_purchases_path(@experience), notice: t('notices.success.female.validate', model: Purchase.model_name.human) }
+        format.html { redirect_to eco_experiences_path, notice: t('notices.success.female.validate', model: Purchase.model_name.human) }
       else
         session[:status] = :error
         session[:message] = t('notices.error.female.cant_validate', model: Purchase.model_name.human)
-        format.html { redirect_to eco_experience_purchases_path(@experience), notice: t('notices.error.female.cant_validate', model: Purchase.model_name.human) }
+        format.html { redirect_to eco_experiences_path, notice: t('notices.error.female.cant_validate', model: Purchase.model_name.human) }
       end
     end
   end
