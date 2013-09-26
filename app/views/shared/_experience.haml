@@ -2,8 +2,13 @@
   .title
     = experience.name
   .image
-    = image_tag experience.image.url
+    = image_tag experience.image.url  
   - if experience.active?
+    .price  
+      %span.discounted-price
+        = "$#{experience.discounted_price}"  
+      %span.fee
+        = "$#{(experience.discounted_price/(100-experience.fee)*100).round(0)}"
     .stats
       .stat.purchases
         %i.icon-shopping-cart
@@ -18,5 +23,9 @@
         %span.indicator
           = experience.total_validations
     .validation-box
-      %input{placeholder: "Ingrese Código Validación", type: "text"}
-      %button.btn.btn-success{type: "button"} Validar
+      = form_tag eco_validate_purchase_path(experience), method: :post, class: "form-search" do
+        %input#purchase_code.string.required{placeholder: "Ingrese Código Validación", type: "text", name: "code"}
+        %input.btn.btn-success.experience-validation{type: :submit, value: I18n.t('helpers.links.validate')}
+      - if @status and @message
+        .span4
+          .alert{class: "alert-#{@status}"}= @message

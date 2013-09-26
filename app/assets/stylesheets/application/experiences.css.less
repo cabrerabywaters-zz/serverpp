@@ -34,6 +34,25 @@
 			font-weight: normal;
 		}
 		.image {}
+    .price {
+      text-align:center;
+      span.discounted-price {
+        display: inline;
+        font-size: 30px;
+        width: 173px;
+        text-align: center;
+        padding-right: 30px;
+        color: #f39c12;
+      }    
+      span.fee {
+        display:inline;
+        font-size: 20px;
+        width: 173px;
+        text-align: center;        
+        padding-left: 30px;
+        text-decoration: line-through;
+      }
+    }
 		.stats {
 			margin-top: 10px;
 			text-align: center;
@@ -124,8 +143,11 @@
 			margin-left: 30px;
 			border-radius: 4px;
 			font-size: 14px;
-			padding: 4px 20px;
+			padding: 0;
 
+			&.active{
+				background-color: #f39c12;
+			}
 			.title {
 				color: rgb(108, 108, 108);
 				background-color: white;
@@ -134,7 +156,7 @@
 				margin-bottom: 0;
 			}
 			&:hover {
-				text-decoration: underline;
+				text-decoration: none;
 			}
 		}
 
