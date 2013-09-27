@@ -1,25 +1,33 @@
 .panel.experience-box{ class: "#{ experience.active? ? '' : 'small'}" }
-  .title
-    = experience.name
-  .image
-    = image_tag experience.image.url  
   - if experience.active?
-    .price  
+    .ribbon
+      = "-#{experience.get_discount_percentage.round(0)}%"
+  %a{ href: eco_experience_path(experience)}
+    .title
+      %table
+        %tbody
+          %tr
+            %td
+              = experience.name
+    .image
+      = image_tag experience.image.url
+  - if experience.active? 
+    .prices  
       %span.discounted-price
         = "$#{experience.discounted_price}"  
-      %span.fee
-        = "$#{(experience.discounted_price/(100-experience.fee)*100).round(0)}"
+      %span.price
+        = "$#{experience.amount}"
     .stats
       .stat.purchases
-        %i.icon-shopping-cart
+        %i.icon-shopping-cart{'data-toggle' => "tooltip", title: 'Compras', class: 'icon-tooltip'}
         %span.indicator
           = experience.total_purchases
       .stat.swaps
-        %i.icon-tags
+        %i.icon-tags{'data-toggle' => "tooltip", title: 'Canjes', class: 'icon-tooltip'}
         %span.indicator
           = experience.total_swaps
       .stat.validations
-        %i.icon-user
+        %i.icon-user{'data-toggle' => "tooltip", title: 'Validaciones', class: 'icon-tooltip'}
         %span.indicator
           = experience.total_validations
     .validation-box
