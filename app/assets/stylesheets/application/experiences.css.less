@@ -1,30 +1,85 @@
 .row  {
+	margin-left: 0px;
+
+	.span12 {
+		margin-left: 0px;
+	}
 	.experience-box-first {
 		margin-left: 0;
 	}
 	.experience-box {
 		padding-top: 0px;
-		padding-bottom: 20px;
+		padding-bottom: 35px;
 		width: 370px;
-    float: left;
-    margin: 0 0 20px 20px;
+		float: left;
+		margin: 0 0 20px 20px;
+
+		&:first-child {
+    	margin-left: 0;
+    }
+    .ribbon {
+			position: absolute;
+			width: 60px;
+			font-size: 1.5em;
+			font-weight: bold;
+			padding: 0px 0px 0px 0px;
+			margin: 16px 0px 0px -10px;
+			color: white;
+			background-color: #f39c12;
+			text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.7);
+			-webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+			-moz-box-shadow: 0px 2px 4px #888;
+			box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+			text-align: center;
+			z-index: 2;
+		}
 
 		.title {
-			color: rgb(108, 108, 108);
+			color: #6c6c6c;
 			background-color: white;
 			text-align: center;
 			line-height: 20px;
 			min-height: 40px;
 			vertical-align: middle;
-			margin: 14px 0;
+			margin: 10px 0 10px 50px;
 			display: block;
 			font-family: 'PT Sans', Arial;
 			font-size: 18px;
 			font-style: normal;
 			font-variant: normal;
 			font-weight: normal;
+			padding: 5px 0px 5px;
+
+			table {
+				width: 320px;
+				height: 40px;
+
+				tr td {
+					vertical-align:middle;
+				}
+			}
 		}
 		.image {}
+    .prices {
+      text-align:center;
+      span.discounted-price {
+        display: inline;
+        font-size: 30px;
+        width: 173px;
+        text-align: center;
+        padding-right: 30px;
+        color: #f39c12;
+      }    
+      span.price {
+        display:inline;
+        font-size: 20px;
+        width: 173px;
+        text-align: center;        
+        padding-left: 30px;
+        text-decoration: line-through;
+        color: #6c6c6c;
+      }
+    }
 		.stats {
 			margin-top: 10px;
 			text-align: center;
@@ -50,21 +105,37 @@
 			text-align: center;
 			padding-top: 12px;
 
-			input {
-				text-align: center;
-				margin-top: 10px;
-			}
-			.btn-success {
-				background-color:#27ae60;
-				padding: 5px 28px;
+			form {
+				margin-bottom: 2px;
+
+				input {
+					text-align: center;
+					margin-top: 10px;
+				}
+				.btn-success {
+					background-color:#27ae60;
+					padding: 5px 28px;
+				}
+				.alert {
+					font-size: 16px;
+					margin: 0 12px;
+					padding: 0px;
+					line-height: 26px;
+					margin-top: 5px;
+					float: left;
+					position: absolute;
+					width: 344px;
+				}
 			}
 		}
 	}
-	.small-box {
+	.small {
 		width: 270px;
-
+		padding-bottom: 10px;
+		
 		.title {
-			font-size: 14px;
+			font-size: 16px;
+			margin: 10px 0;
 		}
 	}
 	.filters {
@@ -115,8 +186,11 @@
 			margin-left: 30px;
 			border-radius: 4px;
 			font-size: 14px;
-			padding: 4px 20px;
+			padding: 0;
 
+			&.active{
+				background-color: #f39c12;
+			}
 			.title {
 				color: rgb(108, 108, 108);
 				background-color: white;
@@ -125,9 +199,21 @@
 				margin-bottom: 0;
 			}
 			&:hover {
-				text-decoration: underline;
+				text-decoration: none;
 			}
 		}
 
 	}
+	
+}
+
+.active-experiences {
+	margin-top: 60px;
+}	
+
+p.empty {
+	font-size: 30px;
+	text-align: center;
+	padding-top: 60px;
+	padding-bottom: 40px;
 }

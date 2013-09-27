@@ -139,13 +139,26 @@
   }
 }
 
-.nav-pills {
-  margin: 0;
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: transparent;
+}
 
-  & > .active {
-    & > a:focus {
-      color: #ffffff;
+.nav-pills > .active > a,
+.nav-pills > .active > a:hover,
+.nav-pills > .active > a:focus {
+  color: #ffffff;
+  background-color: transparent;
+}
+
+.row {
+  .nav-pills > .active {
+    background-color: #f39c12;
+
+    span.title {
       background-color: #f39c12;
+      color: #ffffff;
     }
-  }     
+  }
 }
