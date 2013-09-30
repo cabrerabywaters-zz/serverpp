@@ -6,6 +6,7 @@ module Api
         exchange_id: :integer,
         rut: :string,
         email: :string,
+        code: :string,
         reference_codes: [:string],
         # url: :string,
         status: :string,
@@ -24,6 +25,7 @@ module Api
                 exchange_id: purchase.exchange_id,
                 rut: Run.format(purchase.rut),
                 email: purchase.email,
+                code: purchase.code,
                 reference_codes: purchase.reference_codes,
                 # url: Rails.application.routes.url_helpers.corporative_purchase_url(purchase, corporative_id: efi.search_name),
                 status: 'ok'

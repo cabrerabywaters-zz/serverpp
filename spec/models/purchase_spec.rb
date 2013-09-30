@@ -312,11 +312,15 @@ describe Purchase do
     context "events" do
       describe "redeem!" do
         it "debe cambiar el estado" do
-          ['sold', 'validated'].each do |s|
-            purchase = FactoryGirl.create(:purchase, state: s)
-            purchase.redeem!.should be_true
-            purchase.redeemed?.should be_true
-          end
+          purchase = FactoryGirl.create(:purchase, state: 'sold')
+          purchase.redeem!.should be_true
+          purchase.redeemed?.should be_true
+        end
+        it "no debe cambiar el estado" do
+          purchase = FactoryGirl.create(:purchase, state: 'validated')
+          purchase.redeem!.should be_false
+          purchase.redeemed?.should be_false
+          purchase.validated?.should be_true
         end
       end
 

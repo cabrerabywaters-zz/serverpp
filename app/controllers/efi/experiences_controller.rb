@@ -40,7 +40,6 @@ class Efi::ExperiencesController < Efi::EfiApplicationController
 
     @event.exchanges.build unless @event.exchanges.any?
 
-
     if session[:show_success_event_modal]
       session.delete(:show_success_event_modal)
       @show_modal = true

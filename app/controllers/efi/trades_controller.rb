@@ -23,11 +23,11 @@ class Efi::TradesController < Efi::EfiApplicationController
 
     Category.order(:name).each do |c|
       if @interest_ids.any?
-        ps = c.experiences.joins(:interest_experiences, events: {exchanges: :purchases}).where('events.efi_id' => current_user_efi.efi_id).where('interest_experiences.interest_id' => @interest_ids).select('DISTINCT(purchases.id)').count
-        other_ps = c.experiences.joins(:interest_experiences, events: {exchanges: :purchases}).where('interest_experiences.interest_id' => @interest_ids).select('DISTINCT(purchases.id)').count
+        ps = c.experiences.joins(:interest_experiences, events: {exchanges: :purchases}).where('events.efi_id' => current_user_efi.efi_id).where(purchases: {state: [:sold, :validated]}).where('interest_experiences.interest_id' => @interest_ids).select('DISTINCT(purchases.id)').count
+        other_ps = c.experiences.joins(:interest_experiences, events: {exchanges: :purchases}).where('interest_experiences.interest_id' => @interest_ids).where(purchases: {state: [:sold, :validated]}).select('DISTINCT(purchases.id)').count
       else
-        ps = c.experiences.joins(events: {exchanges: :purchases}).where('events.efi_id' => current_user_efi.efi_id).select('DISTINCT(purchases.id)').count
-        other_ps = c.experiences.joins(events: {exchanges: :purchases}).select('DISTINCT(purchases.id)').count
+        ps = c.experiences.joins(events: {exchanges: :purchases}).where('events.efi_id' => current_user_efi.efi_id).where(purchases: {state: [:sold, :validated]}).select('DISTINCT(purchases.id)').count
+        other_ps = c.experiences.joins(events: {exchanges: :purchases}).select('DISTINCT(purchases.id)').where(purchases: {state: [:sold, :validated]}).count
       end
 
       purchases << ps
@@ -69,13 +69,13 @@ class Efi::TradesController < Efi::EfiApplicationController
 
     Efi.are_compared.order(:name).each do |efi|
       if @interest_ids.any? and @category_ids.any?
-        ps = Experience.joins(:interest_experiences, events: {exchanges: :purchases}).where('events.efi_id' => efi.id).where('interest_experiences.interest_id' => @interest_ids).where('experiences.category_id' => @category_ids).select('DISTINCT(purchases.id)').count
+        ps = Experience.joins(:interest_experiences, events: {exchanges: :purchases}).where(events: {efi_id: efi.id}).where(purchases: {state: [:sold, :validated]}).where('interest_experiences.interest_id' => @interest_ids).where('experiences.category_id' => @category_ids).select('DISTINCT(purchases.id)').count
       elsif @interest_ids.any?
-        ps = Experience.joins(:interest_experiences, events: {exchanges: :purchases}).where('events.efi_id' => efi.id).where('interest_experiences.interest_id' => @interest_ids).select('DISTINCT(purchases.id)').count
+        ps = Experience.joins(:interest_experiences, events: {exchanges: :purchases}).where(events: {efi_id: efi.id}).where(purchases: {state: [:sold, :validated]}).where('interest_experiences.interest_id' => @interest_ids).select('DISTINCT(purchases.id)').count
       elsif @category_ids.any?
-        ps = Experience.joins(events: {exchanges: :purchases}).where('events.efi_id' => efi.id).where('experiences.category_id' => @category_ids).select('DISTINCT(purchases.id)').count
+        ps = Experience.joins(events: {exchanges: :purchases}).where(events: {efi_id: efi.id}).where(purchases: {state: [:sold, :validated]}).where('experiences.category_id' => @category_ids).select('DISTINCT(purchases.id)').count
       else
-        ps = Experience.joins(events: {exchanges: :purchases}).where('events.efi_id' => efi.id).select('DISTINCT(purchases.id)').count
+        ps = Experience.joins(events: {exchanges: :purchases}).where(events: {efi_id: efi.id}).where(purchases: {state: [:sold, :validated]}).select('DISTINCT(purchases.id)').count
       end
 
       if efi == current_user_efi.efi

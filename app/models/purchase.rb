@@ -76,7 +76,7 @@ class Purchase < ActiveRecord::Base
     end
 
     event :redeem! do
-      transition any => :redeemed
+      transition sold: :redeemed
     end
 
     after_transition sold: :redeemed do |item|

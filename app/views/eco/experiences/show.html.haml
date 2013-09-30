@@ -25,13 +25,13 @@
       %dd= @experience.comuna_name.presence || '-'
 
       %dt= model_class.human_attribute_name(:amount) + ':'
-      %dd= number_to_currency(@experience.amount, presicion: 1).presence || '-'
+      %dd= number_to_currency(@experience.amount, precision: 0).presence || '-'
 
       %dt= model_class.human_attribute_name(:discounted_price) + ':'
-      %dd= number_to_currency(@experience.discounted_price, presicion: 1).presence || '-'
+      %dd= number_to_currency(@experience.discounted_price, precision: 0).presence || '-'
 
       %dt= model_class.human_attribute_name(:discount_percentage) + ':'
-      %dd= number_to_currency(@experience.discount_percentage, presicion: 1).presence || '-'
+      %dd= number_to_percentage(@experience.get_discount_percentage, precision: 1).presence || '-'
 
       - if current_user_eco.eco_bigger?
         %dt= model_class.human_attribute_name(:codes) + ':'

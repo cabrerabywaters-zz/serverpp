@@ -28,7 +28,7 @@
       %dt= Experience.human_attribute_name(:validity_ending_at)
       %dd= l @experience.validity_ending_at, format: :datepicker
       %dt= model_class.human_attribute_name(:amount) + ':'
-      %dd= number_to_currency(@experience.amount, presicion: 1).presence || '-'
+      %dd= number_to_currency(@experience.amount, precision: 0).presence || '-'
 
       %dt= model_class.human_attribute_name(:starting_at) + ':'
       %dd= l @experience.starting_at, format: :short
