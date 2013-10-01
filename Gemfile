@@ -101,3 +101,6 @@ gem 'burlesque', '2.0.4'#, path: '~/Documents/Proyects/burlesque'
 
 # SOAP Webservices
 gem 'wash_out'
+
+# App Monitoring
+gem 'newrelic_rpm'
