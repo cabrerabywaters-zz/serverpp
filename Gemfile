@@ -105,3 +105,6 @@ gem 'wash_out'
 # Wicked PDF
 gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf'
+
+# App Monitoring
+gem 'newrelic_rpm'
