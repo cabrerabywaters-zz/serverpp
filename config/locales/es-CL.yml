@@ -209,6 +209,7 @@
       unknown: no existe
       unknown_model: '%{model} no existe'
       already_confirmed_at: '%{model} ya fue confirmada el %{at}'
+      already_redeemed: 'El voucher ya fue validado'
 
   helpers:
     submit:
