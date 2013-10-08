@@ -18,7 +18,7 @@ module Api
         value: {
           event_id: event.id,  name: experience.name, details: experience.details,
           ending_at: experience.ending_at, validity_starting_at: experience.validity_starting_at,
-          validity_ending_at: experience.validity_ending_at, quantity: event.quantity, swaps: event.swaps,
+          validity_ending_at: experience.validity_ending_at, starting_at: experience.starting_at, quantity: event.quantity, swaps: event.swaps,
           category: Api::Cmr::Category.fetch(experience.category), eco: Api::Cmr::Eco.fetch(experience.eco),
           interest: Api::Cmr::Interests.fetch(experience), exchange: Api::Cmr::Exchanges.fetch(event.exchanges), image_original_url: experience.image_url(:original),
           image_medium_url: experience.image_url(:medium), image_small_url: experience.image_url(:small),

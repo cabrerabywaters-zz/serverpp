@@ -50,7 +50,7 @@
           = f.label :total_exclusivity_days
           .controls
             - if @experience.total_exclusivity_sales? and (@experience.by_industry_exclusivity_sales? or @experience.without_exclusivity_sales?)
-              = f.input_field :total_exclusivity_days, class: 'input-mini min_max', data: {min: 1, blank: true}, value: @experience.total_exclusivity_days.presence, onkeypress: "return permiteNumeros(event);"
+              = f.input_field :total_exclusivity_days, class: 'input-mini min_max', data: {min: 0, blank: true}, value: @experience.total_exclusivity_days.presence, onkeypress: "return permiteNumeros(event);"
             - else
               %span.input-mini.uneditable-input
 
@@ -59,7 +59,7 @@
           = f.label :by_industry_exclusivity_days
           .controls
             - if @experience.by_industry_exclusivity_sales? and @experience.without_exclusivity_sales?
-              = f.input_field :by_industry_exclusivity_days, class: 'input-mini min_max', data: {min: 1, blank: true}, value: @experience.by_industry_exclusivity_days.presence, onkeypress: "return permiteNumeros(event);"
+              = f.input_field :by_industry_exclusivity_days, class: 'input-mini min_max', data: {min: 0, blank: true}, value: @experience.by_industry_exclusivity_days.presence, onkeypress: "return permiteNumeros(event);"
             - else
               %span.input-mini.uneditable-input
 

@@ -19,6 +19,7 @@
  *= require ../textareas_resizing
  *= require ../preview_image
  *= require ../static
+ *= require ../eco/experiences
  *= require bootstrap-select
  *= require_tree .
  */

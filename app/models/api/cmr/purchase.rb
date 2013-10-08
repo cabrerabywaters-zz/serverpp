@@ -54,7 +54,14 @@ module Api
       if efi.purchases.exists?(purchase_id)
         purchase = Purchase.find(purchase_id)
 
-        if purchase.redeem!
+        if purchase.validated?
+          {
+            value: {
+              status: 'error',
+              errors: [I18n.t('errors.messages.already_redeemed')]
+            }
+          }
+        elsif purchase.redeem!
           {
             value: {
               purchase_id: purchase.id,
