@@ -36,4 +36,29 @@ $.widget 'pp.income',
       sellIncome.show()
 
 $ ->
+  # Collapsible sections
+  $('.section-header').on 'click', (e) ->
+    $(@).closest('.section').find('.section-content').slideToggle()
+
+  # Autosave draft experience
+  setInterval ->
+    experienceForm = $("form.edit_experience")
+    $.ajax
+      url: experienceForm.attr("action")
+      type: 'POST'
+      data: experienceForm.serialize()
+      dataType: "JSON"
+      success: (json) ->
+        console.log json
+
+  , 60000
+
+  # Income logic
   $('.experience_income_type .controls').income()
+
+  # text editors
+  $('.wysihtml5').each (i, elem) ->
+    $(elem).wysihtml5
+      image: false
+      lists: false
+      locals: 'es-ES'
