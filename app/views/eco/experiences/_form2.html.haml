@@ -2,6 +2,8 @@
   .new_experience, .edit_experience
     textarea
       height: 80px
+      &.wysihtml5
+        height: 260px
 
   .section
     .section-header
@@ -51,11 +53,11 @@
                   = image_tag 'default_experiencia_over.png', alt: 'Puntos Point', title: 'Puntos Point'
                 = f.input :image, label: false, input_html: { class: 'preview_image' }
             .row-fluid
-              .span12= f.input :addresses, input_html: { class: 'span12' }
+              .span6= f.input :addresses, input_html: { class: 'span12 wysihtml5' }
+              .span6= f.input :exchange_mechanism, input_html: { class: 'span12 wysihtml5' }
             .row-fluid
-              .span4= f.input :exchange_mechanism, input_html: { class: 'span12' }
-              .span4= f.input :conditions, input_html: { class: 'span12' }
-              .span4= f.input :observations, input_html: { class: 'span12' }
+              .span6= f.input :conditions, input_html: { class: 'span12 wysihtml5' }
+              .span6= f.input :observations, input_html: { class: 'span12 wysihtml5' }
 
     .row-fluid
       .span10.offset1.section

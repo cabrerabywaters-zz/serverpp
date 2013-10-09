@@ -21,5 +21,6 @@
  *= require ../static
  *= require ../eco/experiences
  *= require bootstrap-select
+ *= require bootstrap-wysihtml5
  *= require_tree .
  */

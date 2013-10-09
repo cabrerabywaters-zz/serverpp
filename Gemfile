@@ -71,6 +71,7 @@ gem 'tinymce-rails'
 gem 'bootstrap-datetimepicker-rails'
 gem 'bootstrap-datepicker-rails'
 gem 'jquery-validation-rails'
+gem 'bootstrap-wysihtml5-rails'
 
 gem "cocoon"
 
