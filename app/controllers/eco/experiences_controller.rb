@@ -32,23 +32,28 @@ class Eco::ExperiencesController < Eco::EcoApplicationController
   end
 
   def new
-    @experience = params[:id].present? ? Experience.find(params[:id]) : Experience.create
+    @experience = params[:id].present? ? Experience.find(params[:id]) : current_user_eco.eco.experiences.create
   end
 
   def update
     @experience = Experience.find(params[:id])
     respond_to do |format|
       if @experience.update_attributes(params[:experience])
-        if params[:publish_experience].present? && @experience.publish!
-          format.html
-          format.json @experience
+        if params[:publish_experience].present?
+          if @experience.publish!
+            format.html
+            format.json { render json: @experience }
+          else
+            format.html
+            format.json { render json: { errors: @experience.errors }, status: :unprocessable_entity }
+          end
         else
-          redirect_to new_eco_experience_path(id: @experience.id)
-          format.json { render json: {errors: @experience.errors}, status: :unprocessable_entity }
+          format.html
+          format.json { render json: @experience }
         end
       else
-        redirect_to new_eco_experience_path(id: @experience.id)
-        format.json { render json: {errors: @experience.errors}, status: :unprocessable_entity }
+        format.html { redirect_to new_eco_experience_path(id: @experience.id) }
+        format.json { render json: { errors: @experience.errors }, status: :unprocessable_entity }
       end
     end
   end
