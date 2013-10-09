@@ -26,6 +26,7 @@
 //= require jquery.validate.localization/messages_es
 //= require jquery.validate.bootstrap
 //= require bootstrap-wysihtml5
+//= require jquery_nested_form
 
 //= require ../datepicker
 //= require ../run_tinymce
