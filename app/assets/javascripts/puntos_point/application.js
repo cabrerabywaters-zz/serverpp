@@ -20,6 +20,7 @@
 //= require bootstrap-datepicker
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.es
+//= require bootstrap-wysihtml5
 //= require jquery.validate
 //= require jquery.validate.localization/messages_es
 //= require jquery.validate.bootstrap
