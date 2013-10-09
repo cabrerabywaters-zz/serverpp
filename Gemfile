@@ -70,6 +70,7 @@ gem 'cancan'
 gem 'tinymce-rails'
 gem 'bootstrap-datetimepicker-rails'
 gem 'bootstrap-datepicker-rails'
+gem 'jquery-validation-rails'
 
 gem "cocoon"
 

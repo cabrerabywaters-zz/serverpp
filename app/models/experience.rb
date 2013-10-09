@@ -203,7 +203,9 @@ class Experience < ActiveRecord::Base
                       :total_exclusivity_sales,
                       :by_industry_exclusivity_sales,
                       :without_exclusivity_sales,
-                      :advertising_ids
+                      :advertising_ids,
+                      :addresses,
+                      :observations
 
       # La diferencia con la definición anterior es que
       # estos se usan por el administrador de PuntosPoint
@@ -239,6 +241,8 @@ class Experience < ActiveRecord::Base
                       :ending_at,
                       :industry_experiences_attributes,
                       :fee,
+                      :addresses,
+                      :observations,
                       as: :puntos_point
     end
 

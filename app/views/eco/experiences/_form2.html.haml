@@ -1,7 +1,29 @@
 :sass
-  .new_experience
+  .new_experience, .edit_experience
     textarea
       height: 80px
+
+  .section
+    .section-header
+      font-size: 1.6em
+      font-weight: bold
+      height: 80px
+      cursor: pointer
+      .section-number
+        width: 60px
+        height: 45px
+        background-color: black
+        color: white
+        border-radius: 50%
+        text-align: center
+        padding-top: 15px
+        float: left
+        margin-left: -70px
+      .section-title
+        font-size: 1.6em
+        padding-top: 6px
+      .section-content
+        clear: both
 
 .experience-state= t @experience.state
 
@@ -9,69 +31,92 @@
   = simple_form_for [:eco, @experience] do |f|
     .row-fluid
       .span10.offset1.section
-        %h1 Información General
-        .row-fluid
-          .span6
-            = f.input :name, hint: 'Coloca el nombre de la experiencia', input_html: { class: 'span12' }
-            = f.input :summary, input_html: { class: 'span12' }
-            = f.input :details, input_html: { class: 'span12' }
-          .span4= f.input :image
-        .row-fluid
-          .span12= f.input :addresses, input_html: { class: 'span12' }
-        .row-fluid
-          .span4= f.input :exchange_mechanism, input_html: { class: 'span12' }
-          .span4= f.input :conditions, input_html: { class: 'span12' }
-          .span4= f.input :observations, input_html: { class: 'span12' }
+        .section
+          .section-header
+            .section-number 1
+            .section-title Información General
+          .section-content
+            .row-fluid
+              .span6
+                = f.input :name, hint: 'Coloca el nombre de la experiencia', input_html: { class: 'span12' }
+                = f.input :summary, input_html: { class: 'span12' }
+                = f.input :details, input_html: { class: 'span12' }
+              .span6.relative
+                - if @experience.image?
+                  = image_tag @experience.image.url, class: 'preview_container'
+                - else
+                  = image_tag 'default_experiencia.png', alt: 'Puntos Point', title: 'Puntos Point', class: 'preview_container'
+                .image_size
+                  = image_tag 'default_experiencia_over.png', alt: 'Puntos Point', title: 'Puntos Point'
+                = f.input :image, label: false, input_html: { class: 'preview_image' }
+            .row-fluid
+              .span12= f.input :addresses, input_html: { class: 'span12' }
+            .row-fluid
+              .span4= f.input :exchange_mechanism, input_html: { class: 'span12' }
+              .span4= f.input :conditions, input_html: { class: 'span12' }
+              .span4= f.input :observations, input_html: { class: 'span12' }
 
     .row-fluid
       .span10.offset1.section
-        %h1 2. Información de Venta
-        .row-fluid
-          .span12
-            = f.input :swaps
-        .row-fluid
-          .span6= f.input :starting_at, as: :string, wrapper: :datepicker
-          .span6= f.input :ending_at, as: :string, wrapper: :datepicker
-        .row-fluid
-          .span6= f.input :validity_starting_at, as: :string, wrapper: :datepicker
-          .span6= f.input :validity_ending_at, as: :string, wrapper: :datepicker
-        .row-fluid
-          .span4= f.input :amount, input_html: { class: 'span12' }
-          .span4= f.input :discounted_price, input_html: { class: 'span12' }
-          .span4= f.input :discount_percentage, input_html: { class: 'span12' }
-
-        .row-fluid
-          .span12
-            .sub-section{ style: "margin-left: 40px;" }
-              %h3 Empresas que pueden acceder a la experiencia
-              = f.input :available_efi_ids, label: false, as: :check_boxes, collection: Efi.all, item_wrapper_class: :inline
-
-              %h3 Exclusividad para las empresas
+        .section
+          .section-header
+            .section-number 2
+            .section-title Información de Venta
+          .section-content
+            .row-fluid
+              .span12
+                = f.input :swaps, as: :string
+            - if current_admin.present?
               .row-fluid
-                .span4
-                  = f.input :total_exclusivity_sales, label: false, inline_label: true
-                  = f.input :total_exclusivity_days
-                .span4
-                  = f.input :by_industry_exclusivity_sales, label: false, inline_label: true
-                  = f.input :by_industry_exclusivity_days
-                .span4
-                  = f.input :without_exclusivity_sales, label: false, inline_label: true
+                .span6= f.input :starting_at, as: :string, wrapper: :datepicker
+                .span6= f.input :ending_at, as: :string, wrapper: :datepicker
+            .row-fluid
+              .span6= f.input :validity_starting_at, as: :string, wrapper: :datepicker
+              .span6= f.input :validity_ending_at, as: :string, wrapper: :datepicker
+            .row-fluid
+              .span4= f.input :amount, as: :string, input_html: { class: 'span12' }
+              .span4= f.input :discounted_price, as: :string, input_html: { class: 'span12' }
+              .span4= f.input :discount_percentage, as: :string, input_html: { class: 'span12' }
 
-              %h3 Medios de comunicación autorizados para las empresas
-              = f.input :advertising_ids, label: false, as: :check_boxes, collection: Advertising.all, item_wrapper_class: :inline
+            .row-fluid
+              .span12
+                .sub-section{ style: "margin-left: 40px;" }
+                  %h3 Empresas que pueden acceder a la experiencia
+                  = f.input :available_efi_ids, label: false, as: :check_boxes, collection: Efi.all, item_wrapper_class: :inline
 
-              %h3 Códigos de canje por parte de la empresa
-              = f.input :file_codes, as: :file
-              = f.input :codes_by_purchase
+                  %h3 Exclusividad para las empresas
+                  .row-fluid
+                    .span4
+                      = f.input :total_exclusivity_sales, label: false, inline_label: true
+                      - if current_admin.present?
+                        = f.input :total_exclusivity_days
+                    .span4
+                      = f.input :by_industry_exclusivity_sales, label: false, inline_label: true
+                      - if current_admin.present?
+                        = f.input :by_industry_exclusivity_days
+                    .span4
+                      = f.input :without_exclusivity_sales, label: false, inline_label: true
 
-              %h3 Archivos adicionales de la experiencia
+                  %h3 Medios de comunicación autorizados para las empresas
+                  = f.input :advertising_ids, label: false, as: :check_boxes, collection: Advertising.all, item_wrapper_class: :inline
 
-    .row-fluid
-      .span10.offset1.section
-        %h1 3. Información de Facturación
-        .row-fluid
-          .span6= f.input :fee
-          .span6= f.input :income_type, as: :select, collection: ["Ventas", "Canjes", "Validaciones"], prompt: false, input_html: { class: 'span12' }
+                  %h3 Códigos de canje por parte de la empresa
+                  = f.input :file_codes, as: :file
+                  = f.input :codes_by_purchase, as: :string
+
+                  %h3 Archivos adicionales de la experiencia
+
+    - if current_admin.present?
+      .row-fluid
+        .span10.offset1.section
+          .section
+            .section-header
+              .section-number 3
+              .section-title Información de Facturación
+            .section-content
+              .row-fluid
+                .span6= f.input :fee
+                .span6= f.input :income_type, as: :select, collection: ["Ventas", "Canjes", "Validaciones"], prompt: false, input_html: { class: 'span12' }
 
     .row-fluid
       .span12
