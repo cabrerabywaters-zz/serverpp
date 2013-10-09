@@ -31,7 +31,7 @@
 - experience_scope = request.fullpath.include?('puntos_point') ? :puntos_point : :eco
 
 .container.panel
-  = simple_form_for [experience_scope, @experience] do |f|
+  = simple_nested_form_for [experience_scope, @experience] do |f|
     .row-fluid
       .span10.offset1.section
         .section
@@ -58,6 +58,16 @@
             .row-fluid
               .span6= f.input :conditions, input_html: { class: 'span12 wysihtml5' }
               .span6= f.input :observations, input_html: { class: 'span12 wysihtml5' }
+            .row-fluid
+              %h3 Archivos adicionales para la experiencia
+              = f.fields_for :valid_images do |file_form|
+                .row-fluid
+                  .span4
+                    - if file_form.object.persisted?
+                      = "#{file_form.object.image_file_name} (#{number_to_human_size(file_form.object.image_file_size)})"
+                  .span4= file_form.input :image, label: false
+                  .span4= file_form.link_to_remove "Eliminar", class: 'btn btn-danger'
+              %p= f.link_to_add "Agregar", :valid_images, class: 'btn'
 
     .row-fluid
       .span10.offset1.section
