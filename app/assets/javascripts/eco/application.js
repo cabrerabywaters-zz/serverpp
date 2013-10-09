@@ -24,7 +24,7 @@
 //= require dataTables/jquery.dataTables.bootstrap
 //= require jquery.validate
 //= require jquery.validate.localization/messages_es
-//= require ./jquery.validate.bootstrap
+//= require jquery.validate.bootstrap
 
 
 //= require ../datepicker

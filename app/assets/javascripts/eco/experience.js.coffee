@@ -22,7 +22,7 @@ $ ->
 
   , 60000
 
-
+  # Experience validation
   $('form.edit_experience').validate
     onfocusout: (element) ->
       @element(element)
