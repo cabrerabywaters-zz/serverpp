@@ -29,7 +29,7 @@
               %i.icon-eye-open
 
           - if can? :update, experience
-            = link_to puntos_point_experience_steps_path(experience_id: experience.id), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
+            = link_to edit_puntos_point_experience_path(experience), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-inverse' do
               %i.icon-pencil
 
           - if can? :destroy, experience

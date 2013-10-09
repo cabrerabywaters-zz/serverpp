@@ -26,9 +26,10 @@
         clear: both
 
 .experience-state= t @experience.state
+- experience_scope = request.fullpath.include?('puntos_point') ? :puntos_point : :eco
 
 .container.panel
-  = simple_form_for [:eco, @experience] do |f|
+  = simple_form_for [experience_scope, @experience] do |f|
     .row-fluid
       .span10.offset1.section
         .section
@@ -89,11 +90,11 @@
                     .span4
                       = f.input :total_exclusivity_sales, label: false, inline_label: true
                       - if current_admin.present?
-                        = f.input :total_exclusivity_days
+                        #total_exclusivity_days.hide= f.input :total_exclusivity_days, as: :string
                     .span4
                       = f.input :by_industry_exclusivity_sales, label: false, inline_label: true
                       - if current_admin.present?
-                        = f.input :by_industry_exclusivity_days
+                        #by_industry_exclusivity_days.hide= f.input :by_industry_exclusivity_days, as: :string
                     .span4
                       = f.input :without_exclusivity_sales, label: false, inline_label: true
 
@@ -115,8 +116,8 @@
               .section-title Información de Facturación
             .section-content
               .row-fluid
-                .span6= f.input :fee
-                .span6= f.input :income_type, as: :select, collection: ["Ventas", "Canjes", "Validaciones"], prompt: false, input_html: { class: 'span12' }
+                .span6= f.input :fee, as: :string
+                .span6= f.input :income_type, as: :radio_buttons, collection: ["Ventas", "Canjes", "Validaciones"]
 
     .row-fluid
       .span12

@@ -36,7 +36,7 @@ class Eco::ExperiencesController < Eco::EcoApplicationController
   end
 
   def update
-    @experience = Experience.find(params[:id])
+    @experience = current_user_eco.eco.experiences.find(params[:id])
     respond_to do |format|
       if @experience.update_attributes(params[:experience])
         if params[:publish_experience].present?

@@ -4,7 +4,7 @@
 #
 #
 class PuntosPoint::ExperiencesController < PuntosPoint::PuntosPointApplicationController
-  before_filter :format_price, only: [:create, :update]
+  # before_filter :format_price, only: [:create, :update]
   load_and_authorize_resource except: :create
   authorize_resource only: :create
 
@@ -19,6 +19,34 @@ class PuntosPoint::ExperiencesController < PuntosPoint::PuntosPointApplicationCo
   def show
     respond_to do |format|
       format.html # show.html.erb
+    end
+  end
+
+  def edit
+    @experience = Experience.find(params[:id])
+  end
+
+  # FIXME: Duplicated code from eco experience
+  def update
+    @experience = Experience.find(params[:id])
+    respond_to do |format|
+      if @experience.update_attributes(params[:experience], as: :puntos_point)
+        if params[:publish_experience].present?
+          if @experience.publish!
+            format.html
+            format.json { render json: @experience }
+          else
+            format.html
+            format.json { render json: { errors: @experience.errors }, status: :unprocessable_entity }
+          end
+        else
+          format.html { redirect_to edit_puntos_point_experience_path(@experience) }
+          format.json { render json: @experience }
+        end
+      else
+        format.html { redirect_to edit_puntos_point_experience_path(@experience) }
+        format.json { render json: { errors: @experience.errors }, status: :unprocessable_entity }
+      end
     end
   end
 
