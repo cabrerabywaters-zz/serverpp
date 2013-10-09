@@ -1,7 +1,7 @@
 .relative{position: relative;}
 
 .relative .image_size{
-  top: 28px;
+  top: 0px;
   position: absolute;
 }
 
