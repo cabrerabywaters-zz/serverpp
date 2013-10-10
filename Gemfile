@@ -73,6 +73,8 @@ gem 'bootstrap-datepicker-rails'
 gem 'jquery-validation-rails'
 gem 'bootstrap-wysihtml5-rails'
 gem 'nested_form'
+gem 'lesselements-rails'
+gem 'bootstrap_file_input_rails'
 
 gem "cocoon"
 

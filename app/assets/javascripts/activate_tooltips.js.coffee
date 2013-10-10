@@ -1,2 +1,4 @@
 $ ->
-  $('.icon-tooltip').tooltip()
+  $('.icon-tooltip').tooltip
+    placement: 'right'
+    html: true

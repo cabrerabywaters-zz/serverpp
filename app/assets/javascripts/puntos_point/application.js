@@ -25,6 +25,7 @@
 //= require jquery.validate
 //= require jquery.validate.localization/messages_es
 //= require jquery.validate.bootstrap
+//= require bootstrap.file-input
 //= require experiences
 //= require ../bootstrap
 //= require ../datepicker
