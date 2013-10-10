@@ -4,6 +4,8 @@
 'es-CL':
   paid: Pagado
   to_pay: Por pagar
+  draft: Borrador
+  published: Publicada
   date:
     formats:
       default: "%d/%m/%Y"
