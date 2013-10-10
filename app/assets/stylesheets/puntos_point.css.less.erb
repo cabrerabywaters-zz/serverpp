@@ -1,3 +1,4 @@
+@import "lesselements.css.less";
 @charset "utf-8";
 /* Puntos Point - 2013 - Design by Kolorsheep, Santiago, Chile */
 /* Author: Kolorsheep Design Studio, Santiago, Chile*/
@@ -8,13 +9,12 @@
 ------------------------------------------------------------------*/
 
 /* Font */
-// .defaultFont {font-family: "Museo",Verdana, Geneva, sans-serif;}
-.defaultFont {font-family: Verdana, Geneva, sans-serif;}
+.defaultFont {font-family: 'Open Sans', Helvetica, Verdana, Geneva, sans-serif;}
 .carouselFont {font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 
 /* Colors */
 @defaultBackground:@secondColor;
-@firstColor:#51565b;
+@firstColor: #51565b;
 @secondColor:#f4f4f4;
 @thirdColor:#c0c0c0;
 @fourthColor:#f7a800;
@@ -59,7 +59,7 @@ b, i,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figcaption, figure, 
+article, aside, canvas, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
     outline:0;
@@ -70,7 +70,8 @@ html, body {height: 100%;}
 body {
 	.defaultFont;
 	.background;
-	color:@firstColor;
+  font-weight: 200;
+	color: @firstColor;
 	font-size:80%;
 	// text-align:center;
 	white-space:normal;
@@ -102,8 +103,8 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight:normal;
 	font-weight: bold;
 }
-select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], 
-input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], 
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"],
+input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"],
 input[type="search"], input[type="tel"], input[type="color"], .uneditable-input{
 	font-size: 1.1em;
 }
@@ -114,12 +115,13 @@ input[type="search"], input[type="tel"], input[type="color"], .uneditable-input{
 .dropdown-submenu:hover > a, .dropdown-submenu:focus > a{
  background-color: (@white * 0.9)
 }
-.label, .badge{
+// .label,
+.badge{
 	font-size: 0.8em;
 }
-label, input, button, select, textarea{
-	font-size: 0.8em;
-}
+// label, input, button, select, textarea{
+// 	font-size: 0.8em;
+// }
 .show-grid {
     margin-bottom: 20px;
     margin-top: 10px;
@@ -166,7 +168,7 @@ div.hidden {visibility:hidden;}
 	margin: 10px 0 10px 15px;
 	padding: 3px;
 }
-.navbar .navBg > li{ 
+.navbar .navBg > li{
 	line-height: 1em;
 }
 .navbar .navBg > li > a{
@@ -277,7 +279,7 @@ div.hidden {visibility:hidden;}
 .logo_home_efis{
 	margin: 15px 0;
 }
-.points_query, 
+.points_query,
 .points_result{
 	padding: 27px;
 }
@@ -651,16 +653,16 @@ div.hidden {visibility:hidden;}
 	right: -31px;
 }
 .carousel-control.left{
-	background:url(<%= asset_path "layout.png" %>) repeat scroll -2px -148px transparent;	
+	background:url(<%= asset_path "layout.png" %>) repeat scroll -2px -148px transparent;
 }
 .carousel-control.left:hover{
-	background:url(<%= asset_path "layout.png" %>) repeat scroll -69px -148px transparent;	
+	background:url(<%= asset_path "layout.png" %>) repeat scroll -69px -148px transparent;
 }
 .carousel-control.right{
-	background:url(<%= asset_path "layout.png" %>) repeat scroll -38px -148px transparent;	
+	background:url(<%= asset_path "layout.png" %>) repeat scroll -38px -148px transparent;
 }
 .carousel-control.right:hover{
-	background:url(<%= asset_path "layout.png" %>) repeat scroll -340px -148px transparent;	
+	background:url(<%= asset_path "layout.png" %>) repeat scroll -340px -148px transparent;
 }
 
 /* DETALLE EXPERIENCIA
@@ -971,5 +973,37 @@ a:hover.selectable_efi.selected{
 
 /* Added */
 
+.arrow {
+  background: url(<%= asset_path "arrow.png" %>) no-repeat center center;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  &.down {
+    .rotation(90deg);
+  }
+}
 
-
+.panel {
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="number"],
+  input[type="email"],
+  input[type="url"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="color"],
+  .uneditable-input {
+    .rounded(0);
+    border: 2px solid #cbcbcb;
+  }
+  .help-block {
+    margin-left: 5px;
+  }
+}

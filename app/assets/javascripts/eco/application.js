@@ -22,8 +22,14 @@
 //= require cocoon
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
+//= require jquery.validate
+//= require jquery.validate.localization/messages_es
+//= require jquery.validate.bootstrap
+//= require bootstrap-wysihtml5
+//= require jquery_nested_form
+//= require bootstrap.file-input
 
-
+//= require ../experiences
 //= require ../datepicker
 //= require ../run_tinymce
 //= require ../puntos_point/experiences
