@@ -20,6 +20,7 @@
  *= require ../preview_image
  *= require ../static
  *= require ../eco/experiences
+ *= require ../eco/billing
  *= require bootstrap-select
  *= require bootstrap-wysihtml5
  *= require_tree .

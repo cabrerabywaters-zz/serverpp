@@ -37,8 +37,10 @@ $.widget 'pp.income',
 
 $ ->
   # Collapsible sections
+  console.log 'COLLA'
   $('.section-header').on 'click', (e) ->
     $(@).closest('.section').find('.section-content').slideToggle()
+    $(@).find('.arrow').toggleClass 'down'
 
   # Autosave draft experience
   setInterval ->

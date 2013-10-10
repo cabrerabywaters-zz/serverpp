@@ -1,3 +1,4 @@
+@import "lesselements.css.less";
 @charset "utf-8";
 /* Puntos Point - 2013 - Design by Kolorsheep, Santiago, Chile */
 /* Author: Kolorsheep Design Studio, Santiago, Chile*/
@@ -8,13 +9,12 @@
 ------------------------------------------------------------------*/
 
 /* Font */
-// .defaultFont {font-family: "Museo",Verdana, Geneva, sans-serif;}
-.defaultFont {font-family: Verdana, Geneva, sans-serif;}
+.defaultFont {font-family: 'Open Sans', Helvetica, Verdana, Geneva, sans-serif;}
 .carouselFont {font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 
 /* Colors */
 @defaultBackground:@secondColor;
-@firstColor:#51565b;
+@firstColor: #51565b;
 @secondColor:#f4f4f4;
 @thirdColor:#c0c0c0;
 @fourthColor:#f7a800;
@@ -70,7 +70,8 @@ html, body {height: 100%;}
 body {
 	.defaultFont;
 	.background;
-	color:@firstColor;
+  font-weight: 200;
+	color: @firstColor;
 	font-size:80%;
 	// text-align:center;
 	white-space:normal;
@@ -972,5 +973,37 @@ a:hover.selectable_efi.selected{
 
 /* Added */
 
+.arrow {
+  background: url(<%= asset_path "arrow.png" %>) no-repeat center center;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  &.down {
+    .rotation(90deg);
+  }
+}
 
-
+.panel {
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="number"],
+  input[type="email"],
+  input[type="url"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="color"],
+  .uneditable-input {
+    .rounded(0);
+    border: 2px solid #cbcbcb;
+  }
+  .help-block {
+    margin-left: 5px;
+  }
+}
