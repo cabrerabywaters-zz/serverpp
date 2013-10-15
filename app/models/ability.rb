@@ -63,7 +63,11 @@ class Ability
           if model == UserEco
             can action, model, id: user.id
           elsif model == Experience
-            can action, Experience, eco_id: user.eco_id
+            if action == :manage && user.eco.present? && user.eco.bigger
+              can action, Experience, eco_id: user.eco_id
+            elsif action != :manage
+              can action, Experience, eco_id: user.eco_id
+            end
           elsif model == Publicity
             can action, model, event: {experience: {eco_id: user.eco_id}}
           elsif model == Purchase
