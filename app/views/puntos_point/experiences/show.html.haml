@@ -20,8 +20,6 @@
     %dl.dl-horizontal
       %dt= Experience.human_attribute_name(:place)
       %dd= @experience.place.presence || '-'
-      %dt= Experience.human_attribute_name(:comuna)
-      %dd= @experience.comuna_name.presence || '-'
 
       %dt= Experience.human_attribute_name(:validity_starting_at)
       %dd= l @experience.validity_starting_at, format: :datepicker
