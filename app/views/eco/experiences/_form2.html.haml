@@ -60,6 +60,9 @@
               Información General
               .arrow
           .section-content
+            - if experience_scope == :puntos_point
+              .row-fluid
+                = f.association :eco, prompt: false
             .row-fluid
               .span6
                 = f.input :name, placeholder: 'Escribe el nombre de la experiencia', input_html: { class: 'span12' }

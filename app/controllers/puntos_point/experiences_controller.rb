@@ -22,6 +22,10 @@ class PuntosPoint::ExperiencesController < PuntosPoint::PuntosPointApplicationCo
     end
   end
 
+  def new
+    @experience = params[:id].present? ? Experience.find(params[:id]) : Experience.create
+  end
+
   def edit
     @experience = Experience.find(params[:id])
   end

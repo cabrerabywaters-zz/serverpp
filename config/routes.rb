@@ -32,7 +32,7 @@ Showtime::Application.routes.draw do
 
     resources :user_ecos
 
-    resources :experiences, only: [:index, :show, :edit, :update, :destroy] do
+    resources :experiences do
       member do
         put :bill
         put :pay
