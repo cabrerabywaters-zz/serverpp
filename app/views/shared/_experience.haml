@@ -4,17 +4,14 @@
       = "-#{experience.get_discount_percentage.round(0)}%"
   %a{ href: eco_experience_path(experience)}
     .title
-      %table
-        %tbody
-          %tr
-            %td
-              = experience.name
+      %p
+        = experience.name
     .image
       = image_tag experience.image.url
-  - if experience.active? 
-    .prices  
+  - if experience.active?
+    .prices
       %span.discounted-price
-        = "$#{experience.discounted_price}"  
+        = "$#{experience.discounted_price}"
       %span.price
         = "$#{experience.amount}"
     .stats

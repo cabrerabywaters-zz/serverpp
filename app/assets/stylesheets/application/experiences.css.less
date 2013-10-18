@@ -39,24 +39,24 @@
 			background-color: white;
 			text-align: center;
 			line-height: 20px;
-			min-height: 40px;
+			height: 60px;
 			vertical-align: middle;
-			margin: 10px 0 10px 50px;
-			display: block;
 			font-family: 'PT Sans', Arial;
 			font-size: 18px;
 			font-style: normal;
 			font-variant: normal;
 			font-weight: normal;
 			padding: 5px 0px 5px;
+			display: table;
+			margin-left: 50px;
+			margin-bottom: 0;
+			width: 320px;
 
-			table {
-				width: 320px;
-				height: 40px;
-
-				tr td {
-					vertical-align:middle;
-				}
+			p {
+				display: table-cell;
+			  vertical-align: middle;
+			  text-align: center;
+			  cursor: pointer;
 			}
 		}
 		.image {}
@@ -69,12 +69,12 @@
         text-align: center;
         padding-right: 30px;
         color: #f39c12;
-      }    
+      }
       span.price {
         display:inline;
         font-size: 20px;
         width: 173px;
-        text-align: center;        
+        text-align: center;
         padding-left: 30px;
         text-decoration: line-through;
         color: #6c6c6c;
@@ -132,10 +132,11 @@
 	.small {
 		width: 270px;
 		padding-bottom: 10px;
-		
+
 		.title {
 			font-size: 16px;
-			margin: 10px 0;
+			margin-left: 0;
+			width: 270px;
 		}
 	}
 	.filters {
@@ -204,12 +205,12 @@
 		}
 
 	}
-	
+
 }
 
 .active-experiences {
 	margin-top: 60px;
-}	
+}
 
 p.empty {
 	font-size: 30px;
