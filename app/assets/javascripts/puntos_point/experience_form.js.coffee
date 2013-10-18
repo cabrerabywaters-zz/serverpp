@@ -51,10 +51,10 @@ $ ->
         min: 1
       "experience[total_exclusivity_days]":
         number: true
-        min: 1
+        min: 0
       "experience[by_industry_exclusivity_days]":
         number: true
-        min: 1
+        min: 0
       "experience[fee]":
         digits: true
         min: 1

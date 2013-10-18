@@ -139,3 +139,5 @@ $ ->
 
     else if $('input#experience_discounted_price').val() and $('input#experience_amount').val()
       make_discount_percentage()
+
+  $('input#experience_discounted_price').trigger 'change'

@@ -8,6 +8,6 @@ $ ->
     if el.files[0]
       reader = new FileReader()
       reader.onload = (e) ->
-        $(".preview_container").attr("src", e.target.result).width(349).height(260)
+        $(".preview_container").attr("src", e.target.result).width('100%').height('100%')
 
       reader.readAsDataURL el.files[0]

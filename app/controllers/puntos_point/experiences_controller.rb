@@ -33,14 +33,15 @@ class PuntosPoint::ExperiencesController < PuntosPoint::PuntosPointApplicationCo
   # FIXME: Duplicated code from eco experience
   def update
     @experience = Experience.find(params[:id])
+    experience_params = process_experience_params(params[:experience])
     respond_to do |format|
-      if @experience.update_attributes(params[:experience], as: :puntos_point)
+      if @experience.update_attributes(experience_params, as: :puntos_point)
         if params[:publish_experience].present?
           if @experience.publish!
-            format.html
+            format.html { redirect_to puntos_point_experience_path(@experience) }
             format.json { render json: @experience }
           else
-            format.html
+            format.html { render :edit }
             format.json { render json: { errors: @experience.errors }, status: :unprocessable_entity }
           end
         else
@@ -85,5 +86,15 @@ class PuntosPoint::ExperiencesController < PuntosPoint::PuntosPointApplicationCo
         format.html { redirect_to puntos_point_experiences_url, notice: I18n.t('notices.error.female.cant_pay', model: Experience.model_name.human) }
       end
     end
+  end
+
+  private
+
+  def process_experience_params(params)
+    experience_params = params.dup
+    experience_params[:amount] = experience_params[:amount].try(:gsub, '.', '')
+    experience_params[:discounted_price] = experience_params[:discounted_price].try(:gsub, '.', '')
+    experience_params[:discount_percentage] = experience_params[:discount_percentage].try(:gsub, '.', '')
+    experience_params
   end
 end
