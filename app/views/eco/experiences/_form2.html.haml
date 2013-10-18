@@ -67,10 +67,11 @@
               .span6
                 = f.input :name, placeholder: 'Escribe el nombre de la experiencia', input_html: { class: 'span12' }
                 = f.input :summary, placeholder: 'Escribe la frase que motive a los clientes a participar de tu oferta.', input_html: { class: 'span12' }
-                = f.input :details, placeholder: 'Escribe la descripción y especificaciones de lo que estás ofreciendo.', input_html: { class: 'span12' }
+                = f.input :details, placeholder: 'Escribe la descripción y especificaciones de lo que estás ofreciendo.', input_html: { class: 'span12 wysihtml5' }
               .span6
+                = f.association :category, prompt: false
                 .help-block Agrega la imagen principal de la experiencia
-                .relative
+                .relative{ style: 'width: 470px; height: 350px;'}
                   .input-file= f.input :image, label: false, input_html: { class: 'preview_image' }
                   - if @experience.image?
                     = image_tag @experience.image.url, class: 'preview_container'
@@ -111,11 +112,11 @@
                 = f.input :swaps, as: :string
             - if current_admin.present?
               .row-fluid
-                .span6= f.input :starting_at, as: :string, wrapper: :datepicker
-                .span6= f.input :ending_at, as: :string, wrapper: :datepicker
+                .span6= f.input :starting_at, as: :string, wrapper: :datepicker, input_html: { value: @experience.starting_at.to_s }
+                .span6= f.input :ending_at, as: :string, wrapper: :datepicker, input_html: { value: @experience.ending_at.to_s }
             .row-fluid
-              .span6= f.input :validity_starting_at, as: :string, wrapper: :datepicker
-              .span6= f.input :validity_ending_at, as: :string, wrapper: :datepicker
+              .span6= f.input :validity_starting_at, as: :string, wrapper: :datepicker, input_html: { value: @experience.validity_starting_at.to_s }
+              .span6= f.input :validity_ending_at, as: :string, wrapper: :datepicker, input_html: { value: @experience.validity_ending_at.to_s }
             .row-fluid
               .span4= f.input :amount, as: :string, input_html: { class: 'span12' }
               .span4= f.input :discounted_price, as: :string, input_html: { class: 'span12' }
@@ -168,6 +169,13 @@
               .row-fluid
                 .span6= f.input :fee, as: :string
                 .span6= f.input :income_type, as: :radio_buttons, collection: ["Ventas", "Canjes", "Validaciones"]
+              .row-fluid
+                .span12
+                  - if @experience.industry_experiences.empty?
+                    - Industry.all.each { |industry| @experience.industry_experiences.build(industry_id: industry.id, percentage: industry.percentage) }
+                  = f.simple_fields_for :industry_experiences do |f2|
+                    = f2.hidden_field :industry_id
+                    = f2.hidden_field :percentage
 
     .row-fluid
       .span12

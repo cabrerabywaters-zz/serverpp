@@ -50,7 +50,7 @@ $ ->
       data: experienceForm.serialize()
       dataType: "JSON"
       success: (json) ->
-        console.log json
+        # console.log json
 
   , 60000
 
