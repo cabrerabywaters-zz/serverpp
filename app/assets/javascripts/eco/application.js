@@ -26,8 +26,11 @@
 //= require jquery.validate.localization/messages_es
 //= require jquery.validate.bootstrap
 //= require bootstrap-wysihtml5
+//= require bootstrap-wysihtml5/locales/es-ES
 //= require jquery_nested_form
 //= require bootstrap.file-input
+//= require jquery.form
+//= require jquery.dirtyforms
 
 //= require ../experiences
 //= require ../datepicker

@@ -32,27 +32,48 @@ class Eco::ExperiencesController < Eco::EcoApplicationController
   end
 
   def new
-    @experience = params[:id].present? ? Experience.find(params[:id]) : current_user_eco.eco.experiences.create
+    @experience = current_user_eco.eco.experiences.new
+  end
+
+  def create
+    experience_params = process_experience_params(params[:experience])
+    @experience = current_user_eco.eco.experiences.new(experience_params)
+    respond_to do |format|
+      if @experience.save(as: :eco)
+        format.html do
+          if request.xhr?
+            render partial: 'form2', layout: false, locals: { experience: @experience }, location: eco_experience_path(@experience)
+          else
+            redirect_to edit_eco_experience_path(@experience)
+          end
+        end
+        format.json { render json: @experience, location: eco_experience_path(@experience) }
+      else
+        format.html { render action: :new }
+        format.json { render json: { errors: @experience.errors }, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def edit
+    @experience = current_user_eco.eco.experiences.find(params[:id])
   end
 
   def update
+    experience_params = process_experience_params(params[:experience])
     @experience = current_user_eco.eco.experiences.find(params[:id])
     respond_to do |format|
-      if @experience.update_attributes(params[:experience])
-        if params[:publish_experience].present?
-          if @experience.publish!
-            format.html
-            format.json { render json: @experience }
+      if @experience.update_attributes(experience_params)
+        format.html do
+          if request.xhr?
+            render partial: 'form2', layout: false, locals: { experience: @experience }, location: eco_experience_path(@experience)
           else
-            format.html
-            format.json { render json: { errors: @experience.errors }, status: :unprocessable_entity }
+            redirect_to edit_eco_experience_path(@experience)
           end
-        else
-          format.html
-          format.json { render json: @experience }
         end
+        format.json { render json: @experience }
       else
-        format.html { redirect_to new_eco_experience_path(id: @experience.id) }
+        format.html { render action: :edit }
         format.json { render json: { errors: @experience.errors }, status: :unprocessable_entity }
       end
     end
@@ -82,5 +103,15 @@ class Eco::ExperiencesController < Eco::EcoApplicationController
   # Retorna una String con la ruta a lista de experiencias (eco_experiences_path)
   def set_selected_menu
     session[:selected_menu] = eco_experiences_path
+  end
+
+  private
+
+  def process_experience_params(params)
+    experience_params = params.dup
+    experience_params[:amount] = experience_params[:amount].try(:gsub, '.', '')
+    experience_params[:discounted_price] = experience_params[:discounted_price].try(:gsub, '.', '')
+    experience_params[:discount_percentage] = experience_params[:discount_percentage].try(:gsub, '.', '')
+    experience_params
   end
 end

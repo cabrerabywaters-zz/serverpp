@@ -29,7 +29,7 @@ $ ->
     daysContainer: '#by_industry_exclusivity_days'
 
   # Experience validation
-  $('form.edit_experience').validate
+  $('form.new_experience, form.edit_experience').validate
     onfocusout: (element) ->
       @element(element)
     rules:
