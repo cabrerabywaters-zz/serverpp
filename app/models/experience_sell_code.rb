@@ -1,0 +1,2 @@
+class ExperienceSellCode < ExperienceCode
+end

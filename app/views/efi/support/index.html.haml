@@ -1,0 +1,12 @@
+%h1 Servicio al Cliente
+
+.row-fluid.panel
+  .span12.offset2
+    %h1 Ingrese el código de seguridad
+    = form_tag efi_validate_path, method: 'get', id: 'efi-validate-form', class: 'span8' do
+      .input-append.span12
+        = text_field_tag :code, '', class: 'span8'
+        = submit_tag 'Consultar', class: 'btn'
+
+#validation-result-container.row-fluid.panel( style="display: none;" )
+  #validation-result.span12( style="padding: 0px 60px;" )

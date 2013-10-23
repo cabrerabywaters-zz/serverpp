@@ -417,6 +417,7 @@
       accounts: Clientes
       publicities: Comunicados
       api: API
+      support: Servicio al Cliente
     eco:
       experiences: Mis Experiencia
       new_experience: Crear Experiencia
