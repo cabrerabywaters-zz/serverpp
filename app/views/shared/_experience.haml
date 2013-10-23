@@ -33,7 +33,7 @@
     .validation-box
       = form_tag eco_validate_purchase_path(experience), method: :post, class: "form-search" do
         %input#purchase_code.string.required{placeholder: "Ingrese Código Validación", type: "text", name: "code"}
-        %input.btn.btn-success.experience-validation{type: :submit, value: I18n.t('helpers.links.validate')}
+        %input.btn.btn-success.experience-validation{type: :submit, value: I18n.t('helpers.links.validate'), 'data-loading-text' => "Validando..." }
         - if flash[:experience_id] == experience.id
           .alert{class: "alert-#{flash[:type]} flash-fadeout"}
             = flash[:message]
