@@ -28,19 +28,29 @@ $ ->
   # Code validation
   $('.validation-box form').submit ->
     form = $(this)
-    $.post(
-      $(this).attr('action')
-      $(this).serialize()
-      (data, textStatus, jqXHR) ->
-        form.append "<div class='alert alert-#{data.type} flash-fadeout'>#{data.message}</div>"
+    $.ajax
+      type: 'POST'
+      url: form.attr('action')
+      data: form.serialize()
+      beforeSend: ->
+        form.children('.experience-validation').button('loading')
+
+      complete: (data) ->
         form.children('.experience-validation').button('reset')
-        $(".flash-fadeout").delay(5000).fadeOut()
-    )
+
+      success: (data, status) ->
+        notice(form, data.type, data.message)
+
+      error: (XMLHttpRequest, status, errorThrown) ->
+        notice(form, 'error', 'A ocurrido un error!')
+
     return false
 
   # Loading on click: Validation
   # Prepare
   $('.experience-validation').button()
-  # Loading...
-  $('.experience-validation').click (e) ->
-    $(@).button('loading')
+
+  # Show notice on validation-box
+  notice = (form, type, message) ->
+    form.append "<div class='alert alert-#{type} flash-fadeout'>#{message}</div>"
+    $(".flash-fadeout").delay(5000).fadeOut()
