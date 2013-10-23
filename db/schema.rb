@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130925125208) do
+ActiveRecord::Schema.define(:version => 20131023135729) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "efi_id"
@@ -216,6 +216,18 @@ ActiveRecord::Schema.define(:version => 20130925125208) do
 
   add_index "experience_advertisings", ["advertising_id"], :name => "index_experience_advertisings_on_advertising_id"
   add_index "experience_advertisings", ["experience_id"], :name => "index_experience_advertisings_on_experience_id"
+
+  create_table "experience_codes", :force => true do |t|
+    t.string   "type"
+    t.string   "code",         :null => false
+    t.integer  "purchase_id"
+    t.datetime "sold_at"
+    t.datetime "validated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "experience_codes", ["purchase_id"], :name => "index_experience_codes_on_purchase_id"
 
   create_table "experience_efis", :force => true do |t|
     t.integer  "experience_id"

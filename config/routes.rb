@@ -108,6 +108,8 @@ Showtime::Application.routes.draw do
     end
 
     get "summary" => "summary#index", as: :summary
+    get "support" => "support#index", as: :support
+    get "support/validate" => "support#show", as: :validate
 
     root :to => 'experiences#index'
   end

@@ -7,6 +7,10 @@
 # Mas información en: https://github.com/ryanb/cancan
 #
 class UserEfi < ActiveRecord::Base
+  # Modulo para que un usuario tenga Grupos y Roles
+  # Mas información en: http://rubygems.org/gems/burlesque
+  include Burlesque::Admin
+
   # Modulo para manejar un rut con las reglas de validación chilenas
   # Mas información en: http://rubygems.org/gems/run_cl
   include RunCl::ActAsRun
@@ -19,6 +23,8 @@ class UserEfi < ActiveRecord::Base
           :rememberable,
           :trackable,
           :validatable
+
+  attr_accessor :group
 
   attr_accessible :email,
                   :password,
@@ -45,6 +51,7 @@ class UserEfi < ActiveRecord::Base
                   :second_lastname,
                   :efi_id,
                   :mod_client,
+                  :group,
                   as: :puntos_point
 
   belongs_to :efi
@@ -111,5 +118,13 @@ class UserEfi < ActiveRecord::Base
   # Retorna un String con contiene el nombre completo del usuario EFI.
   def full_name
     (names.strip + ' ' + first_lastname.strip + ' ' + second_lastname.strip).strip
+  end
+
+  def group=(group_id)
+    if group_id.presence
+      g = Burlesque::Group.find(group_id)
+
+      self.group_ids= [group_id] if [Settings.admin_efi, Settings.operator_efi].include?(g.name)
+    end
   end
 end

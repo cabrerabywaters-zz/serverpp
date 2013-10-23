@@ -10,6 +10,18 @@
   = f.input :password
   = f.input :password_confirmation
 
+  .control-group.radio_buttons.required.user_eco_group
+    %label.radio_buttons.required.control-label Tipo de Usuario
+    .controls
+      - admin_efi = Burlesque::Group.find_or_create_by_name(Settings.admin_efi)
+      %label.radio
+        %input.radio_buttons.required{id: "user_eco_group_#{admin_efi.id}", name: "user_efi[group]", type: "radio", value: admin_efi.id, checked: @user_efi.group?(admin_efi) ? true : false}= admin_efi.name
+
+      - operator_efi = Burlesque::Group.find_or_create_by_name(Settings.operator_efi)
+      %label.radio
+        %input.radio_buttons.required{id: "user_eco_group_#{operator_efi.id}", name: "user_efi[group]", type: "radio", value: operator_efi.id, checked: @user_efi.group?(admin_efi) ? false : true}= operator_efi.name
+
+
   .form-actions
     = f.button :submit, class: 'btn-warning pull-right ml-10'
     - if can? :read, UserEfi

@@ -1,0 +1,2 @@
+class ExperienceSecurityCode < ExperienceCode
+end

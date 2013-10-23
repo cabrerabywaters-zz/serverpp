@@ -48,6 +48,10 @@ module Settings
     "Administrador EFI"
   end
 
+  def operator_efi
+    "Operador EFI"
+  end
+
   def admin_puntospoint
     "Administrador"
   end
