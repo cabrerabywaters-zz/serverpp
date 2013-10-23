@@ -1,4 +1,4 @@
-.panel.experience-box{ class: "#{ experience.active? ? '' : 'small'}" }
+.panel.experience-box{ class: "#{ experience.active? ? 'regular' : 'small'}" }
   - if experience.active?
     .ribbon
       = "-#{experience.get_discount_percentage.round(0)}%"
@@ -7,7 +7,10 @@
       %p
         = experience.name
     .image
-      = image_tag experience.image.url
+      - if experience.image.exists?
+        = image_tag experience.image.url
+      - else
+        = image_tag "default_experiencia.png"
   - if experience.active?
     .prices
       %span.discounted-price

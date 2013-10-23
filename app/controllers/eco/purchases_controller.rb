@@ -38,7 +38,7 @@ class Eco::PurchasesController < Eco::EcoApplicationController
 
     respond_to do |format|
       if @purchase.nil?
-        format.html { redirect_to eco_experiences_path, flash: { experience_id: @experience.id, type: :error, message: t('notices.error.unknown', model: Purchase.model_name.human) } }
+        format.html { redirect_to eco_experiences_path, flash: { experience_id: @experience.id, type: :error, message: t('notices.error.invalid_code', model: Purchase.model_name.human) } }
       elsif @purchase.validated?
         format.html { redirect_to eco_experiences_path, flash: { experience_id: @experience.id, type: :error, message: t('notices.error.female.was_validated', model: Purchase.model_name.human) } }
       elsif @purchase.validate!
