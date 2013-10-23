@@ -155,6 +155,7 @@ class Experience < ActiveRecord::Base
   scope :active, -> { with_states(:active, :closed) }
   scope :published, -> { where(state: :published) }
   scope :expired, -> { where(state: :expired) }
+  scope :ordered, -> { order(:created_at) }
 
   # Búsqueda predefinida que permite filtrar/buscar experiencia que aun no estan cerradas.
   scope :started, -> { where('starting_at <= :now', now: Date.current) }
