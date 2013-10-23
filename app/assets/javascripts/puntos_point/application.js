@@ -21,11 +21,14 @@
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.es
 //= require bootstrap-wysihtml5
+//= require bootstrap-wysihtml5/locales/es-ES
 //= require jquery_nested_form
 //= require jquery.validate
 //= require jquery.validate.localization/messages_es
 //= require jquery.validate.bootstrap
 //= require bootstrap.file-input
+//= require jquery.form
+//= require jquery.dirtyforms
 //= require experiences
 //= require ../bootstrap
 //= require ../datepicker

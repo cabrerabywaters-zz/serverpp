@@ -1,4 +1,9 @@
 :sass
+  .back_to_experiences
+    position: absolute
+    top: 25px
+    left: 40px
+
   .experience-state
     position: absolute
     top: -22px
@@ -50,6 +55,8 @@
 
 .container.panel
   .experience-state= t @experience.state
+  - if current_admin.present?
+    = link_to '< Lista de Experiencias', puntos_point_experiences_path, class: 'back_to_experiences'
   = simple_nested_form_for [experience_scope, @experience] do |f|
     .row-fluid
       .span10.offset1.section
@@ -69,7 +76,8 @@
                 = f.input :summary, placeholder: 'Escribe la frase que motive a los clientes a participar de tu oferta.', input_html: { class: 'span12' }
                 = f.input :details, placeholder: 'Escribe la descripción y especificaciones de lo que estás ofreciendo.', input_html: { class: 'span12 wysihtml5' }
               .span6
-                = f.association :category, prompt: false
+                - if current_admin.present?
+                  = f.association :category, prompt: false
                 .help-block Agrega la imagen principal de la experiencia
                 .relative{ style: 'width: 470px; height: 350px;'}
                   .input-file= f.input :image, label: false, input_html: { class: 'preview_image' }
@@ -89,14 +97,15 @@
               %h3
                 Archivos adicionales para la experiencia
                 %i.icon-question-sign{'data-toggle' => "tooltip", title: 'Ingresa todos los archivos, imágenes, textos, etc. los cuales son compartidos a una empresa para que pueda modificarlos para promocionar tu experiencia.', class: 'icon-tooltip'}
-              = f.fields_for :valid_images do |file_form|
-                .row-fluid
-                  .span4
-                    - if file_form.object.persisted?
-                      = "#{file_form.object.image_file_name} (#{number_to_human_size(file_form.object.image_file_size)})"
-                  .span4= file_form.input :image, label: false
-                  .span4= file_form.link_to_remove "Eliminar", class: 'btn btn-danger'
-              %p= f.link_to_add "Agregar", :valid_images, class: 'btn'
+              .experience-files
+                = f.fields_for :valid_images do |file_form|
+                  .row-fluid
+                    .span4
+                      - if file_form.object.persisted?
+                        = "#{file_form.object.image_file_name} (#{number_to_human_size(file_form.object.image_file_size)})"
+                    .span4= file_form.input :image, label: false
+                    .span4= file_form.link_to_remove "Eliminar", class: 'btn btn-danger'
+                %p= f.link_to_add "Agregar", :valid_images, class: 'btn'
 
     .row-fluid
       .span10.offset1.section
@@ -169,16 +178,15 @@
               .row-fluid
                 .span6= f.input :fee, as: :string
                 .span6= f.input :income_type, as: :radio_buttons, collection: ["Ventas", "Canjes", "Validaciones"]
-              .row-fluid
-                .span12
-                  - if @experience.industry_experiences.empty?
-                    - Industry.all.each { |industry| @experience.industry_experiences.build(industry_id: industry.id, percentage: industry.percentage) }
-                  = f.simple_fields_for :industry_experiences do |f2|
-                    = f2.hidden_field :industry_id
-                    = f2.hidden_field :percentage
 
     .row-fluid
       .span12
         .center
-          = f.submit 'Guardar Borrador', name: :save_draft, class: 'btn btn-flat'
-          = f.submit 'Publicar', name: :publish_experience, class: 'btn btn-flat'
+          = f.submit 'Guardar Borrador', name: :save_draft, class: 'btn btn-flat', data: { "loading-text" => "Guardando..." }
+          - if current_admin.present?
+            = f.submit 'Publicar', name: :publish_experience, class: 'btn btn-flat'
+          - if @experience.persisted?
+            - if experience_scope == :eco
+              = link_to 'Vista Previa', eco_experience_path(@experience), target: '_blank', class: 'btn btn-flat'
+            - else
+              = link_to 'Vista Previa', puntos_point_experience_path(@experience), target: '_blank', class: 'btn btn-flat'

@@ -41,18 +41,54 @@ $ ->
     $(@).closest('.section').find('.section-content').slideToggle()
     $(@).find('.arrow').toggleClass 'down'
 
-  # Autosave draft experience
-  setInterval ->
-    experienceForm = $("form.edit_experience")
-    $.ajax
-      url: experienceForm.attr("action")
-      type: 'POST'
-      data: experienceForm.serialize()
-      dataType: "JSON"
-      success: (json) ->
-        # console.log json
+  newExperienceForm = $('form.new_experience')
+  editExperienceForm = $('form.edit_experience')
+  experienceForm = if newExperienceForm.length > 0 then newExperienceForm else editExperienceForm
+  disableAutosave = mediaFilesChanged = false
+  newExperience = if newExperienceForm.length > 0 then true else false
 
-  , 60000
+  if experienceForm.length > 0
+    experienceForm.dirtyForms
+      title: 'TITLE'
+      message: 'Tienes cambios pendientes sin guardar. Estas seguro que quieres salir?'
+
+    draftSubmitButton = experienceForm.find('input[name="save_draft"]').button()
+    running = false
+    draftSubmitButton.on 'click', (e) ->
+      e.preventDefault()
+      experienceForm.ajaxSubmit
+        beforeSubmit: ->
+          draftSubmitButton.button('loading')
+          running = true
+        success: (content, status, response) ->
+          newExperience = false
+          htmlContent = $(content)
+          if mediaFilesChanged
+            experienceFilesHTML = htmlContent.find('.experience-files')
+            experienceForm.find('.experience-files').html experienceFilesHTML.html()
+          experienceForm.dirtyForms('setClean')
+          if experienceForm.find('input[name="_method"]').length == 0
+            experienceForm.find('div:first').append('<input type="hidden" name="_method" value="put" />')
+          experienceForm.attr('action', response.getResponseHeader('Location'))
+        error: (response) ->
+          if response.status == 503 or response.status == 401 or response.status == 403
+            disableAutosave = true
+        complete: ->
+          running = false
+          draftSubmitButton.button('reset')
+
+    # Autosave draft experience
+    setInterval ->
+      if experienceForm.dirtyForms('isDirty') && !running && !disableAutosave
+        draftSubmitButton.click()
+    , 60000
+
+    experienceForm.find('.relative input[type="file"]').on 'change', ->
+      experienceForm.dirtyForms('setDirty')
+
+    experienceForm.delegate '.experience-files input[type="file"]', 'change', ->
+      mediaFilesChanged = true
+      experienceForm.dirtyForms('setDirty')
 
   # Income logic
   $('.experience_income_type .controls').income()
@@ -62,4 +98,7 @@ $ ->
     $(elem).wysihtml5
       image: false
       lists: false
-      locals: 'es-ES'
+      locale: 'es-ES'
+      events:
+        'change:composer': ->
+          experienceForm.dirtyForms('setDirty')

@@ -499,6 +499,7 @@ class Experience < ActiveRecord::Base
   #
   # Returns Array con los códigos leído del excel.
   def file_codes= file
+    return unless file.present?
     if file.original_filename.include? '.xlsx'
       spreadsheet = Roo::Excelx.new(file.path, nil, :ignore)
     else
