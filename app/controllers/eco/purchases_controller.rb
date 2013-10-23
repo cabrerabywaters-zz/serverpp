@@ -38,13 +38,17 @@ class Eco::PurchasesController < Eco::EcoApplicationController
 
     respond_to do |format|
       if @purchase.nil?
-        format.html { redirect_to eco_experiences_path, flash: { experience_id: @experience.id, type: :error, message: t('notices.error.invalid_code', model: Purchase.model_name.human) } }
+        #format.html { redirect_to eco_experiences_path, flash: { experience_id: @experience.id, type: :error, message: t('notices.error.invalid_code', model: Purchase.model_name.human) } }
+        format.json { render json: { type: :error, message: t('notices.error.invalid_code', model: Purchase.model_name.human) }}
       elsif @purchase.validated?
-        format.html { redirect_to eco_experiences_path, flash: { experience_id: @experience.id, type: :error, message: t('notices.error.female.was_validated', model: Purchase.model_name.human) } }
+        #format.html { redirect_to eco_experiences_path, flash: { experience_id: @experience.id, type: :error, message: t('notices.error.female.was_validated', model: Purchase.model_name.human) } }
+        format.json { render json: { type: :error, message: t('notices.error.female.was_validated', model: Purchase.model_name.human) }}
       elsif @purchase.validate!
-        format.html { redirect_to eco_experiences_path, flash: { experience_id: @experience.id, type: :success, message: t('notices.success.female.validate', model: Purchase.model_name.human) } }
+        #format.html { redirect_to eco_experiences_path, flash: { experience_id: @experience.id, type: :success, message: t('notices.success.female.validate', model: Purchase.model_name.human) } }
+        format.json { render json: { type: :success, message: t('notices.success.female.validate', model: Purchase.model_name.human) }}
       else
-        format.html { redirect_to eco_experiences_path, flash: { experience_id: @experience.id, type: :error, message: t('notices.error.female.cant_validate', model: Purchase.model_name.human) } }
+        #format.html { redirect_to eco_experiences_path, flash: { experience_id: @experience.id, type: :error, message: t('notices.error.female.cant_validate', model: Purchase.model_name.human) } }
+        format.json { render json: { type: :error, message: t('notices.error.female.cant_validate', model: Purchase.model_name.human) }}
       end
     end
   end
