@@ -4,19 +4,13 @@
 	.span12 {
 		margin-left: 0px;
 	}
-	.experience-box-first {
-		margin-left: 0;
-	}
 	.experience-box {
 		padding-top: 0px;
 		padding-bottom: 35px;
-		width: 370px;
+		width: 376px;
 		float: left;
 		margin: 0 0 20px 20px;
 
-		&:first-child {
-    	margin-left: 0;
-    }
     .ribbon {
 			position: absolute;
 			width: 60px;
@@ -111,10 +105,15 @@
 				input {
 					text-align: center;
 					margin-top: 10px;
+
+          &[name="code"] {
+            border: 1px solid #cbcbcb;
+          }
 				}
 				.btn-success {
-					background-color:#27ae60;
-					padding: 5px 28px;
+					background-color: #27ae60;
+					padding: 5px 10px;
+					width: 110px;
 				}
 				.alert {
 					font-size: 16px;
@@ -129,9 +128,18 @@
 			}
 		}
 	}
+	.regular {
+		&:nth-child(3n+1), &:first-child {
+    	margin-left: 0;
+    }
+	}
 	.small {
-		width: 270px;
+		width: 277px;
 		padding-bottom: 10px;
+
+		&:nth-child(4n+1), &:first-child {
+    	margin-left: 0;
+    }
 
 		.title {
 			font-size: 16px;
