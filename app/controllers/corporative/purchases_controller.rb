@@ -3,6 +3,28 @@
 # Public: Controlador encargado manejar las compras de los usuarios de una EFI
 #
 class Corporative::PurchasesController < Corporative::CorporativeApplicationController
+  # GET /empresa/1/purchases/:id/voucher
+  def voucher
+    @purchase   = Purchase.find_by_id_and_token(params[:id], params[:token])
+
+    raise ActiveRecord::RecordNotFound unless @purchase
+
+    @event      = @purchase.exchange.event
+    @experience = @event.experience
+    @exchange   = @purchase.exchange
+
+    respond_to do |format|
+      format.html { render layout: 'voucher' }
+      format.pdf {
+        render pdf:       'voucher',
+               layout:    'voucher.html',
+               template:  'corporative/purchases/voucher.html',
+               margin:    {top: 0, left: 0, bottom: 0, right: 0},
+               page_size: 'Letter'
+      }
+    end
+  end
+
   # GET /empresa/1/purchases/:id
   def show
     @purchase   = Purchase.find(params[:id])

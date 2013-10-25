@@ -1,4 +1,4 @@
-# encoding: utf-8
+                              # encoding: utf-8
 require 'spec_helper'
 
 describe Corporative::PurchasesController do
@@ -22,6 +22,26 @@ describe Corporative::PurchasesController do
     experience.validity_starting_at = Date.current + 10.day
     experience.validity_ending_at   = Date.current + 10.day
     experience.save
+  end
+
+  describe "GET voucher" do
+    it "assigns a requested purchase as @purchase" do
+      get :voucher, id: @purchase, corporative_id: @efi.search_name, token: @purchase.token
+
+      assigns(:purchase).should_not be_a_nil
+      assigns(:event).should_not be_a_nil
+      assigns(:experience).should_not be_a_nil
+      assigns(:exchange).should_not be_a_nil
+
+      response.should be_success
+      response.should render_template("voucher")
+    end
+
+    it "debe generar una excepción" do
+      expect{
+        get :voucher, id: @purchase, corporative_id: @efi.search_name, token: 'invalid-token'
+      }.to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
 
   describe "GET show" do

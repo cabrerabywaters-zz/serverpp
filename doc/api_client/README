@@ -1,0 +1,32 @@
+PREREQUIREMENTS
+
+You must install ruby, use the following link http://www.ruby-lang.org/en/downloads/
+
+
+
+WINDOWS
+
+If you install the native Windows version of Ruby using the Ruby One-Click Installer, then the installer has setup Windows to automatically recognize your Ruby scripts as executables. Just type the name of the script to run it.
+
+$ cd DIR/TO/EXECUTABLE/FOLDER/LOCATION
+$ cmr_client.rb
+
+If this does not work, or if you installed Ruby in some other way, follow these steps.
+  1.- Log in as an administrator.
+  2.- Run the standard Windows "Command Prompt", cmd.
+  3.- At the command prompt (i.e. shell prompt), run the following Windows commands. When you run ftype, change the command-line arguments to correctly point to where you installed the ruby.exe executable on your computer.
+
+    $ assoc .rb=RubyScript
+    .rb=RubyScript
+
+    $ ftype RubyScript="c:\ruby\bin\ruby.exe" "%1" %*
+    RubyScript="c:\ruby\bin\ruby.exe" "%1" %*
+
+Source: http://en.wikibooks.org/wiki/Ruby_Programming/Hello_world#Windows
+
+
+
+UNIX
+
+$ cd DIR/TO/EXECUTABLE/FOLDER/LOCATION
+$ irb -r cmr_client.rb

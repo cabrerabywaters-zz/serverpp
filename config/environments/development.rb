@@ -1,4 +1,8 @@
+require 'wicked_pdf'
+
 Showtime::Application.configure do
+  # config.middleware.use WickedPdf::Middleware, {margin: {top: 0, left: 0, bottom: 0, right: 0}}
+
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on

@@ -93,3 +93,7 @@ gem 'burlesque', '2.0.4'#, path: '~/Documents/Proyects/burlesque'
 
 # SOAP Webservices
 gem 'wash_out'
+
+# Wicked PDF
+gem 'wkhtmltopdf-binary'
+gem 'wicked_pdf'

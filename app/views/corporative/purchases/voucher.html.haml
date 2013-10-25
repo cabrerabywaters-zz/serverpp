@@ -1,0 +1,55 @@
+.container
+  .headerTop
+    = image_tag 'api/header.jpg'
+  .topDetails
+    .title felicidades
+    .info
+      .detail
+        .action haz canjeado
+        .product= @experience.name
+      .points
+        %span.canjeados puntos canjeados
+        %br/
+        %span.total= number_to_currency @exchange.points, unit: ''
+  .instructions
+    .col1
+      .icon
+        = image_tag 'api/icon1.png'
+      .titulo Instrucciones
+      = @experience.exchange_mechanism.html_safe
+    .col2
+      .icon
+        = image_tag 'api/icon2.png'
+      .titulo Detalles
+      %ul
+        %li
+          Validez :
+          = l @experience.validity_starting_at
+          hasta
+          = l @experience.validity_starting_at
+        %li
+          Lugar :
+          = @experience.place
+  .instructionsEnd
+    .col3
+      .icon
+        = image_tag 'api/icon3.png'
+      .titulo Código de Validación
+      %br/
+      .codes
+        - @purchase.reference_codes.each do |code|
+          %span.validation= code
+    .col4
+      .icon
+        = image_tag 'api/icon4.png'
+      .titulo Código de Seguridad
+      %br/
+      .security
+        .securityCode= @purchase.code
+  .dotted
+  .conditions
+    .conditions.Title Condiciones de Uso
+    = @experience.conditions.html_safe
+.footer
+  = image_tag 'api/footer.jpg'
+  %p Lorem ipsum putent intellegat intellegebat pro no. Prima eligendi mea ne, sed hinc posse graeci ei. Duo animal interesset te, reformidans dissentiunt ad sea, facer tollit percipit in sit. Iudico percipit mei ex, laudem adolescens no has.

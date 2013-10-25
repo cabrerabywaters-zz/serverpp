@@ -1,0 +1,27 @@
+/* @license
+ * MyFonts Webfont Build ID 2660722, 2013-10-08T15:07:57-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: PF Beau Sans Pro XThin by Parachute
+ * URL: http://www.myfonts.com/fonts/parachute/pf-beau-sans-pro/xthin/
+ * Copyright: Copyright (c) 2002, 2006 Parachute&#x00A8;, www.parachute.gr.  All rights reserved.
+ * Licensed pageviews: 500,000
+ * 
+ * 
+ * License: http://www.myfonts.com/viewlicense?type=web&buildid=2660722
+ * 
+ * © 2013 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/289972");
+
+  
+@font-face {font-family: 'PFBeauSansPro-XThin';src: url('webfonts/289972_0_0.eot');src: url('webfonts/289972_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/289972_0_0.woff') format('woff'),url('webfonts/289972_0_0.ttf') format('truetype');}
+ 

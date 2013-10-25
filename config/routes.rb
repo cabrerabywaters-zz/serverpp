@@ -111,18 +111,18 @@ Showtime::Application.routes.draw do
   namespace :api do
     namespace :cmr do
       wash_out :events
-      wash_out :purchases
     end
   end
 
 
   # TODO - eliminar luego de refactorizar
-  match "empresa/:corporative_id"                          => "corporative/events#index",     as: :corporative_root
-  match "empresa/:corporative_id/events"                   => "corporative/events#index",     as: :corporative_events
-  match "empresa/:corporative_id/events/:id"               => "corporative/events#show",      as: :corporative_event
-  match "empresa/:corporative_id/events/:id/purchases/new" => "corporative/purchases#new",    as: :new_corporative_purchase
-  post  "empresa/:corporative_id/events/:id/purchases"     => "corporative/purchases#create", as: :corporative_purchases
-  get   "empresa/:corporative_id/purchases/:id"            => "corporative/purchases#show",   as: :corporative_purchase
+  match "empresa/:corporative_id"                          => "corporative/events#index",      as: :corporative_root
+  match "empresa/:corporative_id/events"                   => "corporative/events#index",      as: :corporative_events
+  match "empresa/:corporative_id/events/:id"               => "corporative/events#show",       as: :corporative_event
+  match "empresa/:corporative_id/events/:id/purchases/new" => "corporative/purchases#new",     as: :new_corporative_purchase
+  post  "empresa/:corporative_id/events/:id/purchases"     => "corporative/purchases#create",  as: :corporative_purchases
+  get   "empresa/:corporative_id/purchases/:id"            => "corporative/purchases#show",    as: :corporative_purchase
+  get   "empresa/:corporative_id/purchases/:id/voucher"    => "corporative/purchases#voucher", as: :corporative_voucher
 
   post "empresa/:corporative_id/points" => "corporative/points#create", as: :corporative_point
 end

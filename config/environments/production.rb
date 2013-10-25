@@ -1,4 +1,8 @@
+require 'wicked_pdf'
+
 Showtime::Application.configure do
+  # config.middleware.use WickedPdf::Middleware, {margin: {top: 0, left: 0, bottom: 0, right: 0}}
+
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
@@ -46,7 +50,7 @@ Showtime::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  # config.assets.precompile += %w( search.js )
+  config.assets.precompile += %w(regular.css thin.css)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

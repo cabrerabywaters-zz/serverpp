@@ -109,13 +109,15 @@
   
     <li><a href="./PuntosPoint/AdminsController.html">PuntosPoint::AdminsController</a>
   
-    <li><a href="./PuntosPoint/CategoriesController.html">PuntosPoint::CategoriesController</a>
+    <li><a href="./PuntosPoint/BigEcosController.html">PuntosPoint::BigEcosController</a>
   
-    <li><a href="./PuntosPoint/EcosController.html">PuntosPoint::EcosController</a>
+    <li><a href="./PuntosPoint/CategoriesController.html">PuntosPoint::CategoriesController</a>
   
     <li><a href="./PuntosPoint/EfisController.html">PuntosPoint::EfisController</a>
   
     <li><a href="./PuntosPoint/EventsController.html">PuntosPoint::EventsController</a>
+  
+    <li><a href="./PuntosPoint/ExperienceStepsController.html">PuntosPoint::ExperienceStepsController</a>
   
     <li><a href="./PuntosPoint/ExperiencesController.html">PuntosPoint::ExperiencesController</a>
   
@@ -127,13 +129,41 @@
   
     <li><a href="./PuntosPoint/PuntosPointApplicationController.html">PuntosPoint::PuntosPointApplicationController</a>
   
+    <li><a href="./PuntosPoint/SmallEcosController.html">PuntosPoint::SmallEcosController</a>
+  
     <li><a href="./PuntosPoint/UserEcosController.html">PuntosPoint::UserEcosController</a>
   
     <li><a href="./PuntosPoint/UserEfisController.html">PuntosPoint::UserEfisController</a>
   
+    <li><a href="./Api.html">Api</a>
+  
+    <li><a href="./Api/BaseController.html">Api::BaseController</a>
+  
+    <li><a href="./Api/Cmr.html">Api::Cmr</a>
+  
+    <li><a href="./Api/Cmr/Category.html">Api::Cmr::Category</a>
+  
+    <li><a href="./Api/Cmr/Eco.html">Api::Cmr::Eco</a>
+  
+    <li><a href="./Api/Cmr/Event.html">Api::Cmr::Event</a>
+  
+    <li><a href="./Api/Cmr/EventList.html">Api::Cmr::EventList</a>
+  
+    <li><a href="./Api/Cmr/EventsController.html">Api::Cmr::EventsController</a>
+  
+    <li><a href="./Api/Cmr/Exchanges.html">Api::Cmr::Exchanges</a>
+  
+    <li><a href="./Api/Cmr/Interests.html">Api::Cmr::Interests</a>
+  
+    <li><a href="./Api/Cmr/Purchase.html">Api::Cmr::Purchase</a>
+  
+    <li><a href="./Api/Cmr/PurchaseDetails.html">Api::Cmr::PurchaseDetails</a>
+  
     <li><a href="./Efi.html">Efi</a>
   
     <li><a href="./Efi/AccountsController.html">Efi::AccountsController</a>
+  
+    <li><a href="./Efi/ApiController.html">Efi::ApiController</a>
   
     <li><a href="./Efi/BannersController.html">Efi::BannersController</a>
   
@@ -142,6 +172,8 @@
     <li><a href="./Efi/EventsController.html">Efi::EventsController</a>
   
     <li><a href="./Efi/ExperiencesController.html">Efi::ExperiencesController</a>
+  
+    <li><a href="./Efi/PublicitiesController.html">Efi::PublicitiesController</a>
   
     <li><a href="./Efi/SummaryController.html">Efi::SummaryController</a>
   
@@ -153,9 +185,13 @@
   
     <li><a href="./Eco/EcoApplicationController.html">Eco::EcoApplicationController</a>
   
+    <li><a href="./Eco/ExperienceStepsController.html">Eco::ExperienceStepsController</a>
+  
     <li><a href="./Eco/ExperiencesController.html">Eco::ExperiencesController</a>
   
     <li><a href="./Eco/IncomesController.html">Eco::IncomesController</a>
+  
+    <li><a href="./Eco/PublicitiesController.html">Eco::PublicitiesController</a>
   
     <li><a href="./Eco/PurchasesController.html">Eco::PurchasesController</a>
   
@@ -181,6 +217,8 @@
   
     <li><a href="./Admin.html">Admin</a>
   
+    <li><a href="./Advertising.html">Advertising</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -190,6 +228,8 @@
     <li><a href="./BaseConnector.html">BaseConnector</a>
   
     <li><a href="./Category.html">Category</a>
+  
+    <li><a href="./CheckEventStockWorker.html">CheckEventStockWorker</a>
   
     <li><a href="./CloseEventWorker.html">CloseEventWorker</a>
   
@@ -201,11 +241,13 @@
   
     <li><a href="./Exclusivity.html">Exclusivity</a>
   
-    <li><a href="./Experience.html">Experience</a>
+    <li><a href="./ExperienceAdvertising.html">ExperienceAdvertising</a>
   
     <li><a href="./ExperienceAvailableValidator.html">ExperienceAvailableValidator</a>
   
     <li><a href="./ExperienceEfi.html">ExperienceEfi</a>
+  
+    <li><a href="./ExperienceNameValidator.html">ExperienceNameValidator</a>
   
     <li><a href="./ExpireExperiencesWorker.html">ExpireExperiencesWorker</a>
   
@@ -222,6 +264,8 @@
     <li><a href="./InterestExperience.html">InterestExperience</a>
   
     <li><a href="./Operation.html">Operation</a>
+  
+    <li><a href="./Publicity.html">Publicity</a>
   
     <li><a href="./Purchase.html">Purchase</a>
   
@@ -332,22 +376,44 @@ en cualquier otro caso el usuario queda sin habilidades.</pre>
       <span class="ruby-identifier">can</span> <span class="ruby-value">:manage</span>, <span class="ruby-constant">Experience</span>
       <span class="ruby-identifier">can</span> <span class="ruby-value">:manage</span>, <span class="ruby-constant">UserEco</span>
       <span class="ruby-identifier">can</span> <span class="ruby-value">:manage</span>, <span class="ruby-constant">Event</span>
+
     <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">context</span> <span class="ruby-operator">==</span> <span class="ruby-value">:efi</span>
       <span class="ruby-identifier">can</span> <span class="ruby-value">:update</span>, <span class="ruby-constant">UserEfi</span>,    <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>
       <span class="ruby-identifier">can</span> <span class="ruby-value">:read</span>,   <span class="ruby-constant">Experience</span>
       <span class="ruby-identifier">can</span> <span class="ruby-value">:read</span>,   <span class="ruby-constant">Event</span>
       <span class="ruby-identifier">can</span> <span class="ruby-value">:create</span>, <span class="ruby-constant">Event</span>
-
+      <span class="ruby-identifier">can</span> <span class="ruby-value">:publish</span>, <span class="ruby-constant">Event</span>
+      <span class="ruby-identifier">can</span> <span class="ruby-value">:unpublish</span>, <span class="ruby-constant">Event</span>
       <span class="ruby-identifier">can</span> <span class="ruby-value">:manage</span>, <span class="ruby-constant">Account</span>
       <span class="ruby-identifier">can</span> <span class="ruby-value">:create</span>, <span class="ruby-constant">Transaction</span>
+      <span class="ruby-identifier">can</span> <span class="ruby-value">:manage</span>, <span class="ruby-constant">Banner</span>,    <span class="ruby-identifier">event</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">efi_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">efi_id</span>}
+      <span class="ruby-identifier">can</span> <span class="ruby-value">:manage</span>, <span class="ruby-constant">Publicity</span>, <span class="ruby-identifier">event</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">efi_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">efi_id</span>}
 
-      <span class="ruby-identifier">can</span> <span class="ruby-value">:manage</span>, <span class="ruby-constant">Banner</span>, <span class="ruby-identifier">event</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">efi_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">efi_id</span>}
     <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">context</span> <span class="ruby-operator">==</span> <span class="ruby-value">:eco</span>
-      <span class="ruby-identifier">can</span> <span class="ruby-value">:update</span>, <span class="ruby-constant">UserEco</span>, <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>
-      <span class="ruby-identifier">can</span> <span class="ruby-value">:manage</span>, <span class="ruby-constant">Experience</span>, <span class="ruby-identifier">eco_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">eco_id</span>
+      <span class="ruby-identifier">user</span>.<span class="ruby-identifier">roles</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">role</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">action</span> = <span class="ruby-identifier">role</span>.<span class="ruby-identifier">action_sym</span>
+        <span class="ruby-identifier">model</span>  = <span class="ruby-identifier">role</span>.<span class="ruby-identifier">resource_class</span>
 
-      <span class="ruby-identifier">can</span> <span class="ruby-value">:validate</span>, <span class="ruby-constant">Purchase</span>, <span class="ruby-identifier">exchange</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">event</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">experience</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">eco_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">eco_id</span>}}}
-      <span class="ruby-identifier">can</span> <span class="ruby-value">:read</span>,     <span class="ruby-constant">Purchase</span>, <span class="ruby-identifier">exchange</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">event</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">experience</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">eco_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">eco_id</span>}}}
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">model</span> <span class="ruby-operator">==</span> <span class="ruby-constant">UserEco</span>
+          <span class="ruby-identifier">can</span> <span class="ruby-identifier">action</span>, <span class="ruby-identifier">model</span>, <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>
+        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">model</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Experience</span>
+          <span class="ruby-identifier">can</span> <span class="ruby-identifier">action</span>, <span class="ruby-constant">Experience</span>, <span class="ruby-identifier">eco_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">eco_id</span>
+        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">model</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Publicity</span>
+          <span class="ruby-identifier">can</span> <span class="ruby-identifier">action</span>, <span class="ruby-identifier">model</span>, <span class="ruby-identifier">event</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">experience</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">eco_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">eco_id</span>}}
+        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">model</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Purchase</span>
+          <span class="ruby-identifier">can</span> <span class="ruby-identifier">action</span>, <span class="ruby-identifier">model</span>, <span class="ruby-identifier">exchange</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">event</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">experience</span><span class="ruby-operator">:</span> {<span class="ruby-identifier">eco_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">eco_id</span>}}}
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-identifier">can</span> <span class="ruby-identifier">action</span>, <span class="ruby-identifier">model</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-comment"># can :update, UserEco,    id: user.id</span>
+      <span class="ruby-comment"># can :manage, Experience, eco_id: user.eco_id</span>
+      <span class="ruby-comment"># can :manage, Publicity,  event: {experience: {eco_id: user.eco_id}}</span>
+
+      <span class="ruby-comment"># # Para validar</span>
+      <span class="ruby-comment"># can :read,     Experience, eco_id: user.eco_id</span>
+      <span class="ruby-comment"># can :read,     Purchase,   exchange: {event: {experience: {eco_id: user.eco_id}}}</span>
+      <span class="ruby-comment"># can :validate, Purchase,   exchange: {event: {experience: {eco_id: user.eco_id}}}</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>

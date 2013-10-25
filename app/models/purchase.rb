@@ -61,6 +61,9 @@ class Purchase < ActiveRecord::Base
   # Valida la presencia y la unicidad de la columna :code
   validates :code, presence: true, uniqueness: true
 
+  # Valida la presencia y la unicidad de la columna :token
+  validates :token, presence: true, uniqueness: true
+
   # Valida la presencia y la unicidad de la columna :rut
   validates  :rut, presence: true, run: true
 
@@ -119,6 +122,7 @@ class Purchase < ActiveRecord::Base
   validate :valid_reference_codes
 
   after_initialize  :set_internal_code!
+  after_initialize  :set_internal_token!
   before_validation :set_reference_codes!
 
   before_save :make_run_format!
@@ -161,6 +165,14 @@ class Purchase < ActiveRecord::Base
     self.code ||= generate_code
   end
 
+  # Internal: Setea por defecto un token. Salvo en caso que la columna
+  #           ya tenga un valor previo.
+  #
+  # Retorna un String con el valor seteado en la columna :token.
+  def set_internal_token!
+    self.token ||= generate_token
+  end
+
   # Internal: Setea por defecto los códigos de referencia. Salvo en caso que la
   #           columna ya tenga un valor previo.
   #
@@ -189,6 +201,17 @@ class Purchase < ActiveRecord::Base
   def generate_code
     while true
       if not Purchase.find_by_code generated_code = "#{self.exchange_id}#{Time.now.to_i}"
+        return generated_code
+      end
+    end
+  end
+
+  # Internal: Genera un token único.
+  #
+  # Retorna un String con el nuevo token generado.
+  def generate_token
+    while true
+      if not Purchase.find_by_token generated_code = SecureRandom.hex
         return generated_code
       end
     end

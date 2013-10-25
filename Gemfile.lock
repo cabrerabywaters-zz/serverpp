@@ -320,7 +320,10 @@ GEM
     wicked (0.6.1)
       activesupport (>= 3.0.7)
       rails (>= 3.0.7)
+    wicked_pdf (0.9.7)
+      rails
     will_paginate (3.0.4)
+    wkhtmltopdf-binary (0.9.9.1)
 
 PLATFORMS
   ruby
@@ -376,4 +379,6 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   wash_out
   wicked
+  wicked_pdf
   will_paginate
+  wkhtmltopdf-binary

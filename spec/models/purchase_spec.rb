@@ -37,6 +37,10 @@ describe Purchase do
     it "debe responder a confirmed_at" do
       should respond_to :confirmed_at
     end
+
+    it "debe responder a token" do
+      should respond_to :token
+    end
   end
 
   ################
@@ -88,6 +92,17 @@ describe Purchase do
     it "debe requerir un code único" do
       FactoryGirl.create(:purchase, code: 'alfa')
       FactoryGirl.build(:purchase,  code: 'alfa').should_not be_valid
+    end
+  end
+
+  describe "token" do
+    it "debe crear un token por defecto" do
+      FactoryGirl.create(:purchase).token.should_not be_nil
+    end
+
+    it "debe requerir un token único" do
+      FactoryGirl.create(:purchase, token: 'alfa')
+      FactoryGirl.build(:purchase,  token: 'alfa').should_not be_valid
     end
   end
 

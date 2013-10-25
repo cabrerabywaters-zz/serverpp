@@ -15,5 +15,9 @@ describe Corporative::PurchasesController do
       post("empresa/efi_search_name/events/1/purchases").should route_to("corporative/purchases#create", :id => '1', :corporative_id => 'efi_search_name')
     end
 
+    it "routes to #get" do
+      get("empresa/efi_search_name/purchases/1/voucher").should route_to("corporative/purchases#voucher", :id => '1', :corporative_id => 'efi_search_name')
+    end
+
   end
 end

@@ -1,19 +1,20 @@
+# Modulo que encapsula la API
 module Api
+  # Clase para manejar el reservar y redimir una compra
   class Cmr::Purchase < WashOut::Type
+    # Definicion de un nombre valido para la clase que pueda ser interpretado por la API
     type_name 'purchase'
 
-    # map purchase_id: :integer,
-    #     exchange_id: :integer,
-    #     rut: :string,
-    #     email: :string,
-    #     reference_codes: [:string],
-    #     errors: [:string],
-    #     url: :string
-
+    # List of attributes returned by this Class
     map purchase_id: :integer,
         errors: [:string],
         status: :string
 
+    # Método que permite reservar una compra
+    #
+    # @parametros:
+    # EFI   efi                  -  Una instancia de una EFI
+    # Hash  purchase_attributes  -  Un Hash con los atributos necesarios para crear una compra
     def self.create efi, purchase_attributes
       if efi.exchanges.exists?(purchase_attributes[:exchange_id])
         # Si no envian codigos de referencia no tomo en cuenta el valor enviado
@@ -50,6 +51,11 @@ module Api
       end
     end
 
+    # Método que permite redimir una compra
+    #
+    # @parametros:
+    # EFI   efi          -  Una instancia de una EFI
+    # Hash  purchase_id  -  El Id de la compra que se quiere redimir
     def self.redeem efi, purchase_id
       if efi.purchases.exists?(purchase_id)
         purchase = Purchase.find(purchase_id)

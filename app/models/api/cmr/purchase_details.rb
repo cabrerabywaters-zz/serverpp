@@ -1,7 +1,11 @@
+# Modulo que encapsula la API
 module Api
+  # Clase para manejar las Compras como un tipo de dato valido para la API
   class Cmr::PurchaseDetails < WashOut::Type
+    # Definicion de un nombre valido para la clase que pueda ser interpretado por la API
     type_name 'purchase'
 
+    # List of attributes returned by this Class
     map purchase_id: :integer,
         exchange_id: :integer,
         rut: :string,
@@ -10,7 +14,14 @@ module Api
         reference_codes: [:string],
         # url: :string,
         status: :string,
-        errors: [:string]
+        errors: [:string],
+        voucher: :string
+
+    # Método que permite confirmar una compra
+    #
+    # @parametros:
+    # EFI      efi          -  Una instancia de una EFI
+    # Integer  purchase_id  -  Id de la compra que se quiere confirmar
     def self.confirm efi, purchase_id
       if efi.purchases.exists?(purchase_id)
         purchase = Purchase.find(purchase_id)
@@ -28,6 +39,7 @@ module Api
                 code: purchase.code,
                 reference_codes: purchase.reference_codes,
                 # url: Rails.application.routes.url_helpers.corporative_purchase_url(purchase, corporative_id: efi.search_name),
+                voucher: Rails.application.routes.url_helpers.corporative_voucher_url(purchase, corporative_id: efi.search_name, token: purchase.token, format: :pdf),
                 status: 'ok'
               }
             }
