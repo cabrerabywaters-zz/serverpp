@@ -6,6 +6,6 @@ class ExperienceCode < ActiveRecord::Base
   validates :code, uniqueness: true
 
   after_initialize do
-    self.code ||= SecureRandom.hex(3)
+    self.code ||= generate_code
   end
 end
