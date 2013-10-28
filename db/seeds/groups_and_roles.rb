@@ -50,7 +50,7 @@ r27 = Burlesque::Role.find_or_create_by_name('support#show')
 admin_puntospoint.push_roles [r1, r2, r3, r4, r5, r6, r7, r8, r9]
 
 admin_efi.push_roles [r11, r12, r13, r14, r15, r16, r17, r18]
-operator_efi.push_roles [r11, r26, r27]
+operator_efi.push_roles [r26, r27]
 
 admin_eco.push_roles [r19, r20, r21, r22, r23, r24, r25]
 operator_eco.push_roles [r22, r23, r24]
