@@ -58,6 +58,7 @@ class Ability
         if user.group?(Settings.operator_efi) || user.group?(Settings.admin_efi)
           can :support, :index
           can :support, :show
+          cannot :update, UserEfi
         end
 
       elsif context == :eco
