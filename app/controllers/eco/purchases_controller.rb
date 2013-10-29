@@ -33,9 +33,9 @@ class Eco::PurchasesController < Eco::EcoApplicationController
 
   # POST /eco/purchases/validate
   def validate
-    @experience = current_user_eco.experiences.with_states(:published, :active, :closed).find(params[:id])
-    code = ExperienceCode.includes(:purchase).find_by_code(params[:code])
-    @purchase = code.purchase if code.present? && code.purchase.valid_code?(params[:code])
+    # @experience = current_user_eco.experiences.with_states(:published, :active, :closed).find(params[:id])
+    @code = ExperienceCode.includes(:purchase).find_by_code(params[:code])
+    @purchase = @code.purchase if @code.present? && @code.purchase.valid_code?(params[:code])
 
     respond_to do |format|
       if @purchase.nil?

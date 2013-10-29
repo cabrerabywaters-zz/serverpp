@@ -62,6 +62,8 @@ class Ability
         end
 
       elsif context == :eco
+        can :validate, Experience, eco_id: user.eco_id
+
         user.roles.each do |role|
           action = role.action_sym
           model  = role.resource_class
