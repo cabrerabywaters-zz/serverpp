@@ -144,6 +144,15 @@ class Purchase < ActiveRecord::Base
     CheckEventStockWorker.perform_async(event.experience_id)
   end
 
+  def valid_code?(code)
+    experience = self.exchange.event.experience
+    if experience.file_codes.present?
+      code == self.experience_security_code.code
+    else
+      code == self.experience_sell_code.code
+    end
+  end
+
   private
 
   # Internal: Quita cualquier tipo de formato del rut para guardar los rut de
@@ -192,7 +201,7 @@ class Purchase < ActiveRecord::Base
           self.reference_codes << get_reference_code
         end
       else
-        self.reference_codes << get_reference_code
+        self.reference_codes << self.experience_security_code.code
       end
     end
 
