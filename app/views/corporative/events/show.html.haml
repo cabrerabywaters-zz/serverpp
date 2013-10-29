@@ -95,7 +95,7 @@
     %p= experience.details.html_safe
   .span4.well
     %strong= Experience.human_attribute_name(:exchange_mechanism) + ':'
-    %p= experience.exchange_mechanism
+    %p= raw experience.exchange_mechanism
   .span4.well
     %strong= Experience.human_attribute_name(:conditions) + ':'
     %p= raw experience.conditions

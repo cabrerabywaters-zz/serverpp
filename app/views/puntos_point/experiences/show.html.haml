@@ -71,7 +71,7 @@
     %strong
       = model_class.human_attribute_name(:exchange_mechanism) + ':'
     %p
-      = @experience.exchange_mechanism
+      = raw @experience.exchange_mechanism
   .span4.well
     %strong
       = model_class.human_attribute_name(:conditions) + ':'

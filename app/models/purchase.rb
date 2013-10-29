@@ -171,7 +171,7 @@ class Purchase < ActiveRecord::Base
   def set_internal_code!
     self.experience_security_code ||= ExperienceSecurityCode.new
     self.experience_sell_code ||= ExperienceSellCode.new
-    self.code ||= self.experience_sell_code.code
+    self.code ||= self.experience_security_code.code
   end
 
   # Internal: Setea por defecto los códigos de referencia. Salvo en caso que la
@@ -189,7 +189,7 @@ class Purchase < ActiveRecord::Base
           self.reference_codes << get_reference_code
         end
       else
-        self.reference_codes << self.experience_security_code.code
+        self.reference_codes << self.experience_sell_code.code
       end
     end
 

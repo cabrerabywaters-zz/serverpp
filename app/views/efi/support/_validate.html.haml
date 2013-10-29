@@ -14,7 +14,7 @@
         %td= code
         %td= l purchase.created_at, format: :long
         %td= l(security_code.validated_at, format: :long) if security_code.validated_at
-        %td= "-"
+        %td= purchase.exchange.points
 
   .row-fluid
     .span6
@@ -22,9 +22,16 @@
       %h2= @experience.name
       %h4.slogan= @experience.summary
 
-      .valid_start Válido desde: #{l(@experience.validity_starting_at, format: :long)}
-      .valid_end Válido hasta: #{l(@experience.validity_ending_at, format: :long)}
-      .adresses Lugar: #{@experience.addresses}
+      .valid_start
+        %b Válido desde:
+        = l(@experience.validity_starting_at, format: :long)
+      .valid_end
+        %b Válido hasta:
+        = l(@experience.validity_ending_at, format: :long)
+      .adresses
+        %b Lugar:
+        %br
+        = raw @experience.addresses
     .span6
       = image_tag @experience.image
 
