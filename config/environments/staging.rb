@@ -70,6 +70,7 @@ Showtime::Application.configure do
   routes.default_url_options = { host: ENV['HOST'] }
   config.action_controller.asset_host = "http://s3.amazonaws.com/#{ENV['FOG_DIRECTORY']}"
   config.action_mailer.default_url_options = { host: ENV['HOST'] }
+  config.action_mailer.asset_host = "http://#{ENV['HOST']}"
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

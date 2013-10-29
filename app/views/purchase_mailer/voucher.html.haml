@@ -12,7 +12,7 @@
             %tr
               %th
                 %h1
-                  %img{:alt => "Puntos Point", :src => "#{Rails.configuration.default_url_options[:host]}/assets/logo_grande-d2bde93f4c0723fd8ee797e8700fc6e4.png", :style => "width:160px; padding:15px 15px 0 10px", :title => "Puntos Point"}
+                  = image_tag "logo_grande.png", alt: "Puntos Point", style: "width:160px; padding:15px 15px 0 10px", title: "Puntos Point"
           %tbody
             %tr
               %td{:colspan => "2", :style => "background-color:#b3b3b3; height: 1px;"}
@@ -24,16 +24,16 @@
                   %tbody
                     %tr
                       %td
-                        %img{:alt => "Puntos Point", :src => "#{Rails.configuration.default_url_options[:host]}#{@experience.image.url(:original, timestamp: false)}", :style => "width:200px; border:10px solid #fff;", :title => "Puntos Point"}
+                        %img{:alt => "Puntos Point", :src => "#{@experience.image.url(:original, timestamp: false)}", :style => "width:200px; border:10px solid #fff;", :title => "Puntos Point"}
                       %td{:style => "padding:10px;"}
                         %h3= @experience.name
                         %h4{:style => "font:bold; color:#006699;"}= @experience.summary
                         %p
                           %strong= Experience.human_attribute_name(:place)
                           = @experience.place
-                        %p
-                          %strong= Experience.human_attribute_name(:comuna)
-                          = @experience.comuna_name
+                        / %p
+                        /   %strong= Experience.human_attribute_name(:place)
+                        /   = @experience.comuna_name
                         %p
                           %strong= Experience.human_attribute_name(:validity_starting_at)
                           = I18n.l @experience.validity_starting_at, format: :long

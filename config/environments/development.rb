@@ -41,6 +41,7 @@ Showtime::Application.configure do
 
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.default_url_options = {:host => ENV['HOST']}
+  config.action_mailer.asset_host = "http://#{ENV['HOST']}"
 
   default_url_options = { :host => ENV['HOST'] }
   config.default_url_options = { :host => ENV['HOST'] }

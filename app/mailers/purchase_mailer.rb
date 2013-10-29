@@ -87,7 +87,7 @@ class PurchaseMailer < ActionMailer::Base
       pdf.move_down 20
       pdf.fill_color "363636"
       pdf.text "<b>#{Experience.human_attribute_name(:place)}:</b> #{experience.place}", :inline_format => true, :leading => 5, :align => :justify
-      pdf.text "<b>#{Experience.human_attribute_name(:comuna)}:</b> #{experience.comuna_name}", :inline_format => true, :leading => 5, :align => :justify
+      # pdf.text "<b>#{Experience.human_attribute_name(:comuna)}:</b> #{experience.comuna_name}", :inline_format => true, :leading => 5, :align => :justify
       pdf.text "<b>#{Experience.human_attribute_name(:validity_starting_at)}:</b> #{I18n.l experience.validity_starting_at, format: :long}", :inline_format => true, :leading => 5, :align => :justify
       pdf.text "<b>#{Experience.human_attribute_name(:validity_ending_at)}:</b> #{I18n.l experience.validity_ending_at, format: :long}", :inline_format => true, :leading => 5, :align => :justify
 
