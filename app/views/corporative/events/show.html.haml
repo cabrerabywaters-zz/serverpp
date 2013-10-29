@@ -42,8 +42,8 @@
     %dl.dl-horizontal.ubicacion
       %dt= Experience.human_attribute_name(:place)
       %dd= experience.place
-      %dt= Experience.human_attribute_name(:comuna)
-      %dd= experience.comuna_name
+      / %dt= Experience.human_attribute_name(:comuna)
+      / %dd= experience.comuna_name
 
       %dt= Experience.human_attribute_name(:validity_starting_at)
       %dd= l experience.validity_starting_at, format: :datepicker
