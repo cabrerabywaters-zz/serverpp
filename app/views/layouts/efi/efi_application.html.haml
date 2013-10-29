@@ -72,6 +72,8 @@
                   - if current_user_efi.mod_client?
                     %li{class: current_page?(efi_accounts_path) ? 'selected' : ''}= link_to t('menu.efi.accounts'), efi_accounts_path
 
+                - if current_user_efi.present? && !current_user_efi.group?(Settings.admin_efi) && current_user_efi.group?(Settings.operator_efi)
+                  %li{class: (current_page?(efi_events_path) || efi_events_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.efi.events'), efi_events_path
                 - if can? :support, :index
                   %li{class: current_page?(efi_support_path) ? 'selected' : '' }= link_to t('menu.efi.support'), efi_support_path
           .row-fluid
