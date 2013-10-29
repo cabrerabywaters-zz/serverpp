@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     if resource_name == :user_eco
       eco_root_path
     elsif resource_name == :user_efi
-      if current_user_efi.group?(Settings.admin_efi)
+      if current_user_efi.present? && current_user_efi.group?(Settings.admin_efi)
         efi_root_path
       else
         efi_support_path
