@@ -146,7 +146,7 @@ class Purchase < ActiveRecord::Base
 
   def valid_code?(code)
     experience = self.exchange.event.experience
-    if experience.file_codes.present?
+    if experience.codes.present?
       code == self.experience_security_code.code
     else
       code == self.experience_sell_code.code
