@@ -39,7 +39,7 @@ module Api
                 code: purchase.code,
                 reference_codes: purchase.reference_codes,
                 # url: Rails.application.routes.url_helpers.corporative_purchase_url(purchase, corporative_id: efi.search_name),
-                voucher: Rails.application.routes.url_helpers.corporative_voucher_url(purchase, corporative_id: efi.search_name, token: purchase.token, format: :pdf),
+                voucher: ActiveSupport::Base64.encode64(open(Rails.application.routes.url_helpers.corporative_voucher_url(purchase, corporative_id: efi.search_name, token: purchase.token, format: :pdf), &:read)),
                 status: 'ok'
               }
             }
@@ -70,6 +70,11 @@ module Api
           }
         }
       end
+    end
+
+
+    def encoded_voucher url
+      ActiveSupport::Base64.encode64(open(url, &:read))
     end
   end
 end
