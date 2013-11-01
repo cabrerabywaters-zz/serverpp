@@ -363,6 +363,7 @@ ActiveRecord::Schema.define(:version => 20131023135729) do
     t.string   "state"
     t.text     "reference_codes"
     t.datetime "confirmed_at"
+    t.string   "token"
   end
 
   add_index "purchases", ["exchange_id"], :name => "index_purchases_on_exchange_id"
