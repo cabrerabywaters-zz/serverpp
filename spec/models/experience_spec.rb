@@ -82,9 +82,9 @@ describe Experience do
       should respond_to :file_codes
     end
 
-    it "debe responder a chilean_cities_comuna_id" do
-      should respond_to :chilean_cities_comuna_id
-    end
+    # it "debe responder a chilean_cities_comuna_id" do
+    #   should respond_to :chilean_cities_comuna_id
+    # end
 
     it "debe responder a validated" do
       should respond_to :validated
@@ -142,9 +142,9 @@ describe Experience do
     it "debe pertenecer a eco" do
       should belong_to(:eco)
     end
-    it "debe pertenecer a comuna" do
-      should belong_to(:comuna)
-    end
+    # it "debe pertenecer a comuna" do
+    #   should belong_to(:comuna)
+    # end
 
     it "debe tener muchos experience_efis" do
       should have_many(:experience_efis).dependent(:destroy)
@@ -500,10 +500,10 @@ describe Experience do
     end
   end
 
-  it "debe requerir un place" do
-    FactoryGirl.build(:experience, place: nil).should_not be_valid
-    FactoryGirl.build(:experience, place: '').should_not be_valid
-  end
+  # it "debe requerir un place" do
+  #   FactoryGirl.build(:experience, place: nil).should_not be_valid
+  #   FactoryGirl.build(:experience, place: '').should_not be_valid
+  # end
 
   it "debe requerir un starting_at" do
     FactoryGirl.build(:experience, starting_at: nil).should_not be_valid
@@ -550,10 +550,10 @@ describe Experience do
     FactoryGirl.build(:experience, validity_starting_at: '').should_not be_valid
   end
 
-  it "debe requerir un chilean_cities_comuna_id" do
-    FactoryGirl.build(:experience, chilean_cities_comuna_id: nil).should_not be_valid
-    FactoryGirl.build(:experience, chilean_cities_comuna_id: '').should_not  be_valid
-  end
+  # it "debe requerir un chilean_cities_comuna_id" do
+  #   FactoryGirl.build(:experience, chilean_cities_comuna_id: nil).should_not be_valid
+  #   FactoryGirl.build(:experience, chilean_cities_comuna_id: '').should_not  be_valid
+  # end
 
   it "debe requerir un image" do
     ['published', 'active'].each do |s|
@@ -1023,11 +1023,11 @@ describe Experience do
     end
   end
 
-  describe 'comuna_name' do
-    it "debe responder a comuna_name" do
-      should respond_to :comuna_name
-    end
-  end
+  # describe 'comuna_name' do
+  #   it "debe responder a comuna_name" do
+  #     should respond_to :comuna_name
+  #   end
+  # end
 
   describe 'available_total_exclusivity?' do
     it "debe responder a available_total_exclusivity?" do
