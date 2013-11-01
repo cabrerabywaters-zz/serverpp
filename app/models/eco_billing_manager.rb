@@ -13,7 +13,8 @@ class EcoBillingManager
     current_month = now.month
     current_year = now.year
     start_at = Time.new(current_year, current_month, start_day).beginning_of_day
-    end_at = (Time.new(current_year, (current_month + 1) % 12, start_day) - 1.day).end_of_day
+    next_month = (current_month + 1) % 12 == 0 ? 12 : (current_month + 1) % 12
+    end_at = (Time.new(current_year, next_month, start_day) - 1.day).end_of_day
     [start_at, end_at]
   end
 
