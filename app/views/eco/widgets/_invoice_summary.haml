@@ -1,5 +1,5 @@
-.row.invoice-row
-  .span5
+.row-fluid.invoice-row
+  .span5.offset1
   .span2
     .value.right Ingreso
   .span1
@@ -8,8 +8,8 @@
     .value.right Total a Pagar
 
 - experiences.each do |e|
-  .row.invoice-row
-    .span5
+  .row-fluid.invoice-row
+    .span5.offset1
       .value.text-value.left
         = e[:experience]
     .span2
@@ -22,7 +22,7 @@
       .value.right
         = number_to_currency e[:to_pay]
 
-.row.action-row
-  .span5.offset5
+.row-fluid.action-row
+  .span5.offset6
     .value.right
-      = link_to "Ver Detalle", detail_eco_billings_path, class: "btn btn-primary"
+      = link_to "Ver Detalle", detail_eco_billings_path, class: "btn btn-flat"
