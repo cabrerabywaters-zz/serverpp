@@ -16,6 +16,8 @@ require "email_spec"
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  # Exclude broken tests, used for legacy code
+  config.filter_run_excluding broken: true
   # For Devise authentication
   config.include Devise::TestHelpers, :type => :controller
   config.extend ControllerMacros,     :type => :controller

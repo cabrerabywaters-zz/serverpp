@@ -8,7 +8,7 @@
 class ExperienceNameValidator < ActiveModel::Validator
   # Función para validar
   def validate record
-    if record.name.presence
+    if record.name.present?
       Experience.are_published.started.each do |experience|
         if experience != record and experience.name == record.name and experience.swaps != experience.purchases.count
           record.errors[:name] << I18n.t('errors.messages.taken')

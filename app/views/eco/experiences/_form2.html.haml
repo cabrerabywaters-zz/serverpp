@@ -1,0 +1,192 @@
+:sass
+  .back_to_experiences
+    position: absolute
+    top: 25px
+    left: 40px
+
+  .experience-state
+    position: absolute
+    top: -22px
+    right: 100px
+    background-color: white
+    font-size: 1.2em
+    font-weight: bold
+    border: 2px solid #cbcbcb
+    padding: 10px 20px
+    border-radius: 30px
+
+  .new_experience, .edit_experience
+    textarea
+      height: 122px
+      &.wysihtml5
+        height: 260px
+    .input-file
+      position: absolute
+      top: 10px
+      left: 10px
+    h3
+      font-weight: 200
+      margin-top: 30px
+
+  .section
+    margin-top: 20px
+    .section-header
+      font-size: 1.4em
+      height: 80px
+      cursor: pointer
+      .section-number
+        width: 60px
+        height: 42px
+        font-weight: bold
+        background-color: #34495e
+        color: white
+        border-radius: 50%
+        text-align: center
+        padding-top: 18px
+        float: left
+        margin-left: -60px
+      .section-title
+        font-size: 1.6em
+        padding: 10px 20px
+      .section-content
+        clear: both
+
+- experience_scope = request.fullpath.include?('puntos_point') ? :puntos_point : :eco
+
+.container.panel
+  .experience-state= t @experience.state
+  - if current_admin.present?
+    = link_to '< Lista de Experiencias', puntos_point_experiences_path, class: 'back_to_experiences'
+  = simple_nested_form_for [experience_scope, @experience] do |f|
+    .row-fluid
+      .span10.offset1.section
+        .section
+          .section-header
+            .section-number 1
+            .section-title
+              Información General
+              .arrow
+          .section-content
+            - if experience_scope == :puntos_point
+              .row-fluid
+                = f.association :eco, prompt: false
+            .row-fluid
+              .span6
+                = f.input :name, placeholder: 'Escribe el nombre de la experiencia', input_html: { class: 'span12' }
+                = f.input :summary, placeholder: 'Escribe la frase que motive a los clientes a participar de tu oferta.', input_html: { class: 'span12' }
+                = f.input :details, placeholder: 'Escribe la descripción y especificaciones de lo que estás ofreciendo.', input_html: { class: 'span12 wysihtml5' }
+              .span6
+                - if current_admin.present?
+                  = f.association :category, prompt: false
+                .help-block Agrega la imagen principal de la experiencia
+                .relative{ style: 'width: 470px; height: 350px;'}
+                  .input-file= f.input :image, label: false, input_html: { class: 'preview_image' }
+                  - if @experience.image?
+                    = image_tag @experience.image.url, class: 'preview_container'
+                  - else
+                    = image_tag 'default_experiencia.png', alt: 'Puntos Point', title: 'Puntos Point', class: 'preview_container'
+                  .image_size
+                    = image_tag 'default_experiencia_over.png', alt: 'Puntos Point', title: 'Puntos Point'
+            .row-fluid
+              .span6= f.input :addresses, placeholder: 'Escribe la lista de lugares donde se puede acceder a tu experiencia.', input_html: { class: 'span12 wysihtml5' }
+              .span6= f.input :exchange_mechanism, placeholder: 'Describe como los clientes pueden validar su voucher.', input_html: { class: 'span12 wysihtml5' }
+            .row-fluid
+              .span6= f.input :conditions, placeholder: 'Escribe los términos y condiciones de lo que estás ofreciendo.', input_html: { class: 'span12 wysihtml5' }
+              .span6= f.input :observations, input_html: { class: 'span12 wysihtml5' }
+            .row-fluid
+              %h3
+                Archivos adicionales para la experiencia
+                %i.icon-question-sign{'data-toggle' => "tooltip", title: 'Ingresa todos los archivos, imágenes, textos, etc. los cuales son compartidos a una empresa para que pueda modificarlos para promocionar tu experiencia.', class: 'icon-tooltip'}
+              .experience-files
+                = f.fields_for :valid_images do |file_form|
+                  .row-fluid
+                    .span4
+                      - if file_form.object.persisted?
+                        = "#{file_form.object.image_file_name} (#{number_to_human_size(file_form.object.image_file_size)})"
+                    .span4= file_form.input :image, label: false
+                    .span4= file_form.link_to_remove "Eliminar", class: 'btn btn-danger'
+                %p= f.link_to_add "Agregar", :valid_images, class: 'btn'
+
+    .row-fluid
+      .span10.offset1.section
+        .section
+          .section-header
+            .section-number 2
+            .section-title
+              Información de Venta
+              .arrow
+          .section-content
+            .row-fluid
+              .span12
+                = f.input :swaps, as: :string
+            - if current_admin.present?
+              .row-fluid
+                .span6= f.input :starting_at, as: :string, wrapper: :datepicker, input_html: { value: @experience.starting_at.to_s }
+                .span6= f.input :ending_at, as: :string, wrapper: :datepicker, input_html: { value: @experience.ending_at.to_s }
+            .row-fluid
+              .span6= f.input :validity_starting_at, as: :string, wrapper: :datepicker, input_html: { value: @experience.validity_starting_at.to_s }
+              .span6= f.input :validity_ending_at, as: :string, wrapper: :datepicker, input_html: { value: @experience.validity_ending_at.to_s }
+            .row-fluid
+              .span4= f.input :amount, as: :string, input_html: { class: 'span12' }
+              .span4= f.input :discounted_price, as: :string, input_html: { class: 'span12' }
+              .span4= f.input :discount_percentage, as: :string, input_html: { class: 'span12' }
+
+            .row-fluid
+              .span12
+                .sub-section{ style: "margin-left: 15px;" }
+                  %h3
+                    Empresas que pueden acceder a la experiencia
+                    %i.icon-question-sign{'data-toggle' => "tooltip", title: 'Selecciona las empresas que pueden acceder a tu experiencia.', class: 'icon-tooltip'}
+                  = f.input :available_efi_ids, label: false, as: :check_boxes, collection: Efi.all, item_wrapper_class: :inline
+
+                  %h3
+                    Exclusividad para las empresas
+                    %i.icon-question-sign{'data-toggle' => "tooltip", title: 'Selecciona la exclusividad con que las empresas pueden acceder a tu experiencia. <br/><br/> <b>Exlusividad Total:</b> La empresa puede la única que acceda a tu experiencia y ofrecerla a sus clientes. <br/><br/> <b>Exclusividad por Industria:</b> La empresa obtiene el porcentaje de canjes que le corresponde a la industria que pertenece. <br/><br/> <b>Sin exclusividad:</b> Cualquier empresa puede acceder a la experiencia.', class: 'icon-tooltip'}
+                  .row-fluid
+                    .span4
+                      = f.input :total_exclusivity_sales, label: false, inline_label: true
+                      - if current_admin.present?
+                        #total_exclusivity_days.hide= f.input :total_exclusivity_days, as: :string
+                    .span4
+                      = f.input :by_industry_exclusivity_sales, label: false, inline_label: true
+                      - if current_admin.present?
+                        #by_industry_exclusivity_days.hide= f.input :by_industry_exclusivity_days, as: :string
+                    .span4
+                      = f.input :without_exclusivity_sales, label: false, inline_label: true
+
+                  %h3
+                    Medios de comunicación autorizados para las empresas
+                    %i.icon-question-sign{'data-toggle' => "tooltip", title: 'Selecciona los medios de comunicación por los cuales una empresa puede promocionar tu experiencia.', class: 'icon-tooltip'}
+                  = f.input :advertising_ids, label: false, as: :check_boxes, collection: Advertising.all, item_wrapper_class: :inline
+
+                  %h3
+                    Códigos de canje por parte de la empresa
+                    %i.icon-question-sign{'data-toggle' => "tooltip", title: 'Nosotros generamos automáticamente los códigos para que los clientes puedan canjear tu experiencia. Si ya tienes esos códigos puedes ingresarlos. Además tienes que ingresar cuantos a cuantos códigos corresponde un canje.', class: 'icon-tooltip'}
+                  = f.input :file_codes, as: :file
+                  = f.input :codes_by_purchase, as: :string
+
+    - if current_admin.present?
+      .row-fluid
+        .span10.offset1.section
+          .section
+            .section-header
+              .section-number 3
+              .section-title
+                Información de Facturación
+                .arrow
+            .section-content
+              .row-fluid
+                .span6= f.input :fee, as: :string
+                .span6= f.input :income_type, as: :radio_buttons, collection: ["Ventas", "Canjes", "Validaciones"]
+
+    .row-fluid
+      .span12
+        .center
+          = f.submit 'Guardar Borrador', name: :save_draft, class: 'btn btn-flat', data: { "loading-text" => "Guardando..." }
+          - if current_admin.present?
+            = f.submit 'Publicar', name: :publish_experience, class: 'btn btn-flat'
+          - if @experience.persisted?
+            - if experience_scope == :eco
+              = link_to 'Vista Previa', eco_experience_path(@experience), target: '_blank', class: 'btn btn-flat'
+            - else
+              = link_to 'Vista Previa', puntos_point_experience_path(@experience), target: '_blank', class: 'btn btn-flat'

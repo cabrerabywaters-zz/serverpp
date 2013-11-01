@@ -4,10 +4,10 @@
     %h6.interesFutbol= @experience.summary
 
     %dl.dl-horizontal.ubicacion
-      %dt= Experience.human_attribute_name(:place)
-      %dd= @experience.place
-      %dt= Experience.human_attribute_name(:comuna)
-      %dd= @experience.comuna_name
+      / %dt= Experience.human_attribute_name(:place)
+      / %dd= @experience.place
+      / %dt= Experience.human_attribute_name(:comuna)
+      / %dd= @experience.comuna_name
       %dt= Experience.human_attribute_name(:amount)
       %dd= number_to_currency @experience.amount
       %dt= Experience.human_attribute_name(:discounted_price)

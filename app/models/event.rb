@@ -100,7 +100,7 @@ class Event < ActiveRecord::Base
 
   # Búsqueda predefinida que permite filtrar/buscar los eventos que estén publicados.
   scope :are_published,           joins(:experience)
-                                  .where(experiences: {state: [:published, :on_sale]})
+                                  .where(experiences: {state: [:published, :active]})
                                   .where(events: {state: :published})
 
   # Búsqueda predefinida que permite filtrar/buscar los eventos que estén cerrados.

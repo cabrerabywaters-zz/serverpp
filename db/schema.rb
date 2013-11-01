@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131022155851) do
+ActiveRecord::Schema.define(:version => 20131023135729) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "efi_id"
@@ -217,6 +217,18 @@ ActiveRecord::Schema.define(:version => 20131022155851) do
   add_index "experience_advertisings", ["advertising_id"], :name => "index_experience_advertisings_on_advertising_id"
   add_index "experience_advertisings", ["experience_id"], :name => "index_experience_advertisings_on_experience_id"
 
+  create_table "experience_codes", :force => true do |t|
+    t.string   "type"
+    t.string   "code",         :null => false
+    t.integer  "purchase_id"
+    t.datetime "sold_at"
+    t.datetime "validated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "experience_codes", ["purchase_id"], :name => "index_experience_codes_on_purchase_id"
+
   create_table "experience_efis", :force => true do |t|
     t.integer  "experience_id"
     t.integer  "efi_id"
@@ -259,6 +271,9 @@ ActiveRecord::Schema.define(:version => 20131022155851) do
     t.boolean  "without_exclusivity_sales"
     t.integer  "total_exclusivity_days"
     t.integer  "by_industry_exclusivity_days"
+    t.string   "income_type"
+    t.text     "addresses"
+    t.text     "observations"
   end
 
   add_index "experiences", ["category_id"], :name => "index_experiences_on_category_id"
@@ -308,6 +323,20 @@ ActiveRecord::Schema.define(:version => 20131022155851) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "invoices", :force => true do |t|
+    t.integer  "eco_id"
+    t.date     "start_at"
+    t.date     "end_at"
+    t.float    "income"
+    t.float    "charge"
+    t.float    "to_pay"
+    t.string   "state"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "invoices", ["eco_id"], :name => "index_invoices_on_eco_id"
 
   create_table "publicities", :force => true do |t|
     t.string   "image_file_name"

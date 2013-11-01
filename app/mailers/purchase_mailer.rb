@@ -3,6 +3,7 @@
 # Modulo que permite la creación de documentos PDF
 # Mas información en: https://github.com/Whoops/prawn-rails
 require "prawn_rails"
+require 'open-uri'
 
 # Public: Clase para manejar el envios de correos, especificamente el envio de voucchers.
 #
@@ -60,8 +61,9 @@ class PurchaseMailer < ActionMailer::Base
     pdf.stroke_horizontal_rule
 
     # Imagen de la experiencia
-    image = "#{Rails.root}/public#{experience.image.url(:original, timestamp: false)}"
-    pdf.image image, :at => [10, 580], width: 184, height: 137
+    p experience.image.url(:thumb)
+    image = experience.image.url
+    pdf.image open(image), :at => [10, 580], width: 184, height: 137
 
     y_coordinate = 0
 
@@ -85,7 +87,7 @@ class PurchaseMailer < ActionMailer::Base
       pdf.move_down 20
       pdf.fill_color "363636"
       pdf.text "<b>#{Experience.human_attribute_name(:place)}:</b> #{experience.place}", :inline_format => true, :leading => 5, :align => :justify
-      pdf.text "<b>#{Experience.human_attribute_name(:comuna)}:</b> #{experience.comuna_name}", :inline_format => true, :leading => 5, :align => :justify
+      # pdf.text "<b>#{Experience.human_attribute_name(:comuna)}:</b> #{experience.comuna_name}", :inline_format => true, :leading => 5, :align => :justify
       pdf.text "<b>#{Experience.human_attribute_name(:validity_starting_at)}:</b> #{I18n.l experience.validity_starting_at, format: :long}", :inline_format => true, :leading => 5, :align => :justify
       pdf.text "<b>#{Experience.human_attribute_name(:validity_ending_at)}:</b> #{I18n.l experience.validity_ending_at, format: :long}", :inline_format => true, :leading => 5, :align => :justify
 

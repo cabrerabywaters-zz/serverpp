@@ -71,6 +71,8 @@
             .input-append
               = f.input_field :fee, class: 'input-mini min_max', placeholder: "15", data: {min: 0, max: 100}, value: number_to_currency(@experience.fee.presence || @experience.eco.fee, precision: 2, unit: ''), onkeypress: "return permiteNumeros(event);"
               .add-on %
+          .controls
+            = f.input :income_type, as: :select, collection: ["Ventas", "Canjes", "Validaciones"], prompt: false, input_html: { class: 'span12' }
 
     .form-actions.text-right
       - if can? :read, Experience

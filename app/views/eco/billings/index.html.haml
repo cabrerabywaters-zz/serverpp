@@ -1,0 +1,26 @@
+.row-fluid
+  .span10.offset1
+    .panel
+      = render "eco/widgets/invoice_header"
+      .row-fluid
+        .span12
+          .page-break
+      = render partial: "eco/widgets/invoice_summary", locals: { experiences: @billing.by_experience }
+
+      .row-fluid.invoice-header
+        .span10.offset1
+          .row-fluid.primary
+            .span6
+              .value.left Meses Anteriores
+
+      - if @billing.invoices.empty?
+        .row-fluid.invoice-header
+          .span10.offset1
+            .row-fluid.primary
+              .empty No existen datos históricos de facturación.
+      - else
+        .row-fluid
+          .span10.offset1
+            .chart-container
+              = high_chart "month_billing", @data
+        = render partial: "eco/widgets/invoice_month_list", locals: { invoices: @billing.invoices(page: params[:page]) }

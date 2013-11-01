@@ -48,7 +48,19 @@ module Settings
     "Administrador EFI"
   end
 
+  def operator_efi
+    "Operador EFI"
+  end
+
   def admin_puntospoint
     "Administrador"
+  end
+
+  def eco_billing_day
+    (ENV['ECO_BILLING_DAY'] || 1).to_i
+  end
+
+  def eco_billing_invoice_hour
+    (ENV['ECO_BILLING_INVOICE_HOUR'] || 4).to_i
   end
 end

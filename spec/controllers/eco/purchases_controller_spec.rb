@@ -7,12 +7,12 @@ describe Eco::PurchasesController do
   before :each do
     @eco         = @current_user_eco.eco
 
-    @experience  = FactoryGirl.create(:experience, eco_id: @eco.id, state: 'on_sale')
+    @experience  = FactoryGirl.create(:experience, eco_id: @eco.id, state: 'active')
     @experience2 = FactoryGirl.create(:experience, state: 'published')
-    experience3  = FactoryGirl.create(:experience, eco_id: @eco.id, state: 'on_sale')
+    experience3  = FactoryGirl.create(:experience, eco_id: @eco.id, state: 'active')
     @experience4 = FactoryGirl.create(:experience, eco_id: @eco.id, state: 'expired')
     @experience5 = FactoryGirl.create(:experience, eco_id: @eco.id, state: 'published')
-    @experience6 = FactoryGirl.create(:experience, eco_id: @eco.id, state: 'pending')
+    @experience6 = FactoryGirl.create(:experience, eco_id: @eco.id, state: 'draft')
     @experience7 = FactoryGirl.create(:experience, eco_id: @eco.id, state: 'closed')
 
     event        = FactoryGirl.create(:event, experience_id: @experience.id)
@@ -41,14 +41,16 @@ describe Eco::PurchasesController do
         response.should render_template("index")
       end
     end
-    context "cuando la experience esta pending" do
-      it "assigns experience as @experience" do
-        get :index, id: @experience6
-        assigns(:experience).should_not be_nil
-        response.should be_success
-        response.should render_template("index")
-      end
-    end
+
+    # context "cuando la experience esta pending" do
+    #   it "assigns experience as @experience" do
+    #     get :index, id: @experience6
+    #     assigns(:experience).should_not be_nil
+    #     response.should be_success
+    #     response.should render_template("index")
+    #   end
+    # end
+
     context "cuando la experience esta closed" do
       it "assigns experience as @experience" do
         get :index, id: @experience7

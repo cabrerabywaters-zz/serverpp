@@ -15,14 +15,24 @@
 //= require jquery-ui
 //= require tinymce
 //= require twitter/bootstrap
+//= require highcharts
 //= require bootstrap-datepicker
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.es
 //= require cocoon
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
+//= require jquery.validate
+//= require jquery.validate.localization/messages_es
+//= require jquery.validate.bootstrap
+//= require bootstrap-wysihtml5
+//= require bootstrap-wysihtml5/locales/es-ES
+//= require jquery_nested_form
+//= require bootstrap.file-input
+//= require jquery.form
+//= require jquery.dirtyforms
 
-
+//= require ../experiences
 //= require ../datepicker
 //= require ../run_tinymce
 //= require ../puntos_point/experiences

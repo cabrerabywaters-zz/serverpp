@@ -1,0 +1,39 @@
+.panel.experience-box{ class: "#{ experience.active? ? 'regular' : 'small'}" }
+  - if experience.active?
+    .ribbon
+      = "-#{experience.get_discount_percentage.round(0)}%"
+  %a{ href: eco_experience_path(experience)}
+    .title
+      %p
+        = experience.name
+    .image
+      - if experience.image.exists?
+        = image_tag experience.image.url
+      - else
+        = image_tag "default_experiencia.png"
+  - if experience.active?
+    .prices
+      %span.discounted-price
+        = "$#{experience.discounted_price}"
+      %span.price
+        = "$#{experience.amount}"
+    .stats
+      .stat.purchases
+        %i.icon-shopping-cart{'data-toggle' => "tooltip", title: 'Compras', class: 'icon-tooltip'}
+        %span.indicator
+          = experience.total_purchases
+      .stat.swaps
+        %i.icon-tags{'data-toggle' => "tooltip", title: 'Canjes', class: 'icon-tooltip'}
+        %span.indicator
+          = experience.total_swaps
+      .stat.validations
+        %i.icon-user{'data-toggle' => "tooltip", title: 'Validaciones', class: 'icon-tooltip'}
+        %span.indicator
+          = experience.total_validations
+    .validation-box
+      = form_tag eco_validate_purchase_path(experience), method: :post, class: "form-search" do
+        %input#purchase_code.string.required{placeholder: "Ingrese Código Validación", type: "text", name: "code"}
+        %input.btn.btn-success.experience-validation{type: :submit, value: I18n.t('helpers.links.validate'), 'data-loading-text' => "Validando..." }
+        - if flash[:experience_id] == experience.id
+          .alert{class: "alert-#{flash[:type]} flash-fadeout"}
+            = flash[:message]

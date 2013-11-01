@@ -21,9 +21,6 @@
       %dt= Experience.human_attribute_name(:place)
       %dd= @experience.place.presence || '-'
 
-      %dt= Experience.human_attribute_name(:comuna)
-      %dd= @experience.comuna_name.presence || '-'
-
       %dt= model_class.human_attribute_name(:amount) + ':'
       %dd= number_to_currency(@experience.amount, precision: 0).presence || '-'
 
@@ -68,7 +65,7 @@
     %p= @experience.details.html_safe
   .span4.well
     %strong= Experience.human_attribute_name(:exchange_mechanism) + ':'
-    %p= @experience.exchange_mechanism
+    %p= raw @experience.exchange_mechanism
   .span4.well
     %strong= Experience.human_attribute_name(:conditions) + ':'
     %p= raw @experience.conditions
@@ -76,7 +73,7 @@
 .form-actions
   - if can? :read, model_class
     = link_to t("helpers.links.back"), eco_experiences_path, class: 'btn'
-  - if @experience.pending?
+  - if @experience.draft?
     - if can? :update, @experience
       = link_to t("helpers.links.edit"), eco_experience_steps_path(experience_id: @experience.id), class: 'btn'
     - if can? :destroy, @experience

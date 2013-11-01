@@ -2,6 +2,7 @@ require 'sidekiq/web'
 require 'sidetiq/web'
 
 Showtime::Application.routes.draw do
+
   authenticate :admin do
     mount Sidekiq::Web => '/sidekiq'
   end
@@ -31,7 +32,7 @@ Showtime::Application.routes.draw do
 
     resources :user_ecos
 
-    resources :experiences, only: [:index, :show, :destroy] do
+    resources :experiences do
       member do
         put :bill
         put :pay
@@ -52,9 +53,12 @@ Showtime::Application.routes.draw do
   namespace :eco do
     resources :user_ecos, only: [:edit, :update]
 
-    resources :experiences, only: [:index, :show, :destroy]
+    resources :experiences
     resources :experience_steps, only: [:index, :show, :update]
 
+    resources :billings, only: [:index] do
+      get 'detail', on: :collection
+    end
 
     get  "experiences/:id/purchases" => "purchases#index", as: :experience_purchases
     post "experiences/:id/purchases/validate/" => "purchases#validate", as: :validate_purchase
@@ -104,6 +108,8 @@ Showtime::Application.routes.draw do
     end
 
     get "summary" => "summary#index", as: :summary
+    get "support" => "support#index", as: :support
+    get "support/validate" => "support#show", as: :validate
 
     root :to => 'experiences#index'
   end

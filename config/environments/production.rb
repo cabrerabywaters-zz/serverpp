@@ -13,7 +13,7 @@ Showtime::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = true
+  config.serve_static_assets = false
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -69,16 +69,16 @@ Showtime::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  default_url_options = { :host => '107.22.255.20' }
-  config.default_url_options = { :host => '107.22.255.20' }
-  routes.default_url_options = { :host => '107.22.255.20' }
-  config.action_controller.asset_host = "107.22.255.20"
-  config.action_mailer.default_url_options = {:host => "107.22.255.20"}
+  default_url_options = { host: ENV['HOST'] }
+  config.default_url_options = { host: ENV['HOST'] }
+  routes.default_url_options = { host: ENV['HOST'] }
+  config.action_controller.asset_host = "http://s3.amazonaws.com/#{ENV['FOG_DIRECTORY']}"
+  config.action_mailer.default_url_options = { host: ENV['HOST'] }
 
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.sendmail_settings = {
-    :location => '/usr/sbin/sendmail',
-    :arguments => '-i -t'
+    location: '/usr/sbin/sendmail',
+    arguments: '-i -t'
   }
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true

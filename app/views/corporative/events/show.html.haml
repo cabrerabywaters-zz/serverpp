@@ -42,8 +42,8 @@
     %dl.dl-horizontal.ubicacion
       %dt= Experience.human_attribute_name(:place)
       %dd= experience.place
-      %dt= Experience.human_attribute_name(:comuna)
-      %dd= experience.comuna_name
+      / %dt= Experience.human_attribute_name(:comuna)
+      / %dd= experience.comuna_name
 
       %dt= Experience.human_attribute_name(:validity_starting_at)
       %dd= l experience.validity_starting_at, format: :datepicker
@@ -95,7 +95,7 @@
     %p= experience.details.html_safe
   .span4.well
     %strong= Experience.human_attribute_name(:exchange_mechanism) + ':'
-    %p= experience.exchange_mechanism
+    %p= raw experience.exchange_mechanism
   .span4.well
     %strong= Experience.human_attribute_name(:conditions) + ':'
     %p= raw experience.conditions

@@ -1,0 +1,228 @@
+.row  {
+	margin-left: 0px;
+
+	.span12 {
+		margin-left: 0px;
+	}
+	.experience-box {
+		padding-top: 0px;
+		padding-bottom: 35px;
+		width: 376px;
+		float: left;
+		margin: 0 0 20px 20px;
+
+    .ribbon {
+			position: absolute;
+			width: 60px;
+			font-size: 1.5em;
+			font-weight: bold;
+			padding: 0px 0px 0px 0px;
+			margin: 16px 0px 0px -10px;
+			color: white;
+			background-color: #f39c12;
+			text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.7);
+			-webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+			-moz-box-shadow: 0px 2px 4px #888;
+			box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+			text-align: center;
+			z-index: 2;
+		}
+
+		.title {
+			color: #6c6c6c;
+			background-color: white;
+			text-align: center;
+			line-height: 20px;
+			height: 60px;
+			vertical-align: middle;
+			font-family: 'PT Sans', Arial;
+			font-size: 18px;
+			font-style: normal;
+			font-variant: normal;
+			font-weight: normal;
+			padding: 5px 0px 5px;
+			display: table;
+			margin-left: 50px;
+			margin-bottom: 0;
+			width: 320px;
+
+			p {
+				display: table-cell;
+			  vertical-align: middle;
+			  text-align: center;
+			  cursor: pointer;
+			}
+		}
+		.image {}
+    .prices {
+      text-align:center;
+      span.discounted-price {
+        display: inline;
+        font-size: 30px;
+        width: 173px;
+        text-align: center;
+        padding-right: 30px;
+        color: #f39c12;
+      }
+      span.price {
+        display:inline;
+        font-size: 20px;
+        width: 173px;
+        text-align: center;
+        padding-left: 30px;
+        text-decoration: line-through;
+        color: #6c6c6c;
+      }
+    }
+		.stats {
+			margin-top: 10px;
+			text-align: center;
+
+			.stat {
+				padding: 0 24px;
+				display: inline;
+
+				i {
+					font-size: 30px;
+					color: #f39c12;
+					margin-right: 5px;
+				}
+				.indicator {
+					font-size: 24px;
+				}
+			}
+			.purchases { }
+			.swaps { }
+			.validations { }
+		}
+		.validation-box {
+			text-align: center;
+			padding-top: 12px;
+
+			form {
+				margin-bottom: 2px;
+
+				input {
+					text-align: center;
+					margin-top: 10px;
+
+          &[name="code"] {
+            border: 1px solid #cbcbcb;
+          }
+				}
+				.btn-success {
+					background-color: #27ae60;
+					padding: 5px 10px;
+					width: 110px;
+				}
+				.alert {
+					font-size: 16px;
+					margin: 0 12px;
+					padding: 0px;
+					line-height: 26px;
+					margin-top: 5px;
+					float: left;
+					position: absolute;
+					width: 344px;
+				}
+			}
+		}
+	}
+	.regular {
+		&:nth-child(3n+1), &:first-child {
+    	margin-left: 0;
+    }
+	}
+	.small {
+		width: 277px;
+		padding-bottom: 10px;
+
+		&:nth-child(4n+1), &:first-child {
+    	margin-left: 0;
+    }
+
+		.title {
+			font-size: 16px;
+			margin-left: 0;
+			width: 270px;
+		}
+	}
+	.filters {
+		margin-left: 0;
+		font-family: 'PT Sans', Arial;
+		font-size: 18px;
+		font-style: normal;
+		font-variant: normal;
+		font-weight: normal;
+		padding: 20px 0;
+		margin-top: 20px;
+		margin-bottom: 20px;
+
+		.nav-pills {
+			margin: 0;
+			float: left;
+
+			& > .active {
+				& > a:focus {
+					color: #ffffff;
+		  		background-color: #f39c12;
+				}
+			}
+		}
+
+		.search-box {
+			float: right;
+			margin-right: 30px;
+			padding-top: 4px;
+
+			input {
+				text-align: center;
+				margin-top: 10px;
+			}
+			.btn {
+				padding: 5px 28px;
+			}
+		}
+
+		.filter {
+			color: rgb(108, 108, 108);
+			background-color: white;
+			text-align: center;
+			line-height: 20px;
+			border-color: #f39c12;
+			border-style: solid;
+			border-width: 2px;
+			margin-left: 30px;
+			border-radius: 4px;
+			font-size: 14px;
+			padding: 0;
+
+			&.active{
+				background-color: #f39c12;
+			}
+			.title {
+				color: rgb(108, 108, 108);
+				background-color: white;
+				text-align: center;
+				padding: 5px 0px 5px;
+				margin-bottom: 0;
+			}
+			&:hover {
+				text-decoration: none;
+			}
+		}
+
+	}
+
+}
+
+.active-experiences {
+	margin-top: 60px;
+}
+
+p.empty {
+	font-size: 30px;
+	text-align: center;
+	padding-top: 60px;
+	padding-bottom: 40px;
+}

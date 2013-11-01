@@ -1,0 +1,51 @@
+%h1 Código consultado '#{params[:code]}'
+
+- if security_code.present?
+
+  %table.table
+    %thead
+      %tr
+        %th Código de Seguridad
+        %th Fecha y Hora de Canje
+        %th Fecha y Hora de Validación
+        %th Número de Puntos
+    %tbody
+      %tr
+        %td= code
+        %td= l purchase.created_at, format: :long
+        %td= l(security_code.validated_at, format: :long) if security_code.validated_at
+        %td= purchase.exchange.points
+
+  .row-fluid
+    .span6
+      %h2.state Estado #{t(experience.state)}
+      %h2= @experience.name
+      %h4.slogan= @experience.summary
+
+      .valid_start
+        %b Válido desde:
+        = l(@experience.validity_starting_at, format: :long)
+      .valid_end
+        %b Válido hasta:
+        = l(@experience.validity_ending_at, format: :long)
+      .adresses
+        %b Lugar:
+        %br
+        = raw @experience.addresses
+    .span6
+      = image_tag @experience.image
+
+  .row-fluid
+    .span12
+      .span4
+        %h3 Detalles
+        .well= raw @experience.details
+      .span4
+        %h3 Intrucciones de Canje
+        .well= raw @experience.exchange_mechanism
+      .span4
+        %h3 Condiciones
+        .well= raw @experience.conditions
+
+- else
+  %p.empty El código ingresado no ha sido encontrado.

@@ -55,7 +55,15 @@ class Ability
         can :manage, Banner,    event: {efi_id: user.efi_id}
         can :manage, Publicity, event: {efi_id: user.efi_id}
 
+        if user.group?(Settings.operator_efi) || user.group?(Settings.admin_efi)
+          can :support, :index
+          can :support, :show
+          cannot :update, UserEfi
+        end
+
       elsif context == :eco
+        can :validate, Experience, eco_id: user.eco_id
+
         user.roles.each do |role|
           action = role.action_sym
           model  = role.resource_class
@@ -63,7 +71,11 @@ class Ability
           if model == UserEco
             can action, model, id: user.id
           elsif model == Experience
-            can action, Experience, eco_id: user.eco_id
+            if action == :manage && user.eco.present? && user.eco.bigger
+              can action, Experience, eco_id: user.eco_id
+            elsif action != :manage
+              can action, Experience, eco_id: user.eco_id
+            end
           elsif model == Publicity
             can action, model, event: {experience: {eco_id: user.eco_id}}
           elsif model == Purchase

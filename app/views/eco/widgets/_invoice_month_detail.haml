@@ -1,0 +1,26 @@
+.row-fluid.thead
+  .span3.offset1
+    .value.left Experiencia
+  .span1
+    .value.right $Unitario
+  .span1
+    .value.center Fx.Ingreso
+  .span1
+    .value.center Cantidad
+  .span1
+    .value.center Ingresos
+  .span1
+    .value.center Comisión
+  .span2
+    .value.right $ A Pagar
+.row-fluid
+  .span12
+    .page-break
+
+- @billing.experiences.each do |experience|
+  = render partial: "eco/widgets/invoice_experience_detail", locals: { experience: experience, summary: @billing.invoice_summary(experience), transactions: @billing.transactions_detail(experience) }
+
+.row-fluid
+  .span10.offset1.panel-margin
+    .value.right
+      = link_to "Volver a Mis Ingresos", eco_billings_path, class: "btn btn-flat"

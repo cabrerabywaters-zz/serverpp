@@ -13,6 +13,7 @@
  *= require bootstrap-select
  *= require dataTables/jquery.dataTables
  *= require dataTables/jquery.dataTables.bootstrap
+ *= require bootstrap-wysihtml5
 
  *= require ../bootstrap_and_overrides
  *= require ../puntos_point
@@ -23,4 +24,5 @@
  *= require ../preview_image
  *= require ../static
  *= require_tree .
+ *= require ../application/experiences
  */

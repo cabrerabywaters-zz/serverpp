@@ -59,7 +59,7 @@ $ ->
 
     formated_price            = numberToCurrency(price,                      0)
     formated_discounted_price = numberToCurrency(discounted_price,           0)
-    formated_discount         = numberToCurrency(to_string_number(discount), 2)
+    formated_discount         = numberToCurrency(to_string_number(discount), 0)
 
     $('input#experience_amount').val(formated_price)
     $('input#experience_discounted_price').val(formated_discounted_price)
@@ -139,3 +139,5 @@ $ ->
 
     else if $('input#experience_discounted_price').val() and $('input#experience_amount').val()
       make_discount_percentage()
+
+  $('input#experience_discounted_price').trigger 'change'

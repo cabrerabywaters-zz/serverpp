@@ -67,7 +67,7 @@
 
       .span5.relative
         %p= t('views.upload_image_to_experience')
-        - if @experience.image? and FileTest.exist?('public' + @experience.image.url(:original, timestamp: false))
+        - if @experience.image? #and FileTest.exist?('public' + @experience.image.url(:original, timestamp: false))
           = image_tag @experience.image.url, class: 'preview_container'
         - else
           = image_tag 'default_experiencia.png', alt: 'Puntos Point', title: 'Puntos Point', class: 'preview_container'

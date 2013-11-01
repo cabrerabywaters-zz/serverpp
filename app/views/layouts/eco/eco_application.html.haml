@@ -16,6 +16,7 @@
     %link(href="images/apple-touch-icon.png" rel="apple-touch-icon-precomposed")
 
     =# favicon_link_tag
+    %link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css')
 
     /
       Javascripts
@@ -55,14 +56,14 @@
                 .eco_name= current_user_eco.eco_fancy_name
 
               - if can? :read, Experience
-                %li{class: (current_page?(eco_experiences_path) || eco_experiences_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.eco.experiences'), eco_experiences_path
+                %li{class: current_page?(eco_experiences_path) ? 'selected' : ''}= link_to t('menu.eco.experiences'), eco_experiences_path
 
 
               - if can? :create, Experience
-                %li{class: (current_page?(eco_experience_steps_path) || eco_experience_steps_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.eco.new_experience'), eco_experience_steps_path
+                %li{class: (current_page?(new_eco_experience_path) || new_eco_experience_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.eco.new_experience'), new_eco_experience_path
 
               - if can? :read, :incomes
-                %li{class: current_page?(eco_incomes_path) ? 'selected' : ''}= link_to t('menu.eco.incomes'), eco_incomes_path
+                %li{class: current_page?(eco_billings_path) ? 'selected' : ''}= link_to t('menu.eco.incomes'), eco_billings_path
 
               - if can?(:read, Experience) and current_user_eco.eco_bigger?
                 %li{class: current_page?(eco_publicities_path) ? 'selected' : ''}= link_to t('menu.eco.publicities'), eco_publicities_path

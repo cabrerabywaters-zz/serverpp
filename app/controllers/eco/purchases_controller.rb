@@ -12,7 +12,7 @@ class Eco::PurchasesController < Eco::EcoApplicationController
 
   # GET /eco/purchases
   def index
-    @experience = current_user_eco.experiences.pending_published_on_sale_or_closed.find(params[:id])
+    @experience = current_user_eco.experiences.with_states(:published, :active, :closed).find(params[:id])
     @purchases  = @experience.purchases.are_validated.order('updated_at DESC')
 
     if session[:validated_purchase]
@@ -33,27 +33,23 @@ class Eco::PurchasesController < Eco::EcoApplicationController
 
   # POST /eco/purchases/validate
   def validate
-    @experience = current_user_eco.experiences.pending_published_on_sale_or_closed.find(params[:id])
-    @purchase = @experience.purchases.find_by_code(params[:code])
+    # @experience = current_user_eco.experiences.with_states(:published, :active, :closed).find(params[:id])
+    @code = ExperienceCode.includes(:purchase).find_by_code(params[:code])
+    @purchase = @code.purchase if @code.present? && @code.purchase.valid_code?(params[:code])
 
     respond_to do |format|
       if @purchase.nil?
-        session[:status] = :info
-        session[:message] = t('notices.error.unknown', model: Purchase.model_name.human)
-        format.html { redirect_to eco_experience_purchases_path(@experience), notice: t('notices.error.unknown', model: Purchase.model_name.human) }
+        #format.html { redirect_to eco_experiences_path, flash: { experience_id: @experience.id, type: :error, message: t('notices.error.invalid_code', model: Purchase.model_name.human) } }
+        format.json { render json: { type: :error, message: t('notices.error.invalid_code', model: Purchase.model_name.human) }}
       elsif @purchase.validated?
-        session[:status] = :error
-        session[:message] = t('notices.error.female.was_validated', model: Purchase.model_name.human)
-        format.html { redirect_to eco_experience_purchases_path(@experience), notice: t('notices.error.female.was_validated', model: Purchase.model_name.human) }
+        #format.html { redirect_to eco_experiences_path, flash: { experience_id: @experience.id, type: :error, message: t('notices.error.female.was_validated', model: Purchase.model_name.human) } }
+        format.json { render json: { type: :error, message: t('notices.error.female.was_validated', model: Purchase.model_name.human) }}
       elsif @purchase.validate!
-        session[:status] = :success
-        session[:message] = t('notices.success.female.validate', model: Purchase.model_name.human)
-        session[:validated_purchase] = @purchase.id
-        format.html { redirect_to eco_experience_purchases_path(@experience), notice: t('notices.success.female.validate', model: Purchase.model_name.human) }
+        #format.html { redirect_to eco_experiences_path, flash: { experience_id: @experience.id, type: :success, message: t('notices.success.female.validate', model: Purchase.model_name.human) } }
+        format.json { render json: { type: :success, message: t('notices.success.female.validate', model: Purchase.model_name.human) }}
       else
-        session[:status] = :error
-        session[:message] = t('notices.error.female.cant_validate', model: Purchase.model_name.human)
-        format.html { redirect_to eco_experience_purchases_path(@experience), notice: t('notices.error.female.cant_validate', model: Purchase.model_name.human) }
+        #format.html { redirect_to eco_experiences_path, flash: { experience_id: @experience.id, type: :error, message: t('notices.error.female.cant_validate', model: Purchase.model_name.human) } }
+        format.json { render json: { type: :error, message: t('notices.error.female.cant_validate', model: Purchase.model_name.human) }}
       end
     end
   end

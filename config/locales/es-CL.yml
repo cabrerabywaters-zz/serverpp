@@ -2,6 +2,10 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 'es-CL':
+  paid: Pagado
+  to_pay: Por pagar
+  draft: Borrador
+  published: Publicada
   date:
     formats:
       default: "%d/%m/%Y"
@@ -11,6 +15,7 @@
       with_day_name: "%A %d/%m/%Y"
       small: "%d %B"
       datepicker: "%d/%m/%Y"
+      month_and_year: '%B %Y'
 
     day_names:
       - domingo
@@ -79,7 +84,7 @@
       small: "%H:%M hrs."
       datetimepicker: "%d/%m/%Y %H:%M:%S"
       conector: "%a, %d %b %Y %H:%M:%S"
-      api: "%Y-%m-%d %H:%M"
+      month_and_year: '%B %Y'
     am: "am"
     pm: "pm"
 
@@ -324,6 +329,7 @@
         cant_pay: 'No es posible pagar la %{model} seleccionada'
         cant_publish: 'No es posible publicar la %{model}'
         cant_unpublish: 'No es posible despublicar la %{model}'
+      invalid_code: 'El código ingresado no es válido'
       no_required_models: 'No hay %{model}'
       has_no_points: 'Lo sentimos, es imposible descontar los puntos necesarios con los datos proporcionados, por favor intentelo nuevamente o más tarde'
       not_available: '%{model} ya no esta disponible'
@@ -341,16 +347,11 @@
 
   state_machine:
     experience:
-      step1: Paso 1
-      step2: Paso 2
-      step3: Paso 3
-      pending: Pendiente
+      draft: Borrador
       published: Publicada
-      on_sale: En Venta
+      active: Activas
       closed: Cerrada
       expired: Terminada
-      billed: Facturada
-      paid: Pagada
     event:
       taken: En Venta
       closed: Cerrada
@@ -365,7 +366,6 @@
       pending: Pendiente
       accepted: Aceptada
       rejected: Rechazada
-
 
   tooltip:
     experience:
@@ -417,6 +417,7 @@
       accounts: Clientes
       publicities: Comunicados
       api: API
+      support: Servicio al Cliente
     eco:
       experiences: Mis Experiencia
       new_experience: Crear Experiencia
@@ -654,6 +655,9 @@
         by_industry_exclusivity_days: Días Exclusividad por Industria
         without_exclusivity_days: Días Sin Exclusividad
         exclusivity_deadlines: Plazos Exclusividades
+        income_type: Función de Ingreso
+        addresses: Direcciones comerciales
+        observations: Observaciones
       industry:
         name: Nombre
         percentage: Porcentaje
@@ -737,3 +741,6 @@
         state: Estado
         file_representation: Imagen
         created_at: Fecha de creación
+  will_paginate:
+    previous_label: 'Anterior'
+    next_label: 'Siguiente'

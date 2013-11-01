@@ -1,0 +1,12 @@
+.row-fluid.invoice-header
+  .span10.offset1
+    .row-fluid.secondary
+      .span6
+        .value.left= l Time.now, format: :month_and_year
+      .span6
+        .value.right Por Pagar
+    .row-fluid.primary
+      .span6
+        .value.left TOTAL A PAGAR
+      .span6
+        .value.right.strong= number_to_currency @billing.totals[:to_pay]

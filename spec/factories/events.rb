@@ -17,4 +17,16 @@ FactoryGirl.define do
       end
     end
   end
+  
+  factory :efi_purchase, class: Event do
+    exclusivity_id 1
+    efi factory: :efinew
+    experience
+    state 'published'
+    
+    after(:build) do |p|
+      p.exchanges = [FactoryGirl.build(:exchange, points: 100, cash: 0)]
+      p.experience.available_efis = [p.efi]
+    end
+  end
 end
