@@ -578,8 +578,8 @@ class Experience < ActiveRecord::Base
   # style - Style of the image.
   #
   # Returns image absolute url.
-  def image_url style = :original
-    "#{Rails.configuration.default_url_options[:host]}#{image.url(style, timestamp: false)}"
+  def image_url(style = :original)
+    image.url(style, timestamp: false)
   end
 
   after_initialize  :set_starting_at
