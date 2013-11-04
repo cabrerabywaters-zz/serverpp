@@ -1,5 +1,5 @@
 .row.invoice-row
-  .span2.offset3
+  .span2.offset4
     .value.center Estado
   .span2
     .value.right Ingreso
@@ -10,10 +10,10 @@
 
 - invoices.each do |i|
   .row
-    .span10
+    .span10.offset1
       .border
   .row.invoice-row
-    .span3
+    .span3.offset1
       .value.left
         %a
           = l i.start_at, format: :month_and_year
@@ -28,6 +28,6 @@
 
 
 .row.action-row
-  .span5.offset5
+  .span5.offset6
     .value.right
       = will_paginate invoices
