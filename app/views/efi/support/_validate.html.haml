@@ -13,7 +13,7 @@
       %tr
         %td= code
         %td= l purchase.created_at, format: :long
-        %td= l(security_code.validated_at, format: :long) if security_code.validated_at
+        %td= l(purchase.updated_at, format: :long) if purchase.validated?
         %td= purchase.exchange.points
 
   .row-fluid
