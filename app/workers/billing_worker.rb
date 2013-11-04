@@ -13,9 +13,8 @@ class BillingWorker
 
   def perform#(last_occurrence, current_occurrence)
     now = Time.now
-    yesterday = now.yesterday
-    start_at = yesterday.end_of_day
-    end_at = yesterday.prev_month.beginning_of_day
+    start_at = Time.new(now.year, now.prev_month.month, Settings.eco_billing_day).beginning_of_day
+    end_at = Time.new(now.year, now.month, Settings.eco_billing_day).end_of_day
     Eco.all.each do |eco|
       billing = EcoBillingManager.new(eco, start_at: start_at, end_at: end_at)
       billing.store_invoice!
