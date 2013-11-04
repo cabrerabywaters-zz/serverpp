@@ -116,7 +116,7 @@ class Eco < ActiveRecord::Base
   #
   # Returns logo absolute url.
   def logo_url style = :original
-    "#{Rails.configuration.default_url_options[:host]}#{logo.url(style, timestamp: false)}"
+    logo.url(style, timestamp: false)
   end
 
   private
