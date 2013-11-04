@@ -44,6 +44,6 @@ class Category < ActiveRecord::Base
   #
   # Returns icon absolute url.
   def icon_url style = :original
-    "#{Rails.configuration.default_url_options[:host]}#{icon.url(style, timestamp: false)}"
+    icon.url(style, timestamp: false)
   end
 end
