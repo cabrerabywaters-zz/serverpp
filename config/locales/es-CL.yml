@@ -85,6 +85,7 @@
       datetimepicker: "%d/%m/%Y %H:%M:%S"
       conector: "%a, %d %b %Y %H:%M:%S"
       month_and_year: '%B %Y'
+      api: "%d/%m/%Y %H:%M:%S"
     am: "am"
     pm: "pm"
 
