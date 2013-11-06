@@ -39,7 +39,8 @@ module Api
                 code: purchase.code,
                 reference_codes: purchase.reference_codes,
                 # url: Rails.application.routes.url_helpers.corporative_purchase_url(purchase, corporative_id: efi.search_name),
-                voucher: ActiveSupport::Base64.encode64(open(Rails.application.routes.url_helpers.corporative_voucher_url(purchase, corporative_id: efi.search_name, token: purchase.token, format: :pdf), &:read)),
+                # voucher: ActiveSupport::Base64.encode64(open(Rails.application.routes.url_helpers.corporative_voucher_url(purchase, corporative_id: efi.search_name, token: purchase.token, format: :pdf), &:read)),
+                voucher: ActiveSupport::Base64.encode64(VoucherGenerator.new.generate(purchase: purchase, experience: purchase.exchange.event.experience, event: purchase.exchange.event, exchange: purchase.exchange)),
                 status: 'ok'
               }
             }
