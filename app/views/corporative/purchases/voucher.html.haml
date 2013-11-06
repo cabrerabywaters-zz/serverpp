@@ -1,6 +1,6 @@
 .container
   .headerTop
-    = wicked_pdf_image_tag 'api/header.jpg'
+    = image_tag 'api/header.jpg'
   .topDetails
     .title felicidades
     .info
@@ -14,12 +14,12 @@
   .instructions
     .col1
       .icon
-        = wicked_pdf_image_tag 'api/icon1.png'
+        = image_tag 'api/icon1.png'
       .titulo Instrucciones
       = @experience.exchange_mechanism.html_safe
     .col2
       .icon
-        = wicked_pdf_image_tag 'api/icon2.png'
+        = image_tag 'api/icon2.png'
       .titulo Detalles
       %ul
         %li
@@ -33,7 +33,7 @@
   .instructionsEnd
     .col3
       .icon
-        = wicked_pdf_image_tag 'api/icon3.png'
+        = image_tag 'api/icon3.png'
       .titulo Código de Validación
       %br/
       .codes
@@ -41,7 +41,7 @@
           %span.validation= code
     .col4
       .icon
-        = wicked_pdf_image_tag 'api/icon4.png'
+        = image_tag 'api/icon4.png'
       .titulo Código de Seguridad
       %br/
       .security
@@ -51,5 +51,5 @@
     .conditions.Title Condiciones de Uso
     = @experience.conditions.html_safe
 .footer
-  = wicked_pdf_image_tag 'api/footer.jpg'
+  = image_tag 'api/footer.jpg'
   %p Lorem ipsum putent intellegat intellegebat pro no. Prima eligendi mea ne, sed hinc posse graeci ei. Duo animal interesset te, reformidans dissentiunt ad sea, facer tollit percipit in sit. Iudico percipit mei ex, laudem adolescens no has.
