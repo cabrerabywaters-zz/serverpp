@@ -4,11 +4,25 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>CMR</title>
 
-    <%= stylesheet_link_tag 'regular' %>
-    <%= stylesheet_link_tag 'thin' %>
-
-
     <style media="screen" type="text/css">
+      @font-face {
+        font-family: 'PFBeauSansPro-Regular';
+        src: url(<%= Rails.root.join('app', 'assets', 'stylesheets', 'webfonts', '289A27_0_0.eot').to_s %>);
+        src: url(<%= Rails.root.join('app', 'assets', 'stylesheets', 'webfonts', '289A27_0_0.eot?#iefix').to_s %>) format('embedded-opentype'),
+             url(<%= Rails.root.join('app', 'assets', 'stylesheets', 'webfonts', '289A27_0_0.woff').to_s %>) format('woff'),
+             url(<%= Rails.root.join('app', 'assets', 'stylesheets', 'webfonts', '289A27_0_0.ttf').to_s %>) format('truetype');
+       font-weight: normal;
+       font-style: normal;
+      }
+      @font-face {
+        font-family: 'PFBeauSansPro-XThin';
+        src: url(<%= Rails.root.join('app', 'assets', 'stylesheets', 'webfonts', '289972_0_0.eot').to_s %>);
+        src: url(<%= Rails.root.join('app', 'assets', 'stylesheets', 'webfonts', '289972_0_0.eot?#iefix').to_s %>) format('embedded-opentype'),
+             url(<%= Rails.root.join('app', 'assets', 'stylesheets', 'webfonts', '289972_0_0.woff').to_s %>) format('woff'),
+            url(<%= Rails.root.join('app', 'assets', 'stylesheets', 'webfonts', '289972_0_0.ttf').to_s %>) format('truetype');
+        font-weight: normal;
+        font-style: normal;
+      }
       body {
         font-family: 'PFBeauSansPro-Regular';
         color: grey;
@@ -18,13 +32,10 @@
       }
       .PFBeauSansPro-Regular {
         font-family: 'PFBeauSansPro-Regular';
-        font-weight: normal;
-        font-style: normal;
+
       }
       .PFBeauSansPro-XThin {
         font-family: 'PFBeauSansPro-XThin';
-        font-weight: normal;
-        font-style: normal;
       }
       .container {
       }
