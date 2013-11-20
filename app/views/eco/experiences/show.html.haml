@@ -19,7 +19,7 @@
       %dd= number_to_currency(@experience.swaps, unit: '').presence || '-'
 
       %dt= Experience.human_attribute_name(:place)
-      %dd= @experience.place.presence || '-'
+      %dd= raw @experience.addresses
 
       %dt= model_class.human_attribute_name(:amount) + ':'
       %dd= number_to_currency(@experience.amount, precision: 0).presence || '-'
