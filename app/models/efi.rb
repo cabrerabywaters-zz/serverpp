@@ -57,6 +57,8 @@ class Efi < ActiveRecord::Base
   has_many :exchanges,   through: :events
   has_many :purchases,   through: :exchanges
 
+  has_many :invoices, class_name: "EfiInvoice", dependent: :destroy
+
   validates_presence_of :name,
                         :zona,
                         :search_name,
@@ -131,4 +133,5 @@ class Efi < ActiveRecord::Base
     connector_class = connector_name.classify.constantize
     connector_class.new options.merge({:efi_id => self.id})
   end
+
 end

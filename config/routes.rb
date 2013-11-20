@@ -76,6 +76,9 @@ Showtime::Application.routes.draw do
   end
 
   namespace :efi do
+
+    resources :billings, only: [:index, :create]
+
     resources :experiences, only: [:index, :show] do
       resources :events, only: :create
     end

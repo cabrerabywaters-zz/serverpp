@@ -76,6 +76,7 @@
                   %li{class: (current_page?(efi_events_path) || efi_events_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.efi.events'), efi_events_path
                 - if can? :support, :index
                   %li{class: current_page?(efi_support_path) ? 'selected' : '' }= link_to t('menu.efi.support'), efi_support_path
+                %li{class: current_page?(efi_billings_path) ? 'selected' : ''}= link_to t('menu.efi.billings'), efi_billings_path
           .row-fluid
             %h1.linea3
           .row-fluid
