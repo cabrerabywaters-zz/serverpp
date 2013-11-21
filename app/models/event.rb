@@ -34,6 +34,7 @@
 #                                             columna :quantity
 #
 class Event < ActiveRecord::Base
+  attr_accessor :billed_stock
   attr_accessible :exclusivity_id,
                   :swaps,
                   :efi_id,

@@ -10,7 +10,7 @@ class Efi::BillingsController < Efi::EfiApplicationController
     @billing_manager = EfiBillingManager.new(current_user_efi.efi)
     @to_pay_invoices = @billing_manager.to_pay_invoices
     @paid_invoices =  @billing_manager.paid_invoices
-    @to_pay_events = []
+    @to_pay_events = @billing_manager.to_pay_events
 
     # Pagado
     @paid_invoices_by_month = @billing_manager.paid_invoices_by_month(page: params[:page])

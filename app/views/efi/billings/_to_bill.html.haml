@@ -2,11 +2,32 @@
   .row-fluid
     .span4.offset1
       %h1 Por Facturar
-    .span6.prepend1
-      %h1.right= number_to_currency @to_pay_events.count
+    / .span6.prepend1
+    /   %h1.right= number_to_currency @to_pay_events.count
 
   - if @to_pay_events.empty?
     %p.empty No hay eventos por facturar.
   - else
+    .row-flow.invoice-row{ style: 'margin-top: 30px;' }
+      .span5.offset1.prepend1 Experiencia
+      .span1 Stock
+      .span1 Precio
+      .span1 Comisión
+      .span2 Por Pagar
+
     .row-fluid
       .span10.offset1.prepend1
+        .border{ style: 'margin: 0' }
+        
+    - @to_pay_events.each do |billing| 
+      .row-fluid
+        .span5.offset1.prepend1
+          = billing[:experience]
+        .span1
+          = number_with_delimiter billing[:stock]
+        .span1
+          = number_to_currency billing[:price]
+        .span1
+          = "15%"
+        .span2
+          = number_to_currency billing[:to_pay]
