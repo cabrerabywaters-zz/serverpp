@@ -25,15 +25,10 @@ class EfiBillingManager
     last_invoice_date = efi.invoices.order('created_at desc').limit(1).first.try(:billing_ended_at)
     total_events = efi.events.where(exclusivity_id: Exclusivity.total_id)
     industry_events = efi.events.where(exclusivity_id: Exclusivity.by_industry_id)
-    without_events = efi.events.where(exclusivity_id: Exclusivity.without_id)
-    purchases = Purchase.joins(exchange: { event: :experience }).where("event_id IN (?)", without_events.collect(&:id))
     if last_invoice_date.present?
       total_events = total_events.where("created_at >= ?", last_invoice_date)
       industry_events = industry_events.where("created_at >= ?", last_invoice_date)
-      without_events = industry_events.where("created_at >= ?", last_invoice_date)
-      purchases = purchases.where("created_at >= ?", last_invoice_date)
     end
-    purchases_by_experience = purchases.group(:experience_id).count
 
     billing = (total_events + industry_events).collect do |event|
       {
@@ -46,20 +41,42 @@ class EfiBillingManager
       }
     end
 
-    without_billing = efi.available_experiences.where("experiences.id IN (?)", purchases_by_experience.keys).collect do |experience|
+    # Para cada evento sin exclusividad con estado published o taken
+    without_billing_events = efi.events.includes(:experience).with_states(:published, :taken).where(exclusivity_id: Exclusivity.without_id).collect do |event|
+      # Tengo que buscar las compras hechas despues de la ultima fecha de facturación de la experiencia
+      purchases = Purchase.joins(exchange: { event: :experience }).where("events.id =?", event.id)
+      last_billing_date = EfiInvoiceItem.where(experience_id: event.experience.id).includes(:invoice).first.try(:billing_ended_at)
+      if last_billing_date
+        purchases = purchases.where("created_at >= ?", last_billing_date)
+      end
       {
-        experience: experience.name,
-        experience_id: experience.id,
-        stock: purchases_by_experience[experience.id.to_s],
-        price: experience.discounted_price,
+        experience: event.experience.name,
+        experience_id: event.experience.id,
+        stock: purchases.count,
+        price: event.experience.discounted_price,
         comision: 15,
-        to_pay: purchases_by_experience[experience.id.to_s] * experience.experience.discounted_price * 0.15
+        to_pay: purchases.count * event.experience.discounted_price * 0.15
+      }
+    end
+    without_billing_events = without_billing_events.select {|e| e[:stock] > 0}
+
+    # Se agrupa por experiencia
+    without_billing = []
+    without_billing_events.group_by {|i| i[:experience_id]}.each do |experience_id, grouped_events|
+      first = grouped_events.first
+      without_billing << {
+        experience: first[:experience],
+        experience_id: first[:experience_id],
+        stock: grouped_events.inject(0) {|a, e| a + e[:stock] },
+        price: first[:price],
+        comision: first[:comision],
+        to_pay: grouped_events.inject(0) {|a, e| a + e[:to_pay] }
       }
     end
 
     billing + without_billing
   end
-  
+
   def make_invoice(selected_experiences, end_at)
     last_invoice_date = efi.invoices.order('created_at desc').limit(1).first.try(:billing_ended_at)
     invoice = efi.efi_invoices.build(billing_started_at: start_at, billing_ended_at: end_at)
@@ -70,5 +87,5 @@ class EfiBillingManager
     invoice.total = invoice_items.inject(0) {|a, i| i[:to_pay] + a}
     invoice.save
   end
-    
+
 end
