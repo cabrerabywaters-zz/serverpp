@@ -4,16 +4,17 @@
     %h6.interesFutbol= @experience.summary
 
     %dl.dl-horizontal.ubicacion
-      / %dt= Experience.human_attribute_name(:place)
+      %dt= Experience.human_attribute_name(:place)
       %dd= raw @experience.addresses
       / %dt= Experience.human_attribute_name(:comuna)
       / %dd= @experience.comuna_name
-      %dt= Experience.human_attribute_name(:amount)
-      %dd= number_to_currency @experience.amount
-      %dt= Experience.human_attribute_name(:discounted_price)
-      %dd= number_to_currency @experience.discounted_price, presicion: 0
-      %dt= Experience.human_attribute_name(:discount_percentage)
-      %dd= number_to_percentage @experience.get_discount_percentage, precision: 1
+      - if current_user_efi.group?(Settings.admin_efi)
+        %dt= Experience.human_attribute_name(:amount)
+        %dd= number_to_currency @experience.amount
+        %dt= Experience.human_attribute_name(:discounted_price)
+        %dd= number_to_currency @experience.discounted_price, presicion: 0
+        %dt= Experience.human_attribute_name(:discount_percentage)
+        %dd= number_to_percentage @experience.get_discount_percentage, precision: 1
 
       %dt= Experience.human_attribute_name(:starting_at)
       %dd= l @experience.starting_at, format: :datepicker
