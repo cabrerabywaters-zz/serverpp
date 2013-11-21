@@ -1,0 +1,30 @@
+.panel
+  .row-fluid
+    .span4.offset1
+      %h1 Por Pagar
+    .span6.prepend1
+      %h1.right= number_to_currency @billing_manager.total_to_pay
+
+  - if @to_pay_invoices.empty?
+    %p.empty No hay facturas por pagar
+  - else
+    .row-fluid.invoice-row{ style: 'margin-top: 30px;' }
+      .span3.offset1
+        .value Emisión
+      .span4
+        .value Período de Facturación
+      .span3
+        .value.right Total a Pagar
+
+    .row-fluid
+      .span10.offset1.prepend1
+        .border{ style: 'margin: 0' }
+
+    - @to_pay_invoices.each do |i|
+      .row-fluid.invoice-row
+        .span3.offset1
+          .value= l i.created_at, format: :long_date
+        .span4
+          .value= "#{l(i.billing_started_at, format: :api)} - #{l(i.billing_ended_at, format: :api)}"
+        .span3
+          .value.right= number_to_currency i.total

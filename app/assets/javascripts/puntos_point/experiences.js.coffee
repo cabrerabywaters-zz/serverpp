@@ -1,4 +1,8 @@
 $ ->
+  $('#experience-filter a').click (e) ->
+    e.preventDefault()
+    $(@).tab('show')
+    
   # Formatea un numero y lo devuelve como un string con su respectiva representacion monetaria
   window.numberToCurrency = (number, nDecimalDigits) ->
     parseFloat(number).toFixed(nDecimalDigits)

@@ -1,0 +1,35 @@
+.panel
+  .row-fluid
+    .span4.offset1
+      %h1 Facturas Pagadas
+
+  - if @paid_invoices.empty?
+    %p.empty No hay facturas pagadas.
+  - else
+    .row-fluid
+      .span10.offset1.prepend1
+        .chart-container
+          = high_chart "month_billing", @data
+
+    .row-fluid
+      .span4.offset1
+        %h1 Meses Anteriores
+
+    .row-fluid.invoice-row{ style: 'margin-top: 30px;' }
+      .span3.offset1
+        .value Mes
+      .span4
+      .span3
+        .value.right Total
+
+    .row-fluid
+      .span10.offset1.prepend1
+        .border{ style: 'margin: 0' }
+
+    - @paid_invoices_by_month.each do |i|
+      .row-fluid.invoice-row
+        .span3.offset1
+          .value= "#{l(Time.parse(i.month), format: :month)} #{Time.parse(i.year).year}"
+        .span4
+        .span3
+          .value.right= number_to_currency i.total

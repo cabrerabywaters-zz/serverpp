@@ -42,6 +42,7 @@ class Ability
         can :manage, Experience
         can :manage, UserEco
         can :manage, Event
+        can :manage, EfiInvoice
 
       elsif context == :efi
         can :update, UserEfi,    id: user.id

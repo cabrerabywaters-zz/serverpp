@@ -226,3 +226,73 @@ p.empty {
 	padding-top: 60px;
 	padding-bottom: 40px;
 }
+
+.filters {
+	margin-left: 0;
+	font-family: 'PT Sans', Arial;
+	font-size: 18px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	padding: 20px 0;
+	margin-top: 20px;
+	margin-bottom: 20px;
+
+	.nav-pills {
+		margin: 0;
+		float: left;
+
+		& > .active {
+			& > a:focus {
+				color: #ffffff;
+	  		background-color: #f39c12;
+			}
+		}
+	}
+
+	.search-box {
+		float: right;
+		margin-right: 30px;
+		padding-top: 4px;
+
+		input {
+			text-align: center;
+			margin-top: 10px;
+		}
+		.btn {
+			padding: 5px 28px;
+		}
+	}
+
+	.filter {
+		color: rgb(108, 108, 108);
+		background-color: white;
+		text-align: center;
+		line-height: 20px;
+		border-color: #f39c12;
+		border-style: solid;
+		border-width: 2px;
+		margin-left: 30px;
+		border-radius: 4px;
+		font-size: 14px;
+		padding: 0;
+
+		&.active{
+			background-color: #f39c12;
+      .title {
+         color: white;
+      }
+		}
+		.title {
+			color: rgb(108, 108, 108);
+			background-color: transparent;
+			text-align: center;
+			padding: 5px 0px 5px;
+			margin-bottom: 0;
+		}
+		&:hover {
+			text-decoration: none;
+		}
+	}
+
+}
