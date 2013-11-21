@@ -86,6 +86,8 @@
       conector: "%a, %d %b %Y %H:%M:%S"
       month_and_year: '%B %Y'
       api: "%d/%m/%Y %H:%M:%S"
+      long_date: "%d de %B de %Y"
+      month: '%B'
     am: "am"
     pm: "pm"
 
@@ -414,11 +416,12 @@
       experiences: Elegir experiencia
       events: Mis Eventos
       trades: Reportes
-      banners: Agregar a Favoritos
+      banners: Favoritos
       accounts: Clientes
       publicities: Comunicados
       api: API
       support: Servicio al Cliente
+      billings: Facturación
     eco:
       experiences: Mis Experiencia
       new_experience: Crear Experiencia

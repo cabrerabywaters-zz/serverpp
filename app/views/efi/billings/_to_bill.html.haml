@@ -1,0 +1,12 @@
+.panel
+  .row-fluid
+    .span4.offset1
+      %h1 Por Facturar
+    .span6.prepend1
+      %h1.right= number_to_currency @to_pay_events.count
+
+  - if @to_pay_events.empty?
+    %p.empty No hay eventos por facturar.
+  - else
+    .row-fluid
+      .span10.offset1.prepend1
