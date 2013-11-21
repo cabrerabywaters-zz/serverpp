@@ -55,7 +55,12 @@ class Ability
         can :manage, Banner,    event: {efi_id: user.efi_id}
         can :manage, Publicity, event: {efi_id: user.efi_id}
 
-        if user.group?(Settings.operator_efi) || user.group?(Settings.admin_efi)
+        if user.group?(Settings.admin_efi)
+          can :support, :index
+          can :support, :show          
+        end
+        
+        if user.group?(Settings.operator_efi)
           can :support, :index
           can :support, :show
           cannot :update, UserEfi
