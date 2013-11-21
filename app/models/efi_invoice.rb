@@ -1,5 +1,6 @@
 class EfiInvoice < ActiveRecord::Base
   belongs_to :efi
+  has_many :efi_invoice_items
   validates :billing_started_at, :billing_ended_at, :total, presence: true
 
   scope :to_pay, -> { where(state: :billed) }

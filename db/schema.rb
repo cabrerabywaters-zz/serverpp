@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131108125847) do
+ActiveRecord::Schema.define(:version => 20131121031945) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "efi_id"
@@ -160,6 +160,20 @@ ActiveRecord::Schema.define(:version => 20131108125847) do
   add_index "ecos", ["admin_id"], :name => "index_ecos_on_admin_id"
   add_index "ecos", ["comuna_id"], :name => "index_ecos_on_comuna_id"
   add_index "ecos", ["rut"], :name => "index_ecos_on_rut"
+
+  create_table "efi_invoice_items", :force => true do |t|
+    t.integer  "efi_invoice_id", :null => false
+    t.integer  "experience_id",  :null => false
+    t.integer  "stock"
+    t.integer  "price"
+    t.float    "comision"
+    t.float    "total"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "efi_invoice_items", ["efi_invoice_id"], :name => "index_efi_invoice_items_on_efi_invoice_id"
+  add_index "efi_invoice_items", ["experience_id"], :name => "index_efi_invoice_items_on_experience_id"
 
   create_table "efi_invoices", :force => true do |t|
     t.integer  "efi_id",             :null => false

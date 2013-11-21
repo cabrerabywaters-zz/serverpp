@@ -38,6 +38,7 @@ class EfiBillingManager
     billing = (total_events + industry_events).collect do |event|
       {
         experience: event.experience.name,
+        experience_id: event.experience.id,
         stock: event.quantity,
         price: event.experience.discounted_price,
         comision: 15,
@@ -48,6 +49,7 @@ class EfiBillingManager
     without_billing = efi.available_experiences.where("experiences.id IN (?)", purchases_by_experience.keys).collect do |experience|
       {
         experience: experience.name,
+        experience_id: experience.id,
         stock: purchases_by_experience[experience.id.to_s],
         price: experience.discounted_price,
         comision: 15,
@@ -57,4 +59,16 @@ class EfiBillingManager
 
     billing + without_billing
   end
+  
+  def make_invoice(selected_experiences, end_at)
+    last_invoice_date = efi.invoices.order('created_at desc').limit(1).first.try(:billing_ended_at)
+    invoice = efi.efi_invoices.build(billing_started_at: start_at, billing_ended_at: end_at)
+    invoice_items = to_pay_events.select {|i| selected_experiences.include?(i[:experience_id])}
+    invoice_items.each do |invoice_item|
+      invoice.efi_invoice_items.build(experience_id: invoice_item[:experience_id], comision: 15, price: invoice_item[:price], stock: invoice_item[:stock], total: invoice_item[:to_pay])
+    end
+    invoice.total = invoice_items.inject(0) {|a, i| i[:to_pay] + a}
+    invoice.save
+  end
+    
 end
