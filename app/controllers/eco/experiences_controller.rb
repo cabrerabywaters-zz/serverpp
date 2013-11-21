@@ -109,9 +109,9 @@ class Eco::ExperiencesController < Eco::EcoApplicationController
 
   def process_experience_params(params)
     experience_params = params.dup
-    experience_params[:amount] = experience_params[:amount].try(:gsub, '.', '')
-    experience_params[:discounted_price] = experience_params[:discounted_price].try(:gsub, '.', '')
-    experience_params[:discount_percentage] = experience_params[:discount_percentage].try(:gsub, '.', '')
+    experience_params[:amount] = experience_params[:amount].try(:delete, ',')
+    experience_params[:discounted_price] = experience_params[:discounted_price].try(:delete, ',')
+    experience_params[:discount_percentage] = experience_params[:discount_percentage].try(:delete, ',')
     experience_params
   end
 end
