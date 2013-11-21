@@ -31,6 +31,9 @@
           - if can? :destroy, efi
             = link_to puntos_point_efi_path(efi.id), method: :delete, data: {confirm: t("helpers.links.confirm.destroy")}, class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-danger' do
               %i.icon-trash
+          - if can? :manage, EfiInvoice
+            = link_to puntos_point_billings_path(efi.id), class: 'btn btn-link custom-btn-icon custom-btn-icon-mini custom-btn-icon-danger' do
+              %i.icon-file
 
 - if can? :create, model_class
   = link_to t("helpers.links.new"), new_puntos_point_efi_path, class: 'btn btn-warning pull-right'
