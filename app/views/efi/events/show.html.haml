@@ -2,9 +2,9 @@
   .row-fluid
     .text-right
       %br
-      - if @event.taken?
+      - if can?(:publish, @event) && @event.taken?
         = link_to t('helpers.links.publish'), publish_efi_event_path(@event), class: 'btn btn-success btn-large', method: :put, confirm: t('helpers.links.confirm.publish', model: Event.model_name.human)
-      - if @event.published?
+      - if can?(:unpublish, @event) && @event.published?
         = link_to t('helpers.links.unpublish'), unpublish_efi_event_path(@event), class: 'btn btn-warning btn-large', method: :put, confirm: t('helpers.links.confirm.unpublish', model: Event.model_name.human)
 
 = render 'experience_details'
