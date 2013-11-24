@@ -28,18 +28,27 @@ class PuntosPoint::EfiBillingsController < PuntosPoint::PuntosPointApplicationCo
       f.options[:plotOptions] = {column: {borderWidth: 0, shadow: false}}
     end
   end
-  
+
   # POST /puntos_point/efi/:id/billings
   def create
-    0/0
-    @efi = Efi.find(params[:id])
-    @billing_manager = EfiBillingManager.new(@efi)
-    selected_experiences = []
+    @billing_manager = EfiBillingManager.new(Efi.find(params[:id]))
     respond_to do |format|
-      if @billing_manager.make_invoice(selected_experiences, Time.now)
+      if params[:experiences].present? && @billing_manager.make_invoice(params[:experiences], Time.now)
         format.html { redirect_to puntos_point_billings_path }
       else
-        format.html { redirect_to puntos_point_billings_path, error: 'Ha ocurido un error al crear la factura.' }
+        error_message = params[:experiences].present? ? 'Ha ocurido un error al crear la factura.' : 'Debes seleccionar al menos una experiencia para realizar la factura.'
+        format.html { redirect_to puntos_point_billings_path, error: error_message }
+      end
+    end
+  end
+
+  def update
+    @invoice = Efi.find(params[:efi_id]).invoices.find(params[:id])
+    respond_to do |format|
+      if @invoice.paid!
+        format.html { redirect_to puntos_point_billings_path(anchor: 'paid') }
+      else
+        format.html { redirect_to puntos_point_billings_path(anchor: 'billed'), error: 'No se pudo declarar como pagada la factura.' }
       end
     end
   end

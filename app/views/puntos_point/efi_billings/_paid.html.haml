@@ -11,10 +11,6 @@
         .chart-container
           = high_chart "month_billing", @data
 
-    .row-fluid
-      .span4.offset1
-        %h1 Meses Anteriores
-
     .row-fluid.invoice-row{ style: 'margin-top: 30px;' }
       .span3.offset1
         .value Mes
@@ -27,9 +23,32 @@
         .border{ style: 'margin: 0' }
 
     - @paid_invoices_by_month.each do |i|
+      - parsed_month = Time.parse(i.month)
       .row-fluid.invoice-row
-        .span3.offset1
-          .value= "#{l(Time.parse(i.month), format: :month)} #{Time.parse(i.year).year}"
-        .span4
-        .span3
-          .value.right= number_to_currency i.total
+        .accordion-heading
+          .span3.offset1
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "##{parsed_month.year}_#{parsed_month.month}"}
+              .value= "#{l(parsed_month, format: :month)} #{Time.parse(i.year).year}"
+          .span4
+          .span3
+            .value.right= number_to_currency i.total
+
+      .row-fluid
+        .span10
+          .accordion-body.collapse{id: "#{parsed_month.year}_#{parsed_month.month}"}
+            .accordion-inner
+              .row-fluid
+                .span10.offset2
+                  .value.left.strong Detalle Facturas Mes de #{l(parsed_month, format: :month)} #{Time.parse(i.year).year}
+              .row-fluid
+                .span6.offset2
+                  .value.left Factura ID
+                .span4
+                  .value.right Total
+
+              - @efi.invoices.where("billing_started_at >= ? AND billing_started_at <= ?", parsed_month.beginning_of_month, parsed_month.end_of_month).order('billing_started_at').each do |invoice|
+                .row-fluid
+                  .span6.offset2
+                    .value.left= invoice.id
+                  .span4
+                    .value.right= number_to_currency invoice.total

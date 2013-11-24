@@ -62,6 +62,7 @@ class PuntosPoint::ExperiencesController < PuntosPoint::PuntosPointApplicationCo
 
   def update
     @experience = Experience.find(params[:id])
+    Industry.all.each { |industry| @experience.industry_experiences.build(industry_id: industry.id, percentage: industry.percentage) } if @experience.industry_experiences.empty?
     respond_to do |format|
       if @experience.update_attributes(process_experience_params(params[:experience]), as: :puntos_point)
         if params[:publish_experience].present?
@@ -83,7 +84,6 @@ class PuntosPoint::ExperiencesController < PuntosPoint::PuntosPointApplicationCo
           format.json { render json: @experience }
         end
       else
-        raise @experience.to_yaml
         format.html { render action: :edit }
         format.json { render json: { errors: @experience.errors }, status: :unprocessable_entity }
       end

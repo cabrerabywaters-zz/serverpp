@@ -8,26 +8,33 @@
   - if @to_pay_events.empty?
     %p.empty No hay eventos por facturar.
   - else
-    .row-fluid.invoice-row{ style: 'margin-top: 30px;' }
-      .span5.offset1.prepend1 Experiencia
-      .span1 Stock
-      .span1 Precio
-      .span1 Comisión
-      .span2 Por Pagar
+    = form_tag puntos_point_billings_path, method: 'POST' do
+      .row-fluid.invoice-row{ style: 'margin-top: 30px;' }
+        .span5.offset1.prepend1 Experiencia
+        .span1 Stock
+        .span1 Precio
+        .span1 Comisión
+        .span2 Por Pagar
 
-    .row-fluid
-      .span10.offset1.prepend1
-        .border{ style: 'margin: 0' }
-        
-    - @to_pay_events.each do |billing| 
       .row-fluid
-        .span5.offset1.prepend1
-          = billing[:experience]
-        .span1
-          = number_with_delimiter billing[:stock]
-        .span1
-          = number_to_currency billing[:price]
-        .span1
-          = "15%"
-        .span2
-          = number_to_currency billing[:to_pay]
+        .span10.offset1.prepend1
+          .border{ style: 'margin: 0' }
+
+      - @to_pay_events.each do |billing|
+        .row-fluid
+          .span5.offset1.prepend1
+            %label.checkbox
+              = check_box_tag "experiences[]", billing[:experience_id]
+              = billing[:experience]
+          .span1
+            = number_with_delimiter billing[:stock]
+          .span1
+            = number_to_currency billing[:price]
+          .span1
+            = "15%"
+          .span2
+            = number_to_currency billing[:to_pay]
+
+      .row-fluid{ style: 'margin-top: 40px;' }
+        .span12.center
+          = submit_tag 'Facturar', class: 'btn btn-flat'

@@ -21,6 +21,7 @@ Showtime::Application.routes.draw do
     resources :efis
     get 'efi/:id/billings' => "efi_billings#index", as: :billings
     post 'efi/:id/billings' => "efi_billings#create", as: :billings
+    put 'efi/:efi_id/billings/:id' => "efi_billings#update", as: :billing
     
     resources :industries
 

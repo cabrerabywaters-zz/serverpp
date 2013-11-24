@@ -11,10 +11,11 @@
     .row-fluid.invoice-row{ style: 'margin-top: 30px;' }
       .span3.offset1
         .value Emisión
-      .span4
-        .value Período de Facturación
       .span3
+        .value Período de Facturación
+      .span2
         .value.right Total a Pagar
+      .span3 Acciones
 
     .row-fluid
       .span10.offset1.prepend1
@@ -24,7 +25,13 @@
       .row-fluid.invoice-row
         .span3.offset1
           .value= l i.created_at, format: :long_date
-        .span4
-          .value= "#{l(i.billing_started_at, format: :api)} - #{l(i.billing_ended_at, format: :api)}"
         .span3
+          .value{ style: 'line-height: 20px' }
+            = "Desde: #{l(i.billing_started_at, format: :api)}"
+            %br
+            = "Hasta: #{l(i.billing_ended_at, format: :api)}"
+        .span2
           .value.right= number_to_currency i.total
+        .span3
+          = form_tag puntos_point_billing_path(@efi.id, i.id), method: 'PUT' do
+            = submit_tag 'Pagada', class: 'btn btn-flat'

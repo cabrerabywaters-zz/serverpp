@@ -39,4 +39,5 @@
 //= require ../activate_tooltips
 //= require ../restrict_to_number
 //= require cocoon
+//= require highcharts
 //= require_tree .
