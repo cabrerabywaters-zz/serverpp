@@ -2,6 +2,11 @@ require 'wicked_pdf'
 
 Showtime::Application.configure do
   # config.middleware.use WickedPdf::Middleware, {margin: {top: 0, left: 0, bottom: 0, right: 0}}
+  config.middleware.use ExceptionNotification::Rack,
+    hipchat: {
+      api_token: 'f669faaee2c209425d923296b1c555',
+      room_name: 'Puntos Point'
+    }
 
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -69,11 +74,11 @@ Showtime::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  default_url_options = { host: ENV['HOST'] }
-  config.default_url_options = { host: ENV['HOST'] }
-  routes.default_url_options = { host: ENV['HOST'] }
+  default_url_options = { :host => ENV['HOST']  }
+  config.default_url_options = { :host => ENV['HOST'] }
+  routes.default_url_options = { :host => ENV['HOST'] }
   config.action_controller.asset_host = "http://s3.amazonaws.com/#{ENV['FOG_DIRECTORY']}"
-  config.action_mailer.default_url_options = { host: ENV['HOST'] }
+  config.action_mailer.default_url_options = { :host => ENV['HOST'] }
 
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.sendmail_settings = {

@@ -5,6 +5,8 @@ gem 'rails', '3.2.12'
 gem 'simple_form'
 gem 'haml-rails'
 gem 'pg'
+gem 'exception_notification'
+gem 'hipchat'
 
 # Gems used only for assets and not required
 # in production environments by default.

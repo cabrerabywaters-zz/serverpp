@@ -94,6 +94,9 @@ GEM
       mail (~> 2.2)
     erubis (2.7.0)
     eventmachine (1.0.3)
+    exception_notification (4.0.1)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
     excon (0.20.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -137,6 +140,11 @@ GEM
     hash-deep-merge (0.1.1)
     hashery (2.1.0)
     hike (1.2.3)
+    hipchat (0.12.0)
+      httparty
+    httparty (0.12.0)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.5)
     ice_cube (0.10.1)
     journey (1.0.4)
@@ -178,6 +186,7 @@ GEM
     mocha (0.13.3)
       metaclass (~> 0.0.1)
     multi_json (1.7.9)
+    multi_xml (0.5.5)
     nested_form (0.3.2)
     net-scp (1.1.0)
       net-ssh (>= 2.6.5)
@@ -197,7 +206,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    pg (0.15.1)
+    pg (0.17.0)
     polyglot (0.3.3)
     prawn (0.12.0)
       pdf-reader (>= 0.9.0)
@@ -381,12 +390,14 @@ DEPENDENCIES
   date_validator
   devise
   email_spec
+  exception_notification
   factory_girl
   factory_girl_rails
   figaro
   friendly_id
   guard-rspec
   haml-rails
+  hipchat
   jquery-datatables-rails
   jquery-rails
   jquery-validation-rails
