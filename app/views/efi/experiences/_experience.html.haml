@@ -3,7 +3,7 @@
     %span.info
       %h3.nameExperience{class: experience.category_texture_name}= experience.name
 
-%span.info.experience_more.text-left.dn
+    %span.info.experience_more.text-left.dn
       - if experience.events.total_exclusivity.any?
         %h3.exclusivity_info
           %i.icon-star
@@ -18,7 +18,7 @@
           %i.icon-suitcase
           = t('views.by_industry_exclusivity')
         %ul
- - experience.events.exclusivity_by_industry.each do |event|
+          - experience.events.exclusivity_by_industry.each do |event|
             %li= image_tag event.efi_logo.url(:thumb), class: "img-circle"
         .linea2
 
