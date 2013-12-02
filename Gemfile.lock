@@ -63,6 +63,7 @@ GEM
     celluloid (0.12.4)
       facter (>= 1.6.12)
       timers (>= 1.0.0)
+    choice (0.1.6)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.1)
@@ -239,6 +240,11 @@ GEM
       activesupport (= 3.2.12)
       bundler (~> 1.0)
       railties (= 3.2.12)
+    rails-erd (1.1.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      choice (~> 0.1.6)
+      ruby-graphviz (~> 1.0.4)
     railties (3.2.12)
       actionpack (= 3.2.12)
       activesupport (= 3.2.12)
@@ -281,6 +287,7 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
+    ruby-graphviz (1.0.9)
     ruby-hmac (0.4.0)
     ruby-ole (1.2.11.6)
     ruby-rc4 (0.1.5)
@@ -414,6 +421,7 @@ DEPENDENCIES
   pry-rails
   quiet_assets
   rails (= 3.2.12)
+  rails-erd
   rb-fsevent
   rest-client
   roo

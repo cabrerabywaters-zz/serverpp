@@ -16,8 +16,9 @@ dl.ubicacion dd{
   height: 35px;
   min-height: 35px;
   max-height: 35px;
+  cursor: pointer;
 }
-.experience .info.experience_more ul li{line-height: 12px;}
+.experience .info.experience_more ul li{line-height: 12px;cursor: pointer;}
 
 .experience span.info.experience_info .icon.background-transparencia-negra  .pull-left  span{
   margin-left: 5px;

@@ -50,6 +50,10 @@ group :test do
   gem 'email_spec'
 end
 
+#ER diagrams
+gem "rails-erd"
+
+
 gem 'figaro'
 
 gem 'asset_sync'

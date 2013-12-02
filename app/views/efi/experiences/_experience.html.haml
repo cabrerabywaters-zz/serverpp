@@ -1,3 +1,4 @@
+
 .span3.experience
   = link_to efi_experience_path(experience.id) do
     %span.info
@@ -31,7 +32,7 @@
             %li= image_tag event.efi_logo.url(:thumb), class: "img-circle"
 
     %span.info.experience_info
-      %h4= image_tag experience.image
+      %h4= image_tag(experience.image, :class => 'expimg') 
       .icon.background-transparencia-negra
         .pull-left
           %span.label= number_to_currency experience.swaps, unit: ''
