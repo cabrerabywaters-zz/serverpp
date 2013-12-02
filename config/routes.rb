@@ -19,6 +19,10 @@ Showtime::Application.routes.draw do
     resources :admins
     resources :categories
     resources :efis
+    get 'efi/:id/billings' => "efi_billings#index", as: :billings
+    post 'efi/:id/billings' => "efi_billings#create", as: :billings
+    put 'efi/:efi_id/billings/:id' => "efi_billings#update", as: :billing
+    
     resources :industries
 
     get 'edit_percentage_industries' => "percentage_industries#edit",   as: :edit_percentage_industries
@@ -76,6 +80,9 @@ Showtime::Application.routes.draw do
   end
 
   namespace :efi do
+
+    resources :billings, only: [:index, :create]
+
     resources :experiences, only: [:index, :show] do
       resources :events, only: :create
     end

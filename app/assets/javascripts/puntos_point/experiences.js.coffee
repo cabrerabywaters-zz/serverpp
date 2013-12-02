@@ -1,36 +1,41 @@
 $ ->
+  $('#experience-filter a').click (e) ->
+    e.preventDefault()
+    $(@).tab('show')
+    
   # Formatea un numero y lo devuelve como un string con su respectiva representacion monetaria
   window.numberToCurrency = (number, nDecimalDigits) ->
+    parseFloat(number).toFixed(nDecimalDigits)
     # default values
-    decimalSeparator   = ","
-    thousandsSeparator = "."
-    nDecimalDigits     = nDecimalDigits or 0
-
-    return if number isnt 0 and not number
-
-    number += ''
-
-    unformated_number = parseFloat  number.replace(/[\.]/g, '')
-                                          .replace(/[\,]/g,  '.')
-
-    fixed = unformated_number.toFixed(nDecimalDigits) #limit/add decimal digits
-
-    if nDecimalDigits is 0
-      parts = RegExp("^(-?\\d{1,3})((\\d{3})+)$").exec(fixed)
-      if parts
-        parts[1] + parts[2].replace(/\d{3}/g, thousandsSeparator + "$&")
-      else
-        fixed.replace(".", decimalSeparator)
-    else
-      parts = RegExp("^(-?\\d{1,3})((\\d{3})+)\\.(\\d{" + nDecimalDigits + "})$").exec(fixed)
-      if parts
-        parts[1] + parts[2].replace(/\d{3}/g, thousandsSeparator + "$&") + decimalSeparator + parts[4]
-      else
-        fixed.replace(".", decimalSeparator)
+    # decimalSeparator   = ","
+    # thousandsSeparator = "."
+    # nDecimalDigits     = nDecimalDigits or 0
+    # 
+    # return if number isnt 0 and not number
+    # 
+    # number += ''
+    # 
+    # unformated_number = parseFloat  number#.replace(/[\.]/g, '')
+    #                                       #.replace(/[\,]/g,  '.')
+    # 
+    # fixed = unformated_number.toFixed(nDecimalDigits) #limit/add decimal digits
+    # 
+    # if nDecimalDigits is 0
+    #   parts = RegExp("^(-?\\d{1,3})((\\d{3})+)$").exec(fixed)
+    #   if parts
+    #     parts[1] + parts[2].replace(/\d{3}/g, thousandsSeparator + "$&")
+    #   else
+    #     fixed.replace(".", decimalSeparator)
+    # else
+    #   parts = RegExp("^(-?\\d{1,3})((\\d{3})+)\\.(\\d{" + nDecimalDigits + "})$").exec(fixed)
+    #   if parts
+    #     parts[1] + parts[2].replace(/\d{3}/g, thousandsSeparator + "$&") + decimalSeparator + parts[4]
+    #   else
+    #     fixed.replace(".", decimalSeparator)
 
   # Des-formate un valor monetario y lo devuelve como numero
   window.currencyToNumber = (number) ->
-    parseFloat number.replace(/[\.]/g, '').replace(/[\,]/g,  '.')
+    parseFloat number#.replace(/[\.]/g, '').replace(/[\,]/g,  '.')
 
   # Callback para formatear un input dado
   window.do_format = (element, precision) ->
@@ -43,7 +48,7 @@ $ ->
   # Permite cambiar los separadores decimales y de miles, dado que normalmente se usa '.' para separadores decimales, pero localmente se usa ',', lo cual provoca errors al formatear y des-formatear
   window.to_string_number = (number) ->
     number += ''
-    number = number.replace('.', ',')
+    # number = number.replace('.', ',')
 
   # Funcion que permite construir el valor del descuento porcentual, en base a al precio y el precio con descuento
   make_discount_percentage = () ->
@@ -59,7 +64,7 @@ $ ->
 
     formated_price            = numberToCurrency(price,                      0)
     formated_discounted_price = numberToCurrency(discounted_price,           0)
-    formated_discount         = numberToCurrency(to_string_number(discount), 0)
+    formated_discount         = numberToCurrency(to_string_number(discount), 2)
 
     $('input#experience_amount').val(formated_price)
     $('input#experience_discounted_price').val(formated_discounted_price)
@@ -70,7 +75,7 @@ $ ->
     unformated_discounted_price = currencyToNumber $('input#experience_discounted_price').val()    || '0'
     unformated_discount         = currencyToNumber $('input#experience_discount_percentage').val() || '0'
 
-    console.log unformated_discount
+    # console.log unformated_discount
 
     discounted_price = parseInt(unformated_discounted_price)
     discount         = parseFloat(unformated_discount)

@@ -30,7 +30,7 @@ class PuntosPoint::ExperiencesController < PuntosPoint::PuntosPointApplicationCo
     @experience = Experience.new(process_experience_params(params[:experience]), as: :puntos_point)
     Industry.all.each { |industry| @experience.industry_experiences.build(industry_id: industry.id, percentage: industry.percentage) }
     respond_to do |format|
-      if @experience.save
+      if @experience.save!
         if params[:publish_experience].present?
           if @experience.publish!
             format.html { redirect_to puntos_point_experience_path(@experience) }
@@ -62,6 +62,7 @@ class PuntosPoint::ExperiencesController < PuntosPoint::PuntosPointApplicationCo
 
   def update
     @experience = Experience.find(params[:id])
+    Industry.all.each { |industry| @experience.industry_experiences.build(industry_id: industry.id, percentage: industry.percentage) } if @experience.industry_experiences.empty?
     respond_to do |format|
       if @experience.update_attributes(process_experience_params(params[:experience]), as: :puntos_point)
         if params[:publish_experience].present?
@@ -126,9 +127,9 @@ class PuntosPoint::ExperiencesController < PuntosPoint::PuntosPointApplicationCo
 
   def process_experience_params(params)
     experience_params = params.dup
-    experience_params[:amount] = experience_params[:amount].try(:gsub, '.', '')
-    experience_params[:discounted_price] = experience_params[:discounted_price].try(:gsub, '.', '')
-    experience_params[:discount_percentage] = experience_params[:discount_percentage].try(:gsub, '.', '')
+    experience_params[:amount] = experience_params[:amount].try(:delete, ',')
+    experience_params[:discounted_price] = experience_params[:discounted_price].try(:delete, ',')
+    experience_params[:discount_percentage] = experience_params[:discount_percentage].try(:delete, ',')
     experience_params
   end
 end

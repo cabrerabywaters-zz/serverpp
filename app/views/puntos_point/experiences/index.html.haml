@@ -18,7 +18,7 @@
       %tr{class: experience.draft? ? 'warning' : ''}
         %td= trim_to(experience.name, 20).html_safe
         %td= number_to_currency experience.amount, presicion: 1
-        %td= trim_to(experience.place, 20).html_safe
+        %td= trim_to(experience.addresses, 20).html_safe
         %td=l experience.validity_starting_at, format: :short
         %td=l experience.validity_ending_at, format: :short
         %td= number_to_currency experience.swaps, unit: ''

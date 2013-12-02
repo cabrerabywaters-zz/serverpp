@@ -1,0 +1,22 @@
+.row-fluid
+  .span12.panel.filters.tabbable{ style: 'padding: 20px 0; margin: 20px 0 0 0;'}
+    %ul#experience-filter.nav.nav-pills
+      %li.filter.active
+        = link_to '#billed', data: { toogle: 'pill' } do
+          %span.title Por Pagar
+      %li.filter
+        = link_to '#to_bill', data: { toogle: 'pill' } do
+          %span.title Por Facturar
+      %li.filter
+        = link_to '#paid', data: { toogle: 'pill' } do
+          %span.title Pagado
+
+.tab-content{ style: "overflow: visible" }
+  #billed.tab-pane.active
+    = render 'billed'
+
+  #to_bill.tab-pane
+    = render 'to_bill'
+
+  #paid.tab-pane
+    = render 'paid'

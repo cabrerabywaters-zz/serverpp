@@ -30,7 +30,7 @@
                         %h4{:style => "font:bold; color:#006699;"}= @experience.summary
                         %p
                           %strong= Experience.human_attribute_name(:place)
-                          = @experience.place
+                          = raw @experience.addresses
                         / %p
                         /   %strong= Experience.human_attribute_name(:place)
                         /   = @experience.comuna_name

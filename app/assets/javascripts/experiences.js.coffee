@@ -69,7 +69,7 @@ $ ->
           experienceForm.dirtyForms('setClean')
           if experienceForm.find('input[name="_method"]').length == 0
             experienceForm.find('div:first').append('<input type="hidden" name="_method" value="put" />')
-          experienceForm.attr('action', response.getResponseHeader('Location'))
+            experienceForm.attr('action', response.getResponseHeader('Location'))
         error: (response) ->
           if response.status == 503 or response.status == 401 or response.status == 403
             disableAutosave = true

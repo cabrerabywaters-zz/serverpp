@@ -55,7 +55,7 @@ class Efi::ExperiencesController < Efi::EfiApplicationController
     if params[:id].present?
       @experience  = current_user_efi.available_experiences.published_or_active.started.find(params[:id])
     else
-      @experiences = current_user_efi.available_experiences.are_published.started
+      @experiences = current_user_efi.available_experiences.published_or_active.started
     end
   end
 end

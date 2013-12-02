@@ -25,3 +25,7 @@
  *= require bootstrap-wysihtml5
  *= require_tree .
  */
+
+.row #experience-filter.nav-pills > .active {
+  background-color: transparent;
+}

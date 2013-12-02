@@ -42,23 +42,31 @@ class Ability
         can :manage, Experience
         can :manage, UserEco
         can :manage, Event
+        can :manage, EfiInvoice
 
       elsif context == :efi
         can :update, UserEfi,    id: user.id
         can :read,   Experience
         can :read,   Event
         can :create, Event
-        can :publish, Event
-        can :unpublish, Event
         can :manage, Account
         can :create, Transaction
         can :manage, Banner,    event: {efi_id: user.efi_id}
         can :manage, Publicity, event: {efi_id: user.efi_id}
 
-        if user.group?(Settings.operator_efi) || user.group?(Settings.admin_efi)
+        if user.group?(Settings.admin_efi)
+          can :support, :index
+          can :support, :show
+          can :publish, Event, efi_id: user.efi_id
+          can :unpublish, Event, efi_id: user.efi_id
+        end
+        
+        if user.group?(Settings.operator_efi)
           can :support, :index
           can :support, :show
           cannot :update, UserEfi
+          cannot :publish, Event
+          cannot :unpublish, Event
         end
 
       elsif context == :eco

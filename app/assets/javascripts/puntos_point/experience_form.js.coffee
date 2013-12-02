@@ -56,6 +56,6 @@ $ ->
         number: true
         min: 0
       "experience[fee]":
-        digits: true
+        number: true
         min: 1
         max: 100
