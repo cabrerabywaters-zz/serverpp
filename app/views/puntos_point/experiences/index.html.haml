@@ -6,21 +6,21 @@
   %thead
     %tr
       %th= model_class.human_attribute_name(:name)
+      
       %th= model_class.human_attribute_name(:amount)
-      %th= model_class.human_attribute_name(:place)
-      %th= model_class.human_attribute_name(:validity_starting_at)
-      %th= model_class.human_attribute_name(:validity_ending_at)
+      %th= model_class.human_attribute_name(:starting_at)
+      %th= model_class.human_attribute_name(:ending_at)
       %th= model_class.human_attribute_name(:swaps)
       %th= model_class.human_attribute_name(:state)
       %th= t("helpers.actions")
   %tbody
     - @experiences.each do |experience|
       %tr{class: experience.draft? ? 'warning' : ''}
-        %td= trim_to(experience.name, 20).html_safe
-        %td= number_to_currency experience.amount, presicion: 1
-        %td= trim_to(experience.addresses, 20).html_safe
-        %td=l experience.validity_starting_at, format: :short
-        %td=l experience.validity_ending_at, format: :short
+        %td= trim_to(experience.name, 80).html_safe
+        
+        %td= number_to_currency experience.discounted_price, presicion: 1
+        %td=l experience.starting_at, format: :short
+        %td=l experience.ending_at, format: :short
         %td= number_to_currency experience.swaps, unit: ''
         %td= experience.translate_state
         %td

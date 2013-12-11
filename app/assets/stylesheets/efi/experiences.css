@@ -16,13 +16,14 @@ dl.ubicacion dd{
   height: 35px;
   min-height: 35px;
   max-height: 35px;
-  cursor: pointer;
+
 }
 .experience .info.experience_more ul li{line-height: 12px;cursor: pointer;}
 
 .experience span.info.experience_info .icon.background-transparencia-negra  .pull-left  span{
   margin-left: 5px;
   margin-top: 5px;
+  bottom: 89.5%;
 }
 .experience span.info.experience_info .valor.background-transparencia-negra .pull-right span{
   margin-right: 5px;

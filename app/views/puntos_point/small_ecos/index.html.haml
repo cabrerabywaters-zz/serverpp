@@ -5,25 +5,18 @@
 %table.table.table-striped
   %thead
     %tr
-      %th= model_class.human_attribute_name(:id)
       %th= model_class.human_attribute_name(:rut)
-      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:eco)
       %th= model_class.human_attribute_name(:webpage)
-      %th= model_class.human_attribute_name(:images)
       %th= model_class.human_attribute_name(:created_at)
       %th= t("helpers.actions")
   %tbody
     - @ecos.each do |eco|
       %tr
-        %td
-          - if can? :show, eco
-            = link_to eco.id, puntos_point_small_eco_path(eco)
-          - else
-            %td= eco.id
+        
         %td= Run.format eco.rut
-        %td= trim_to(eco.name, 20).html_safe
+        %td= trim_to(eco.fancy_name, 80).html_safe
         %td= eco.webpage
-        %td= booleanize eco.images
         %td=l eco.created_at, format: :short
         %td
           - if can? :update, eco

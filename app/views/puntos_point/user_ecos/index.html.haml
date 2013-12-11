@@ -24,7 +24,7 @@
         %td= trim_to(user_eco.full_name, 15).html_safe
         %td= trim_to(user_eco.nickname, 15).html_safe
         %td= user_eco.email
-        %td= trim_to(user_eco.eco_name, 20).html_safe
+        %td= trim_to(user_eco.eco_fancy_name, 20).html_safe
         %td=l user_eco.created_at, format: :short
         %td
           - if can? :update, user_eco

@@ -19,7 +19,7 @@
           %span.label.label-warning= interest.name
     %dl.dl-horizontal
       %dt= Experience.human_attribute_name(:place)
-      %dd= raw @experience.addresses
+      %dd= @experience.place.presence || '-'
 
       %dt= Experience.human_attribute_name(:validity_starting_at)
       %dd= l @experience.validity_starting_at, format: :datepicker
