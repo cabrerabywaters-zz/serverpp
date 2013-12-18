@@ -22,75 +22,77 @@
     #container
       / Header
       %header.backgroundHeader
-        #headerContainer.container
-          .navbar
-            .container
-              #logo
-                = link_to puntos_point_root_path do
+        .headerContainer
+          .row-fluid.headerContainer 
+            .navbar
+              / Logo
+              .logo
+                = link_to efi_root_path do
                   = image_tag 'logo.png', alt: 'Puntos Point', title: 'Puntos Point'
-              .pull-right
+              .pullrightPP
                 %ul.nav.navBg
                   - if current_admin
                     %li
                       = link_to destroy_admin_session_path do
                         %i.icon-off.icon-white
                         = t('helpers.sign_out')
+              .span12.navContainerPP
+                %ul.nav.navExperiences
+                  %li
+                    = link_to puntos_point_categories_path do
+                      %span
+                      = Category.model_name.human.pluralize
+                  %li
+                    = link_to puntos_point_interests_path do
+                      %span
+                      = Interest.model_name.human.pluralize
+                  %li
+                    = link_to puntos_point_industries_path do
+                      %span
+                      = Industry.model_name.human.pluralize
+                  %li
+                    = link_to puntos_point_efis_path do
+                      %span
+                      = Efi.model_name.human.pluralize
+                  %li
+                    = link_to puntos_point_admins_path do
+                      %span
+                      = Admin.model_name.human.pluralize
+                  %li
+                    = link_to puntos_point_user_efis_path do
+                      %span
+                      = UserEfi.model_name.human.pluralize
+                  %li
+                    = link_to puntos_point_small_ecos_path do
+                      %span
+                      = t('menu.puntospoint.small_ecos')
+                  %li
+                    = link_to puntos_point_big_ecos_path do
+                      %span
+                      = t('menu.puntospoint.big_ecos')
+                  %li
+                    = link_to puntos_point_experiences_path do
+                      %span
+                      = Experience.model_name.human.pluralize
+                  %li
+                    = link_to puntos_point_user_ecos_path do
+                      %span
+                      = UserEco.model_name.human.pluralize
+                  %li
+                    = link_to puntos_point_events_path do
+                      %span
+                      = Event.model_name.human.pluralize
+            
+        = bootstrap_flash
+      %section#main
+        #mainContainer.container.contenidoPP
+                    
+          .row-fluid
+            = yield
+          .cb
 
-    .container.contenidoPP
-      .row
-        .span9
-          = bootstrap_flash
-          = yield
-        .span3
-          .well.sidebar-nav
-            %h3= t('menu.puntospoint.title')
-            %ul.nav.nav-list
-              %li
-                = link_to puntos_point_categories_path do
-                  %i.icon-user.icon-white
-                  = Category.model_name.human.pluralize
-              %li
-                = link_to puntos_point_interests_path do
-                  %i.icon-user.icon-white
-                  = Interest.model_name.human.pluralize
-              %li
-                = link_to puntos_point_industries_path do
-                  %i.icon-user.icon-white
-                  = Industry.model_name.human.pluralize
-              %li
-                = link_to puntos_point_efis_path do
-                  %i.icon-user.icon-white
-                  = Efi.model_name.human.pluralize
-              %li
-                = link_to puntos_point_admins_path do
-                  %i.icon-user.icon-white
-                  = Admin.model_name.human.pluralize
-              %li
-                = link_to puntos_point_user_efis_path do
-                  %i.icon-user.icon-white
-                  = UserEfi.model_name.human.pluralize
-              %li
-                = link_to puntos_point_small_ecos_path do
-                  %i.icon-user.icon-white
-                  = t('menu.puntospoint.small_ecos')
-              %li
-                = link_to puntos_point_big_ecos_path do
-                  %i.icon-user.icon-white
-                  = t('menu.puntospoint.big_ecos')
-              %li
-                = link_to puntos_point_experiences_path do
-                  %i.icon-user.icon-white
-                  = Experience.model_name.human.pluralize
-              %li
-                = link_to puntos_point_user_ecos_path do
-                  %i.icon-user.icon-white
-                  = UserEco.model_name.human.pluralize
-              %li
-                = link_to puntos_point_events_path do
-                  %i.icon-user.icon-white
-                  = Event.model_name.human.pluralize
-      .cb
-      %br
+
+                              
 
     / %footer#footer.backgroundFooter
     /   #footerContainer.container

@@ -8,12 +8,13 @@
           %h4= image_tag experience.image
         .infoex 
           %h3.nameExperience{}= experience.name
-          %h5.expsummary.nameExperience{}= experience.summary
-          .pull-left.exprice= number_to_currency experience.discounted_price
-          .pull-right
-          %span.label.label-warning= number_to_percentage experience. get_discount_percentage, precision: 0
+          %h5.expsummary{}= experience.summary
+          .valor.background-transparencia-negra
+            .pullrightPrice
+              %span= number_to_currency experience.discounted_price
+          
     %span.info.experience_info
-      %h4= image_tag experience.image
+      %h4.altimg= image_tag experience.image
       
         
         

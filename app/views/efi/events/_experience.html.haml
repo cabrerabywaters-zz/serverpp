@@ -1,48 +1,21 @@
-.span3.experience
-  = link_to efi_event_path(event) do
-    %span.info
-      %h3.nameExperience{class: experience.category_texture_name}= experience.name
+.span4.experience
+  = link_to efi_experience_path(experience.id) do
+    
 
-    %span.info.experience_more.text-left.dn
-      - if experience.events.total_exclusivity.any?
-        %h3.exclusivity_info
-          %i.icon-star
-          = t('views.total_exclusivity')
-        %ul
-          - experience.events.total_exclusivity.each do |event|
-            %li= image_tag event.efi_logo.url(:thumb), class: "img-circle"
-        .linea2
-
-      - if experience.events.exclusivity_by_industry.any?
-        %h3.exclusivity_info
-          %i.icon-suitcase
-          = t('views.by_industry_exclusivity')
-        %ul
-          - experience.events.exclusivity_by_industry.each do |event|
-            %li= image_tag event.efi_logo.url(:thumb), class: "img-circle"
-        .linea2
-
-      - if experience.events.without_exclusivity.any?
-        %h3.exclusivity_info
-          %i.icon-group
-          = t('views.without_exclusivity')
-        %ul
-          - experience.events.without_exclusivity.each do |event|
-            %li= image_tag event.efi_logo.url(:thumb), class: "img-circle"
-
+    %span4.info.experience_more.text-left.dn
+      .containereffect  
+        .imgex
+          %h4= image_tag experience.image
+        .infoex 
+          %h3.nameExperience{}= experience.name
+          %h5.expsummary{}= experience.summary
+          .valor.background-transparencia-negra
+            .pullrightPrice
+              %span= number_to_currency experience.discounted_price
+          
     %span.info.experience_info
-      %h4= image_tag experience.image
-      .icon.background-transparencia-negra
-        .pull-left
-          %span.label= number_to_currency experience.swaps, unit: ''
-        .badge.badge-sin-exclusividad.pull-right{class: event.without_exclusivity? ? '' : 'disable'}
-          %i.icon-group
-        .badge.badge-exclusividad-industria.pull-right{class: event.by_industry_exclusivity? ? '' : 'disable'}
-          %i.icon-suitcase
-        .badge.badge-exclusividad.pull-right{class: event.total_exclusivity? ? '' : 'disable'}
-          %i.icon-star
-      .valor.background-transparencia-negra
-        %h6.pull-left= number_to_currency experience.discounted_price
-        .pull-right
-          %span.label.label-warning= number_to_percentage experience.get_discount_percentage, precision: 0
-
+      %h4.altimg= image_tag experience.image
+      
+        
+        
+      

@@ -15,8 +15,8 @@
 /* Colors */
 @defaultBackground:@secondColor;
 @firstColor: #51565b;
-@secondColor:#f4f4f4;
-@thirdColor:#c0c0c0;
+@secondColor:black;
+@thirdColor:black;
 @fourthColor:#f7a800;
 @white:#fff;
 @black:#000;
@@ -26,17 +26,21 @@
 .green-text{color: #387038 !important;}
 
 
-
 /* Backgrounds */
 .background{
-	background: url(<%= asset_path "bg.png" %>) repeat scroll 0 0 @defaultBackground;
+	background: #ededed;
 }
 .backgroundHeader, .backgroundFooter, .boxCanje{
-	background: black;
+	background: rgba(0, 0, 0, 0.88);
 
 }
 .backgroundHeader{
-	border-bottom: 2px ;
+	border-bottom: 2px;
+font-size: 1.03em;
+position: fixed !important;
+top: 0px !important;
+z-index: 9999;
+width: 100%;
 }
 .background-transparencia-negra{background:url(<%= asset_path "bg_negro.png" %>) repeat scroll 0px 0px transparent;}
 .background-transparencia-negra div i{color: white;}
@@ -48,9 +52,10 @@
 }
 
 
+
 /* Generals
 ------------------------------------------------------------------*/
-html, body, form, fieldset, h1, h2, h3, h4, h5, h6, p, pre, ul, ol, dl, hr {cursor:default;text-align: center;color:white;}
+html, body, form, fieldset, h1, h2, h3, h4, h5, h6, p, pre, ul, ol, dl, hr {cursor:default;text-align: center;color:black;}
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 abbr, address, cite, code,
@@ -64,7 +69,7 @@ article, aside, canvas, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
     outline:0;
-    background:black;
+    background:transparent;
   
 }
 html {
@@ -73,7 +78,7 @@ html {
 html, body {height: 100%;}
 body {
 	.defaultFont;
-	background:#282828;
+	background:#ededed;
   font-weight: 200;
 	color: @firstColor;
 	font-size:80%;
@@ -83,11 +88,11 @@ body {
 	position: relative;
 }
 a {
-	color:white;
+	color:orange;
 	text-decoration:none;
 }
 a:hover, a:active {
-	color:@fourthColor;
+	color:orange;
 	cursor:pointer;
 }
 // i {color:@fourthColor;}
@@ -147,29 +152,31 @@ div.hidden {visibility:hidden;}
 
 /* Header
 ------------------------------------------------------------------*/
-#logo{
-	overflow:hidden;
-	position:absolute;
-	top:6px;
-	z-index:9999;
-}
+
 
 .navbar{
 	font-size: 90%;
 	margin-bottom:0;
+
 }
 .navbar .nav > li{
-	line-height: 2em;
-}
+	line-height: 0em;
+	float: left;
+	}
+
+.nav{
+	margin: 0 25px 0 0;
+
+}	
 .navbar .nav > li > a{
-	color:@secondColor;
-	text-shadow: 0 1px 0 #404040;
-	letter-spacing: 0.04em;
+	color:white;
+	padding: 10px 10px 0px !important;
+	text-shadow: none !important;
 }
 
 .navbar .nav > li > a i{color:@fourthColor;}
 .navbar .nav > li > a:focus,.navbar .nav > li > a:hover{
-	color:@thirdColor;
+	color:orange;
 }
 .navbar .navBg{
 	.defaultRadius;
@@ -180,8 +187,72 @@ div.hidden {visibility:hidden;}
 	line-height: 1em;
 }
 .navbar .navBg > li > a{
-	padding: 6px 10px;
+	
+	padding-top: 3% !important;
+	margin-top: -8%;
+	font-size: small;
 }
+
+.signOut{
+	
+	margin-top: 3.7%;
+}
+
+.navContainerPP{
+	
+	width: 123% !important;
+	margin-left: -19.5% !important;
+	margin-top: -1.2%;
+	margin-bottom: 1%;
+	font-weight: 400;
+}
+.navContainerPP a {
+  color: orange;
+}
+.pullrightPP{
+	
+	float: right;
+margin-top: 2.5%;
+margin-right: 8%;
+}
+
+/* Nuevo Header
+------------------------------------------------------------------*/ 
+.header{
+	
+	background: black;
+}
+
+.headerContainer{
+min-height: 80px;
+width: 100%;
+}
+
+.logo{
+overflow: hidden;
+position: absolute;
+top: 6px;
+width: 18%;
+z-index: 9999;
+margin-top: 1.2%;
+}
+
+.navContainer{
+	width: 61% !important;
+	float: left;
+	margin-left: 9% !important;
+	margin-top: 1.8%;
+}
+.navContainer a {
+color: white;
+}
+.pullrightConf{
+	float: right;
+	margin-right: 6%;
+	margin-top: 1.4%;
+}
+
+
 
 /* Nav Informes
 ------------------------------------------------------------------*/
@@ -280,6 +351,8 @@ div.hidden {visibility:hidden;}
 ------------------------------------------------------------------*/
 .contenido{
 	min-height: 565px;
+	background: #ededed;
+	margin-top: 8%;
 }
 .logo_home{
 	margin: 15px 0;
@@ -339,7 +412,7 @@ div.hidden {visibility:hidden;}
 .filterCatergory .nav > li > a{
 	color: @firstColor;
 	padding: 8px 12px 8px 23px;
-	text-shadow: 0 1px 0 (@white * 0.85);
+	
 	font-size: 1.15em;
 }
 .filterCatergory .nav > li > a:hover{
@@ -365,7 +438,7 @@ div.hidden {visibility:hidden;}
 	border: none;
 	box-shadow: none;
 	color: #51565B;
-	text-shadow: 0 1px 0 #D9D9D9;
+	
 	font-size: 13px;
 	padding: 4px 0;
 	.caret{
@@ -442,10 +515,10 @@ div.hidden {visibility:hidden;}
 .userEfi{
 	font-size: 1.6em;
 	line-height: 0;
-	margin:0 30px 0 0;
+	
 	color: (@white * 0.4);
 	padding: 0 !important;
-	display: table;
+	
 	.efi_name{
 		display: table-cell;
 		vertical-align: middle;
@@ -475,12 +548,13 @@ div.hidden {visibility:hidden;}
 	}
 }
 .navExperiences{
-	font-size: 1.1em;
-	margin-top: 10px;
+	font-size: 1.3em;
+	margin-top: 0px;
+	margin-left: 19% !important;
 }
 .navExperiences li{
 	float: left;
-	padding: 10px 10px 7px;
+	margin-top: 10px;
 	min-height: 22px;
 }
 .navExperiences li a,
@@ -493,10 +567,10 @@ div.hidden {visibility:hidden;}
 	background: none repeat scroll 0 0 transparent;
 }
 .navExperiences .selected{
-	background:url(<%= asset_path "layout.png" %>) repeat-x scroll 0px -210px transparent;
+	
 }
 .navExperiences .selected a{
-	color: (@white * 0.2) !important;
+	color: orange !important;
 }
 
 /* Modulo Experiencias
@@ -545,9 +619,9 @@ div.hidden {visibility:hidden;}
 }
 .experience_more{
 	
-	background: white;
+	background: rgba(255, 255, 255, 0);
 	display: block;
-	height: 266px;
+	height: 230px;
 	padding-top: 0px;
 }
 .experience_more i{
@@ -605,7 +679,7 @@ div.hidden {visibility:hidden;}
 }
 .imgex, .infoex {
     width: 100%;
-    height: 100%;
+    height: 230px;
     position: absolute;
     top: 0;
     left: 0;
@@ -613,14 +687,51 @@ div.hidden {visibility:hidden;}
 
 .infoex {
     z-index: 10;
-    height: 266px !important;
-    background: rgba(255, 165, 0, 0.8);
+height: 230px !important;
+background: rgba(238, 89, 20, 0.85);
     
 }
 .expsummary{
-	background: rgba(255, 165, 0, 0) !important;
+	background: rgba(255,165,0,0) !important;
+margin-top: -3% !important;
+height: 20%;
+text-align: left !important;
+padding-left: 7% !important;
+font-size: 1.1em !important;
+font-weight: 300 !important;
+color: white !important;
 
 }
+
+.imgex > h4 > img {
+	height: 230px;
+	width: 100%;
+}
+.altimg > img {
+	
+	height: 230px;
+	width: 100%;
+}
+.nameExperience{
+	
+padding-top: 16% !important;
+text-align: left !important;
+padding-left: 7% !important;
+font-size: 1.6em !important;
+font-weight: bold !important;
+padding-bottom: 4% !important;
+color: white !important;
+}
+
+.pullrightPrice{
+	
+float: right;
+font-size: 2.1em;
+color: white;
+padding-right: 12% !important;
+
+}
+
 /* Clases Categorias Experiencias
 ------------------------------------------------------------------*/
 
@@ -805,7 +916,7 @@ ul.payment_methods{ list-style: none; margin: 0;}
 }
 .exclusibilty .btn-large.btn-success{
 	background: #0c8c03;
-	text-shadow:1px 1px 0 (#0c8c03 * 0.5);
+	
 }
 .disable, .disable:hover{
 	color: (@white * 0.5)
@@ -834,12 +945,12 @@ thead{
 ------------------------------------------------------------------*/
 .modal-header{border: none;}
 .modal-footer{background: transparent; text-align: center;}
-.modalPuntospoint{color: (@white * 0.3)}
+.modalPuntospoint{color: (@white * 0.3);top: 27% !important;}
 .modalPuntospoint fieldset{ margin-top: 15px;}
 .modalLogo{margin:0 0 15px 0;}
 .modalMensaje_exito{margin: 20px 0 10px 0;}
-.modalPuntospoint h4{color: @fourthColor;}
-
+.modalPuntospoint h4{color: @fourthColor;top: 18% !important;}
+.modalPuntospoint  a { color: orange;}
 /* Pago
 ------------------------------------------------------------------*/
 .selectable_efi img{
@@ -971,6 +1082,12 @@ a:hover.selectable_efi.selected{
 .contenidoPP table tr td a.btn{
 	text-shadow: none;
 	padding: 0 6px !important
+
+}
+
+.contenidoPP{
+	
+	margin-top: 9%;
 }
 
 /* datePicker

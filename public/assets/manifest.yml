@@ -41,6 +41,8 @@ flecha_left.png: flecha_left-124e62a47cf708f195905dbcb72e11e8.png
 flecha_left/index.png: flecha_left-124e62a47cf708f195905dbcb72e11e8.png
 flecha_right.png: flecha_right-049ed12b6e3f828fee973b61b48dda08.png
 flecha_right/index.png: flecha_right-049ed12b6e3f828fee973b61b48dda08.png
+greypattern.png: greypattern-f7913c1e4d4cb2ebd9b79b96f54d851e.png
+greypattern/index.png: greypattern-f7913c1e4d4cb2ebd9b79b96f54d851e.png
 icon_social.png: icon_social-aeecea26002875197f7e9cd560f35383.png
 icon_social/index.png: icon_social-aeecea26002875197f7e9cd560f35383.png
 layout.png: layout-292bd77da5f5c8f63b9eb96f61862627.png
@@ -93,6 +95,8 @@ puntos_point/textura_roja_bg.jpg: puntos_point/textura_roja_bg-30f9dd70aacd6fb33
 puntos_point/textura_roja_bg/index.jpg: puntos_point/textura_roja_bg-30f9dd70aacd6fb33faa642270035879.jpg
 puntos_point/textura_verde_bg.jpg: puntos_point/textura_verde_bg-26213a4679e829e383457f9ece7c9f55.jpg
 puntos_point/textura_verde_bg/index.jpg: puntos_point/textura_verde_bg-26213a4679e829e383457f9ece7c9f55.jpg
+squairy_light.png: squairy_light-fda7cbe4b71ca00010aa6277a08ae735.png
+squairy_light/index.png: squairy_light-fda7cbe4b71ca00010aa6277a08ae735.png
 textura_azul_bg.jpg: textura_azul_bg-b584fccc2b1a38300a7b7b210379d5fd.jpg
 textura_azul_bg/index.jpg: textura_azul_bg-b584fccc2b1a38300a7b7b210379d5fd.jpg
 textura_mora_bg.jpg: textura_mora_bg-018dcb3cd2035a7e667b3981c8ff42cd.jpg
@@ -115,12 +119,12 @@ efi/application.js: efi/application-4cbf731162b18caa7ac39a232a6d8896.js
 efi/application/index.js: efi/application-4cbf731162b18caa7ac39a232a6d8896.js
 puntos_point/application.js: puntos_point/application-f6bfe20bd09b970bd8a87769b85914d6.js
 puntos_point/application/index.js: puntos_point/application-f6bfe20bd09b970bd8a87769b85914d6.js
-application.css: application-9e5e0566cb3bcbd7107ec9db31831183.css
-application/index.css: application-9e5e0566cb3bcbd7107ec9db31831183.css
-eco/application.css: eco/application-ba60ad506b4961a6ccaeb5d54f14655d.css
-eco/application/index.css: eco/application-ba60ad506b4961a6ccaeb5d54f14655d.css
-puntos_point/application.css: puntos_point/application-5225c865838ba0ecb0a69f9efe2a765c.css
-puntos_point/application/index.css: puntos_point/application-5225c865838ba0ecb0a69f9efe2a765c.css
+application.css: application-0db4ceb357054ede1a3d193bef0609a5.css
+application/index.css: application-0db4ceb357054ede1a3d193bef0609a5.css
+eco/application.css: eco/application-27d08a8dc69b9303804da4d939b8fac2.css
+eco/application/index.css: eco/application-27d08a8dc69b9303804da4d939b8fac2.css
+puntos_point/application.css: puntos_point/application-1688f820801dbd2c1cccca20e3c4ec17.css
+puntos_point/application/index.css: puntos_point/application-1688f820801dbd2c1cccca20e3c4ec17.css
 regular.css: regular-6a9bca104d8e3ecdcfc1b779d01c3742.css
 regular/index.css: regular-6a9bca104d8e3ecdcfc1b779d01c3742.css
 thin.css: thin-2c4e7e50d968e7ff7a33bddba318390e.css

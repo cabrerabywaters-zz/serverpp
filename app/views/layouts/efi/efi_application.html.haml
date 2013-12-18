@@ -14,7 +14,8 @@
     %link(href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon-precomposed" sizes="114x114")
     %link(href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon-precomposed" sizes="72x72")
     %link(href="images/apple-touch-icon.png" rel="apple-touch-icon-precomposed")
-
+    %link(href='http://fonts.googleapis.com/css?family=Signika:300&subset=latin,latin-ext' rel='stylesheet' type='text/css')
+    
     =# favicon_link_tag
 
     /
@@ -30,14 +31,34 @@
     #container
       / Header
       %header.backgroundHeader
-        #headerContainer.container
-          .navbar
-            .container
+        .headerContainer
+          .row-fluid.headerContainer 
+            .navbar
               / Logo
-              #logo
+              .logo
                 = link_to efi_root_path do
                   = image_tag 'logo.png', alt: 'Puntos Point', title: 'Puntos Point'
-              .pull-right
+              .span12.navContainer
+                %ul.nav.navExperiences
+                           
+                  - if current_user_efi.group?(Settings.admin_efi)
+                    %li{class: (current_page?(efi_experiences_path) || efi_experiences_path == session[:selected_menu] || current_page?(efi_root_path)) ? 'selected' : ''}= link_to t('menu.efi.experiences'), efi_experiences_path
+                    %li{class: (current_page?(efi_events_path) || efi_events_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.efi.events'), efi_events_path
+                    /%li{class: current_page?(efi_summary_path) ? 'selected' : ''}= link_to "Mi resumen", efi_summary_path
+                    /%li{class: (current_page?(category_efi_trades_path) || category_efi_trades_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.efi.trades'), category_efi_trades_path
+                    /%li{class: (current_page?(efi_banners_path) || efi_banners_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.efi.banners'), efi_banners_path
+                    /%li{class: current_page?(efi_publicities_path) ? 'selected' : ''}= link_to t('menu.efi.publicities'), efi_publicities_path
+                    %li{class: current_page?(efi_api_index_path) ? 'selected' : '' }= link_to t('menu.efi.api'), efi_api_index_path
+
+                    - if current_user_efi.mod_client?
+                      %li{class: current_page?(efi_accounts_path) ? 'selected' : ''}= link_to t('menu.efi.accounts'), efi_accounts_path
+
+                  - if current_user_efi.present? && !current_user_efi.group?(Settings.admin_efi) && current_user_efi.group?(Settings.operator_efi)
+                    %li{class: (current_page?(efi_events_path) || efi_events_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.efi.events'), efi_events_path
+                  - if can? :support, :index
+                    %li{class: current_page?(efi_support_path) ? 'selected' : '' }= link_to t('menu.efi.support'), efi_support_path
+                  %li{class: current_page?(efi_billings_path) ? 'selected' : ''}= link_to t('menu.efi.billings'), efi_billings_path   
+              .pullrightConf
                 %ul.nav.navBg
                   - if can? :update, current_user_efi
                     %li
@@ -46,37 +67,14 @@
                           = image_tag current_user_efi.efi_logo(:thumb), class: "img-circle"
                           = t('views.account')
                   - if current_user_efi
-                    %li
+                    %li.signOut
                       = link_to destroy_user_efi_session_path do
                         %i.icon-off.icon-white
-                        = t('helpers.sign_out')
-
-      = bootstrap_flash
+                        = t('helpers.sign_out')                    
+        = bootstrap_flash
       %section#main
         #mainContainer.container.contenido.contenidoEfi
-          .row-fluid
-            .span12.space
-              %ul.nav.navExperiences
-                                 
-                - if current_user_efi.group?(Settings.admin_efi)
-                  %li{class: (current_page?(efi_experiences_path) || efi_experiences_path == session[:selected_menu] || current_page?(efi_root_path)) ? 'selected' : ''}= link_to t('menu.efi.experiences'), efi_experiences_path
-                  %li{class: (current_page?(efi_events_path) || efi_events_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.efi.events'), efi_events_path
-                  %li{class: current_page?(efi_summary_path) ? 'selected' : ''}= link_to "Mi resumen", efi_summary_path
-                  %li{class: (current_page?(category_efi_trades_path) || category_efi_trades_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.efi.trades'), category_efi_trades_path
-                  %li{class: (current_page?(efi_banners_path) || efi_banners_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.efi.banners'), efi_banners_path
-                  %li{class: current_page?(efi_publicities_path) ? 'selected' : ''}= link_to t('menu.efi.publicities'), efi_publicities_path
-                  %li{class: current_page?(efi_api_index_path) ? 'selected' : '' }= link_to t('menu.efi.api'), efi_api_index_path
-
-                  - if current_user_efi.mod_client?
-                    %li{class: current_page?(efi_accounts_path) ? 'selected' : ''}= link_to t('menu.efi.accounts'), efi_accounts_path
-
-                - if current_user_efi.present? && !current_user_efi.group?(Settings.admin_efi) && current_user_efi.group?(Settings.operator_efi)
-                  %li{class: (current_page?(efi_events_path) || efi_events_path == session[:selected_menu]) ? 'selected' : ''}= link_to t('menu.efi.events'), efi_events_path
-                - if can? :support, :index
-                  %li{class: current_page?(efi_support_path) ? 'selected' : '' }= link_to t('menu.efi.support'), efi_support_path
-                %li{class: current_page?(efi_billings_path) ? 'selected' : ''}= link_to t('menu.efi.billings'), efi_billings_path
-          .row-fluid
-            
+                    
           .row-fluid
             = yield
           .cb
