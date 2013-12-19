@@ -21,11 +21,11 @@
     #container
       / Header
       %header.backgroundHeader
-        #headerContainer.container
-          .navbar
-            .container
+        .headerContainer
+          .row-fluid.headerContainer 
+            .navbar
               / Logo
-              #logo
+              .logo
                 = image_tag 'logo.png', alt: 'Puntos Point', title: 'Puntos Point'
 
       = bootstrap_flash
@@ -34,9 +34,6 @@
           = yield
         .cb
 
-    %footer#footer.backgroundFooter
-      #footerContainer.container
-        .row-fluid
 
     /
       Javascripts

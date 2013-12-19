@@ -1,13 +1,7 @@
 .row-fluid
-  .span9.encabezado
+  .span8.encabezado
     %h1= @experience.name
-    /%h6.interesFutbol= @experience.summary
-
-  .span5
-    
-    = image_tag @experience.image
-
-  
+    %h6.interesFutbol= @experience.summary
 
     %dl.dl-horizontal.ubicacion
       %dt= Experience.human_attribute_name(:place)
@@ -32,7 +26,19 @@
       %dt= Experience.human_attribute_name(:validity_ending_at)
       %dd= l @experience.validity_ending_at, format: :datepicker
 
-  
+  .span4
+    .well.well-small.intereses.show-grid
+      = Interest.model_name.human.pluralize + ':'
+      - @experience.interests.each_with_index do |interest, index|
+        - if index == 0
+          %span.interesMayor.label.label-inverse= interest.name
+        - elsif index == 1
+          %span.label.label-important= interest.name
+        - else
+          %span.label.label-warning= interest.name
+
+    = image_tag @experience.image
+
 - if @experience.advertisings.any?
   .row-fluid
     .span12
@@ -47,8 +53,8 @@
               %p
                 %strong= advertising.name
 
-.span4.contenidoEcoModulosexperiencia
-  .well
+.row-fluid.contenidoEcoModulosexperiencia
+  .span4.well
     %strong= Experience.human_attribute_name(:details) + ':'
     %p= @experience.details.html_safe
   .span4.well
